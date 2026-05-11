@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+             x:Class="B3.Views.ExamView"
+             x:DataType="vm:ExamViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- 考試信息欄 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="20" Background="#E8F4F8">
+            <TextBlock FontSize="18" FontWeight="Bold">
+                <Run Text="題目: "/>
+                <Run Text="{Binding CurrentProblem.ProblemCode}"/>
+            </TextBlock>
+            <TextBlock FontSize="16" Foreground="#FF6B35">
+                <Run Text="剩餘時間: "/>
+                <Run Text="{Binding RemainingSeconds}"/>
+                <Run Text=" 秒"/>
+            </TextBlock>
+            <TextBlock FontSize="16">
+                <Run Text="進度: "/>
+                <Run Text="{Binding AnsweredCount}"/>
+                <Run Text=" / "/>
+                <Run Text="{Binding TotalProblems}"/>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- 題目和代碼編輯區 -->
+        <Grid Grid.Row="1" ColumnDefinitions="1*,1*" Margin="10">
+            <!-- 左側: 題目描述和測試案例 -->
+            <StackPanel Grid.Column="0" Spacing="10">
+                <TextBlock Text="{Binding CurrentProblem.Title}" FontSize="16" FontWeight="Bold"/>
+                <TextBox Text="{Binding CurrentProblem.Description}" AcceptsReturn="True" Height="150" IsReadOnly="True"/>
+                
+                <TextBlock Text="示例測試案例:" FontWeight="Bold" Margin="0,10,0,0"/>
+                <ListBox ItemsSource="{Binding CurrentTestCases}" Height="120">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="Bold" Text="{Binding Input, StringFormat='Input: {0}'}"/>
+                                <TextBlock Text="{Binding ExpectedOutput, StringFormat='Output: {0}'}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
+            <!-- 右側: 程式碼編輯 -->
+            <StackPanel Grid.Column="1" Spacing="10" Margin="10,0,0,0">
+                <TextBlock Text="提交程式碼:" FontWeight="Bold"/>
+                <TextBox Text="{Binding UserCode}" AcceptsReturn="True" Height="200"/>
+                
+                <TextBlock Text="執行結果:" FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBox Text="{Binding OutputResult}" AcceptsReturn="True" Height="100" IsReadOnly="True" Background="#F5F5F5"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- 按鈕欄 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+            <Button Content="提交答案" Width="120"/>
+            <Button Content="跳過" Width="120"/>
+            <Button Content="結束考試" Width="120" Background="#FF6B35" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+
+</UserControl>
