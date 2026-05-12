@@ -7,28 +7,37 @@
              x:Class="B3.Views.ExamView"
              x:DataType="vm:ExamViewModel">
 
-    <Grid RowDefinitions="Auto,*,Auto">
-        <!-- 考試信息欄 -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="20" Background="#E8F4F8">
-            <TextBlock FontSize="18" FontWeight="Bold">
-                <Run Text="題目: "/>
-                <Run Text="{Binding CurrentProblem.ProblemCode}"/>
-            </TextBlock>
-            <TextBlock FontSize="16" Foreground="#FF6B35">
-                <Run Text="剩餘時間: "/>
-                <Run Text="{Binding RemainingSeconds}"/>
-                <Run Text=" 秒"/>
-            </TextBlock>
-            <TextBlock FontSize="16">
-                <Run Text="進度: "/>
-                <Run Text="{Binding AnsweredCount}"/>
-                <Run Text=" / "/>
-                <Run Text="{Binding TotalProblems}"/>
-            </TextBlock>
+    <Grid RowDefinitions="Auto,*,Auto,Auto" RowSpacing="12">
+        <!-- 考試設定 / 狀態欄 -->
+        <StackPanel Grid.Row="0" Spacing="12">
+            <Border Classes="card" IsVisible="{Binding IsExamInactive}">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="10">
+                    <StackPanel Spacing="6">
+                        <TextBlock FontSize="16" FontWeight="Bold" Text="開始考試"/>
+                        <TextBlock Classes="muted" Text="選擇考試類型與時間後開始"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <ComboBox Width="160" ItemsSource="{Binding ExamTypes}" SelectedItem="{Binding ExamType}"/>
+                        <NumericUpDown Width="100" Minimum="10" Maximum="180" Value="{Binding ExamDurationMinutes}"/>
+                        <ComboBox Width="120" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
+                        <Button Content="開始" Classes="primary" Command="{Binding StartExamCommand}"/>
+                    </StackPanel>
+                    <TextBlock Grid.Row="1" Classes="muted" Text="時間(分鐘)"/>
+                </Grid>
+            </Border>
+
+            <Border Classes="card" IsVisible="{Binding IsExamActive}">
+                <Grid ColumnDefinitions="Auto,Auto,Auto,*" ColumnSpacing="24">
+                    <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding CurrentProblem.ProblemCode}"/>
+                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding RemainingTimeText, StringFormat='剩餘時間: {0}'}"/>
+                    <TextBlock Grid.Column="2" FontSize="16" Text="{Binding AnsweredCount, StringFormat='進度: {0}'}"/>
+                    <TextBlock Grid.Column="3" FontSize="16" HorizontalAlignment="Right" Text="{Binding TotalProblems, StringFormat='/ {0}'}"/>
+                </Grid>
+            </Border>
         </StackPanel>
 
         <!-- 題目和代碼編輯區 -->
-        <Grid Grid.Row="1" ColumnDefinitions="1*,1*" Margin="10">
+        <Grid Grid.Row="1" ColumnDefinitions="1*,1*" Margin="10" IsEnabled="{Binding IsExamActive}">
             <!-- 左側: 題目描述和測試案例 -->
             <StackPanel Grid.Column="0" Spacing="10">
                 <TextBlock Text="{Binding CurrentProblem.Title}" FontSize="16" FontWeight="Bold"/>
@@ -58,11 +67,37 @@
         </Grid>
 
         <!-- 按鈕欄 -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
-            <Button Content="提交答案" Width="120"/>
-            <Button Content="跳過" Width="120"/>
-            <Button Content="結束考試" Width="120" Background="#FF6B35" Foreground="White"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" IsEnabled="{Binding IsExamActive}">
+            <Button Content="提交答案" Width="120" Classes="primary" Command="{Binding SubmitAnswerCommand}" IsEnabled="{Binding IsNotJudging}"/>
+            <Button Content="跳過" Width="120" Classes="ghost" Command="{Binding SkipProblemCommand}"/>
+            <Button Content="結束考試" Width="120" Classes="ghost" Command="{Binding EndExamCommand}"/>
         </StackPanel>
+
+        <!-- 結果與 AI 區塊 -->
+        <Border Grid.Row="3" Classes="card" IsVisible="{Binding IsExamFinished}">
+            <Grid ColumnDefinitions="1*,1*" ColumnSpacing="16">
+                <StackPanel Spacing="10">
+                    <TextBlock FontWeight="Bold" Text="考試結果"/>
+                    <TextBlock Text="{Binding CorrectCount, StringFormat='答對 {0} 題'}"/>
+                    <TextBlock Text="{Binding AnsweredCount, StringFormat='作答 {0} 題'}"/>
+                    <TextBlock Text="{Binding TotalProblems, StringFormat='題庫共 {0} 題'}"/>
+                    <ProgressBar Minimum="0" Maximum="100" Value="{Binding ScorePercent}" Height="6"/>
+                    <TextBlock Classes="muted" Text="{Binding ScorePercent, StringFormat='答對率 {0}%'}"/>
+                    <TextBlock Classes="muted" Text="可重新開始新一輪考試"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Spacing="10">
+                    <TextBlock FontWeight="Bold" Text="AI 問答"/>
+                    <TextBox Text="{Binding AiQuestion}" AcceptsReturn="True" Height="60"/>
+                    <Button Content="送出問題" Classes="primary" Command="{Binding AskAiCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
+                    <TextBox Text="{Binding AiAnswer}" AcceptsReturn="True" Height="120" IsReadOnly="True"/>
+
+                    <TextBlock FontWeight="Bold" Text="AI 程式碼分析"/>
+                    <Button Content="分析程式" Classes="ghost" Command="{Binding AnalyzeCodeCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
+                    <TextBox Text="{Binding AiAnalysis}" AcceptsReturn="True" Height="120" IsReadOnly="True"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 
 </UserControl>

@@ -29,6 +29,14 @@ public class UserSubmissionRepository
         return submission;
     }
 
+    /// <summary>取得所有提交記錄</summary>
+    public async Task<List<UserSubmission>> GetAllAsync()
+    {
+        return await _context.UserSubmissions
+            .OrderByDescending(s => s.SubmittedAt)
+            .ToListAsync();
+    }
+
     /// <summary>取得指定題目的所有提交記錄 用於統計</summary>
     public async Task<List<UserSubmission>> GetByProblemIdAsync(int problemId)
     {

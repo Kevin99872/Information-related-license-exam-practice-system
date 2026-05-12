@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace B3.Services;
 
@@ -54,6 +55,25 @@ public class ProblemImportService
         }
 
         return importCount;
+    }
+
+    /// <summary>
+    /// 若資料庫尚無題目則進行批量導入
+    /// </summary>
+    public async Task<int> ImportIfEmptyAsync(string folderPath)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            return 0;
+        }
+
+        var hasData = await _dbContext.Problems.AnyAsync();
+        if (hasData)
+        {
+            return 0;
+        }
+
+        return await ImportFromFolderAsync(folderPath);
     }
 
     /// <summary>
@@ -117,7 +137,9 @@ public class ProblemImportService
                 Description = ExtractDescription(content),
                 ExamType = "TQC",
                 Difficulty = difficulty,
-                Status = "Draft",
+                Status = "Active",
+                SolutionLanguage = "Python",
+                SolutionCode = string.Empty,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };

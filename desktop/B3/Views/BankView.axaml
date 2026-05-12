@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
+             x:Class="B3.Views.BankView"
+             x:DataType="vm:BankViewModel">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="16">
+        <!-- 搜尋與操作 -->
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
+            <TextBlock Text="搜尋題庫名稱..." Classes="muted"/>
+            <TextBox Grid.Row="1" Width="260" PlaceholderText="搜尋題庫名稱..."/>
+
+            <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Button Content="同步更新" Classes="ghost" Command="{Binding RefreshCommand}"/>
+                <Button Content="新增題庫" Classes="primary" Command="{Binding ImportTqcCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Grid.Row="1" Classes="muted" Text="{Binding StatusMessage}"/>
+
+        <!-- 統計區塊 -->
+        <UniformGrid Grid.Row="2" Columns="4" Rows="1">
+            <Border Classes="card" Margin="0,0,12,0">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="已載入題庫" Classes="muted"/>
+                    <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding LoadedBankCount}"/>
+                </StackPanel>
+            </Border>
+            <Border Classes="card" Margin="0,0,12,0">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="題目總數" Classes="muted"/>
+                    <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding TotalQuestionCount}"/>
+                </StackPanel>
+            </Border>
+            <Border Classes="card" Margin="0,0,12,0">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="已作答題數" Classes="muted"/>
+                    <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding AnsweredQuestionCount}"/>
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="整體正確率" Classes="muted"/>
+                    <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding AccuracyPercent, StringFormat='{}{0}%'}"/>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <!-- 題庫列表 -->
+        <ScrollViewer Grid.Row="3">
+            <StackPanel Spacing="20">
+                <StackPanel Spacing="8">
+                    <TextBlock FontWeight="Bold" Text="官方題庫"/>
+                    <ItemsControl ItemsSource="{Binding OfficialBanks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Classes="card" Margin="0,0,0,12">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
+                                        <Border Width="28" Height="28" CornerRadius="6" Background="{StaticResource IconBgBrush}"/>
+                                        <StackPanel Grid.Column="1" Spacing="4">
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <TextBlock FontWeight="Bold" Text="{Binding Title}"/>
+                                                <Border Padding="6,2" Background="{StaticResource TagBgBrush}" CornerRadius="10">
+                                                    <TextBlock FontSize="10" Text="{Binding Status}"/>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <TextBlock Classes="muted" Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                                <TextBlock Classes="muted" Text="|"/>
+                                                <TextBlock Classes="muted" Text="{Binding UpdatedDate, StringFormat='更新於 {0}'}"/>
+                                                <TextBlock Classes="muted" Text="|"/>
+                                                <TextBlock Classes="muted" Text="{Binding Source}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" HorizontalAlignment="Right" Spacing="6">
+                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Width="140" Height="6"/>
+                                            <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='{}{0}% 完成'}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Spacing="8">
+                    <TextBlock FontWeight="Bold" Text="自訂題庫"/>
+                    <ItemsControl ItemsSource="{Binding CustomBanks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Classes="card" Margin="0,0,0,12">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
+                                        <Border Width="28" Height="28" CornerRadius="6" Background="{StaticResource IconBgBrush}"/>
+                                        <StackPanel Grid.Column="1" Spacing="4">
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <TextBlock FontWeight="Bold" Text="{Binding Title}"/>
+                                                <Border Padding="6,2" Background="{StaticResource TagAltBgBrush}" CornerRadius="10">
+                                                    <TextBlock FontSize="10" Text="{Binding Status}"/>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <TextBlock Classes="muted" Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                                <TextBlock Classes="muted" Text="|"/>
+                                                <TextBlock Classes="muted" Text="{Binding UpdatedDate, StringFormat='更新於 {0}'}"/>
+                                                <TextBlock Classes="muted" Text="|"/>
+                                                <TextBlock Classes="muted" Text="{Binding Source}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" HorizontalAlignment="Right" Spacing="6">
+                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Width="140" Height="6"/>
+                                            <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='{}{0}% 完成'}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

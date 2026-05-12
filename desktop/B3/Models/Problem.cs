@@ -29,6 +29,12 @@ public class Problem
     /// <summary>題目狀態 - Draft/Active/Archived</summary>
     public string Status { get; set; } = "Draft";
 
+    /// <summary>解法語言 (預設 Python)</summary>
+    public string SolutionLanguage { get; set; } = "Python";
+
+    /// <summary>解法程式碼</summary>
+    public string SolutionCode { get; set; } = string.Empty;
+
     /// <summary>建立時間</summary>
     public DateTime CreatedAt { get; set; }
 

@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
+             x:Class="B3.Views.StyleView"
+             x:DataType="vm:StyleViewModel">
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="16">
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
+            <TextBlock FontWeight="Bold" Text="首頁"/>
+            <TextBlock Grid.Row="1" Classes="muted" Text="樣式設定"/>
+
+            <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Button Content="恢復預設" Classes="ghost"/>
+                <Button Content="套用儲存" Classes="primary"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="360,*" ColumnSpacing="20">
+            <StackPanel Spacing="16">
+                <Border Classes="card">
+                    <StackPanel Spacing="12">
+                        <TextBlock FontWeight="Bold" Text="介面主題"/>
+                        <ItemsControl ItemsSource="{Binding Themes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="12"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="90" Height="90" Background="{StaticResource PrimaryBrush}" CornerRadius="10"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="card">
+                    <StackPanel Spacing="12">
+                        <TextBlock FontWeight="Bold" Text="字體與大小"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="介面字體"/>
+                            <ComboBox Width="160">
+                                <x:String>Noto Sans TC</x:String>
+                                <x:String>Source Han Sans</x:String>
+                                <x:String>PingFang TC</x:String>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="字體大小"/>
+                            <NumericUpDown Width="120" Minimum="10" Maximum="20" Value="{Binding FontSize}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="card">
+                    <StackPanel Spacing="12">
+                        <TextBlock FontWeight="Bold" Text="卡片佈局"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="每行卡片數"/>
+                            <NumericUpDown Width="120" Minimum="2" Maximum="5" Value="{Binding CardsPerRow}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="顯示進度條"/>
+                            <ToggleSwitch IsChecked="{Binding ShowProgress}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <Border Classes="card" Grid.Column="1">
+                <StackPanel Spacing="12">
+                    <TextBlock FontWeight="Bold" Text="即時預覽"/>
+                    <Border Background="{StaticResource SoftPanelBrush}" CornerRadius="10" Padding="12">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Border Width="28" Height="28" CornerRadius="6" Background="{StaticResource IconBgBrush}"/>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="TACT"/>
+                                <Border Grid.Column="1" HorizontalAlignment="Right" Background="{StaticResource TagBgBrush}" Padding="6,2" CornerRadius="10">
+                                    <TextBlock FontSize="10" Text="推薦"/>
+                                </Border>
+                            </Grid>
+                            <TextBlock Classes="muted" Text="台灣學術能力測驗，涵蓋語文、數學、自然及社會科目模擬練習。"/>
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <TextBlock Text="1,240 題"/>
+                                <TextBlock Text="180 分鐘"/>
+                            </StackPanel>
+                            <ProgressBar Minimum="0" Maximum="100" Value="34" Height="6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                            <TextBlock FontSize="10" Text="熱門"/>
+                        </Border>
+                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                            <TextBlock FontSize="10" Text="推薦"/>
+                        </Border>
+                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                            <TextBlock FontSize="10" Text="新增"/>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Content="套用" Classes="primary"/>
+                        <Button Content="取消" Classes="ghost"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

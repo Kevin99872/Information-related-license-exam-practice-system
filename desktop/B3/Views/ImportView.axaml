@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
+             x:Class="B3.Views.ImportView"
+             x:DataType="vm:ImportViewModel">
+
+    <Border Classes="card">
+        <StackPanel Spacing="12">
+            <TextBlock FontSize="18" FontWeight="Bold" Text="匯入題庫"/>
+            <TextBlock Classes="muted" Text="支援 .csv / .json / .txt 題庫匯入"/>
+            <Button Content="選擇檔案" Classes="primary" Width="120"/>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -11,11 +11,7 @@ namespace B3.Data;
 /// </summary>
 public class ExamDbContext : DbContext
 {
-    private static readonly string DbPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "B3ExamSystem",
-        "exam.db"
-    );
+    private static readonly string DbPath = ResolveProjectDatabasePath();
 
     public DbSet<Problem> Problems { get; set; }
     public DbSet<TestCase> TestCases { get; set; }
@@ -90,6 +86,11 @@ public class ExamDbContext : DbContext
     {
         // 確保數據庫目錄存在
         var dbDir = Path.GetDirectoryName(DbPath);
+        if (string.IsNullOrWhiteSpace(dbDir))
+        {
+            return;
+        }
+
         if (!Directory.Exists(dbDir))
         {
             Directory.CreateDirectory(dbDir);
@@ -99,11 +100,75 @@ public class ExamDbContext : DbContext
         {
             // TODO: 實現數據庫遷移邏輯
             context.Database.EnsureCreated();
+            EnsureSolutionColumns(context);
         }
+    }
+
+    /// <summary>
+    /// 確保解法欄位存在
+    /// </summary>
+    private static void EnsureSolutionColumns(ExamDbContext context)
+    {
+        if (!ColumnExists(context, "Problems", "SolutionLanguage"))
+        {
+            context.Database.ExecuteSqlRaw("ALTER TABLE Problems ADD COLUMN SolutionLanguage TEXT NOT NULL DEFAULT 'Python'");
+        }
+
+        if (!ColumnExists(context, "Problems", "SolutionCode"))
+        {
+            context.Database.ExecuteSqlRaw("ALTER TABLE Problems ADD COLUMN SolutionCode TEXT NOT NULL DEFAULT ''");
+        }
+    }
+
+    /// <summary>
+    /// 檢查欄位是否存在
+    /// </summary>
+    private static bool ColumnExists(ExamDbContext context, string table, string column)
+    {
+        var command = context.Database.GetDbConnection().CreateCommand();
+        command.CommandText = $"PRAGMA table_info({table});";
+        context.Database.OpenConnection();
+        try
+        {
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var name = reader.GetString(1);
+                if (string.Equals(name, column, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+        }
+        finally
+        {
+            context.Database.CloseConnection();
+        }
+
+        return false;
     }
 
     /// <summary>
     /// 獲取數據庫文件路徑
     /// </summary>
     public static string GetDatabasePath() => DbPath;
+
+    /// <summary>
+    /// 取得專案內部 data/exam.db 路徑
+    /// </summary>
+    private static string ResolveProjectDatabasePath()
+    {
+        var current = new DirectoryInfo(AppContext.BaseDirectory);
+        for (int i = 0; i < 6 && current != null; i++)
+        {
+            var dataDir = Path.Combine(current.FullName, "data");
+            if (Directory.Exists(dataDir))
+            {
+                return Path.Combine(dataDir, "exam.db");
+            }
+            current = current.Parent;
+        }
+
+        return Path.Combine(AppContext.BaseDirectory, "exam.db");
+    }
 }
