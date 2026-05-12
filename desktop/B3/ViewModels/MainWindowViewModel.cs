@@ -47,6 +47,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private double sidebarWidth = ExpandedWidth;
 
+    /// <summary>滑鼠是否停留側欄</summary>
+    [ObservableProperty]
+    private bool isSidebarHovering = false;
+
     public MainWindowViewModel()
     {
         Debug.WriteLine("MainWindowViewModel 初始化...");
@@ -129,8 +133,26 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>更新側欄顯示</summary>
     partial void OnIsSidebarCollapsedChanged(bool value)
     {
-        IsSidebarExpanded = !value;
-        SidebarWidth = value ? CollapsedWidth : ExpandedWidth;
+        UpdateSidebarState();
+    }
+
+    /// <summary>更新側欄滑鼠狀態</summary>
+    partial void OnIsSidebarHoveringChanged(bool value)
+    {
+        UpdateSidebarState();
+    }
+
+    /// <summary>更新側欄狀態</summary>
+    private void UpdateSidebarState()
+    {
+        IsSidebarExpanded = !IsSidebarCollapsed || IsSidebarHovering;
+        SidebarWidth = IsSidebarExpanded ? ExpandedWidth : CollapsedWidth;
+    }
+
+    /// <summary>設定側欄滑鼠狀態</summary>
+    public void SetSidebarHover(bool isHovering)
+    {
+        IsSidebarHovering = isHovering;
     }
 
     /// <summary>切換顯示視圖</summary>
