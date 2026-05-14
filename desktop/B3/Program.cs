@@ -2,7 +2,6 @@
 using System;
 using B3.Data;
 using B3.Services;
-using System.Diagnostics;
 using System.IO;
 
 namespace B3;
@@ -14,14 +13,13 @@ sealed class Program
     {
         try
         {
-            // 初始化數據庫 第一次運行時自動建立
+            LoggerService.Log("應用啟動...");
             ExamDbContext.Initialize();
-            // 匯入本地TQC題庫
             SeedTqcProblems();
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"數據庫初始化失敗: {ex.Message}");
+            LoggerService.LogError("數據庫初始化失敗", ex);
         }
 
         try
@@ -31,7 +29,7 @@ sealed class Program
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"應用啟動失敗: {ex.Message}");
+            LoggerService.LogError("應用啟動失敗", ex);
             throw;
         }
     }
@@ -56,7 +54,7 @@ sealed class Program
             var folder = FindSeedFolder("TQC-problem-list");
             if (string.IsNullOrWhiteSpace(folder))
             {
-                Debug.WriteLine("找不到TQC-problem-list題庫資料夾");
+                LoggerService.LogWarning("找不到TQC-problem-list題庫資料夾");
                 return;
             }
 
@@ -64,12 +62,12 @@ sealed class Program
             var count = importer.ImportIfEmptyAsync(folder).GetAwaiter().GetResult();
             if (count > 0)
             {
-                Debug.WriteLine($"已匯入TQC題庫: {count} 題");
+                LoggerService.Log($"已匯入TQC題庫: {count} 題");
             }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"題庫匯入失敗: {ex.Message}");
+            LoggerService.LogError("題庫匯入失敗", ex);
         }
     }
 

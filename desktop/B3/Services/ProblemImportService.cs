@@ -50,8 +50,7 @@ public class ProblemImportService
         }
         catch (Exception ex)
         {
-            // TODO: 記錄錯誤 日誌記錄
-            System.Diagnostics.Debug.WriteLine($"導入失敗: {ex.Message}");
+            LoggerService.LogError("導入失敗", ex);
         }
 
         return importCount;

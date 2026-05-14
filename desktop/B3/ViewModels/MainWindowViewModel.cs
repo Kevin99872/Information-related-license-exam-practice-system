@@ -1,8 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using B3.Services;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace B3.ViewModels;
 
@@ -51,20 +55,25 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private bool isSidebarHovering = false;
 
+    /// <summary>是否可切換頁面</summary>
+    [ObservableProperty]
+    private bool canNavigate = true;
+
+    private ExamViewModel? _trackedExamViewModel;
+
     public MainWindowViewModel()
     {
-        Debug.WriteLine("MainWindowViewModel 初始化...");
+        LoggerService.LogDebug("MainWindowViewModel 初始化...");
         try
         {
             InitializeNavigation();
-            // 初始化顯示開始畫面
-            SelectedMainItem = MainItems.Count > 0 ? MainItems[0] : null;
-            Debug.WriteLine("MainWindowViewModel 初始化完成");
+            NavigateTo("home");
+            SelectedMainItem = MainItems.FirstOrDefault(item => item.Key == "home");
+            LoggerService.LogDebug("MainWindowViewModel 初始化完成");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"MainWindowViewModel 初始化失敗: {ex.Message}");
-            Debug.WriteLine($"堆棧跟蹤: {ex.StackTrace}");
+            LoggerService.LogError("MainWindowViewModel 初始化失敗", ex);
         }
     }
 
@@ -72,8 +81,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void ToggleSidebar()
     {
+        
         IsSidebarCollapsed = !IsSidebarCollapsed;
+        
     }
+
+    
 
     /// <summary>視窗寬度改變時調整側欄</summary>
     public void UpdateResponsiveState(double width)
@@ -114,6 +127,12 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
+        if (!CanNavigate)
+        {
+            SelectedMainItem = null;
+            return;
+        }
+
         SelectedToolItem = null;
         NavigateTo(value.Key);
     }
@@ -126,8 +145,21 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
+        if (!CanNavigate)
+        {
+            SelectedToolItem = null;
+            return;
+        }
+
         SelectedMainItem = null;
         NavigateTo(value.Key);
+    }
+
+    /// <summary>目前頁面變更時同步導航鎖定狀態</summary>
+    partial void OnCurrentViewChanged(object value)
+    {
+        TrackExamViewModel(CurrentView as ExamViewModel);
+        UpdateNavigationState();
     }
 
     /// <summary>更新側欄顯示</summary>
@@ -158,7 +190,12 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>切換顯示視圖</summary>
     private void NavigateTo(string key)
     {
-        CurrentView = key switch
+        if (!CanNavigate)
+        {
+            return;
+        }
+
+        object newView = key switch
         {
             "home" => new HomeViewModel(),
             "question" => new QuestionHubViewModel(),
@@ -169,6 +206,26 @@ public partial class MainWindowViewModel : ViewModelBase
             "settings" => new SettingsViewModel(),
             _ => new HomeViewModel()
         };
+
+        // 如果是 HomeViewModel，設定其父 ViewModel 引用以支援導航
+        if (newView is HomeViewModel homeVM)
+        {
+            homeVM.SetMainViewModel(this);
+        }
+
+        CurrentView = newView;
+    }
+
+    /// <summary>從考試卡片啟動考試 - 由 HomeView 呼叫</summary>
+    public async System.Threading.Tasks.Task StartExamFromCardAsync(ExamCard card)
+    {
+        var examVM = new ExamViewModel();
+        examVM.RequestHomeNavigation = () => NavigateTo("home");
+        CurrentView = examVM;
+        SelectedMainItem = null;
+        SelectedToolItem = null;
+
+        await examVM.StartExamFromCardAsync(card);
     }
 
     /// <summary>顯示題目瀏覽列表</summary>
@@ -176,7 +233,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public void ShowProblemList()
     {
         CurrentView = new ProblemListViewModel();
-        Debug.WriteLine("切換至題目列表視圖");
+        LoggerService.LogDebug("切換至題目列表視圖");
     }
 
     /// <summary>顯示考試介面</summary>
@@ -184,7 +241,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public void ShowExam()
     {
         CurrentView = new ExamViewModel();
-        Debug.WriteLine("切換至考試視圖");
+        LoggerService.LogDebug("切換至考試視圖");
     }
 
     /// <summary>顯示題目審核介面</summary>
@@ -192,7 +249,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public void ShowReview()
     {
         CurrentView = new ReviewViewModel();
-        Debug.WriteLine("切換至審核視圖");
+        LoggerService.LogDebug("切換至審核視圖");
     }
 
     /// <summary>顯示系統設定</summary>
@@ -200,16 +257,59 @@ public partial class MainWindowViewModel : ViewModelBase
     public void ShowSettings()
     {
         NavigateTo("settings");
-        Debug.WriteLine("切換至設定視圖");
+        LoggerService.LogDebug("切換至設定視圖");
     }
 
     /// <summary>側欄設定按鈕</summary>
     [RelayCommand]
     public void OpenSettings()
     {
+        if (!CanNavigate)
+        {
+            return;
+        }
+
         SelectedMainItem = null;
         SelectedToolItem = null;
         NavigateTo("settings");
+    }
+
+    /// <summary>追蹤考試頁面狀態變化</summary>
+    private void TrackExamViewModel(ExamViewModel? examVM)
+    {
+        if (_trackedExamViewModel != null)
+        {
+            _trackedExamViewModel.PropertyChanged -= OnTrackedExamViewModelPropertyChanged;
+        }
+
+        _trackedExamViewModel = examVM;
+
+        if (_trackedExamViewModel != null)
+        {
+            _trackedExamViewModel.PropertyChanged += OnTrackedExamViewModelPropertyChanged;
+        }
+    }
+
+    /// <summary>考試狀態改變時更新導航鎖定</summary>
+    private void OnTrackedExamViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ExamViewModel.IsExamActive) ||
+            e.PropertyName == nameof(ExamViewModel.IsPreparingExam))
+        {
+            UpdateNavigationState();
+        }
+    }
+
+    /// <summary>更新是否可導航</summary>
+    private void UpdateNavigationState()
+    {
+        if (CurrentView is ExamViewModel examVM)
+        {
+            CanNavigate = !examVM.IsExamActive && !examVM.IsPreparingExam;
+            return;
+        }
+
+        CanNavigate = true;
     }
 }
 

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using B3.Models;
 using B3.Data;
+using B3.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,8 +44,7 @@ public partial class ProblemListViewModel : ViewModelBase
         _dbContext = new ExamDbContext();
         _problemRepo = new ProblemRepository(_dbContext);
         
-        // 自動初始化載入題目
-        System.Diagnostics.Debug.WriteLine("ProblemListViewModel 初始化...");
+        LoggerService.LogDebug("ProblemListViewModel 初始化...");
         _ = LoadProblemsAsync();
     }
 

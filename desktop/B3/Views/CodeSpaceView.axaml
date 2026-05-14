@@ -47,29 +47,29 @@
             <Border Grid.Row="1" Grid.Column="1" Background="#111827" CornerRadius="10" Padding="12">
                 <StackPanel Spacing="8">
                     <TextBlock Foreground="#9CA3AF" Text="檔案"/>
-                    <TextBlock Foreground="White" Text="cpe_practice"/>
-                    <TextBlock Foreground="#E5E7EB" Text="solution.cpp" Margin="8,0,0,0"/>
-                    <TextBlock Foreground="#E5E7EB" Text="test_cases.txt" Margin="8,0,0,0"/>
-                    <TextBlock Foreground="#E5E7EB" Text="README.md" Margin="8,0,0,0"/>
+                    <ListBox Foreground="White"></ListBox>
                 </StackPanel>
             </Border>
 
             <!-- 編輯器 -->
             <Border Grid.Row="1" Grid.Column="2" Background="#111827" CornerRadius="10" Padding="12">
-                <TextBox Text="{Binding Code}" AcceptsReturn="True" Background="#111827" Foreground="#E5E7EB" BorderThickness="0" Height="360"/>
+                <StackPanel>
+                <TextBlock Foreground="#9CA3AF" Text="撰寫區域"/>
+                <TextBox Text="{Binding Code}" AcceptsReturn="True" Background="#000000" Foreground="#E5E7EB" BorderThickness="0" Height="360"/>
+                </StackPanel>
             </Border>
 
             <Grid Grid.Row="2" Grid.Column="2" ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Border Background="#111827" CornerRadius="10" Padding="12">
                     <StackPanel Spacing="6">
                         <TextBlock Foreground="#9CA3AF" Text="輸入"/>
-                        <TextBox Text="{Binding Input}" AcceptsReturn="True" Background="#111827" Foreground="#E5E7EB" BorderThickness="0" Height="100"/>
+                        <TextBox Text="{Binding Input}" AcceptsReturn="True" Background="#000000" Foreground="#E5E7EB" BorderThickness="0" Height="100"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Column="1" Background="#111827" CornerRadius="10" Padding="12">
                     <StackPanel Spacing="6">
                         <TextBlock Foreground="#9CA3AF" Text="輸出"/>
-                        <TextBox Text="{Binding Output}" AcceptsReturn="True" IsReadOnly="True" Background="#111827" Foreground="#E5E7EB" BorderThickness="0" Height="100"/>
+                        <TextBox Text="{Binding Output}" AcceptsReturn="True" IsReadOnly="True" Background="#000000" Foreground="#E5E7EB" BorderThickness="0" Height="100"/>
                     </StackPanel>
                 </Border>
             </Grid>

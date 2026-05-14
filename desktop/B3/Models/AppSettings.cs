@@ -22,4 +22,19 @@ public class AppSettings
 
     /// <summary>預設語言</summary>
     public string DefaultLanguage { get; set; } = "Python";
+
+    /// <summary>每次練習題數</summary>
+    public int QuestionsPerExam { get; set; } = 20;
+
+    /// <summary>作答後立即顯示答案</summary>
+    public bool ShowAnswerOnSubmit { get; set; } = true;
+
+    /// <summary>倒數計時器</summary>
+    public bool EnableCountdown { get; set; } = true;
+
+    /// <summary>題目隨機排序</summary>
+    public bool ShuffleQuestions { get; set; } = true;
+
+    /// <summary>難度篩選</summary>
+    public string Difficulty { get; set; } = "中等";
 }

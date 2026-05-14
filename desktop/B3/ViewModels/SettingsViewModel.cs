@@ -12,6 +12,7 @@ namespace B3.ViewModels;
 public partial class SettingsViewModel : ViewModelBase
 {
     private readonly LocalSettingsService _settingsService = new();
+    private bool _suppressAutoSave;
 
     /// <summary>設定頁籤</summary>
     [ObservableProperty]
@@ -20,10 +21,6 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>選取頁籤</summary>
     [ObservableProperty]
     private SettingsSection? selectedSection;
-
-    /// <summary>帳號區塊顯示</summary>
-    [ObservableProperty]
-    private bool isAccountSection;
 
     /// <summary>考試設定顯示</summary>
     [ObservableProperty]
@@ -64,6 +61,10 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>每次練習題數</summary>
     [ObservableProperty]
     private int questionsPerExam = 20;
+
+    /// <summary>每次練習題數選項</summary>
+    [ObservableProperty]
+    private ObservableCollection<int> questionsPerExamOptions = new();
 
     /// <summary>難度篩選</summary>
     [ObservableProperty]
@@ -111,9 +112,16 @@ public partial class SettingsViewModel : ViewModelBase
 
     public SettingsViewModel()
     {
+        QuestionsPerExamOptions = new ObservableCollection<int>
+        {
+            10,
+            20,
+            30,
+            40
+        };
+
         Sections = new ObservableCollection<SettingsSection>
         {
-            new("account", "帳號資訊"),
             new("exam", "考試設定"),
             new("notify", "通知"),
             new("key", "快捷鍵"),
@@ -121,10 +129,12 @@ public partial class SettingsViewModel : ViewModelBase
             new("ai", "AI 模型"),
             new("about", "關於")
         };
-        SelectedSection = Sections[1];
+        SelectedSection = Sections[0];
         UpdateSectionFlags();
 
+        _suppressAutoSave = true;
         LoadSettings();
+        _suppressAutoSave = false;
 
         KeyBindings = new ObservableCollection<KeyBindingItem>
         {
@@ -156,7 +166,6 @@ public partial class SettingsViewModel : ViewModelBase
     private void UpdateSectionFlags()
     {
         var key = SelectedSection?.Key ?? string.Empty;
-        IsAccountSection = key == "account";
         IsExamSection = key == "exam";
         IsNotifySection = key == "notify";
         IsKeySection = key == "key";
@@ -175,6 +184,11 @@ public partial class SettingsViewModel : ViewModelBase
         CppCompilerPath = settings.CppCompilerPath;
         DotNetPath = settings.DotNetPath;
         DefaultLanguage = settings.DefaultLanguage;
+        QuestionsPerExam = settings.QuestionsPerExam;
+        ShowAnswerOnSubmit = settings.ShowAnswerOnSubmit;
+        EnableCountdown = settings.EnableCountdown;
+        ShuffleQuestions = settings.ShuffleQuestions;
+        Difficulty = settings.Difficulty;
     }
 
     /// <summary>儲存本機設定</summary>
@@ -188,7 +202,12 @@ public partial class SettingsViewModel : ViewModelBase
             PythonPath = PythonPath,
             CppCompilerPath = CppCompilerPath,
             DotNetPath = DotNetPath,
-            DefaultLanguage = DefaultLanguage
+            DefaultLanguage = DefaultLanguage,
+            QuestionsPerExam = QuestionsPerExam,
+            ShowAnswerOnSubmit = ShowAnswerOnSubmit,
+            EnableCountdown = EnableCountdown,
+            ShuffleQuestions = ShuffleQuestions,
+            Difficulty = Difficulty
         };
         _settingsService.Save(settings);
     }
@@ -197,6 +216,7 @@ public partial class SettingsViewModel : ViewModelBase
     [RelayCommand]
     public void ResetSettings()
     {
+        _suppressAutoSave = true;
         var settings = new AppSettings();
         OllamaEndpoint = settings.OllamaEndpoint;
         OllamaModel = settings.OllamaModel;
@@ -204,8 +224,34 @@ public partial class SettingsViewModel : ViewModelBase
         CppCompilerPath = settings.CppCompilerPath;
         DotNetPath = settings.DotNetPath;
         DefaultLanguage = settings.DefaultLanguage;
+        QuestionsPerExam = settings.QuestionsPerExam;
+        ShowAnswerOnSubmit = settings.ShowAnswerOnSubmit;
+        EnableCountdown = settings.EnableCountdown;
+        ShuffleQuestions = settings.ShuffleQuestions;
+        Difficulty = settings.Difficulty;
         _settingsService.Save(settings);
+        _suppressAutoSave = false;
     }
+
+    private void PersistSettingsIfAllowed()
+    {
+        if (_suppressAutoSave)
+        {
+            return;
+        }
+
+        SaveSettings();
+    }
+
+    partial void OnQuestionsPerExamChanged(int value) => PersistSettingsIfAllowed();
+
+    partial void OnShowAnswerOnSubmitChanged(bool value) => PersistSettingsIfAllowed();
+
+    partial void OnEnableCountdownChanged(bool value) => PersistSettingsIfAllowed();
+
+    partial void OnShuffleQuestionsChanged(bool value) => PersistSettingsIfAllowed();
+
+    partial void OnDifficultyChanged(string value) => PersistSettingsIfAllowed();
 }
 
 /// <summary>

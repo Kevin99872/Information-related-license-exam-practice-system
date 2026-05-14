@@ -4,10 +4,10 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System;
 using System.Linq;
-using System.Diagnostics;
 using Avalonia.Markup.Xaml;
 using B3.ViewModels;
 using B3.Views;
+using B3.Services;
 
 namespace B3;
 
@@ -15,22 +15,22 @@ public partial class App : Application
 {
     public override void Initialize()
     {
-        Debug.WriteLine("App.Initialize() 開始...");
+        LoggerService.LogDebug("App.Initialize() 開始...");
         try
         {
             AvaloniaXamlLoader.Load(this);
-            Debug.WriteLine("Xaml資源加載完成");
+            LoggerService.LogDebug("Xaml資源加載完成");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Xaml加載失敗: {ex.Message}");
+            LoggerService.LogError("Xaml加載失敗", ex);
             throw;
         }
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Debug.WriteLine("App.OnFrameworkInitializationCompleted() 開始...");
+        LoggerService.LogDebug("App.OnFrameworkInitializationCompleted() 開始...");
         try
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -41,16 +41,15 @@ public partial class App : Application
                     DataContext = vm,
                 };
                 desktop.MainWindow = mainWindow;
-                Debug.WriteLine("主窗口創建成功");
+                LoggerService.LogDebug("主窗口創建成功");
             }
 
             base.OnFrameworkInitializationCompleted();
-            Debug.WriteLine("App 初始化完成");
+            LoggerService.Log("App 初始化完成");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"App 初始化失敗: {ex.Message}");
-            Debug.WriteLine($"堆棧跟蹤: {ex.StackTrace}");
+            LoggerService.LogError("App 初始化失敗", ex);
             throw;
         }
     }
