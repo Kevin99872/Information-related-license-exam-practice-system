@@ -29,11 +29,28 @@ public partial class ExamViewModel : ViewModelBase
     private ExamDbContext _dbContext = null!;
     private DispatcherTimer? _examTimer;
     private List<Problem> _remainingProblems = new();
+    
+    /// <summary>本次考試的題目清單（用於結算畫面顯示）</summary>
+    [ObservableProperty]
+    private ObservableCollection<Problem> examProblems = new();
+
+    /// <summary>本次考試的提交記錄（用於結算畫面顯示）</summary>
+    [ObservableProperty]
+    private ObservableCollection<UserSubmission> examSubmissions = new();
+
+    [ObservableProperty]
+    private Problem? selectedExamProblem;
+
+    [ObservableProperty]
+    private UserSubmission? selectedSubmission;
     private readonly Random _random = new();
     private bool _suppressEditorSync;
 
     /// <summary>取消考試設定時的回呼</summary>
     public Action? RequestHomeNavigation { get; set; }
+
+    /// <summary>考試結束時的回呼 - 切換到結算畫面</summary>
+    public Action<ExamResultViewModel>? RequestResultNavigation { get; set; }
 
     /// <summary>當前考題</summary>
     [ObservableProperty]
@@ -447,6 +464,12 @@ public partial class ExamViewModel : ViewModelBase
         var random = new Random();
         _remainingProblems = problems.OrderBy(_ => random.Next()).Take(TotalProblems).ToList();
 
+        // 設定本次考試題目集合供結算畫面顯示
+        ExamProblems = new ObservableCollection<Problem>(_remainingProblems);
+
+        // 初始化提交記錄集合
+        ExamSubmissions = new ObservableCollection<UserSubmission>();
+
         // 隨機取得下一題
         await SelectNextProblemAsync();
 
@@ -563,6 +586,8 @@ public partial class ExamViewModel : ViewModelBase
             };
 
             await _submissionRepo.SubmitAsync(submission);
+            // 將提交加入本次考試的提交清單（放在最前面）
+            ExamSubmissions.Insert(0, submission);
             AnsweredCount++;
             LastSubmittedCode = UserCode;
             LastProblemDescription = CurrentProblem.Description;
@@ -599,6 +624,10 @@ public partial class ExamViewModel : ViewModelBase
 
         // 計算分數等級
         CalculateScoreGrade();
+
+        var resultViewModel = new ExamResultViewModel();
+        resultViewModel.LoadFromExam(this);
+        RequestResultNavigation?.Invoke(resultViewModel);
 
         // TODO: 導向成績評測畫面
         Debug.WriteLine($"考試結束 答對: {AnsweredCount}/{TotalProblems}");

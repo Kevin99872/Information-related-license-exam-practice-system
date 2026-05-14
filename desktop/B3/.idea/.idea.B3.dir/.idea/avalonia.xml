@@ -6,6 +6,7 @@
         <entry key="App.axaml" value="B3.csproj" />
         <entry key="Views/BankView.axaml" value="B3.csproj" />
         <entry key="Views/CodeSpaceView.axaml" value="B3.csproj" />
+        <entry key="Views/ExamResultView.axaml" value="B3.csproj" />
         <entry key="Views/ExamView.axaml" value="B3.csproj" />
         <entry key="Views/HomeView.axaml" value="B3.csproj" />
         <entry key="Views/ImportView.axaml" value="B3.csproj" />

@@ -60,6 +60,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private bool canNavigate = true;
 
     private ExamViewModel? _trackedExamViewModel;
+    private ExamResultViewModel? _trackedExamResultViewModel;
 
     public MainWindowViewModel()
     {
@@ -159,6 +160,13 @@ public partial class MainWindowViewModel : ViewModelBase
     partial void OnCurrentViewChanged(object value)
     {
         TrackExamViewModel(CurrentView as ExamViewModel);
+        TrackExamResultViewModel(CurrentView as ExamResultViewModel);
+
+        if (CurrentView is ExamResultViewModel resultVM)
+        {
+            resultVM.RequestHomeNavigation = () => NavigateTo("home");
+        }
+
         UpdateNavigationState();
     }
 
@@ -221,6 +229,16 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         var examVM = new ExamViewModel();
         examVM.RequestHomeNavigation = () => NavigateTo("home");
+        examVM.RequestResultNavigation = resultViewModel =>
+        {
+            if (resultViewModel != null)
+            {
+                resultViewModel.RequestHomeNavigation = () => NavigateTo("home");
+                CurrentView = resultViewModel;
+                SelectedMainItem = null;
+                SelectedToolItem = null;
+            }
+        };
         CurrentView = examVM;
         SelectedMainItem = null;
         SelectedToolItem = null;
@@ -250,6 +268,25 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         CurrentView = new ReviewViewModel();
         LoggerService.LogDebug("切換至審核視圖");
+    }
+
+    private void TrackExamResultViewModel(ExamResultViewModel? viewModel)
+    {
+        if (_trackedExamResultViewModel != null)
+        {
+            _trackedExamResultViewModel.PropertyChanged -= OnTrackedExamResultViewModelPropertyChanged;
+        }
+
+        _trackedExamResultViewModel = viewModel;
+
+        if (_trackedExamResultViewModel != null)
+        {
+            _trackedExamResultViewModel.PropertyChanged += OnTrackedExamResultViewModelPropertyChanged;
+        }
+    }
+
+    private void OnTrackedExamResultViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
     }
 
     /// <summary>顯示系統設定</summary>
