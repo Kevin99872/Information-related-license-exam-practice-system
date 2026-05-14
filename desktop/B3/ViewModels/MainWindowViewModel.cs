@@ -115,7 +115,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
         ToolItems = new ObservableCollection<NavItem>
         {
-            new("code", "Code Space"),
+            
             new("style", "樣式")
         };
     }
@@ -209,7 +209,7 @@ public partial class MainWindowViewModel : ViewModelBase
             "question" => new QuestionHubViewModel(),
             "bank" => new BankViewModel(),
             "import" => new ImportViewModel(),
-            "code" => new CodeSpaceViewModel(),
+            
             "style" => new StyleViewModel(),
             "settings" => new SettingsViewModel(),
             _ => new HomeViewModel()
