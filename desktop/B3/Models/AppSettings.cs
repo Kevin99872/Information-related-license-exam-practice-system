@@ -37,4 +37,16 @@ public class AppSettings
 
     /// <summary>難度篩選</summary>
     public string Difficulty { get; set; } = "中等";
+
+    /// <summary>介面主題名稱</summary>
+    public string ThemeName { get; set; } = "藍色";
+
+    /// <summary>介面字體</summary>
+    public string FontFamily { get; set; } = "Segoe UI Variable Text, Microsoft JhengHei UI, Noto Sans TC";
+
+    /// <summary>字體大小</summary>
+    public int FontSize { get; set; } = 14;
+
+    /// <summary>是否顯示進度條</summary>
+    public bool ShowProgress { get; set; } = true;
 }

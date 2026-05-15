@@ -13,8 +13,7 @@
             <TextBlock Grid.Row="1" Classes="muted" Text="樣式設定"/>
 
             <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                <Button Content="恢復預設" Classes="ghost"/>
-                <Button Content="套用儲存" Classes="primary"/>
+                <Button Content="恢復預設" Classes="ghost" Name="RestoreButton" Click="OnRestoreClicked"/>
             </StackPanel>
         </Grid>
 
@@ -23,18 +22,15 @@
                 <Border Classes="card">
                     <StackPanel Spacing="12">
                         <TextBlock FontWeight="Bold" Text="介面主題"/>
-                        <ItemsControl ItemsSource="{Binding Themes}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="12"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
+                        <ListBox ItemsSource="{Binding Themes, Mode=OneWay}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" Height="120">
+                            <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Width="90" Height="90" Background="{StaticResource PrimaryBrush}" CornerRadius="10"/>
+                                    <Border Width="300" Height="32" CornerRadius="6" Background="{DynamicResource SoftPanelBrush}" Padding="8">
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    </Border>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                 </Border>
 
@@ -43,29 +39,25 @@
                         <TextBlock FontWeight="Bold" Text="字體與大小"/>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <TextBlock Text="介面字體"/>
-                            <ComboBox Width="160">
-                                <x:String>Noto Sans TC</x:String>
-                                <x:String>Source Han Sans</x:String>
-                                <x:String>PingFang TC</x:String>
+                            <ComboBox Width="260" SelectedItem="{Binding FontFamily, Mode=TwoWay}">
+                                <x:String>Segoe UI Variable Text, Microsoft JhengHei UI, Noto Sans TC</x:String>
+                                <x:String>Segoe UI Variable Text, Noto Sans TC</x:String>
+                                <x:String>Microsoft JhengHei UI, Noto Sans TC</x:String>
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <TextBlock Text="字體大小"/>
-                            <NumericUpDown Width="120" Minimum="10" Maximum="20" Value="{Binding FontSize}"/>
+                            <NumericUpDown Width="120" Minimum="10" Maximum="20" Value="{Binding FontSize, Mode=TwoWay}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <Border Classes="card">
                     <StackPanel Spacing="12">
-                        <TextBlock FontWeight="Bold" Text="卡片佈局"/>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock Text="每行卡片數"/>
-                            <NumericUpDown Width="120" Minimum="2" Maximum="5" Value="{Binding CardsPerRow}"/>
-                        </StackPanel>
+                        <TextBlock FontWeight="Bold" Text="其他選項"/>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <TextBlock Text="顯示進度條"/>
-                            <ToggleSwitch IsChecked="{Binding ShowProgress}"/>
+                            <ToggleSwitch IsChecked="{Binding ShowProgress, Mode=TwoWay}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -74,12 +66,12 @@
             <Border Classes="card" Grid.Column="1">
                 <StackPanel Spacing="12">
                     <TextBlock FontWeight="Bold" Text="即時預覽"/>
-                    <Border Background="{StaticResource SoftPanelBrush}" CornerRadius="10" Padding="12">
+                    <Border Background="{DynamicResource SoftPanelBrush}" CornerRadius="10" Padding="12">
                         <StackPanel Spacing="10">
                             <Grid ColumnDefinitions="Auto,*">
-                                <Border Width="28" Height="28" CornerRadius="6" Background="{StaticResource IconBgBrush}"/>
+                                <Border Width="28" Height="28" CornerRadius="6" Background="{DynamicResource IconBgBrush}"/>
                                 <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="TQC+Python"/>
-                                <Border Grid.Column="1" HorizontalAlignment="Right" Background="{StaticResource TagBgBrush}" Padding="6,2" CornerRadius="10">
+                                <Border Grid.Column="1" HorizontalAlignment="Right" Background="{DynamicResource TagBgBrush}" Padding="6,2" CornerRadius="10">
                                     <TextBlock FontSize="10" Text="推薦"/>
                                 </Border>
                             </Grid>
@@ -89,24 +81,26 @@
                                 <TextBlock Text="180 分鐘"/>
                             </StackPanel>
                             <ProgressBar Minimum="0" Maximum="100" Value="34" Height="6"/>
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="muted" Text="目前設定摘要"/>
+                                <TextBlock Text="{Binding SelectedTheme.Name, StringFormat=主題：{0}}"/>
+                                <TextBlock Text="{Binding FontFamily, StringFormat=字體：{0}}"/>
+                                <TextBlock Text="{Binding FontSize, StringFormat=字級：{0}}"/>
+                                <TextBlock Text="{Binding ShowProgress, StringFormat=顯示進度條：{0}}"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
 
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                        <Border Background="{DynamicResource TagBgBrush}" Padding="8,4" CornerRadius="14">
                             <TextBlock FontSize="10" Text="熱門"/>
                         </Border>
-                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                        <Border Background="{DynamicResource TagBgBrush}" Padding="8,4" CornerRadius="14">
                             <TextBlock FontSize="10" Text="推薦"/>
                         </Border>
-                        <Border Background="{StaticResource TagBgBrush}" Padding="8,4" CornerRadius="14">
+                        <Border Background="{DynamicResource TagBgBrush}" Padding="8,4" CornerRadius="14">
                             <TextBlock FontSize="10" Text="新增"/>
                         </Border>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Button Content="套用" Classes="primary"/>
-                        <Button Content="取消" Classes="ghost"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

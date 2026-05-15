@@ -18,7 +18,7 @@
 
     <Grid ColumnDefinitions="Auto,*">
         <!-- 左側導航欄 -->
-        <Border Background="{StaticResource SidebarBgBrush}"
+        <Border Background="{DynamicResource SidebarBgBrush}"
                 Padding="16"
                 Grid.Column="0"
                 Width="{Binding SidebarWidth}"
@@ -38,7 +38,7 @@
 
                 <StackPanel DockPanel.Dock="Top" Margin="0,24,0,0" Spacing="10">
                     <TextBlock Text="主選單" FontSize="12" Classes="muted" IsVisible="{Binding IsSidebarExpanded}"/>
-                    <ListBox ItemsSource="{Binding MainItems}" SelectedItem="{Binding SelectedMainItem}" IsEnabled="{Binding CanNavigate}">
+                    <ListBox Classes="nav-menu" ItemsSource="{Binding MainItems}" SelectedItem="{Binding SelectedMainItem}" IsEnabled="{Binding CanNavigate}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="8" CornerRadius="6">
@@ -54,7 +54,7 @@
 
                 <StackPanel DockPanel.Dock="Top" Margin="0,24,0,0" Spacing="10">
                     <TextBlock Text="工具" FontSize="12" Classes="muted" IsVisible="{Binding IsSidebarExpanded}"/>
-                    <ListBox ItemsSource="{Binding ToolItems}" SelectedItem="{Binding SelectedToolItem}" IsEnabled="{Binding CanNavigate}">
+                    <ListBox Classes="nav-menu" ItemsSource="{Binding ToolItems}" SelectedItem="{Binding SelectedToolItem}" IsEnabled="{Binding CanNavigate}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="8" CornerRadius="6">

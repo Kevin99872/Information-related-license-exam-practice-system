@@ -36,12 +36,12 @@
                         <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
                             Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
                                 CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0,0,16,16">
+                            <Border Classes="card" Margin="0,0,16,16" MinHeight="170">
                                 <StackPanel Spacing="10">
                                     <Grid ColumnDefinitions="Auto,*">
-                                        <Border Width="28" Height="28" Background="{StaticResource IconBgBrush}" CornerRadius="6"/>
+                                        <Border Width="28" Height="28" Background="{DynamicResource IconBgBrush}" CornerRadius="6"/>
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
-                                        <Border Grid.Column="1" HorizontalAlignment="Right" Padding="6,2" Background="{StaticResource TagBgBrush}" CornerRadius="10">
+                                        <Border Grid.Column="1" HorizontalAlignment="Right" Padding="6,2" Background="{DynamicResource TagBgBrush}" CornerRadius="10">
                                             <TextBlock FontSize="10" Text="{Binding Tag}"/>
                                         </Border>
                                     </Grid>
@@ -75,10 +75,10 @@
                         <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
                             Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
                                 CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0,0,16,16">
+                            <Border Classes="card" Margin="0,0,16,16" MinHeight="170">
                                 <StackPanel Spacing="10">
                                     <Grid ColumnDefinitions="Auto,*">
-                                        <Border Width="28" Height="28" Background="{StaticResource IconBgBrush}" CornerRadius="6"/>
+                                        <Border Width="28" Height="28" Background="{DynamicResource IconBgBrush}" CornerRadius="6"/>
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
                                     </Grid>
 

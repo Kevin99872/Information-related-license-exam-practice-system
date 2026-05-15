@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using B3.Services;
+using B3.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

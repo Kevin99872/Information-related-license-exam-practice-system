@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ux5t5USjWLQ=",
+  "dgSpecHash": "QhBYuybJbuk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kevinkai\\Desktop\\Information-related license exam practice system\\desktop\\B3\\B3.csproj",
+  "projectFilePath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kevinkai\\.nuget\\packages\\avalonia\\12.0.2\\avalonia.12.0.2.nupkg.sha512",
     "C:\\Users\\kevinkai\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.25547.20250602\\avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",

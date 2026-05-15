@@ -3579,11 +3579,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kevinkai\\Desktop\\Information-related license exam practice system\\desktop\\B3\\B3.csproj",
+      "projectUniqueName": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
       "projectName": "B3",
-      "projectPath": "C:\\Users\\kevinkai\\Desktop\\Information-related license exam practice system\\desktop\\B3\\B3.csproj",
+      "projectPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
       "packagesPath": "C:\\Users\\kevinkai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kevinkai\\Desktop\\Information-related license exam practice system\\desktop\\B3\\obj\\",
+      "outputPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

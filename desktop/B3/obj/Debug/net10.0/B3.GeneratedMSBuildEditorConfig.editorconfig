@@ -22,41 +22,41 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = B3
-build_property.ProjectDir = C:\Users\kevinkai\Desktop\Information-related license exam practice system\desktop\B3\
+build_property.ProjectDir = C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/App.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/BankView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/BankView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/ExamResultView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/ExamResultView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/ExamView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/ExamView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/HomeView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/HomeView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/ImportView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/ImportView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/MainWindow.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/QuestionHubView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/QuestionHubView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/ReviewView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/ReviewView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/SettingsView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/SettingsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/kevinkai/Desktop/Information-related license exam practice system/desktop/B3/Views/StyleView.axaml]
+[C:/Users/kevinkai/Documents/GitHub/Information-related-license-exam-practice-system/desktop/B3/Views/StyleView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
