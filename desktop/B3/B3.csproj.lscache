@@ -74,6 +74,7 @@ Models/
 Program.cs
 ServiceContainer.cs
 Services/
+ AnimationService.cs
  CodeJudgeService.cs
  LocalSettingsService.cs
  LoggerService.cs

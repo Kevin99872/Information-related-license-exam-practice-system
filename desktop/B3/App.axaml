@@ -192,16 +192,27 @@
             <Setter Property="Padding" Value="16"/>
             <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Transitions">
                 <Transitions>
                     <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                    <ThicknessTransition Property="Padding" Duration="0:0:0.12"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
                 </Transitions>
             </Setter>
         </Style>
 
         <Style Selector="Border.card:pointerover">
             <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style Selector="ListBoxItem">
