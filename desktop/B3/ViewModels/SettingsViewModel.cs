@@ -94,6 +94,14 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty]
     private string ollamaModel = string.Empty;
 
+    /// <summary>是否使用本地 Transformers 模型</summary>
+    [ObservableProperty]
+    private bool useLocalTransformers = false;
+
+    /// <summary>本地 Transformers 模型路徑或名稱</summary>
+    [ObservableProperty]
+    private string localTransformersModelPath = string.Empty;
+
     /// <summary>Python 路徑</summary>
     [ObservableProperty]
     private string pythonPath = string.Empty;
@@ -180,6 +188,8 @@ public partial class SettingsViewModel : ViewModelBase
         var settings = _settingsService.Load();
         OllamaEndpoint = settings.OllamaEndpoint;
         OllamaModel = settings.OllamaModel;
+        UseLocalTransformers = settings.UseLocalTransformers;
+        LocalTransformersModelPath = settings.LocalTransformersModelPath;
         PythonPath = settings.PythonPath;
         CppCompilerPath = settings.CppCompilerPath;
         DotNetPath = settings.DotNetPath;
@@ -199,6 +209,8 @@ public partial class SettingsViewModel : ViewModelBase
         {
             OllamaEndpoint = OllamaEndpoint,
             OllamaModel = OllamaModel,
+            UseLocalTransformers = UseLocalTransformers,
+            LocalTransformersModelPath = LocalTransformersModelPath,
             PythonPath = PythonPath,
             CppCompilerPath = CppCompilerPath,
             DotNetPath = DotNetPath,
@@ -220,6 +232,8 @@ public partial class SettingsViewModel : ViewModelBase
         var settings = new AppSettings();
         OllamaEndpoint = settings.OllamaEndpoint;
         OllamaModel = settings.OllamaModel;
+        UseLocalTransformers = settings.UseLocalTransformers;
+        LocalTransformersModelPath = settings.LocalTransformersModelPath;
         PythonPath = settings.PythonPath;
         CppCompilerPath = settings.CppCompilerPath;
         DotNetPath = settings.DotNetPath;

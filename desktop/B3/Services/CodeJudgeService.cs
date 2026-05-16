@@ -84,10 +84,10 @@ public class CodeJudgeService
     /// </summary>
     public bool CompareOutput(string actual, string expected)
     {
-        // 標準化換行符和空白
+        // 標準化換行符和空白，並逐行比對
         var actualNorm = NormalizeOutput(actual);
         var expectedNorm = NormalizeOutput(expected);
-        return actualNorm == expectedNorm;
+        return string.Equals(actualNorm, expectedNorm, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -95,7 +95,20 @@ public class CodeJudgeService
     /// </summary>
     private string NormalizeOutput(string output)
     {
-        return System.Text.RegularExpressions.Regex.Replace(output.Trim(), @"\s+", " ");
+        if (string.IsNullOrEmpty(output)) return string.Empty;
+        // Split into lines, trim each line, collapse inner whitespace, then join with '\n'
+        var lines = output.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var s = lines[i].Trim();
+            s = System.Text.RegularExpressions.Regex.Replace(s, @"\s+", " ");
+            lines[i] = s;
+        }
+        // remove empty trailing lines
+        int last = lines.Length - 1;
+        while (last >= 0 && string.IsNullOrEmpty(lines[last])) last--;
+        if (last < 0) return string.Empty;
+        return string.Join("\n", lines, 0, last + 1);
     }
 
     /// <summary>

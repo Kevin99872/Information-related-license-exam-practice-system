@@ -585,6 +585,9 @@ public partial class ExamViewModel : ViewModelBase
                 SubmittedAt = DateTime.Now
             };
 
+            // Attach Problem navigation for later display in results
+            submission.Problem = CurrentProblem;
+
             await _submissionRepo.SubmitAsync(submission);
             // 將提交加入本次考試的提交清單（放在最前面）
             ExamSubmissions.Insert(0, submission);

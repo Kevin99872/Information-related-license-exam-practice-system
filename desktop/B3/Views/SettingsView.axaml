@@ -169,6 +169,14 @@
                                 <TextBlock Classes="muted" Text="模型名稱"/>
                                 <TextBox Text="{Binding OllamaModel}"/>
                             </StackPanel>
+                            <StackPanel Spacing="6">
+                                <TextBlock Classes="muted" Text="使用本地 Transformers 模型"/>
+                                <ToggleSwitch IsChecked="{Binding UseLocalTransformers}"/>
+                            </StackPanel>
+                            <StackPanel Spacing="6" IsVisible="{Binding UseLocalTransformers}">
+                                <TextBlock Classes="muted" Text="本地模型路徑/名稱"/>
+                                <TextBox Text="{Binding LocalTransformersModelPath}"/>
+                            </StackPanel>
                             <TextBlock Classes="muted" Text="儲存後會套用至 AI 問答與程式分析"/>
                         </StackPanel>
                     </Border>

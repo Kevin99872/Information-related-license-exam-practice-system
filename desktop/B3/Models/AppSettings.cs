@@ -11,6 +11,12 @@ public class AppSettings
     /// <summary>Ollama 模型名稱</summary>
     public string OllamaModel { get; set; } = "llama3";
 
+    /// <summary>是否使用本地 Transformers 模型</summary>
+    public bool UseLocalTransformers { get; set; } = false;
+
+    /// <summary>本地 Transformers 模型路徑或名稱（例如 local_model 或 huggingface repo 名稱）</summary>
+    public string LocalTransformersModelPath { get; set; } = string.Empty;
+
     /// <summary>Python 執行路徑</summary>
     public string PythonPath { get; set; } = "python";
 
