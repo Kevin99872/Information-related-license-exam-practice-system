@@ -203,22 +203,28 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
-        object newView = key switch
-        {
-            "home" => new HomeViewModel(),
-            "question" => new QuestionHubViewModel(),
-            "bank" => new BankViewModel(),
-            "import" => new ImportViewModel(),
-            
+            object newView = key switch
+            {
+                "home" => new HomeViewModel(),
+                // 將 question 導向題目列表 ViewModel
+                "question" => new ProblemListViewModel(),
+                "bank" => new BankViewModel(),
+                "import" => new ImportViewModel(),
+                
             "style" => new StyleViewModel(),
-            "settings" => new SettingsViewModel(),
+                "settings" => new SettingsViewModel(),
             _ => new HomeViewModel()
         };
 
-        // 如果是 HomeViewModel，設定其父 ViewModel 引用以支援導航
+        // 如果是需要父引用的 ViewModel，設定其父 ViewModel 引用以支援導航
         if (newView is HomeViewModel homeVM)
         {
             homeVM.SetMainViewModel(this);
+        }
+
+        if (newView is ProblemListViewModel problemListVM)
+        {
+            problemListVM.SetMainViewModel(this);
         }
 
         CurrentView = newView;
@@ -250,7 +256,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void ShowProblemList()
     {
-        CurrentView = new ProblemListViewModel();
+        var vm = new ProblemListViewModel();
+        vm.SetMainViewModel(this);
+        CurrentView = vm;
         LoggerService.LogDebug("切換至題目列表視圖");
     }
 

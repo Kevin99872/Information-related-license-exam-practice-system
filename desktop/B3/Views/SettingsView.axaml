@@ -85,13 +85,7 @@
                     </Border>
                 </StackPanel>
 
-                <!-- 通知 -->
-                <StackPanel IsVisible="{Binding IsNotifySection}" Spacing="16">
-                    <TextBlock FontWeight="Bold" Text="通知"/>
-                    <Border Classes="card">
-                        <TextBlock Classes="muted" Text="目前尚無通知設定"/>
-                    </Border>
-                </StackPanel>
+                <!-- 通知 已移除 -->
 
                 <!-- 快捷鍵 -->
                 <StackPanel IsVisible="{Binding IsKeySection}" Spacing="16">

@@ -1,0 +1,189 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             xmlns:conv="using:B3.Converters"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
+             x:Name="Root"
+             x:Class="B3.Views.ProblemListView"
+             x:DataType="vm:ProblemListViewModel">
+
+    <UserControl.Resources>
+        <conv:DifficultyToLabelConverter x:Key="DifficultyToLabelConverter"/>
+    </UserControl.Resources>
+
+    <Grid ColumnDefinitions="340,*" ColumnSpacing="20" Margin="4">
+        <!-- 左側: 上方篩選、下方題目列表 -->
+        <Grid Grid.Column="0" RowDefinitions="Auto,*" RowSpacing="12">
+            <Border Classes="card" Padding="12" Grid.Row="0">
+                <StackPanel Spacing="12">
+                    <TextBlock FontWeight="Bold" Text="篩選"/>
+                    <StackPanel Spacing="10">
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="muted" Text="考照類型"/>
+                            <ComboBox SelectedItem="{Binding SelectedExamType}" Width="300" HorizontalAlignment="Stretch">
+                                <x:String>All</x:String>
+                                <x:String>TQC</x:String>
+                                <x:String>CPE</x:String>
+                                <x:String>Leetcode</x:String>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="muted" Text="難度"/>
+                            <ComboBox SelectedItem="{Binding SelectedDifficulty}" Width="300" HorizontalAlignment="Stretch">
+                                <x:String>All</x:String>
+                                <x:String>簡單</x:String>
+                                <x:String>中等</x:String>
+                                <x:String>困難</x:String>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="muted" Text="狀態"/>
+                            <ComboBox SelectedItem="{Binding SelectedStatus}" Width="300" HorizontalAlignment="Stretch">
+                                <x:String>All</x:String>
+                                <x:String>Active</x:String>
+                                <x:String>Draft</x:String>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="muted" Text="搜尋"/>
+                            <TextBox Text="{Binding SearchKeyword}" Width="300" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="12" Grid.Row="1">
+                <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Height="540" Margin="0" Padding="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="12" CornerRadius="10" Classes="list-item" Margin="0,0,0,10">
+                                <Grid ColumnDefinitions="44,*,120" ColumnSpacing="14">
+                                    <Border Grid.Column="0" Width="40" Height="40" Background="{DynamicResource IconBgBrush}" CornerRadius="8"/>
+
+                                    <StackPanel Grid.Column="1" Spacing="6">
+                                        <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
+                                        <TextBlock Classes="muted" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="2"/>
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <TextBlock Classes="muted" Text="{Binding TestCases.Count, StringFormat='{}{0} 題'}"/>
+                                            <TextBlock Classes="muted" Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Border Grid.Column="2" Background="{DynamicResource TagBgBrush}" CornerRadius="10" Padding="8,4" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Status}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Grid>
+
+        <!-- 右側: 上方題目敘述、下方程式編輯與輸出 -->
+        <Grid Grid.Column="1" RowDefinitions="*,2*" RowSpacing="12">
+            <Border Classes="card" Padding="16" Grid.Row="0" IsVisible="{Binding SelectedProblem}">
+                <Grid RowDefinitions="Auto,*" RowSpacing="10">
+                    <StackPanel Spacing="6">
+                        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ProblemCode, StringFormat=代碼：{0}}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="{Binding SelectedProblem.Description}" TextWrapping="Wrap"/>
+
+                            <TextBlock FontWeight="Bold" Text="測試案例" Margin="0,6,0,0"/>
+                            <ItemsControl ItemsSource="{Binding SelectedProblem.TestCases}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="8" Classes="muted" CornerRadius="6" Margin="0,0,0,8">
+                                            <StackPanel>
+                                                <TextBlock Text="Input: {Binding Input}"/>
+                                                <TextBlock Text="Output: {Binding ExpectedOutput}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" ColumnDefinitions="1.2*,0.8*" ColumnSpacing="12">
+                <Border Classes="card" Padding="12">
+                    <Grid RowDefinitions="Auto,*" RowSpacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="Code Space"/>
+                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="{Binding EditorStatusText}" FontSize="12"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" ColumnDefinitions="170,*" ColumnSpacing="12">
+                            <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="10">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="檔案選單" FontWeight="Bold" FontSize="14"/>
+                                    <ListBox ItemsSource="{Binding EditorFiles}" SelectedItem="{Binding SelectedEditorFile}" Background="Transparent" BorderThickness="0">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Spacing="2" Margin="0,0,0,8">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{Binding Description}" Classes="muted" FontSize="11"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+
+                            <Grid Grid.Column="1" RowDefinitions="*,Auto" RowSpacing="10">
+                                <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
+                                    <Grid ColumnDefinitions="56,*" ColumnSpacing="10">
+                                        <Border Background="#101926" CornerRadius="6" Padding="8">
+                                            <TextBlock Text="{Binding EditorLineNumbers}" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" Foreground="#718096" TextAlignment="Right"/>
+                                        </Border>
+                                        <TextBox Grid.Column="1" Text="{Binding EditorBuffer, Mode=TwoWay}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" MinHeight="280"/>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Row="1" Background="#101923" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock Text="編輯器提示" Classes="exam-title" FontSize="14"/>
+                                        <TextBlock Text="{Binding SelectedEditorHint}" Classes="muted" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" Classes="card" Padding="12">
+                    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="語言"/>
+                            <ComboBox ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedLanguage}" Width="140"/>
+                            <Button Content="編譯" Command="{Binding CompileCommand}"/>
+                        </StackPanel>
+
+                        <Border Grid.Row="1" Background="#101923" CornerRadius="6" Padding="10">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock Text="{Binding CompilerOutput}" FontFamily="Cascadia Code,Consolas,monospace" Foreground="White" TextWrapping="Wrap"/>
+                            </ScrollViewer>
+                        </Border>
+
+                        <StackPanel Grid.Row="2" Spacing="6">
+                            <TextBlock Text="編譯選項" FontWeight="Bold"/>
+                            <TextBlock Classes="muted" Text="目前為模擬編譯；之後可接上實際編譯服務。" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

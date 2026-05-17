@@ -26,9 +26,6 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty]
     private bool isExamSection;
 
-    /// <summary>通知顯示</summary>
-    [ObservableProperty]
-    private bool isNotifySection;
 
     /// <summary>快捷鍵顯示</summary>
     [ObservableProperty]
@@ -49,6 +46,7 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>作答後顯示答案</summary>
     [ObservableProperty]
     private bool showAnswerOnSubmit = true;
+
 
     /// <summary>倒數計時器</summary>
     [ObservableProperty]
@@ -131,7 +129,6 @@ public partial class SettingsViewModel : ViewModelBase
         Sections = new ObservableCollection<SettingsSection>
         {
             new("exam", "考試設定"),
-            new("notify", "通知"),
             new("key", "快捷鍵"),
             new("data", "資料管理"),
             new("ai", "AI 模型"),
@@ -175,7 +172,6 @@ public partial class SettingsViewModel : ViewModelBase
     {
         var key = SelectedSection?.Key ?? string.Empty;
         IsExamSection = key == "exam";
-        IsNotifySection = key == "notify";
         IsKeySection = key == "key";
         IsDataSection = key == "data";
         IsAiSection = key == "ai";
