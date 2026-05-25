@@ -6,8 +6,9 @@
              xmlns:conv="using:B3.Converters"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Name="Root"
+             x:CompileBindings="False"
              x:Class="B3.Views.ProblemListView"
-             x:DataType="vm:ProblemListViewModel">
+             >
 
     <UserControl.Resources>
         <conv:DifficultyToLabelConverter x:Key="DifficultyToLabelConverter"/>
@@ -69,6 +70,7 @@
                                         <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
                                         <TextBlock Classes="muted" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="2"/>
                                         <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <TextBlock Classes="muted" Text="{Binding ExamType, StringFormat=類型：{0}}"/>
                                             <TextBlock Classes="muted" Text="{Binding TestCases.Count, StringFormat='{}{0} 題'}"/>
                                             <TextBlock Classes="muted" Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
                                         </StackPanel>
@@ -92,6 +94,7 @@
                     <StackPanel Spacing="6">
                         <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
                         <TextBlock Classes="muted" Text="{Binding SelectedProblem.ProblemCode, StringFormat=代碼：{0}}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ExamType, StringFormat=考照種類：{0}}"/>
                         <TextBlock Classes="muted" Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
                     </StackPanel>
 
@@ -105,8 +108,8 @@
                                     <DataTemplate>
                                         <Border Padding="8" Classes="muted" CornerRadius="6" Margin="0,0,0,8">
                                             <StackPanel>
-                                                <TextBlock Text="Input: {Binding Input}"/>
-                                                <TextBlock Text="Output: {Binding ExpectedOutput}"/>
+                                                <TextBlock Text="{Binding Input, StringFormat=Input: {0}}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding ExpectedOutput, StringFormat=Output: {0}}" TextWrapping="Wrap"/>
                                             </StackPanel>
                                         </Border>
                                     </DataTemplate>

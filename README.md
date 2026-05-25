@@ -63,6 +63,26 @@
     - C#
     - NET.Core 10.0.101
     - Avalonia 
+
+## 題庫匯入格式
+匯入頁面支援兩種方式：
+- 單題新增：直接輸入題目代碼、考照種類、題目敘述、解法程式碼，以及多筆測試資料與驗證資料。
+- 表單匯入：支援 `.csv`、`.xls`、`.xlsx`，每一列代表一筆測試資料；相同 `ProblemCode` 的列會合併成同一題。
+
+### 欄位規格
+匯入表單請依下列欄位順序建立：
+`ProblemCode`, `ExamType`, `Title`, `Description`, `Difficulty`, `Status`, `SolutionLanguage`, `SolutionCode`, `OrderIndex`, `IsExample`, `TestInput`, `ExpectedOutput`
+
+### 範例值
+- `ProblemCode`：`PYD101`
+- `ExamType`：`TQC`
+- `Difficulty`：`1 / 2 / 3` 或 `簡單 / 中等 / 困難`
+- `Status`：`Draft` 或 `Active`
+- `IsExample`：`True / False`、`是 / 否`
+
+### 模板下載
+在應用程式的「匯入題庫」頁面可以直接下載 CSV 模板，下載後可用 Excel、LibreOffice 或其他試算表工具編輯，再匯入系統。
+
 ## 參考
 - EZTest英文考照
 - Tronclass大學學習網站
