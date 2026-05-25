@@ -1,10 +1,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using B3.Services;
 using B3.ViewModels;
+using B3.Views;
 
 namespace B3;
 
@@ -23,44 +23,28 @@ public class ViewLocator : IDataTemplate
             return null;
         }
 
-        var viewModelType = param.GetType();
-        var name = viewModelType.FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
-        var type = ResolveViewType(viewModelType, name);
-
-        if (type != null)
+        try
         {
-            try
+            return param switch
             {
-                if (Activator.CreateInstance(type) is Control control)
-                {
-                    return control;
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggerService.LogError($"View 建立失敗: {name}", ex);
-                return new TextBlock { Text = "View Create Error: " + name };
-            }
+                HomeViewModel => new HomeView(),
+                ProblemListViewModel => new ProblemListView(),
+                BankViewModel => new BankView(),
+                ImportViewModel => new ImportView(),
+                StyleViewModel => new StyleView(),
+                SettingsViewModel => new SettingsView(),
+                QuestionHubViewModel => new QuestionHubView(),
+                ReviewViewModel => new ReviewView(),
+                ExamViewModel => new ExamView(),
+                ExamResultViewModel => new ExamResultView(),
+                _ => new TextBlock { Text = "Not Found: " + param.GetType().FullName }
+            };
         }
-
-        LoggerService.LogWarning($"找不到對應 View: {name}");
-        return new TextBlock { Text = "Not Found: " + name };
-    }
-
-    private static Type? ResolveViewType(Type viewModelType, string fullViewTypeName)
-    {
-        // Prefer the same assembly as the ViewModel first.
-        var type = viewModelType.Assembly.GetType(fullViewTypeName, throwOnError: false);
-        if (type != null)
+        catch (Exception ex)
         {
-            return type;
+            LoggerService.LogError($"View 建立失敗: {param.GetType().FullName}", ex);
+            return new TextBlock { Text = "View Create Error: " + param.GetType().FullName };
         }
-
-        // Fallback to all loaded assemblies.
-        return AppDomain.CurrentDomain
-            .GetAssemblies()
-            .Select(assembly => assembly.GetType(fullViewTypeName, throwOnError: false))
-            .FirstOrDefault(found => found != null);
     }
 
     public bool Match(object? data)

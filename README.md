@@ -83,6 +83,26 @@
 ### 模板下載
 在應用程式的「匯入題庫」頁面可以直接下載 CSV 模板，下載後可用 Excel、LibreOffice 或其他試算表工具編輯，再匯入系統。
 
+### Windows 安裝包
+Windows 安裝包已輸出到 `desktop/B3/bin/Release/B3-Windows-Install.zip`。
+
+安裝步驟：
+- 解壓縮 zip
+- 雙擊 `Install-B3.cmd`
+- 預設會安裝到 `%LOCALAPPDATA%\Programs\B3`
+
+解除安裝：執行 `Uninstall-B3.ps1`
+
+### 純打包 DLL 版本
+如果你只需要 macOS / Linux / Windows 三平台的純打包版本，請執行 `installer/windows/Package-B3-MultiRid.ps1`。
+
+輸出會放在 `desktop/B3/bin/Release/`，包含：
+- `B3-win-x64-dll.zip`
+- `B3-linux-x64-dll.zip`
+- `B3-osx-x64-dll.zip`
+
+每個 zip 解壓後都會看到對應平台的 DLL 與依賴檔，不是單檔 exe，也不是安裝器。
+
 ## 參考
 - EZTest英文考照
 - Tronclass大學學習網站

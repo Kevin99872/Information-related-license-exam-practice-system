@@ -129,7 +129,9 @@
                                     <TextBlock FontWeight="Bold" Text="檔案匯入與模板"/>
                                     <TextBlock Classes="muted" Text="每一列代表一筆測試資料，相同 ProblemCode 的列會合併成同一題。" TextWrapping="Wrap"/>
                                     <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button Content="新增一列" Command="{Binding AddSpreadsheetRowCommand}"/>
                                         <Button Content="選擇 CSV / XLS / XLSX" Classes="primary" Click="OnPickSpreadsheetClicked"/>
+                                        <Button Content="驗證目前列" Command="{Binding ValidateSpreadsheetRowsCommand}"/>
                                         <Button Content="預覽 / 驗證" Click="OnPreviewSpreadsheetClicked"/>
                                         <Button Content="匯入 / 更新" Classes="primary" Click="OnImportSpreadsheetClicked"/>
                                         <Button Content="下載模板" Classes="ghost" Click="OnDownloadTemplateClicked"/>
@@ -153,16 +155,32 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Classes="list-item" Padding="10" Margin="0,0,0,8">
-                                                    <StackPanel Spacing="4">
+                                                    <StackPanel Spacing="8">
                                                         <StackPanel Orientation="Horizontal" Spacing="10">
-                                                            <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
-                                                            <TextBlock Classes="muted" Text="{Binding Title}"/>
                                                             <TextBlock Classes="muted" Text="{Binding RowNumber, StringFormat=第 {0} 列}"/>
                                                             <TextBlock Text="{Binding IsValid, StringFormat=Valid: {0}}"/>
+                                                            <Button Content="移除" Classes="ghost" Command="{Binding DataContext.RemoveSpreadsheetRowCommand, ElementName=Root}" CommandParameter="{Binding}"/>
                                                         </StackPanel>
+
+                                                        <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+                                                            <TextBox Text="{Binding ProblemCode}" PlaceholderText="ProblemCode"/>
+                                                            <TextBox Grid.Column="1" Text="{Binding ExamType}" PlaceholderText="ExamType"/>
+                                                            <TextBox Grid.Column="2" Text="{Binding Difficulty}" PlaceholderText="Difficulty"/>
+
+                                                            <TextBox Grid.Row="1" Text="{Binding Title}" PlaceholderText="Title"/>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Status}" PlaceholderText="Status"/>
+                                                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SolutionLanguage}" PlaceholderText="SolutionLanguage"/>
+
+                                                            <TextBox Grid.Row="2" Text="{Binding OrderIndex}" PlaceholderText="OrderIndex"/>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding IsExample}" PlaceholderText="IsExample"/>
+                                                            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding SolutionCode}" PlaceholderText="SolutionCode"/>
+
+                                                            <TextBox Grid.Row="3" Text="{Binding TestInput}" PlaceholderText="TestInput"/>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ExpectedOutput}" PlaceholderText="ExpectedOutput"/>
+                                                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Description}" PlaceholderText="Description"/>
+                                                        </Grid>
+
                                                         <TextBlock Classes="muted" Text="{Binding ValidationMessage}" TextWrapping="Wrap"/>
-                                                        <TextBlock Classes="muted" Text="{Binding TestInput, StringFormat=測試資料：{0}}" TextWrapping="Wrap"/>
-                                                        <TextBlock Classes="muted" Text="{Binding ExpectedOutput, StringFormat=驗證資料：{0}}" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Border>
                                             </DataTemplate>

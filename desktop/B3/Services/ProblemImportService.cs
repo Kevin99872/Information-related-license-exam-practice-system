@@ -155,6 +155,17 @@ public class ProblemImportService
     public async Task<ProblemImportResult> ImportSpreadsheetAsync(string filePath)
     {
         var rows = await ParseSpreadsheetAsync(filePath);
+        return await ImportSpreadsheetRowsAsync(rows);
+    }
+
+    /// <summary>
+    /// 匯入已存在記憶體中的表單列（可用於手動新增列）
+    /// </summary>
+    public async Task<ProblemImportResult> ImportSpreadsheetRowsAsync(IEnumerable<ProblemImportSpreadsheetRow> sourceRows)
+    {
+        var rows = sourceRows.ToList();
+        NormalizeAndValidateRows(rows);
+
         var issues = rows
             .Where(row => !row.IsValid)
             .Select(row => new ProblemImportValidationIssue(row.RowNumber, "Sheet", row.ValidationMessage, ProblemImportSeverity.Error))
@@ -207,6 +218,26 @@ public class ProblemImportService
 
         result.Summary = $"已匯入 {result.ImportedProblems} 題，{result.ImportedTestCases} 筆測試資料";
         return result;
+    }
+
+    /// <summary>
+    /// 驗證已存在記憶體中的表單列
+    /// </summary>
+    public ProblemImportPreviewResult ValidateSpreadsheetRows(IEnumerable<ProblemImportSpreadsheetRow> sourceRows)
+    {
+        var rows = sourceRows.ToList();
+        NormalizeAndValidateRows(rows);
+
+        var issues = rows
+            .Where(row => !row.IsValid)
+            .Select(row => new ProblemImportValidationIssue(row.RowNumber, "Sheet", row.ValidationMessage, ProblemImportSeverity.Error))
+            .ToList();
+
+        return new ProblemImportPreviewResult
+        {
+            Rows = rows,
+            Issues = issues
+        };
     }
 
     /// <summary>
@@ -565,12 +596,37 @@ public class ProblemImportService
             ExpectedOutput = GetValue("ExpectedOutput")
         };
 
+        ApplyRowValidation(row);
+        return row;
+    }
+
+    private void NormalizeAndValidateRows(List<ProblemImportSpreadsheetRow> rows)
+    {
+        for (var index = 0; index < rows.Count; index++)
+        {
+            var row = rows[index];
+            row.RowNumber = row.RowNumber <= 0 ? index + 2 : row.RowNumber;
+            row.ProblemCode = row.ProblemCode?.Trim() ?? string.Empty;
+            row.ExamType = NormalizeRequired(row.ExamType, "TQC");
+            row.Title = row.Title?.Trim() ?? string.Empty;
+            row.Description = row.Description?.Trim() ?? string.Empty;
+            row.Status = NormalizeRequired(row.Status, "Draft");
+            row.SolutionLanguage = NormalizeRequired(row.SolutionLanguage, "Python");
+            row.SolutionCode ??= string.Empty;
+            row.TestInput = row.TestInput?.Trim() ?? string.Empty;
+            row.ExpectedOutput = row.ExpectedOutput?.Trim() ?? string.Empty;
+            row.Difficulty = Math.Clamp(ParseDifficulty(row.Difficulty.ToString(CultureInfo.InvariantCulture)), 1, 3);
+            ApplyRowValidation(row);
+        }
+    }
+
+    private void ApplyRowValidation(ProblemImportSpreadsheetRow row)
+    {
         var issues = ValidateSpreadsheetRow(row);
         row.IsValid = !issues.Any(issue => issue.Severity == ProblemImportSeverity.Error);
         row.ValidationMessage = issues.Count == 0
-            ? ""
+            ? string.Empty
             : string.Join("；", issues.Select(issue => issue.Message));
-        return row;
     }
 
     private List<ProblemImportValidationIssue> ValidateSpreadsheetRow(ProblemImportSpreadsheetRow row)

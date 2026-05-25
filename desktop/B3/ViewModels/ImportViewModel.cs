@@ -140,6 +140,17 @@ public partial class ImportViewModel : ViewModelBase
 
     public async Task ImportSpreadsheetAsync()
     {
+        if (PreviewRows.Count > 0)
+        {
+            await RunBusyAsync(async () =>
+            {
+                var result = await _importService.ImportSpreadsheetRowsAsync(PreviewRows.ToList());
+                ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>(result.Issues);
+                ImportStatusMessage = result.Summary;
+            });
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(SpreadsheetFilePath) || !File.Exists(SpreadsheetFilePath))
         {
             ImportStatusMessage = "請先選擇有效的 CSV/XLS/XLSX 檔案。";
@@ -152,6 +163,57 @@ public partial class ImportViewModel : ViewModelBase
             ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>(result.Issues);
             ImportStatusMessage = result.Summary;
         });
+    }
+
+    [RelayCommand]
+    public void AddSpreadsheetRow()
+    {
+        PreviewRows.Add(new ProblemImportSpreadsheetRow
+        {
+            RowNumber = PreviewRows.Count + 2,
+            ExamType = "TQC",
+            Difficulty = 1,
+            Status = "Draft",
+            SolutionLanguage = "Python",
+            OrderIndex = PreviewRows.Count + 1,
+            IsExample = true
+        });
+
+        ImportStatusMessage = "已新增一列，可直接編輯欄位內容後進行驗證或匯入。";
+    }
+
+    [RelayCommand]
+    public void RemoveSpreadsheetRow(ProblemImportSpreadsheetRow? row)
+    {
+        if (row == null)
+        {
+            return;
+        }
+
+        PreviewRows.Remove(row);
+        for (var index = 0; index < PreviewRows.Count; index++)
+        {
+            PreviewRows[index].RowNumber = index + 2;
+            PreviewRows[index].OrderIndex = PreviewRows[index].OrderIndex <= 0 ? index + 1 : PreviewRows[index].OrderIndex;
+        }
+
+        ImportStatusMessage = "已刪除一列。";
+    }
+
+    [RelayCommand]
+    public void ValidateSpreadsheetRows()
+    {
+        if (PreviewRows.Count == 0)
+        {
+            ImportStatusMessage = "目前沒有可驗證的列資料。";
+            ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>();
+            return;
+        }
+
+        var preview = _importService.ValidateSpreadsheetRows(PreviewRows.ToList());
+        PreviewRows = new ObservableCollection<ProblemImportSpreadsheetRow>(preview.Rows);
+        ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>(preview.Issues);
+        ImportStatusMessage = $"已驗證 {preview.RowCount} 列，通過 {preview.ValidRowCount} 列。";
     }
 
     public async Task ImportSingleProblemAsync()
