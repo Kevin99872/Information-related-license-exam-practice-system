@@ -37,6 +37,10 @@ sealed class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
+#if WINDOWS
+            // Prefer Skia GPU renderer on Windows for smoother GPU-accelerated rendering
+            .UseSkia()
+#endif
             .UsePlatformDetect()
 #if DEBUG
             .WithDeveloperTools()

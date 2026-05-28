@@ -400,3 +400,4 @@ C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-sys
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Debug\net10.0\System.Security.Cryptography.Xml.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Debug\net10.0\ZString.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Debug\net10.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Debug\net10.0\Data\exam.db

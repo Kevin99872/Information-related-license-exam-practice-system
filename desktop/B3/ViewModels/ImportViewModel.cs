@@ -1,5 +1,6 @@
 using B3.Models;
 using B3.Services;
+using B3.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -16,6 +17,8 @@ namespace B3.ViewModels;
 public partial class ImportViewModel : ViewModelBase
 {
     private readonly ProblemImportService _importService = new();
+    private readonly ProblemRepository _problemRepo;
+    private ExamDbContext _dbContext = null!;
 
     [ObservableProperty]
     private string supportedFormats = "CSV / XLS / XLSX / TXT";
@@ -71,7 +74,19 @@ public partial class ImportViewModel : ViewModelBase
     public ImportViewModel()
     {
         ResetSingleForm();
+        _dbContext = new ExamDbContext();
+        _problemRepo = new ProblemRepository(_dbContext);
+        _ = LoadLoadedProblemsAsync();
     }
+
+    [ObservableProperty]
+    private ObservableCollection<Problem> loadedProblems = new();
+
+    [ObservableProperty]
+    private Problem? selectedLoadedProblem;
+
+    [ObservableProperty]
+    private int editingProblemId;
 
     [RelayCommand]
     public void AddSingleTestCase()
@@ -162,7 +177,42 @@ public partial class ImportViewModel : ViewModelBase
             var result = await _importService.ImportSpreadsheetAsync(SpreadsheetFilePath);
             ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>(result.Issues);
             ImportStatusMessage = result.Summary;
+            await LoadLoadedProblemsAsync();
         });
+    }
+
+    public async Task LoadLoadedProblemsAsync()
+    {
+        var list = await _problemRepo.GetAllAsync();
+        LoadedProblems = new ObservableCollection<Problem>(list);
+    }
+
+    public void LoadProblemForEdit(Problem problem)
+    {
+        if (problem == null)
+        {
+            return;
+        }
+
+        EditingProblemId = problem.ProblemId;
+        SingleProblemCode = problem.ProblemCode;
+        SingleExamType = problem.ExamType;
+        SingleTitle = problem.Title;
+        SingleDescription = problem.Description;
+        SingleDifficulty = problem.Difficulty;
+        SingleStatus = problem.Status;
+        SingleSolutionLanguage = problem.SolutionLanguage;
+        SingleSolutionCode = problem.SolutionCode;
+        SingleTestCases = new ObservableCollection<ProblemImportTestCaseModel>(
+            problem.TestCases.Select(testCase => new ProblemImportTestCaseModel
+            {
+                OrderIndex = testCase.OrderIndex,
+                Input = testCase.Input,
+                ExpectedOutput = testCase.ExpectedOutput,
+                IsExample = testCase.IsExample
+            }));
+
+        ImportStatusMessage = $"正在編輯題目 {problem.ProblemCode}";
     }
 
     [RelayCommand]
@@ -180,6 +230,13 @@ public partial class ImportViewModel : ViewModelBase
         });
 
         ImportStatusMessage = "已新增一列，可直接編輯欄位內容後進行驗證或匯入。";
+    }
+
+    [RelayCommand]
+    public async Task AddSingleProblem()
+    {
+        await ImportSingleProblemAsync();
+        ResetSingleForm();
     }
 
     [RelayCommand]
@@ -225,7 +282,56 @@ public partial class ImportViewModel : ViewModelBase
             var result = await _importService.ImportSingleProblemAsync(form);
             ValidationIssues = new ObservableCollection<ProblemImportValidationIssue>(result.Issues);
             ImportStatusMessage = result.Summary;
+            await LoadLoadedProblemsAsync();
         });
+    }
+
+    [RelayCommand]
+    public async Task DeleteLoadedProblem(Problem? problem)
+    {
+        if (problem == null)
+        {
+            return;
+        }
+
+        await _problemRepo.DeleteAsync(problem.ProblemId);
+        await LoadLoadedProblemsAsync();
+        ImportStatusMessage = $"已刪除題目 {problem.ProblemCode}";
+    }
+
+    [RelayCommand]
+    public void EditLoadedProblem(Problem? problem)
+    {
+        if (problem == null)
+        {
+            return;
+        }
+
+        EditingProblemId = problem.ProblemId;
+        SingleProblemCode = problem.ProblemCode;
+        SingleExamType = problem.ExamType;
+        SingleTitle = problem.Title;
+        SingleDescription = problem.Description;
+        SingleDifficulty = problem.Difficulty;
+        SingleStatus = problem.Status;
+        SingleSolutionLanguage = problem.SolutionLanguage;
+        SingleSolutionCode = problem.SolutionCode;
+        SingleTestCases = new ObservableCollection<ProblemImportTestCaseModel>(
+            problem.TestCases.Select(tc => new ProblemImportTestCaseModel
+            {
+                OrderIndex = tc.OrderIndex,
+                Input = tc.Input,
+                ExpectedOutput = tc.ExpectedOutput,
+                IsExample = tc.IsExample
+            }));
+
+        ImportStatusMessage = $"正在編輯題目 {problem.ProblemCode}（按「匯入 / 更新」以儲存變更）";
+    }
+
+    [RelayCommand]
+    public async Task ImportSingleProblem()
+    {
+        await ImportSingleProblemAsync();
     }
 
     public async Task DownloadTemplateAsync(string filePath)

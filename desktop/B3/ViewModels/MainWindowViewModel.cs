@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using B3.Services;
+using B3.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -227,6 +228,11 @@ public partial class MainWindowViewModel : ViewModelBase
             problemListVM.SetMainViewModel(this);
         }
 
+        if (newView is BankViewModel bankVM)
+        {
+            bankVM.SetMainViewModel(this);
+        }
+
         CurrentView = newView;
     }
 
@@ -260,6 +266,21 @@ public partial class MainWindowViewModel : ViewModelBase
         vm.SetMainViewModel(this);
         CurrentView = vm;
         LoggerService.LogDebug("切換至題目列表視圖");
+    }
+
+    /// <summary>顯示匯入頁面</summary>
+    public void ShowImport(Problem? problem = null)
+    {
+        var vm = new ImportViewModel();
+        if (problem != null)
+        {
+            vm.LoadProblemForEdit(problem);
+        }
+
+        CurrentView = vm;
+        SelectedMainItem = MainItems.FirstOrDefault(item => item.Key == "import");
+        SelectedToolItem = null;
+        LoggerService.LogDebug("切換至匯入視圖");
     }
 
     /// <summary>顯示考試介面</summary>

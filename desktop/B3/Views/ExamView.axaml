@@ -131,26 +131,27 @@
             </Grid>
         </Border>
 
-        <!-- 題目與程式區 -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <Grid ColumnDefinitions="1.05*,0.95*" ColumnSpacing="14" Margin="0,0,0,0" IsEnabled="{Binding IsExamActive}">
-            <StackPanel Grid.Column="0" Spacing="12">
-                <Border Classes="exam-panel">
-                    <StackPanel Spacing="10">
+        <!-- 題目與程式區：一頁式滿版 -->
+        <Grid Grid.Row="1" ColumnDefinitions="1.05*,0.95*" ColumnSpacing="14" IsEnabled="{Binding IsExamActive}">
+            <Grid Grid.Column="0" RowDefinitions="1.05*,0.95*" RowSpacing="12">
+                <Border Classes="exam-panel" Grid.Row="0">
+                    <Grid RowDefinitions="Auto,*" RowSpacing="10">
                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
                             <TextBlock Text="{Binding CurrentProblem.ProblemCode}" FontWeight="Bold" Foreground="#8DC3FF"/>
                             <TextBlock Grid.Column="1" Text="{Binding CurrentProblem.Title}" Classes="exam-title" VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="2" Text="{Binding ScoreGrade}" Classes="muted" VerticalAlignment="Center"/>
                         </Grid>
 
-                        <TextBox Text="{Binding CurrentProblem.Description}" AcceptsReturn="True" IsReadOnly="True" Height="190" Classes="exam-output"/>
-                    </StackPanel>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <TextBox Text="{Binding CurrentProblem.Description}" AcceptsReturn="True" IsReadOnly="True" Classes="exam-output" MinHeight="180"/>
+                        </ScrollViewer>
+                    </Grid>
                 </Border>
 
-                <Border Classes="exam-panel">
-                    <StackPanel Spacing="10">
+                <Border Classes="exam-panel" Grid.Row="1">
+                    <Grid RowDefinitions="Auto,*" RowSpacing="10">
                         <TextBlock Text="示例測試案例" Classes="exam-title"/>
-                        <ListBox ItemsSource="{Binding CurrentTestCases}" Height="220">
+                        <ListBox Grid.Row="1" ItemsSource="{Binding CurrentTestCases}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="0,0,0,8" Padding="10" CornerRadius="8" BorderBrush="#25364E" BorderThickness="1">
@@ -162,13 +163,13 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </StackPanel>
+                    </Grid>
                 </Border>
-            </StackPanel>
+            </Grid>
 
-            <StackPanel Grid.Column="1" Spacing="12">
-                <Border Classes="exam-panel">
-                    <StackPanel Spacing="10">
+            <Grid Grid.Column="1" RowDefinitions="*,Auto" RowSpacing="12">
+                <Border Classes="exam-panel" Grid.Row="0">
+                    <Grid RowDefinitions="Auto,*" RowSpacing="10">
                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                             <StackPanel Spacing="4">
                                 <TextBlock Text="Code Space" Classes="exam-title"/>
@@ -181,7 +182,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid ColumnDefinitions="160,*" ColumnSpacing="12">
+                        <Grid Grid.Row="1" ColumnDefinitions="160,*" ColumnSpacing="12">
                             <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="10">
                                 <StackPanel Spacing="8">
                                     <TextBlock Text="檔案選單" Classes="exam-title" FontSize="14"/>
@@ -204,31 +205,30 @@
                                         <Border Background="#101926" CornerRadius="6" Padding="8">
                                             <TextBlock Text="{Binding EditorLineNumbers}" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" Foreground="#718096" TextAlignment="Right"/>
                                         </Border>
-                                        <TextBox Grid.Column="1" Text="{Binding EditorBuffer}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" MinHeight="280"/>
+                                        <TextBox Grid.Column="1" Text="{Binding EditorBuffer}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" MinHeight="260"/>
                                     </Grid>
                                 </Border>
 
                                 <Border Grid.Row="1" Background="#101923" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                                     <StackPanel Spacing="8">
                                         <TextBlock Text="執行結果" Classes="exam-title" FontSize="14"/>
-                                        <TextBox Text="{Binding OutputResult}" AcceptsReturn="True" Height="140" IsReadOnly="True" Classes="exam-output"/>
+                                        <TextBox Text="{Binding OutputResult}" AcceptsReturn="True" IsReadOnly="True" Classes="exam-output" MinHeight="120"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
                         </Grid>
-                    </StackPanel>
+                    </Grid>
                 </Border>
 
-                <Border Classes="exam-panel">
+                <Border Classes="exam-panel" Grid.Row="1">
                     <StackPanel Spacing="10">
                         <TextBlock Text="判題狀態" Classes="exam-title"/>
                         <TextBlock Text="{Binding LastSubmissionStatusText}" FontWeight="SemiBold" Foreground="#FFC266"/>
                         <TextBlock Text="{Binding LastSubmissionDetailText}" Classes="muted" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Border>
-            </StackPanel>
             </Grid>
-        </ScrollViewer>
+        </Grid>
 
         <!-- 操作列 -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center" IsEnabled="{Binding IsExamActive}">

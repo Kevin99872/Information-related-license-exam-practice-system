@@ -50,6 +50,7 @@
 
         <!-- Elevation brush for subtle outlines -->
         <SolidColorBrush x:Key="ElevationBrush" Color="#000000" Opacity="0.06"/>
+        <BoxShadows x:Key="CardShadow">0 10 24 0 #16000000</BoxShadows>
     </Application.Resources>
 
     <Application.Styles>
@@ -57,6 +58,10 @@
 
         <Style Selector="Window">
             <Setter Property="Background" Value="{DynamicResource PageBgBrush}"/>
+        </Style>
+
+        <Style Selector="Window Grid">
+            <Setter Property="UseLayoutRounding" Value="True"/>
         </Style>
 
         <Style Selector="TextBlock">
@@ -128,14 +133,21 @@
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
+                </Transitions>
+            </Setter>
         </Style>
 
         <Style Selector="Button.card-button:pointerover">
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                    <ScaleTransform ScaleX="1.01" ScaleY="1.01"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Opacity" Value="0.98"/>
         </Style>
 
         <Style Selector="Button.card-button:pressed Border.card">
@@ -153,20 +165,37 @@
             <Setter Property="CornerRadius" Value="{StaticResource RadiusSmall}"/>
             <Setter Property="Transitions">
                 <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16"/>
                 </Transitions>
+            </Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
             </Setter>
         </Style>
 
         <Style Selector="Button.primary:pointerover">
             <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
             <Setter Property="Opacity" Value="1"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.03" ScaleY="1.03"/>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style Selector="Button.primary:pressed">
             <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
             <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="0.99" ScaleY="0.99"/>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style Selector="Button.ghost">
@@ -177,7 +206,8 @@
             <Setter Property="CornerRadius" Value="{StaticResource RadiusSmall}"/>
             <Setter Property="Transitions">
                 <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.12"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
                 </Transitions>
             </Setter>
         </Style>
@@ -189,7 +219,7 @@
         <Style Selector="Border.card">
             <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
             <Setter Property="CornerRadius" Value="{StaticResource RadiusMedium}"/>
-            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Padding" Value="18"/>
             <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
@@ -198,19 +228,48 @@
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="BoxShadow" Value="{DynamicResource CardShadow}"/>
             <Setter Property="Transitions">
                 <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16"/>
                 </Transitions>
             </Setter>
         </Style>
 
         <Style Selector="Border.card:pointerover">
             <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                    <ScaleTransform ScaleX="1.005" ScaleY="1.005"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.list-item">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.16"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16"/>
+                </Transitions>
+            </Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.list-item:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.003" ScaleY="1.003"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -234,6 +293,10 @@
         <Style Selector="ListBoxItem:selected">
             <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
             <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
         </Style>
     </Application.Styles>
 </Application>

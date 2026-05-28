@@ -27,7 +27,25 @@
                         <StackPanel Spacing="16" Margin="4">
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="12">
-                                    <TextBlock FontWeight="Bold" Text="題目基本資料"/>
+                                        <TextBlock FontWeight="Bold" Text="題目基本資料"/>
+                                        <StackPanel Spacing="6">
+                                            <TextBlock Classes="muted" Text="已載入題庫"/>
+                                            <ComboBox ItemsSource="{Binding LoadedProblems}" SelectedItem="{Binding SelectedLoadedProblem}" Width="520">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
+                                                                <TextBlock Classes="muted" Text="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}"/>
+                                                            </StackPanel>
+
+                                                            <Button Grid.Column="1" Content="修改" Margin="6,0,0,0" Command="{Binding DataContext.EditLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                            <Button Grid.Column="2" Content="刪除" Classes="danger" Margin="6,0,0,0" Command="{Binding DataContext.DeleteLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
                                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="10">
                                         <StackPanel Spacing="6">
                                             <TextBlock Classes="muted" Text="題目代碼"/>
@@ -75,14 +93,20 @@
                             </Border>
 
                             <Border Classes="card" Padding="16">
-                                <StackPanel Spacing="12">
-                                    <StackPanel Orientation="Horizontal" Spacing="10">
-                                        <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="測試資料與驗證資料"/>
-                                        <TextBlock Classes="muted" VerticalAlignment="Center" Text="{Binding SingleTestCases.Count, StringFormat=共 {0} 筆}"/>
-                                        <Button Content="新增一筆" Command="{Binding AddSingleTestCaseCommand}"/>
-                                        <Button Content="重設" Classes="ghost" Command="{Binding ResetSingleFormCommand}"/>
-                                        <Button Content="匯入 / 更新" Classes="primary" Command="{Binding ImportSingleProblemCommand}"/>
-                                    </StackPanel>
+                                    <StackPanel Spacing="12">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="測試資料與驗證資料"/>
+                                            <TextBlock Classes="muted" VerticalAlignment="Center" Text="{Binding SingleTestCases.Count, StringFormat=共 {0} 筆}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                                            <Button Content="新增" Classes="primary" Command="{Binding AddSingleProblemCommand}"/>
+                                            <Button Content="新增測試資料" Command="{Binding AddSingleTestCaseCommand}"/>
+                                            <Button Content="重設" Classes="ghost" Command="{Binding ResetSingleFormCommand}"/>
+                                            <Button Content="匯入 / 更新" Classes="primary" Command="{Binding ImportSingleProblemCommand}"/>
+                                        </StackPanel>
+                                    </Grid>
 
                                     <ItemsControl ItemsSource="{Binding SingleTestCases}">
                                         <ItemsControl.ItemTemplate>

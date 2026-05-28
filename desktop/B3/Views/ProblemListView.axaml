@@ -17,9 +17,9 @@
     <Grid ColumnDefinitions="340,*" ColumnSpacing="20" Margin="4">
         <!-- 左側: 上方篩選、下方題目列表 -->
         <Grid Grid.Column="0" RowDefinitions="Auto,*" RowSpacing="12">
-            <Border Classes="card" Padding="12" Grid.Row="0">
+            <Border Classes="card" Padding="16" Grid.Row="0">
                 <StackPanel Spacing="12">
-                    <TextBlock FontWeight="Bold" Text="篩選"/>
+                    <TextBlock FontWeight="Bold" FontSize="16" Text="篩選"/>
                     <StackPanel Spacing="10">
                         <StackPanel Spacing="6">
                             <TextBlock Classes="muted" Text="考照類型"/>
@@ -58,7 +58,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Classes="card" Padding="12" Grid.Row="1">
+            <Border Classes="card" Padding="16" Grid.Row="1">
                 <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Height="540" Margin="0" Padding="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -88,8 +88,8 @@
         </Grid>
 
         <!-- 右側: 上方題目敘述、下方程式編輯與輸出 -->
-        <Grid Grid.Column="1" RowDefinitions="*,2*" RowSpacing="12">
-            <Border Classes="card" Padding="16" Grid.Row="0" IsVisible="{Binding SelectedProblem}">
+        <Grid Grid.Column="1" RowDefinitions="Auto,*,2*" RowSpacing="12">
+            <Border Classes="card" Padding="18" Grid.Row="0" IsVisible="{Binding SelectedProblem}">
                 <Grid RowDefinitions="Auto,*" RowSpacing="10">
                     <StackPanel Spacing="6">
                         <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
@@ -120,8 +120,8 @@
                 </Grid>
             </Border>
 
-            <Grid Grid.Row="1" ColumnDefinitions="1.2*,0.8*" ColumnSpacing="12">
-                <Border Classes="card" Padding="12">
+            <Grid Grid.Row="1" Grid.RowSpan="2" ColumnDefinitions="1.2*,0.8*" ColumnSpacing="12">
+                <Border Classes="card" Padding="16">
                     <Grid RowDefinitions="Auto,*" RowSpacing="10">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock VerticalAlignment="Center" Classes="muted" Text="Code Space"/>
@@ -147,11 +147,32 @@
 
                             <Grid Grid.Column="1" RowDefinitions="*,Auto" RowSpacing="10">
                                 <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
-                                    <Grid ColumnDefinitions="56,*" ColumnSpacing="10">
-                                        <Border Background="#101926" CornerRadius="6" Padding="8">
-                                            <TextBlock Text="{Binding EditorLineNumbers}" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" Foreground="#718096" TextAlignment="Right"/>
+                                    <Grid ColumnDefinitions="64,*" ColumnSpacing="8">
+                                        <Border Background="#101926" CornerRadius="6" Padding="0">
+                                            <TextBox Text="{Binding EditorLineNumbers}"
+                                                     IsReadOnly="True"
+                                                     AcceptsReturn="True"
+                                                     BorderThickness="0"
+                                                     Background="Transparent"
+                                                     Foreground="#718096"
+                                                     FontFamily="Cascadia Code,Consolas,monospace"
+                                                     FontSize="13"
+                                                     LineHeight="20"
+                                                     TextAlignment="Right"
+                                                     VerticalContentAlignment="Top"
+                                                     HorizontalContentAlignment="Right"
+                                                     Padding="8,12,6,12"/>
                                         </Border>
-                                        <TextBox Grid.Column="1" Text="{Binding EditorBuffer, Mode=TwoWay}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" MinHeight="280"/>
+                                        <TextBox Grid.Column="1"
+                                                 Text="{Binding EditorBuffer, Mode=TwoWay}"
+                                                 AcceptsReturn="True"
+                                                 AcceptsTab="True"
+                                                 Classes="exam-editor"
+                                                 FontFamily="Cascadia Code,Consolas,monospace"
+                                                 FontSize="13"
+                                                 LineHeight="20"
+                                                 Padding="12"
+                                                 MinHeight="280"/>
                                     </Grid>
                                 </Border>
 
@@ -166,7 +187,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Column="1" Classes="card" Padding="12">
+                <Border Grid.Column="1" Classes="card" Padding="16">
                     <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock VerticalAlignment="Center" Classes="muted" Text="語言"/>

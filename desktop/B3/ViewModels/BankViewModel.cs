@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using B3.Data;
+using B3.Models;
 using B3.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ public partial class BankViewModel : ViewModelBase
     private readonly ProblemRepository _problemRepo;
     private readonly UserSubmissionRepository _submissionRepo;
     private readonly ProblemImportService _importService = new();
+    private MainWindowViewModel? _mainViewModel;
 
     /// <summary>題庫統計</summary>
     [ObservableProperty]
@@ -58,6 +60,11 @@ public partial class BankViewModel : ViewModelBase
         _ = LoadAsync();
     }
 
+    public void SetMainViewModel(MainWindowViewModel mainViewModel)
+    {
+        _mainViewModel = mainViewModel;
+    }
+
     /// <summary>重新整理</summary>
     [RelayCommand]
     public async Task RefreshAsync()
@@ -79,6 +86,42 @@ public partial class BankViewModel : ViewModelBase
         var count = await _importService.ImportFromFolderAsync(folder);
         StatusMessage = count == 0 ? "沒有新增題目" : $"已匯入 {count} 題";
         await LoadAsync();
+    }
+
+    [RelayCommand]
+    public void ToggleBankExpansion(BankItem? bank)
+    {
+        if (bank == null)
+        {
+            return;
+        }
+
+        bank.IsExpanded = !bank.IsExpanded;
+    }
+
+    [RelayCommand]
+    public async Task DeleteProblemAsync(Problem? problem)
+    {
+        if (problem == null)
+        {
+            return;
+        }
+
+        await _problemRepo.DeleteAsync(problem.ProblemId);
+        StatusMessage = $"已刪除題目 {problem.ProblemCode}";
+        await LoadAsync();
+    }
+
+    [RelayCommand]
+    public void EditProblem(Problem? problem)
+    {
+        if (problem == null || _mainViewModel == null)
+        {
+            return;
+        }
+
+        _mainViewModel.ShowImport(problem);
+        StatusMessage = $"已開啟題目 {problem.ProblemCode} 供編輯";
     }
 
     /// <summary>載入題庫統計</summary>
@@ -105,7 +148,7 @@ public partial class BankViewModel : ViewModelBase
                 .Count();
             var progress = group.Count() == 0 ? 0 : (int)Math.Round(answered * 100.0 / group.Count());
             var updated = group.Max(p => p.UpdatedAt).ToString("yyyy-MM-dd");
-            OfficialBanks.Add(new BankItem(
+            var bank = new BankItem(
                 $"{group.Key} 題庫",
                 "使用中",
                 "官方",
@@ -113,7 +156,12 @@ public partial class BankViewModel : ViewModelBase
                 updated,
                 progress,
                 ""
-            ));
+            )
+            {
+                Problems = new ObservableCollection<Problem>(group.OrderBy(p => p.ProblemCode))
+            };
+
+            OfficialBanks.Add(bank);
         }
     }
 
@@ -138,7 +186,7 @@ public partial class BankViewModel : ViewModelBase
 /// <summary>
 /// 題庫項目
 /// </summary>
-public class BankItem
+public partial class BankItem : ObservableObject
 {
     public BankItem(string title, string status, string source, int questionCount, string updatedDate, int progressPercent, string accentColor)
     {
@@ -158,4 +206,10 @@ public class BankItem
     public string UpdatedDate { get; }
     public int ProgressPercent { get; }
     public string AccentColor { get; }
+
+    [ObservableProperty]
+    private bool isExpanded;
+
+    [ObservableProperty]
+    private ObservableCollection<Problem> problems = new();
 }

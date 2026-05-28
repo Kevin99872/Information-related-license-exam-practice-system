@@ -7,98 +7,107 @@
              x:Class="B3.Views.HomeView"
              x:DataType="vm:HomeViewModel">
 
-    <Grid RowDefinitions="Auto,*" RowSpacing="16">
-        <!-- 標題與操作 -->
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
-            <TextBlock Grid.Row="0" FontSize="20" FontWeight="Bold" Text="快速模擬"/>
-            <TextBlock Grid.Row="1" Classes="muted" Text="選擇您需要的考照類型"/>
+    <ScrollViewer>
+        <StackPanel Spacing="24" Margin="0,6,0,6">
+            <Border Classes="card" Padding="26">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="6">
+                    <StackPanel Spacing="6">
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="快速模擬"/>
+                        <TextBlock Classes="muted" Text="選擇您需要的考照類型，直接開始練習。"/>
+                    </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                <Button Content="匯入題庫" Classes="ghost"/>
-            </StackPanel>
-        </Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button Content="匯入題庫" Classes="ghost"/>
+                        <Button Content="開始練習" Classes="primary"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-        <!-- 熱門考照題庫 -->
-        <StackPanel Grid.Row="1" Spacing="16">
-            <StackPanel Spacing="6">
-                <TextBlock FontWeight="Bold" Text="熱門考照題庫"/>
+            <!-- 熱門考照題庫 -->
+            <StackPanel Spacing="14">
+                <TextBlock FontWeight="Bold" FontSize="16" Text="熱門考照題庫"/>
                 <TextBlock Classes="muted" Text="熱門題庫卡片即時顯示進度，支援每日自我練習"/>
+
+            <ItemsControl ItemsSource="{Binding HotCards}" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="12"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
+                                CommandParameter="{Binding .}">
+                            <Border Classes="card" Margin="0" MinHeight="160" Padding="20">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                                    <Border Width="30" Height="30" Background="{DynamicResource IconBgBrush}" CornerRadius="7"/>
+
+                                    <StackPanel Grid.Column="1" Spacing="10">
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
+                                            <Border Grid.Column="1" HorizontalAlignment="Right" Padding="8,3" Background="{DynamicResource TagBgBrush}" CornerRadius="10">
+                                                <TextBlock FontSize="10" Text="{Binding Tag}"/>
+                                            </Border>
+                                        </Grid>
+
+                                        <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}" MaxLines="2"/>
+
+                                        <StackPanel Orientation="Horizontal" Spacing="14">
+                                            <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                            <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
+                                        <TextBlock Grid.Column="1" Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding ExtraCards}" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="12"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
+                                CommandParameter="{Binding .}">
+                            <Border Classes="card" Margin="0" MinHeight="160" Padding="20">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                                    <Border Width="30" Height="30" Background="{DynamicResource IconBgBrush}" CornerRadius="7"/>
+
+                                    <StackPanel Grid.Column="1" Spacing="10">
+                                        <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
+                                        <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}" MaxLines="2"/>
+
+                                        <StackPanel Orientation="Horizontal" Spacing="14">
+                                            <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                            <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
+                                        <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             </StackPanel>
-
-            <ItemsControl ItemsSource="{Binding HotCards}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="320" ItemHeight="170" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
-                            Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
-                                CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0,0,16,16" MinHeight="170">
-                                <StackPanel Spacing="10">
-                                    <Grid ColumnDefinitions="Auto,*">
-                                        <Border Width="28" Height="28" Background="{DynamicResource IconBgBrush}" CornerRadius="6"/>
-                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
-                                        <Border Grid.Column="1" HorizontalAlignment="Right" Padding="6,2" Background="{DynamicResource TagBgBrush}" CornerRadius="10">
-                                            <TextBlock FontSize="10" Text="{Binding Tag}"/>
-                                        </Border>
-                                    </Grid>
-
-                                    <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}"/>
-
-                                    <StackPanel Orientation="Horizontal" Spacing="12">
-                                        <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
-                                        <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
-                                    </StackPanel>
-
-                                    <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6"/>
-                                        <TextBlock Grid.Column="1" Classes="muted" Margin="8,0,0,0" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <ItemsControl ItemsSource="{Binding ExtraCards}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="320" ItemHeight="170" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
-                            Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
-                                CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0,0,16,16" MinHeight="170">
-                                <StackPanel Spacing="10">
-                                    <Grid ColumnDefinitions="Auto,*">
-                                        <Border Width="28" Height="28" Background="{DynamicResource IconBgBrush}" CornerRadius="6"/>
-                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
-                                    </Grid>
-
-                                    <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}"/>
-
-                                    <StackPanel Orientation="Horizontal" Spacing="12">
-                                        <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
-                                        <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
-                                    </StackPanel>
-
-                                    <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6"/>
-                                        <TextBlock Grid.Column="1" Classes="muted" Margin="8,0,0,0" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>
