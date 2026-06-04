@@ -59,7 +59,7 @@
             </Border>
 
             <Border Classes="card" Padding="16" Grid.Row="1">
-                <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Height="540" Margin="0" Padding="0">
+                <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="12" CornerRadius="10" Classes="list-item" Margin="0,0,0,10">
@@ -89,7 +89,7 @@
 
         <!-- 右側: 上方題目敘述、下方程式編輯與輸出 -->
         <Grid Grid.Column="1" RowDefinitions="Auto,*,2*" RowSpacing="12">
-            <Border Classes="card" Padding="18" Grid.Row="0" IsVisible="{Binding SelectedProblem}">
+            <Border Classes="card" Padding="18" Grid.Row="0" IsVisible="{Binding SelectedProblem}" MaxHeight="340">
                 <Grid RowDefinitions="Auto,*" RowSpacing="10">
                     <StackPanel Spacing="6">
                         <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
