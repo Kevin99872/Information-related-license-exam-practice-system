@@ -1,8 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia.Threading;
+using B3.Data;
 using B3.Services;
 using B3.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -26,16 +29,81 @@ public partial class HomeViewModel : ViewModelBase
 
     public HomeViewModel()
     {
+        // 先顯示載入前的後備資料，再非同步從資料庫載入正式卡片
+        LoadFallbackCards();
+        _ = LoadCardsAsync();
+    }
+
+    /// <summary>
+    /// 從 catalog.db 讀取考試種類，並查詢 exam.db 取得各題庫的實際題數後組成卡片
+    /// </summary>
+    private async Task LoadCardsAsync()
+    {
+        try
+        {
+            List<ExamCategory> categories;
+            using (var catalogContext = new ExamCatalogDbContext())
+            {
+                var categoryRepo = new ExamCategoryRepository(catalogContext);
+                categories = await categoryRepo.GetAllOrderedAsync();
+            }
+
+            if (categories.Count == 0)
+            {
+                return;
+            }
+
+            Dictionary<string, int> questionCounts;
+            using (var examContext = new ExamDbContext())
+            {
+                var problemRepo = new ProblemRepository(examContext);
+                questionCounts = await problemRepo.GetActiveCountByExamTypeAsync();
+            }
+
+            var hot = new ObservableCollection<ExamCard>();
+            var extra = new ObservableCollection<ExamCard>();
+
+            foreach (var category in categories)
+            {
+                var questionCount = questionCounts.TryGetValue(category.ExamType, out var count) ? count : 0;
+                var card = new ExamCard(category.Title, category.ExamType, category.Tag,
+                    category.Description, questionCount, category.DurationMinutes, 0);
+
+                if (category.IsHot)
+                {
+                    hot.Add(card);
+                }
+                else
+                {
+                    extra.Add(card);
+                }
+            }
+
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                HotCards = hot;
+                ExtraCards = extra;
+            });
+        }
+        catch (Exception ex)
+        {
+            LoggerService.LogError("從資料庫載入題庫卡片失敗，沿用後備資料", ex);
+        }
+    }
+
+    /// <summary>資料庫尚未載入或載入失敗時的後備卡片</summary>
+    private void LoadFallbackCards()
+    {
         HotCards = new ObservableCollection<ExamCard>
         {
-            new("TQC+ Python3", "TQC", "熱門", "TQC+ Python 考驗對於Python的基礎程式邏輯與演算法能力。", 90, 180, 0),
-            new("CPE", "CPE", "新增", "大學程式設計先修檢測，考驗 C/C++ 程式邏輯與演算法能力。共1-5級及題目。", 4000, 150, 0),
-            new("APCS", "APCS", "熱門", "APCS 程式設計先修檢測，涵蓋各級程度的演算法與資料結構題庫。", 2100, 120, 5)
+            new("TQC+ Python3", "TQC", "熱門", "TQC+ Python 考驗對於Python的基礎程式邏輯與演算法能力。", 0, 180, 0),
+            new("CPE", "CPE", "新增", "大學程式設計先修檢測，考驗 C/C++ 程式邏輯與演算法能力。共1-5級及題目。", 0, 150, 0),
+            new("APCS", "APCS", "熱門", "APCS 程式設計先修檢測，涵蓋各級程度的演算法與資料結構題庫。", 0, 120, 0)
         };
 
         ExtraCards = new ObservableCollection<ExamCard>
         {
-            new("電腦軟體設計 丙級技術士", "Software", "", "技術士技能檢定丙級，涵蓋各類軟體工程師基本演算法題庫。", 980, 100, 0),
+            new("電腦軟體設計 丙級技術士", "Software", "", "技術士技能檢定丙級，涵蓋各類軟體工程師基本演算法題庫。", 0, 100, 0),
         };
     }
 
