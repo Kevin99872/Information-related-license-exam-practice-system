@@ -64,6 +64,16 @@ public class ProblemRepository
             .ToListAsync();
     }
 
+    /// <summary>統計各考照類型的 Active 題目數量 - 供首頁題庫卡片顯示題數</summary>
+    public async Task<Dictionary<string, int>> GetActiveCountByExamTypeAsync()
+    {
+        return await _context.Problems
+            .Where(p => p.Status == "Active")
+            .GroupBy(p => p.ExamType)
+            .Select(g => new { ExamType = g.Key, Count = g.Count() })
+            .ToDictionaryAsync(x => x.ExamType, x => x.Count);
+    }
+
     /// <summary>按狀態過濾 Draft/Active/Archived</summary>
     public async Task<List<Problem>> GetByStatusAsync(string status)
     {
