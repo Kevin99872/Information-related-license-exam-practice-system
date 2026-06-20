@@ -131,8 +131,8 @@
             </Grid>
         </Border>
 
-        <!-- 題目與程式區：一頁式滿版 -->
-        <Grid Grid.Row="1" ColumnDefinitions="1.05*,0.95*" ColumnSpacing="14" IsEnabled="{Binding IsExamActive}">
+        <!-- 題目與程式區：一頁式滿版 (僅在正式考試開始後顯示) -->
+        <Grid Grid.Row="1" ColumnDefinitions="1.05*,0.95*" ColumnSpacing="14" IsVisible="{Binding IsExamActive}">
             <Grid Grid.Column="0" RowDefinitions="1.05*,0.95*" RowSpacing="12">
                 <Border Classes="exam-panel" Grid.Row="0">
                     <Grid RowDefinitions="Auto,*" RowSpacing="10">
@@ -202,10 +202,14 @@
                             <Grid Grid.Column="1" RowDefinitions="*,Auto" RowSpacing="10">
                                 <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                                     <Grid ColumnDefinitions="56,*" ColumnSpacing="10">
-                                        <Border Background="#101926" CornerRadius="6" Padding="8">
-                                            <TextBlock Text="{Binding EditorLineNumbers}" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" Foreground="#718096" TextAlignment="Right"/>
+                                        <Border Background="#101926" CornerRadius="6" Padding="0" ClipToBounds="True">
+                                            <ScrollViewer x:Name="ExamLineNumberScroll" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                                <TextBlock Text="{Binding EditorLineNumbers}" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" Foreground="#718096" TextAlignment="Right" Padding="8,12,8,12"/>
+                                            </ScrollViewer>
                                         </Border>
-                                        <TextBox Grid.Column="1" Text="{Binding EditorBuffer}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20" MinHeight="260"/>
+                                        <TextBox x:Name="ExamEditor" Grid.Column="1" Text="{Binding EditorBuffer}" AcceptsReturn="True" AcceptsTab="True" Classes="exam-editor" FontFamily="Cascadia Code,Consolas,monospace" FontSize="13" LineHeight="20"
+                                                 VerticalAlignment="Stretch" VerticalContentAlignment="Top"
+                                                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                                     </Grid>
                                 </Border>
 
@@ -230,8 +234,8 @@
             </Grid>
         </Grid>
 
-        <!-- 操作列 -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center" IsEnabled="{Binding IsExamActive}">
+        <!-- 操作列 (僅在正式考試開始後顯示) -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center" IsVisible="{Binding IsExamActive}">
             <Button Content="提交答案" Width="120" Classes="primary" Command="{Binding SubmitAnswerCommand}" IsEnabled="{Binding IsNotJudging}"/>
             <Button Content="跳過" Width="120" Classes="ghost" Command="{Binding SkipProblemCommand}"/>
             <Button Content="結束考試" Width="120" Classes="ghost" Command="{Binding EndExamCommand}"/>

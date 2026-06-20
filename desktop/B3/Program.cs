@@ -15,6 +15,7 @@ sealed class Program
         {
             LoggerService.Log("應用啟動...");
             ExamDbContext.Initialize();
+            ExamCatalogDbContext.Initialize();
             SeedTqcProblems();
         }
         catch (Exception ex)

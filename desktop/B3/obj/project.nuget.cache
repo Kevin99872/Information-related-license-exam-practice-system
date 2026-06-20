@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bDyCjN+u/ZI=",
+  "dgSpecHash": "l4kZiffja4w=",
   "success": true,
   "projectFilePath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
   "expectedPackageFiles": [
@@ -87,7 +87,7 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-37gx-xxp4-5rgx。",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
       "projectPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
@@ -99,7 +99,7 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-w3x6-4m5h-cxqf。",
+      "message": "Package 'System.Security.Cryptography.Xml' 8.0.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
       "projectPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
