@@ -97,14 +97,10 @@ public partial class HomeViewModel : ViewModelBase
         HotCards = new ObservableCollection<ExamCard>
         {
             new("TQC+ Python3", "TQC", "熱門", "TQC+ Python 考驗對於Python的基礎程式邏輯與演算法能力。", 0, 180, 0),
-            new("CPE", "CPE", "新增", "大學程式設計先修檢測，考驗 C/C++ 程式邏輯與演算法能力。共1-5級及題目。", 0, 150, 0),
-            new("APCS", "APCS", "熱門", "APCS 程式設計先修檢測，涵蓋各級程度的演算法與資料結構題庫。", 0, 120, 0)
         };
 
         ExtraCards = new ObservableCollection<ExamCard>
-        {
-            new("電腦軟體設計 丙級技術士", "Software", "", "技術士技能檢定丙級，涵蓋各類軟體工程師基本演算法題庫。", 0, 100, 0),
-        };
+        {     };
     }
 
     /// <summary>設定父視窗 ViewModel - 用於導航</summary>

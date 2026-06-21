@@ -9,7 +9,7 @@
         x:Name="Root"
         x:DataType="vm:MainWindowViewModel"
         Icon="avares://B3/Assets/app-icon.png"
-        Title="智慧考試系統 - B3"
+        Title="智慧考試系統"
         WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
@@ -34,7 +34,7 @@
                         <Image Source="avares://B3/Assets/app-icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
                         <TextBlock Text="智慧考照" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <TextBlock Text="ExamAI v1.0" Classes="muted" FontSize="12" IsVisible="{Binding IsSidebarExpanded}"/>
+                    <TextBlock Text="Bata Ver v0.0.2" Classes="muted" FontSize="12" IsVisible="{Binding IsSidebarExpanded}"/>
                     <Button Content="menu" HorizontalAlignment="Left"  Command="{Binding ToggleSidebarCommand}"/>
                 </StackPanel>
 

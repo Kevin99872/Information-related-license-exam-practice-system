@@ -240,6 +240,10 @@ public partial class ExamViewModel : ViewModelBase
     [ObservableProperty]
     private ExamCard? selectedExamCard;
 
+    /// <summary>目前考試種類的介紹說明 (取自 catalog.db)</summary>
+    [ObservableProperty]
+    private string examDescription = string.Empty;
+
     /// <summary>考試開始時間</summary>
     private DateTime _examStartTime;
 
@@ -329,6 +333,7 @@ public partial class ExamViewModel : ViewModelBase
         EditableQuestionCount = Math.Max(1, card.QuestionCount);
 
         await LoadQuestionBankInfoAsync(card.ExamType);
+        await LoadExamDescriptionAsync(card.ExamType);
         if (AvailableQuestionCount > 0)
         {
             EditableQuestionCount = Math.Min(EditableQuestionCount, AvailableQuestionCount);
@@ -806,6 +811,36 @@ public partial class ExamViewModel : ViewModelBase
     {
         ExamType = value;
         _ = LoadQuestionBankInfoAsync(value);
+        _ = LoadExamDescriptionAsync(value);
+    }
+
+    /// <summary>載入指定考試種類的介紹說明，若 catalog.db 已有相關說明則直接顯示</summary>
+    public async Task LoadExamDescriptionAsync(string examType)
+    {
+        try
+        {
+            using var catalogContext = new ExamCatalogDbContext();
+            var categoryRepo = new ExamCategoryRepository(catalogContext);
+            var category = await categoryRepo.GetByExamTypeAsync(examType);
+
+            if (category != null && !string.IsNullOrWhiteSpace(category.Description))
+            {
+                ExamDescription = category.Description;
+            }
+            else if (!string.IsNullOrWhiteSpace(SelectedExamCard?.Description))
+            {
+                // catalog 無資料時，沿用點擊卡片帶入的說明
+                ExamDescription = SelectedExamCard!.Description;
+            }
+            else
+            {
+                ExamDescription = string.Empty;
+            }
+        }
+        catch (Exception ex)
+        {
+            LoggerService.LogError("載入考試種類說明失敗", ex);
+        }
     }
 
     /// <summary>更新可修改考試時間時同步預覽文字</summary>

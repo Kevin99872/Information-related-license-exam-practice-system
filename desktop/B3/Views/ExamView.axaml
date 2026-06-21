@@ -73,7 +73,8 @@
                             <StackPanel Spacing="10">
                                 <TextBlock Text="考試資訊" Classes="exam-title"/>
                                 <TextBlock Text="{Binding ExamTitle}" FontSize="18" FontWeight="SemiBold"/>
-                                <TextBlock Classes="muted" Text="{Binding SelectedExamCard.Description}" TextWrapping="Wrap"/>
+                                <TextBlock Classes="muted" Text="{Binding ExamDescription}" TextWrapping="Wrap"
+                                           IsVisible="{Binding ExamDescription, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                             </StackPanel>
                         </Border>
 
