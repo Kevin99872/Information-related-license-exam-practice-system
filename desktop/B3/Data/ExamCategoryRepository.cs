@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using B3.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace B3.Data;
@@ -23,5 +24,12 @@ public class ExamCategoryRepository
         return await _context.ExamCategories
             .OrderBy(c => c.SortOrder)
             .ToListAsync();
+    }
+
+    /// <summary>依考試種類代碼取得單筆 (找不到回傳 null)</summary>
+    public async Task<ExamCategory?> GetByExamTypeAsync(string examType)
+    {
+        return await _context.ExamCategories
+            .FirstOrDefaultAsync(c => c.ExamType == examType);
     }
 }

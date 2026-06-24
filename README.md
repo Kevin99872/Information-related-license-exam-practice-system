@@ -1,90 +1,184 @@
-# 智慧考試系統
-## 啟發原因
-因應時代的快速發展,軟體工程師不僅僅侷限於大學時學習的技能,為了讓企業更好的對個人評估其實力標準會參考Leetcode,CPE證照,TQC.....等相關證照的證明,但其困境在於每個人的時間有限,平日除了應付工作之外也要做各種繁忙事務,更是需要支付大把金錢供那些考照機構進行報名及學習,為了節省這些費用及活用時間,我們做了這個Program.
-## 技術要點
-- UI操作介面
-    - 開始畫面
-        - 伸縮式菜單
-        - 考照選項
-    - 考試設定控制項
-        - 時間設定控制項(分鐘)
-        - 題目數量設定控制項
-        - 編譯語言控制項
-    - 考時畫面
-        - 計時器(Timer)
-        - 題目隨機抽選顯示
-        - 提交驗證按鈕
-        - 實際可運行簡易IDE
-        
-    - 設定
-        - 設定Agent API_KEY或本地AI model選擇
-        - 設定介面色彩
-        - 設定字型大小
-    - 結束評測畫面
-        - 成績評測顯示介面
-        - AI問答畫面
-        - 一鍵分析程式碼漏洞與寫法問題
-- 後端
-    - 本地語言AI model
-        - 考照分析prompt
-        - 問答role
-    - 程式碼驗證
-        - 分析輸入輸出答案是否一致
-        - 隨機動態題目輸入
-    - 隨機題目抽選
-    - API_KEY線上Agent
-        - API_KEY串接
-        - prompt工程
-## 軟體特點
-- 無網路環境可執行
-    
-    此專案所有題庫皆為本地儲存,使用SQLite進行規劃及管理
-- 多系統泛用
+<div align="center">
 
-    不管你是linux,macOS,windows,因avalonia框架所帶來的便利性,發出release時都可以全部環境執行
-- 多種編譯方式通用
+<img src="desktop/B3/Assets/app-icon-128.png" width="96" alt="Smart Exam System logo" />
 
-    在這個方案中我們提供了C/C++,Pyhton,C#等路徑提供編譯及測試環境,可以根據輸入的路徑進行編譯
+# Smart Exam System
 
-## 快速開始
-- install
+**An offline-first, cross-platform practice platform for IT certification exams — with a built-in code runner and an AI tutor.**
 
-    點選旁邊release->找到自己的系統版本->點選下載->解包至資料夾->Enjoy!
-- 編譯路徑
+`TQC+` · `CPE` · `APCS` · `Technician Class C`
 
-    設定>編譯路徑>依照自己的系統版本進行路徑設置
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)](https://dotnet.microsoft.com/)
+[![Avalonia](https://img.shields.io/badge/Avalonia-12.0-883AE3)](https://avaloniaui.net/)
+[![SQLite](https://img.shields.io/badge/SQLite-local-003B57)](https://www.sqlite.org/)
+[![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-informational)]()
 
+**English** · [繁體中文](README-CN.md)
 
-## 技術框架
-- 題庫資料庫
-    - SQLite
-- 程式主體框架
-    - Python
-    - C#
-    - NET.Core 10.0.101
-    - Avalonia 
+</div>
 
-## 題庫匯入格式
-匯入頁面支援兩種方式：
-- 單題新增：直接輸入題目代碼、考照種類、題目敘述、解法程式碼，以及多筆測試資料與驗證資料。
-- 表單匯入：支援 `.csv`、`.xls`、`.xlsx`，每一列代表一筆測試資料；相同 `ProblemCode` 的列會合併成同一題。
+---
 
-### 欄位規格
-匯入表單請依下列欄位順序建立：
-`ProblemCode`, `ExamType`, `Title`, `Description`, `Difficulty`, `Status`, `SolutionLanguage`, `SolutionCode`, `OrderIndex`, `IsExample`, `TestInput`, `ExpectedOutput`
+## Why this project
 
-### 範例值
-- `ProblemCode`：`PYD101`
-- `ExamType`：`TQC`
-- `Difficulty`：`1 / 2 / 3` 或 `簡單 / 中等 / 困難`
-- `Status`：`Draft` 或 `Active`
-- `IsExample`：`True / False`、`是 / 否`
+As the software industry evolves, engineers are increasingly measured against certifications — LeetCode, CPE, TQC, and the like. But preparing for them is expensive and time-consuming: registration fees, prep-course costs, and hours that working professionals simply don't have.
 
-### 模板下載
-在應用程式的「匯入題庫」頁面可以直接下載 CSV 模板，下載後可用 Excel、LibreOffice 或其他試算表工具編輯，再匯入系統。
+**Smart Exam System** removes those barriers. Every question bank lives locally, the whole app runs without an internet connection, and an integrated AI tutor reviews your code — so you can practice anytime, on any OS, for free.
 
+---
 
-## 參考
-- EZTest英文考照
-- Tronclass大學學習網站
-- 巨X電腦
+## Screenshots
+
+### Home — Quick Simulation
+Pick a certification and start practicing immediately. Popular banks show live progress.
+
+![Home page](Assart/mainpage.png)
+
+### Exam Setup
+Confirm the bank, question count, time limit, and language before you begin.
+
+![Exam setup](Assart/startpage.png)
+
+### Exam in Progress — Built-in IDE
+A real, runnable code workspace with a timer, randomized questions, a file pane, and a submit-and-verify button.
+
+![Exam page](Assart/problemtestpage.png)
+
+### Results & AI Tutor
+Get your grade, accuracy, and time. Ask the AI questions or have it analyze your code for bugs and style issues — all in one panel.
+
+![Result page](Assart/resultpage.png)
+
+<details>
+<summary><b>More screens</b> (question browser, bank management, import, settings)</summary>
+
+<br/>
+
+| Question Browser | Loaded Banks |
+| :---: | :---: |
+| ![Question list](Assart/problemtrainlist.png) | ![Loaded banks](Assart/problemdatalist.png) |
+| Filter by exam type / difficulty / status, preview and edit solution code. | Track loaded banks, total questions, attempts, and overall accuracy. |
+
+| Import Question Bank | Style Settings |
+| :---: | :---: |
+| ![Import](Assart/problemimport.png) | ![Style](Assart/programstyle.png) |
+| Add single questions or bulk-import via CSV / XLS / XLSX / TXT. | Switch theme, font, and size with a live preview. |
+
+| Exam Behavior | AI Model | Data Management |
+| :---: | :---: | :---: |
+| ![Exam settings](Assart/comfig.png) | ![AI settings](Assart/aiportconfig.png) | ![Data settings](Assart/problemconfig.png) |
+| Toggle instant answers, countdown, shuffle, and difficulty. | Configure the Ollama endpoint or a local Transformers model. | Export records, back up banks, and set compiler paths. |
+
+</details>
+
+---
+
+## Features
+
+- ** Works fully offline** — Every question bank is stored locally and managed with **SQLite**. No network required.
+- ** Truly cross-platform** — Built on **Avalonia**, a single release runs on **Windows, Linux, and macOS** (Intel & Apple Silicon).
+- ** Multi-language code runner** — Compile and test against **Python, C/C++, and C#** runtimes; the judge runs your code and compares actual output against expected output.
+- **Built-in AI tutor** — Connect a local **Ollama** model (default `qwen2.5-coder:7b`) or a local Transformers model. Ask coding questions and get one-click analysis of bugs and style problems — no API key required.
+- ** Progress tracking** — Per-bank progress, attempt counts, and overall accuracy at a glance.
+- ** Flexible import** — Add questions one at a time or bulk-import from `CSV` / `XLS` / `XLSX` / `TXT`, including multiple test cases per question.
+
+---
+
+## Quick Start
+
+### Install (recommended)
+
+1. Open the **[Releases](../../releases)** page.
+2. Download the build for your OS (`windows` / `linux` / `macOS-x64` / `macOS-arm64`).
+3. Unzip into a folder and run the app. **Done!**
+
+### Configure compiler paths
+
+Go to **Settings → Data Management → Runtime Environment** and set the paths for your platform:
+
+| Runtime | Default | Notes |
+| --- | --- | --- |
+| Python | `python` / full path to `python.exe` | Required for Python questions |
+| C++ | `g++` | Required for C/C++ questions |
+| .NET | `dotnet` | Required for C# questions |
+
+### (Optional) Enable the AI tutor
+
+1. Install [Ollama](https://ollama.com/) and pull a model, e.g. `ollama pull qwen2.5-coder:7b`.
+2. In **Settings → AI Model**, confirm the endpoint (`http://localhost:11434`) and model name.
+
+---
+
+## Build from Source
+
+**Prerequisites:** [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+```bash
+git clone https://github.com/<your-account>/Information-related-license-exam-practice-system.git
+cd Information-related-license-exam-practice-system/desktop/B3
+
+# Run
+dotnet run
+
+# Publish for all platforms (from the repo root, via PowerShell)
+pwsh ../../package.ps1
+```
+
+`package.ps1` produces self-contained zips for `win-x64`, `linux-x64`, `osx-x64`, and `osx-arm64` (macOS builds are wrapped into a `.app` bundle).
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| UI framework | Avalonia 12.0 (Fluent theme), MVVM via CommunityToolkit.Mvvm |
+| Runtime | .NET 10.0 |
+| Database | SQLite via Entity Framework Core 8 |
+| Spreadsheet import | NPOI |
+| AI backend | Ollama (local) / local Transformers model |
+| Code judging | External Python / g++ / dotnet processes |
+
+---
+
+## Importing Question Banks
+
+The **Import** page supports two methods:
+
+- **Single question** — Enter the problem code, exam type, title, description, and solution code, plus one or more test/verification data rows.
+- **Bulk import** — Upload `.csv`, `.xls`, or `.xlsx`. Each row is one test case; rows sharing the same `ProblemCode` merge into a single question.
+
+### Column specification
+
+Build your import sheet in this column order:
+
+```
+ProblemCode, ExamType, Title, Description, Difficulty, Status,
+SolutionLanguage, SolutionCode, OrderIndex, IsExample, TestInput, ExpectedOutput
+```
+
+### Example values
+
+| Field | Example |
+| --- | --- |
+| `ProblemCode` | `PYD101` |
+| `ExamType` | `TQC` |
+| `Difficulty` | `1 / 2 / 3` or `Easy / Medium / Hard` |
+| `Status` | `Draft` or `Active` |
+| `IsExample` | `True / False` |
+
+>  You can download a ready-made CSV template directly from the **Import** page, edit it in Excel / LibreOffice, and re-import it.
+
+---
+
+## Acknowledgements
+
+- **EZTest** — English certification practice
+- **TronClass** — university learning platform
+- The certification-prep computer schools that inspired this project
+
+---
+
+<div align="center">
+<sub>Built with Avalonia · Made for learners who'd rather practice than pay.</sub>
+</div>
