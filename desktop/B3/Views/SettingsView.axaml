@@ -8,24 +8,6 @@
              x:Class="B3.Views.SettingsView"
              x:DataType="vm:SettingsViewModel">
 
-    <UserControl.Styles>
-        <!-- 區塊切換入場動畫: 淡入 + 微上移 -->
-        <Style Selector="StackPanel.settings-section[IsVisible=True]">
-            <Style.Animations>
-                <Animation Duration="0:0:0.25" FillMode="Forward" Easing="CubicEaseOut">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="RenderTransform" Value="translateY(10px)"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1"/>
-                        <Setter Property="RenderTransform" Value="translateY(0px)"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-    </UserControl.Styles>
-
     <Grid RowDefinitions="Auto,*" RowSpacing="16">
         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
             <TextBlock FontWeight="Bold" Text="{loc:Loc Home}"/>
@@ -54,7 +36,7 @@
 
             <Grid Grid.Column="1">
                 <!-- 一般設定 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsGeneralSection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsGeneralSection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc GeneralHeader}"/>
                     <Border Classes="card">
                         <Grid ColumnDefinitions="*,Auto">
@@ -78,7 +60,7 @@
                 </StackPanel>
 
                 <!-- 考試設定 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsExamSection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsExamSection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc ExamBehavior}"/>
                     <Border Classes="card">
                         <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="12">
@@ -131,7 +113,7 @@
                 <!-- 通知 已移除 -->
 
                 <!-- 快捷鍵 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsKeySection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsKeySection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc KeyboardShortcuts}"/>
                     <Border Classes="card">
                         <ItemsControl ItemsSource="{Binding KeyBindings}">
@@ -148,7 +130,7 @@
                 </StackPanel>
 
                 <!-- 資料管理 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsDataSection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsDataSection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc DataManagement}"/>
                     <Border Classes="card">
                         <ItemsControl ItemsSource="{Binding DataActions}">
@@ -194,7 +176,7 @@
                 </StackPanel>
 
                 <!-- AI 模型 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsAiSection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsAiSection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc AiModel}"/>
                     <Border Classes="card">
                         <StackPanel Spacing="12">
@@ -220,7 +202,7 @@
                 </StackPanel>
 
                 <!-- 關於 -->
-                <StackPanel Classes="settings-section" IsVisible="{Binding IsAboutSection}" Spacing="16">
+                <StackPanel IsVisible="{Binding IsAboutSection}" Spacing="16">
                     <TextBlock FontWeight="Bold" Text="{loc:Loc AboutTitle}"/>
                     <Border Classes="card">
                         <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="12">

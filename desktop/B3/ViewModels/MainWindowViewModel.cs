@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Animation;
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 
 namespace B3.ViewModels;
@@ -21,9 +23,16 @@ public partial class MainWindowViewModel : ViewModelBase
     private const double ExpandedWidth = 240;
     private const double CollapsedWidth = 72;
 
+    /// <summary>滑動 + 淡化 組合頁面過渡</summary>
+    private static readonly IPageTransition SlideFadeTransition = CreateSlideFadeTransition();
+
     /// <summary>當前顯示的視圖</summary>
     [ObservableProperty]
     private object currentView = new object();
+
+    /// <summary>目前頁面過渡效果 - null 表示直接切換不播動畫 (設定頁使用)</summary>
+    [ObservableProperty]
+    private IPageTransition? pageTransition = SlideFadeTransition;
 
     /// <summary>主選單清單</summary>
     [ObservableProperty]
@@ -123,22 +132,28 @@ public partial class MainWindowViewModel : ViewModelBase
         };
     }
 
-    /// <summary>語言切換時重建導航項目文字並保留選取狀態</summary>
+    /// <summary>導航項目的字串表鍵值</summary>
+    private static string NavTitleKey(string key) => key switch
+    {
+        "home" => "NavHome",
+        "question" => "NavQuestion",
+        "bank" => "NavBank",
+        "import" => "NavImport",
+        "style" => "NavStyle",
+        _ => key
+    };
+
+    /// <summary>語言切換時就地更新導航文字 - 不重建集合以保留選取狀態</summary>
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
-        var mainKey = SelectedMainItem?.Key;
-        var toolKey = SelectedToolItem?.Key;
-
-        InitializeNavigation();
-
-        if (mainKey != null)
+        foreach (var item in MainItems)
         {
-            SelectedMainItem = MainItems.FirstOrDefault(item => item.Key == mainKey);
+            item.Title = LocalizationService.T(NavTitleKey(item.Key));
         }
 
-        if (toolKey != null)
+        foreach (var item in ToolItems)
         {
-            SelectedToolItem = ToolItems.FirstOrDefault(item => item.Key == toolKey);
+            item.Title = LocalizationService.T(NavTitleKey(item.Key));
         }
     }
 
@@ -217,6 +232,19 @@ public partial class MainWindowViewModel : ViewModelBase
         IsSidebarHovering = isHovering;
     }
 
+    /// <summary>建立滑動 + 淡化的組合過渡</summary>
+    private static IPageTransition CreateSlideFadeTransition()
+    {
+        var composite = new CompositePageTransition();
+        composite.PageTransitions.Add(new CrossFade(TimeSpan.FromMilliseconds(250)));
+        composite.PageTransitions.Add(new PageSlide(TimeSpan.FromMilliseconds(250), PageSlide.SlideAxis.Horizontal)
+        {
+            SlideInEasing = new CubicEaseOut(),
+            SlideOutEasing = new CubicEaseOut()
+        });
+        return composite;
+    }
+
     /// <summary>切換顯示視圖</summary>
     private void NavigateTo(string key)
     {
@@ -224,6 +252,9 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             return;
         }
+
+        // 設定頁直接顯示不播過渡動畫，其他頁面使用滑動 + 淡化
+        PageTransition = key == "settings" ? null : SlideFadeTransition;
 
             object newView = key switch
             {
@@ -260,6 +291,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>從考試卡片啟動考試 - 由 HomeView 呼叫</summary>
     public async System.Threading.Tasks.Task StartExamFromCardAsync(ExamCard card)
     {
+        PageTransition = SlideFadeTransition;
         var examVM = new ExamViewModel();
         examVM.RequestHomeNavigation = () => NavigateTo("home");
         examVM.RequestResultNavigation = resultViewModel =>
@@ -283,6 +315,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void ShowProblemList()
     {
+        PageTransition = SlideFadeTransition;
         var vm = new ProblemListViewModel();
         vm.SetMainViewModel(this);
         CurrentView = vm;
@@ -292,6 +325,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>顯示匯入頁面</summary>
     public void ShowImport(Problem? problem = null)
     {
+        PageTransition = SlideFadeTransition;
         var vm = new ImportViewModel();
         if (problem != null)
         {
@@ -401,20 +435,28 @@ public partial class MainWindowViewModel : ViewModelBase
 }
 
 /// <summary>
-/// 導航項目
+/// 導航項目 - Title 可於語言切換時就地更新
 /// </summary>
-public class NavItem
+public partial class NavItem : ObservableObject
 {
     public NavItem(string key, string title)
     {
         Key = key;
         Title = title;
-        ShortTitle = string.IsNullOrWhiteSpace(title) ? string.Empty : title.Substring(0, 1);
     }
 
     public string Key { get; }
-    public string Title { get; }
-    public string ShortTitle { get; }
+
+    [ObservableProperty]
+    private string title = string.Empty;
+
+    [ObservableProperty]
+    private string shortTitle = string.Empty;
+
+    partial void OnTitleChanged(string value)
+    {
+        ShortTitle = string.IsNullOrWhiteSpace(value) ? string.Empty : value.Substring(0, 1);
+    }
 }
 
 

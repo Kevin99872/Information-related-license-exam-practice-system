@@ -92,22 +92,10 @@
             </Grid>
         </Border>
 
-        <!-- 主內容區 - 使用 ViewLocator 自動映射 ViewModel 到 View，切換頁面時淡入淡出 -->
-        <TransitioningContentControl Grid.Column="1" Content="{Binding CurrentView}" Margin="24">
-            <TransitioningContentControl.PageTransition>
-                <!-- 滑動 + 淡化 組合過渡 -->
-                <CompositePageTransition>
-                    <CrossFade Duration="0:0:0.25"/>
-                    <PageSlide Duration="0:0:0.25" Orientation="Horizontal">
-                        <PageSlide.SlideInEasing>
-                            <CubicEaseOut/>
-                        </PageSlide.SlideInEasing>
-                        <PageSlide.SlideOutEasing>
-                            <CubicEaseOut/>
-                        </PageSlide.SlideOutEasing>
-                    </PageSlide>
-                </CompositePageTransition>
-            </TransitioningContentControl.PageTransition>
+        <!-- 主內容區 - 使用 ViewLocator 自動映射 ViewModel 到 View
+             過渡效果由 ViewModel 控制: 一般頁面為滑動+淡化，設定頁為直接切換 (null) -->
+        <TransitioningContentControl Grid.Column="1" Content="{Binding CurrentView}" Margin="24"
+                                     PageTransition="{Binding PageTransition}">
             <TransitioningContentControl.ContentTemplate>
                 <local:ViewLocator/>
             </TransitioningContentControl.ContentTemplate>

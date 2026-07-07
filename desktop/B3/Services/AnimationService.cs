@@ -15,7 +15,8 @@ namespace B3.Services
             var tcs = new TaskCompletionSource<bool>();
             var sw = System.Diagnostics.Stopwatch.StartNew();
             easing ??= EaseOutCubic;
-            var timer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (s, e) =>
+            // 5ms ≈ 200fps，進度以 Stopwatch 實際經過時間計算，計時器頻率只影響更新密度
+            var timer = new DispatcherTimer(TimeSpan.FromMilliseconds(5), DispatcherPriority.Render, (s, e) =>
             {
                 var elapsed = sw.Elapsed.TotalMilliseconds;
                 var progress = Math.Min(1.0, elapsed / Math.Max(1, duration.TotalMilliseconds));

@@ -146,18 +146,6 @@ public partial class SettingsViewModel : ViewModelBase
             new(LocalizationService.EnUs, "English")
         };
 
-        BuildSections("general");
-
-        _suppressAutoSave = true;
-        LoadSettings();
-        _suppressAutoSave = false;
-
-        BuildLocalizedLists();
-    }
-
-    /// <summary>依目前語言重建設定頁籤</summary>
-    private void BuildSections(string? selectKey)
-    {
         Sections = new ObservableCollection<SettingsSection>
         {
             new("general", LocalizationService.T("SectionGeneral")),
@@ -167,8 +155,35 @@ public partial class SettingsViewModel : ViewModelBase
             new("ai", LocalizationService.T("SectionAi")),
             new("about", LocalizationService.T("SectionAbout"))
         };
-        SelectedSection = Sections.FirstOrDefault(s => s.Key == selectKey) ?? Sections[0];
+        SelectedSection = Sections[0];
         UpdateSectionFlags();
+
+        _suppressAutoSave = true;
+        LoadSettings();
+        _suppressAutoSave = false;
+
+        BuildLocalizedLists();
+    }
+
+    /// <summary>設定頁籤的字串表鍵值</summary>
+    private static string SectionTitleKey(string key) => key switch
+    {
+        "general" => "SectionGeneral",
+        "exam" => "SectionExam",
+        "key" => "SectionKey",
+        "data" => "SectionData",
+        "ai" => "SectionAi",
+        "about" => "SectionAbout",
+        _ => key
+    };
+
+    /// <summary>語言切換時就地更新頁籤標題 - 不重建集合以保留 ListBox 選取狀態</summary>
+    private void RefreshSectionTitles()
+    {
+        foreach (var section in Sections)
+        {
+            section.Title = LocalizationService.T(SectionTitleKey(section.Key));
+        }
     }
 
     /// <summary>依目前語言重建快捷鍵與資料管理清單</summary>
@@ -197,10 +212,16 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>切換區塊顯示狀態</summary>
     partial void OnSelectedSectionChanged(SettingsSection? value)
     {
+        // ListBox 更新過程可能暫時推入 null，保持目前顯示避免區塊全部消失
+        if (value == null)
+        {
+            return;
+        }
+
         UpdateSectionFlags();
     }
 
-    /// <summary>介面語言變更 - 立即套用、儲存並重建顯示文字</summary>
+    /// <summary>介面語言變更 - 立即套用、儲存並更新顯示文字</summary>
     partial void OnSelectedUiLanguageChanged(LanguageOption? value)
     {
         if (value == null)
@@ -210,7 +231,7 @@ public partial class SettingsViewModel : ViewModelBase
 
         LocalizationService.Instance.SetLanguage(value.Code);
 
-        BuildSections(SelectedSection?.Key);
+        RefreshSectionTitles();
         BuildLocalizedLists();
 
         PersistSettingsIfAllowed();
@@ -310,18 +331,20 @@ public partial class SettingsViewModel : ViewModelBase
 }
 
 /// <summary>
-/// 設定頁籤
+/// 設定頁籤 - Title 可於語言切換時就地更新
 /// </summary>
-public class SettingsSection
+public partial class SettingsSection : ObservableObject
 {
     public SettingsSection(string key, string title)
     {
         Key = key;
-        Title = title;
+        this.title = title;
     }
 
     public string Key { get; }
-    public string Title { get; }
+
+    [ObservableProperty]
+    private string title;
 }
 
 /// <summary>

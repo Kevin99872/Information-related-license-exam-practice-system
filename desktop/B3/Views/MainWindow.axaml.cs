@@ -73,7 +73,8 @@ public partial class MainWindow : Window
         _sidebarTimer?.Stop();
 
         _sidebarStopwatch = Stopwatch.StartNew();
-        _sidebarTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Normal, (s, ev) =>
+        // 5ms ≈ 200fps，進度以 Stopwatch 實際經過時間計算，計時器頻率只影響更新密度
+        _sidebarTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(5), DispatcherPriority.Render, (s, ev) =>
         {
             if (_sidebarStopwatch == null) return;
             var progress = _sidebarStopwatch.Elapsed.TotalMilliseconds / SidebarAnimDuration.TotalMilliseconds;
