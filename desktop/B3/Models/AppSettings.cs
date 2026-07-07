@@ -55,4 +55,7 @@ public class AppSettings
 
     /// <summary>是否顯示進度條</summary>
     public bool ShowProgress { get; set; } = true;
+
+    /// <summary>介面語言 (zh-TW / en-US)</summary>
+    public string UiLanguage { get; set; } = "zh-TW";
 }

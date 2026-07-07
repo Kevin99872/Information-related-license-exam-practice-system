@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using B3.Localization;
 using B3.Services;
 using B3.Models;
 using System;
@@ -69,6 +70,7 @@ public partial class MainWindowViewModel : ViewModelBase
         try
         {
             InitializeNavigation();
+            LocalizationService.Instance.LanguageChanged += OnLanguageChanged;
             NavigateTo("home");
             SelectedMainItem = MainItems.FirstOrDefault(item => item.Key == "home");
             LoggerService.LogDebug("MainWindowViewModel 初始化完成");
@@ -108,17 +110,36 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         MainItems = new ObservableCollection<NavItem>
         {
-            new("home", "開始畫面"),
-            new("question", "題目"),
-            new("bank", "已載入題庫"),
-            new("import", "匯入")
+            new("home", LocalizationService.T("NavHome")),
+            new("question", LocalizationService.T("NavQuestion")),
+            new("bank", LocalizationService.T("NavBank")),
+            new("import", LocalizationService.T("NavImport"))
         };
 
         ToolItems = new ObservableCollection<NavItem>
         {
-            
-            new("style", "樣式")
+
+            new("style", LocalizationService.T("NavStyle"))
         };
+    }
+
+    /// <summary>語言切換時重建導航項目文字並保留選取狀態</summary>
+    private void OnLanguageChanged(object? sender, EventArgs e)
+    {
+        var mainKey = SelectedMainItem?.Key;
+        var toolKey = SelectedToolItem?.Key;
+
+        InitializeNavigation();
+
+        if (mainKey != null)
+        {
+            SelectedMainItem = MainItems.FirstOrDefault(item => item.Key == mainKey);
+        }
+
+        if (toolKey != null)
+        {
+            SelectedToolItem = ToolItems.FirstOrDefault(item => item.Key == toolKey);
+        }
     }
 
     /// <summary>主選單變更時導向對應頁面</summary>

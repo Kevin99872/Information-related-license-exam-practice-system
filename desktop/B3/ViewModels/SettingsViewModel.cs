@@ -1,8 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using B3.Localization;
 using B3.Models;
 using B3.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace B3.ViewModels;
 
@@ -21,6 +23,10 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>選取頁籤</summary>
     [ObservableProperty]
     private SettingsSection? selectedSection;
+
+    /// <summary>一般設定顯示</summary>
+    [ObservableProperty]
+    private bool isGeneralSection;
 
     /// <summary>考試設定顯示</summary>
     [ObservableProperty]
@@ -42,6 +48,14 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>AI 設定顯示</summary>
     [ObservableProperty]
     private bool isAiSection;
+
+    /// <summary>介面語言選項</summary>
+    [ObservableProperty]
+    private ObservableCollection<LanguageOption> languageOptions = new();
+
+    /// <summary>選取的介面語言</summary>
+    [ObservableProperty]
+    private LanguageOption? selectedUiLanguage;
 
     /// <summary>作答後顯示答案</summary>
     [ObservableProperty]
@@ -126,38 +140,57 @@ public partial class SettingsViewModel : ViewModelBase
             40
         };
 
-        Sections = new ObservableCollection<SettingsSection>
+        LanguageOptions = new ObservableCollection<LanguageOption>
         {
-            new("exam", "考試設定"),
-            new("key", "快捷鍵"),
-            new("data", "資料管理"),
-            new("ai", "AI 模型"),
-            new("about", "關於")
+            new(LocalizationService.ZhTw, "繁體中文"),
+            new(LocalizationService.EnUs, "English")
         };
-        SelectedSection = Sections[0];
-        UpdateSectionFlags();
+
+        BuildSections("general");
 
         _suppressAutoSave = true;
         LoadSettings();
         _suppressAutoSave = false;
 
+        BuildLocalizedLists();
+    }
+
+    /// <summary>依目前語言重建設定頁籤</summary>
+    private void BuildSections(string? selectKey)
+    {
+        Sections = new ObservableCollection<SettingsSection>
+        {
+            new("general", LocalizationService.T("SectionGeneral")),
+            new("exam", LocalizationService.T("SectionExam")),
+            new("key", LocalizationService.T("SectionKey")),
+            new("data", LocalizationService.T("SectionData")),
+            new("ai", LocalizationService.T("SectionAi")),
+            new("about", LocalizationService.T("SectionAbout"))
+        };
+        SelectedSection = Sections.FirstOrDefault(s => s.Key == selectKey) ?? Sections[0];
+        UpdateSectionFlags();
+    }
+
+    /// <summary>依目前語言重建快捷鍵與資料管理清單</summary>
+    private void BuildLocalizedLists()
+    {
         KeyBindings = new ObservableCollection<KeyBindingItem>
         {
-            new("執行程式碼", "Ctrl + Enter"),
-            new("下一題", "→ 或 N"),
-            new("上一題", "← 或 P"),
-            new("標記題目", "M"),
-            new("顯示/隱藏答案", "Space"),
-            new("回到首頁", "Ctrl + H"),
-            new("開啟設定", "Ctrl + ,")
+            new(LocalizationService.T("KbRunCode"), "Ctrl + Enter"),
+            new(LocalizationService.T("KbNext"), "→ 或 N"),
+            new(LocalizationService.T("KbPrev"), "← 或 P"),
+            new(LocalizationService.T("KbMark"), "M"),
+            new(LocalizationService.T("KbToggleAnswer"), "Space"),
+            new(LocalizationService.T("KbHome"), "Ctrl + H"),
+            new(LocalizationService.T("KbOpenSettings"), "Ctrl + ,")
         };
 
         DataActions = new ObservableCollection<DataActionItem>
         {
-            new("匯出練習紀錄", "將歷史答題資料匯出為 CSV", "匯出", false),
-            new("備份題庫設定", "備存目前所有題庫設定", "備份", false),
-            new("清除快取", "清除暫存資料 (不影響題庫)", "清除", false),
-            new("重置所有練習進度", "此操作無法復原，請謹慎使用", "重置", true)
+            new(LocalizationService.T("DaExportTitle"), LocalizationService.T("DaExportDesc"), LocalizationService.T("DaExport"), false),
+            new(LocalizationService.T("DaBackupTitle"), LocalizationService.T("DaBackupDesc"), LocalizationService.T("DaBackup"), false),
+            new(LocalizationService.T("DaClearTitle"), LocalizationService.T("DaClearDesc"), LocalizationService.T("DaClear"), false),
+            new(LocalizationService.T("DaResetTitle"), LocalizationService.T("DaResetDesc"), LocalizationService.T("DaReset"), true)
         };
     }
 
@@ -167,10 +200,27 @@ public partial class SettingsViewModel : ViewModelBase
         UpdateSectionFlags();
     }
 
+    /// <summary>介面語言變更 - 立即套用、儲存並重建顯示文字</summary>
+    partial void OnSelectedUiLanguageChanged(LanguageOption? value)
+    {
+        if (value == null)
+        {
+            return;
+        }
+
+        LocalizationService.Instance.SetLanguage(value.Code);
+
+        BuildSections(SelectedSection?.Key);
+        BuildLocalizedLists();
+
+        PersistSettingsIfAllowed();
+    }
+
     /// <summary>更新區塊顯示旗標</summary>
     private void UpdateSectionFlags()
     {
         var key = SelectedSection?.Key ?? string.Empty;
+        IsGeneralSection = key == "general";
         IsExamSection = key == "exam";
         IsKeySection = key == "key";
         IsDataSection = key == "data";
@@ -182,6 +232,12 @@ public partial class SettingsViewModel : ViewModelBase
     private void LoadSettings()
     {
         var settings = _settingsService.Load();
+        ApplyToViewModel(settings);
+    }
+
+    /// <summary>將設定值套用到 ViewModel 屬性</summary>
+    private void ApplyToViewModel(AppSettings settings)
+    {
         OllamaEndpoint = settings.OllamaEndpoint;
         OllamaModel = settings.OllamaModel;
         UseLocalTransformers = settings.UseLocalTransformers;
@@ -195,28 +251,29 @@ public partial class SettingsViewModel : ViewModelBase
         EnableCountdown = settings.EnableCountdown;
         ShuffleQuestions = settings.ShuffleQuestions;
         Difficulty = settings.Difficulty;
+        SelectedUiLanguage = LanguageOptions.FirstOrDefault(o => o.Code == settings.UiLanguage) ?? LanguageOptions[0];
     }
 
     /// <summary>儲存本機設定</summary>
     [RelayCommand]
     public void SaveSettings()
     {
-        var settings = new AppSettings
-        {
-            OllamaEndpoint = OllamaEndpoint,
-            OllamaModel = OllamaModel,
-            UseLocalTransformers = UseLocalTransformers,
-            LocalTransformersModelPath = LocalTransformersModelPath,
-            PythonPath = PythonPath,
-            CppCompilerPath = CppCompilerPath,
-            DotNetPath = DotNetPath,
-            DefaultLanguage = DefaultLanguage,
-            QuestionsPerExam = QuestionsPerExam,
-            ShowAnswerOnSubmit = ShowAnswerOnSubmit,
-            EnableCountdown = EnableCountdown,
-            ShuffleQuestions = ShuffleQuestions,
-            Difficulty = Difficulty
-        };
+        // 以現有設定為基底，避免覆寫樣式頁維護的欄位 (主題、字體等)
+        var settings = _settingsService.Load();
+        settings.OllamaEndpoint = OllamaEndpoint;
+        settings.OllamaModel = OllamaModel;
+        settings.UseLocalTransformers = UseLocalTransformers;
+        settings.LocalTransformersModelPath = LocalTransformersModelPath;
+        settings.PythonPath = PythonPath;
+        settings.CppCompilerPath = CppCompilerPath;
+        settings.DotNetPath = DotNetPath;
+        settings.DefaultLanguage = DefaultLanguage;
+        settings.QuestionsPerExam = QuestionsPerExam;
+        settings.ShowAnswerOnSubmit = ShowAnswerOnSubmit;
+        settings.EnableCountdown = EnableCountdown;
+        settings.ShuffleQuestions = ShuffleQuestions;
+        settings.Difficulty = Difficulty;
+        settings.UiLanguage = SelectedUiLanguage?.Code ?? LocalizationService.ZhTw;
         _settingsService.Save(settings);
     }
 
@@ -226,19 +283,7 @@ public partial class SettingsViewModel : ViewModelBase
     {
         _suppressAutoSave = true;
         var settings = new AppSettings();
-        OllamaEndpoint = settings.OllamaEndpoint;
-        OllamaModel = settings.OllamaModel;
-        UseLocalTransformers = settings.UseLocalTransformers;
-        LocalTransformersModelPath = settings.LocalTransformersModelPath;
-        PythonPath = settings.PythonPath;
-        CppCompilerPath = settings.CppCompilerPath;
-        DotNetPath = settings.DotNetPath;
-        DefaultLanguage = settings.DefaultLanguage;
-        QuestionsPerExam = settings.QuestionsPerExam;
-        ShowAnswerOnSubmit = settings.ShowAnswerOnSubmit;
-        EnableCountdown = settings.EnableCountdown;
-        ShuffleQuestions = settings.ShuffleQuestions;
-        Difficulty = settings.Difficulty;
+        ApplyToViewModel(settings);
         _settingsService.Save(settings);
         _suppressAutoSave = false;
     }
@@ -277,6 +322,21 @@ public class SettingsSection
 
     public string Key { get; }
     public string Title { get; }
+}
+
+/// <summary>
+/// 介面語言選項
+/// </summary>
+public class LanguageOption
+{
+    public LanguageOption(string code, string displayName)
+    {
+        Code = code;
+        DisplayName = displayName;
+    }
+
+    public string Code { get; }
+    public string DisplayName { get; }
 }
 
 /// <summary>

@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="B3.Views.ExamView"
              x:DataType="vm:ExamViewModel">
@@ -63,15 +64,15 @@
         <Border Grid.Row="0" Classes="exam-shell" IsVisible="{Binding IsExamInactive}">
             <StackPanel Spacing="16">
                 <StackPanel Spacing="4">
-                    <TextBlock Text="模擬考試設定" FontSize="22" FontWeight="Bold"/>
-                    <TextBlock Classes="muted" Text="確認題庫、題數與考試時間後再開始。"/>
+                    <TextBlock Text="{loc:Loc ExamSetupTitle}" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock Classes="muted" Text="{loc:Loc ExamSetupDesc}"/>
                 </StackPanel>
 
                 <Grid ColumnDefinitions="1.2*,0.8*" ColumnSpacing="16">
                     <StackPanel Spacing="12">
                         <Border Classes="exam-panel">
                             <StackPanel Spacing="10">
-                                <TextBlock Text="考試資訊" Classes="exam-title"/>
+                                <TextBlock Text="{loc:Loc ExamInfo}" Classes="exam-title"/>
                                 <TextBlock Text="{Binding ExamTitle}" FontSize="18" FontWeight="SemiBold"/>
                                 <TextBlock Classes="muted" Text="{Binding ExamDescription}" TextWrapping="Wrap"
                                            IsVisible="{Binding ExamDescription, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
@@ -80,18 +81,18 @@
 
                         <Border Classes="exam-panel">
                             <StackPanel Spacing="10">
-                                <TextBlock Text="設定項目" Classes="exam-title"/>
+                                <TextBlock Text="{loc:Loc SettingItems}" Classes="exam-title"/>
                                 <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="12">
-                                    <TextBlock Text="考試種類" Classes="muted" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{loc:Loc ExamKind}" Classes="muted" VerticalAlignment="Center"/>
                                     <ComboBox Grid.Column="1" ItemsSource="{Binding ExamTypes}" SelectedItem="{Binding EditableExamType}" Height="36"/>
 
-                                    <TextBlock Grid.Row="1" Text="考題數量" Classes="muted" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="1" Text="{loc:Loc QuestionCount}" Classes="muted" VerticalAlignment="Center"/>
                                     <NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="{Binding AvailableQuestionCount}" Value="{Binding EditableQuestionCount}" Height="36"/>
 
-                                    <TextBlock Grid.Row="2" Text="考試時間" Classes="muted" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" Text="{loc:Loc ExamTime}" Classes="muted" VerticalAlignment="Center"/>
                                     <NumericUpDown Grid.Row="2" Grid.Column="1" Minimum="10" Maximum="180" Value="{Binding EditableExamDurationMinutes}" Height="36"/>
 
-                                    <TextBlock Grid.Row="3" Text="語言" Classes="muted" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="3" Text="{loc:Loc Language}" Classes="muted" VerticalAlignment="Center"/>
                                     <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Height="36"/>
                                 </Grid>
                             </StackPanel>
@@ -101,19 +102,19 @@
                     <StackPanel Spacing="12" Grid.Column="1">
                         <Border Classes="exam-panel">
                             <StackPanel Spacing="10">
-                                <TextBlock Text="題庫狀態" Classes="exam-title"/>
-                                <TextBlock Text="{Binding AvailableQuestionCount, StringFormat='可用題庫：{0} 題'}"/>
-                                <TextBlock Text="{Binding EditableQuestionCount, StringFormat='本次題數：{0} 題'}"/>
-                                <TextBlock Text="{Binding ExamTimerPreviewText, StringFormat='時間預覽：{0}'}"/>
+                                <TextBlock Text="{loc:Loc BankStatus}" Classes="exam-title"/>
+                                <TextBlock Text="{Binding AvailableQuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=AvailableFmt}"/>
+                                <TextBlock Text="{Binding EditableQuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=ThisCountFmt}"/>
+                                <TextBlock Text="{Binding ExamTimerPreviewText, Converter={StaticResource LocFmt}, ConverterParameter=TimePreviewFmt}"/>
                             </StackPanel>
                         </Border>
 
                         <Border Classes="exam-panel">
                             <StackPanel Spacing="12">
-                                <TextBlock Text="操作" Classes="exam-title"/>
+                                <TextBlock Text="{loc:Loc Actions}" Classes="exam-title"/>
                                 <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <Button Content="確認開始" Classes="primary" Command="{Binding StartExamCommand}" Height="40"/>
-                                    <Button Content="取消" Classes="ghost" Command="{Binding CancelExamSetupCommand}" Height="40"/>
+                                    <Button Content="{loc:Loc ConfirmStart}" Classes="primary" Command="{Binding StartExamCommand}" Height="40"/>
+                                    <Button Content="{loc:Loc Cancel}" Classes="ghost" Command="{Binding CancelExamSetupCommand}" Height="40"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -126,9 +127,9 @@
         <Border Grid.Row="0" Classes="exam-shell" IsVisible="{Binding IsExamActive}">
             <Grid ColumnDefinitions="Auto,Auto,Auto,*" ColumnSpacing="20">
                 <TextBlock Text="{Binding ExamTitle}" FontSize="18" FontWeight="Bold"/>
-                <TextBlock Grid.Column="1" Text="{Binding RemainingTimeText, StringFormat='剩餘時間：{0}'}"/>
-                <TextBlock Grid.Column="2" Text="{Binding ProblemCountText, StringFormat='題號：{0}'}"/>
-                <TextBlock Grid.Column="3" Text="{Binding TotalProblems, StringFormat='總題數：{0}'}" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Column="1" Text="{Binding RemainingTimeText, Converter={StaticResource LocFmt}, ConverterParameter=RemainingFmt}"/>
+                <TextBlock Grid.Column="2" Text="{Binding ProblemCountText, Converter={StaticResource LocFmt}, ConverterParameter=ProblemNoFmt}"/>
+                <TextBlock Grid.Column="3" Text="{Binding TotalProblems, Converter={StaticResource LocFmt}, ConverterParameter=TotalFmt}" HorizontalAlignment="Right"/>
             </Grid>
         </Border>
 
@@ -151,7 +152,7 @@
 
                 <Border Classes="exam-panel" Grid.Row="1">
                     <Grid RowDefinitions="Auto,*" RowSpacing="10">
-                        <TextBlock Text="示例測試案例" Classes="exam-title"/>
+                        <TextBlock Text="{loc:Loc SampleTestCases}" Classes="exam-title"/>
                         <ListBox Grid.Row="1" ItemsSource="{Binding CurrentTestCases}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -179,14 +180,14 @@
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
                                 <ComboBox Width="120" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
-                                <Button Content="試跑程式" Classes="ghost" Height="36" Command="{Binding RunCodeCommand}" IsEnabled="{Binding IsExamActive}"/>
+                                <Button Content="{loc:Loc RunCode}" Classes="ghost" Height="36" Command="{Binding RunCodeCommand}" IsEnabled="{Binding IsExamActive}"/>
                             </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="1" ColumnDefinitions="160,*" ColumnSpacing="12">
                             <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="10">
                                 <StackPanel Spacing="8">
-                                    <TextBlock Text="檔案選單" Classes="exam-title" FontSize="14"/>
+                                    <TextBlock Text="{loc:Loc FileMenu}" Classes="exam-title" FontSize="14"/>
                                     <ListBox ItemsSource="{Binding EditorFiles}" SelectedItem="{Binding SelectedEditorFile}" Background="Transparent" BorderThickness="0">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
@@ -216,7 +217,7 @@
 
                                 <Border Grid.Row="1" Background="#101923" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                                     <StackPanel Spacing="8">
-                                        <TextBlock Text="執行結果" Classes="exam-title" FontSize="14"/>
+                                        <TextBlock Text="{loc:Loc ExecResult}" Classes="exam-title" FontSize="14"/>
                                         <TextBox Text="{Binding OutputResult}" AcceptsReturn="True" IsReadOnly="True" Classes="exam-output" MinHeight="120"/>
                                     </StackPanel>
                                 </Border>
@@ -227,7 +228,7 @@
 
                 <Border Classes="exam-panel" Grid.Row="1">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="判題狀態" Classes="exam-title"/>
+                        <TextBlock Text="{loc:Loc JudgeStatus}" Classes="exam-title"/>
                         <TextBlock Text="{Binding LastSubmissionStatusText}" FontWeight="SemiBold" Foreground="#FFC266"/>
                         <TextBlock Text="{Binding LastSubmissionDetailText}" Classes="muted" TextWrapping="Wrap"/>
                     </StackPanel>
@@ -237,9 +238,9 @@
 
         <!-- 操作列 (僅在正式考試開始後顯示) -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center" IsVisible="{Binding IsExamActive}">
-            <Button Content="提交答案" Width="120" Classes="primary" Command="{Binding SubmitAnswerCommand}" IsEnabled="{Binding IsNotJudging}"/>
-            <Button Content="跳過" Width="120" Classes="ghost" Command="{Binding SkipProblemCommand}"/>
-            <Button Content="結束考試" Width="120" Classes="ghost" Command="{Binding EndExamCommand}"/>
+            <Button Content="{loc:Loc SubmitAnswer}" Width="120" Classes="primary" Command="{Binding SubmitAnswerCommand}" IsEnabled="{Binding IsNotJudging}"/>
+            <Button Content="{loc:Loc Skip}" Width="120" Classes="ghost" Command="{Binding SkipProblemCommand}"/>
+            <Button Content="{loc:Loc EndExam}" Width="120" Classes="ghost" Command="{Binding EndExamCommand}"/>
         </StackPanel>
 
     </Grid>

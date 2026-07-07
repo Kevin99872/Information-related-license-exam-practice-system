@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Name="Root"
              x:Class="B3.Views.BankView"
@@ -11,12 +12,12 @@
     <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="20" Margin="0,6,0,6">
         <!-- 搜尋與操作 -->
         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="8" ColumnSpacing="14">
-            <TextBlock Text="搜尋題庫名稱..." Classes="muted"/>
-            <TextBox Grid.Row="1" Width="260" PlaceholderText="搜尋題庫名稱..."/>
+            <TextBlock Text="{loc:Loc SearchBankName}" Classes="muted"/>
+            <TextBox Grid.Row="1" Width="260" PlaceholderText="{loc:Loc SearchBankName}"/>
 
             <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                <Button Content="同步更新" Classes="ghost" Command="{Binding RefreshCommand}"/>
-                <Button Content="新增題庫" Classes="primary" Command="{Binding ImportTqcCommand}"/>
+                <Button Content="{loc:Loc SyncUpdate}" Classes="ghost" Command="{Binding RefreshCommand}"/>
+                <Button Content="{loc:Loc AddBank}" Classes="primary" Command="{Binding ImportTqcCommand}"/>
             </StackPanel>
         </Grid>
 
@@ -26,25 +27,25 @@
         <UniformGrid Grid.Row="2" Columns="4" Rows="1" HorizontalAlignment="Stretch">
             <Border Classes="card" Margin="0,0,12,0">
                 <StackPanel Spacing="6">
-                    <TextBlock Text="已載入題庫" Classes="muted"/>
+                    <TextBlock Text="{loc:Loc LoadedBanks}" Classes="muted"/>
                     <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding LoadedBankCount}"/>
                 </StackPanel>
             </Border>
             <Border Classes="card" Margin="0,0,12,0">
                 <StackPanel Spacing="6">
-                    <TextBlock Text="題目總數" Classes="muted"/>
+                    <TextBlock Text="{loc:Loc TotalQuestions}" Classes="muted"/>
                     <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding TotalQuestionCount}"/>
                 </StackPanel>
             </Border>
             <Border Classes="card" Margin="0,0,12,0">
                 <StackPanel Spacing="6">
-                    <TextBlock Text="已作答題數" Classes="muted"/>
+                    <TextBlock Text="{loc:Loc AnsweredQuestions}" Classes="muted"/>
                     <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding AnsweredQuestionCount}"/>
                 </StackPanel>
             </Border>
             <Border Classes="card">
                 <StackPanel Spacing="6">
-                    <TextBlock Text="整體正確率" Classes="muted"/>
+                    <TextBlock Text="{loc:Loc OverallAccuracy}" Classes="muted"/>
                     <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding AccuracyPercent, StringFormat='{}{0}%'}"/>
                 </StackPanel>
             </Border>
@@ -54,8 +55,8 @@
         <ScrollViewer Grid.Row="3">
             <StackPanel Spacing="24" HorizontalAlignment="Stretch">
                 <StackPanel Spacing="10" HorizontalAlignment="Stretch">
-                    <TextBlock FontWeight="Bold" Text="官方題庫"/>
-                    <TextBlock Classes="muted" Text="點選題庫卡片可展開內部題目列表。"/>
+                    <TextBlock FontWeight="Bold" Text="{loc:Loc OfficialBanks}"/>
+                    <TextBlock Classes="muted" Text="{loc:Loc OfficialBanksDesc}"/>
                     <ItemsControl ItemsSource="{Binding OfficialBanks}" HorizontalAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -72,16 +73,16 @@
                                                         </Border>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" Spacing="6">
-                                                        <TextBlock Classes="muted" Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                                        <TextBlock Classes="muted" Text="{Binding QuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
                                                         <TextBlock Classes="muted" Text="|"/>
-                                                        <TextBlock Classes="muted" Text="{Binding UpdatedDate, StringFormat='更新於 {0}'}"/>
+                                                        <TextBlock Classes="muted" Text="{Binding UpdatedDate, Converter={StaticResource LocFmt}, ConverterParameter=UpdatedFmt}"/>
                                                         <TextBlock Classes="muted" Text="|"/>
                                                         <TextBlock Classes="muted" Text="{Binding Source}"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="2" HorizontalAlignment="Right" Spacing="6">
                                                     <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Width="140" Height="6"/>
-                                                    <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='{}{0}% 完成'}"/>
+                                                    <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=PercentDoneFmt}"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -89,7 +90,7 @@
 
                                     <Border Classes="card" Margin="0,10,0,0" Padding="16" HorizontalAlignment="Stretch">
                                         <StackPanel Spacing="12" HorizontalAlignment="Stretch">
-                                            <TextBlock FontWeight="Bold" Text="內部題目列表"/>
+                                            <TextBlock FontWeight="Bold" Text="{loc:Loc InnerProblemList}"/>
                                             <ItemsControl ItemsSource="{Binding Problems}" HorizontalAlignment="Stretch">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -97,11 +98,11 @@
                                                             <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
                                                                 <StackPanel Spacing="2">
                                                                     <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
-                                                                    <TextBlock Classes="muted" Text="{Binding CreatedAt, StringFormat=新增日期：{0:yyyy-MM-dd HH:mm}}"/>
+                                                                    <TextBlock Classes="muted" Text="{Binding CreatedAt, Converter={StaticResource LocFmt}, ConverterParameter=CreatedAtFmt}"/>
                                                                 </StackPanel>
 
-                                                                <Button Grid.Column="1" Content="修改" Command="{Binding DataContext.EditProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
-                                                                <Button Grid.Column="2" Content="刪除" Classes="danger" Command="{Binding DataContext.DeleteProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                                <Button Grid.Column="1" Content="{loc:Loc Edit}" Command="{Binding DataContext.EditProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                                <Button Grid.Column="2" Content="{loc:Loc Delete}" Classes="danger" Command="{Binding DataContext.DeleteProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
                                                             </Grid>
                                                         </Border>
                                                     </DataTemplate>
@@ -116,7 +117,7 @@
                 </StackPanel>
 
                 <StackPanel Spacing="10" HorizontalAlignment="Stretch">
-                    <TextBlock FontWeight="Bold" Text="自訂題庫"/>
+                    <TextBlock FontWeight="Bold" Text="{loc:Loc CustomBanks}"/>
                     <ItemsControl ItemsSource="{Binding CustomBanks}" HorizontalAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -133,16 +134,16 @@
                                                         </Border>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" Spacing="6">
-                                                        <TextBlock Classes="muted" Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
+                                                        <TextBlock Classes="muted" Text="{Binding QuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
                                                         <TextBlock Classes="muted" Text="|"/>
-                                                        <TextBlock Classes="muted" Text="{Binding UpdatedDate, StringFormat='更新於 {0}'}"/>
+                                                        <TextBlock Classes="muted" Text="{Binding UpdatedDate, Converter={StaticResource LocFmt}, ConverterParameter=UpdatedFmt}"/>
                                                         <TextBlock Classes="muted" Text="|"/>
                                                         <TextBlock Classes="muted" Text="{Binding Source}"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="2" HorizontalAlignment="Right" Spacing="6">
                                                     <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Width="140" Height="6"/>
-                                                    <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='{}{0}% 完成'}"/>
+                                                    <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=PercentDoneFmt}"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -150,8 +151,8 @@
 
                                     <Border Classes="card" Margin="0,10,0,0" Padding="16" HorizontalAlignment="Stretch">
                                         <StackPanel Spacing="12" HorizontalAlignment="Stretch">
-                                            <TextBlock FontWeight="Bold" Text="內部題目列表"/>
-                                            <TextBlock Classes="muted" Text="目前尚未綁定自訂題庫資料。"/>
+                                            <TextBlock FontWeight="Bold" Text="{loc:Loc InnerProblemList}"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc CustomBanksEmpty}"/>
                                         </StackPanel>
                                     </Border>
                                 </Expander>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
              xmlns:models="using:B3.Models"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="760"
              x:Name="Root"
              x:CompileBindings="False"
@@ -14,22 +15,22 @@
         <StackPanel Spacing="16" Margin="4">
             <Border Classes="card" Padding="16">
                 <StackPanel Spacing="8">
-                    <TextBlock FontSize="18" FontWeight="Bold" Text="匯入題庫"/>
-                    <TextBlock Classes="muted" Text="支援單題手動新增，以及 CSV / XLS / XLSX 表單匯入。"/>
-                    <TextBlock Classes="muted" Text="{Binding SupportedFormats, StringFormat=支援格式：{0}}"/>
+                    <TextBlock FontSize="18" FontWeight="Bold" Text="{loc:Loc ImportBankTitle}"/>
+                    <TextBlock Classes="muted" Text="{loc:Loc ImportDesc}"/>
+                    <TextBlock Classes="muted" Text="{Binding SupportedFormats, Converter={StaticResource LocFmt}, ConverterParameter=SupportedFmt}"/>
                     <TextBlock Classes="muted" Text="{Binding ImportStatusMessage}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
 
             <TabControl>
-                <TabItem Header="單題新增">
+                <TabItem Header="{loc:Loc TabSingle}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Spacing="16" Margin="4">
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="12">
-                                        <TextBlock FontWeight="Bold" Text="題目基本資料"/>
+                                        <TextBlock FontWeight="Bold" Text="{loc:Loc BasicInfo}"/>
                                         <StackPanel Spacing="6">
-                                            <TextBlock Classes="muted" Text="已載入題庫"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc LoadedBanks}"/>
                                             <ComboBox ItemsSource="{Binding LoadedProblems}" SelectedItem="{Binding SelectedLoadedProblem}" Width="520">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -39,8 +40,8 @@
                                                                 <TextBlock Classes="muted" Text="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}"/>
                                                             </StackPanel>
 
-                                                            <Button Grid.Column="1" Content="修改" Margin="6,0,0,0" Command="{Binding DataContext.EditLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
-                                                            <Button Grid.Column="2" Content="刪除" Classes="danger" Margin="6,0,0,0" Command="{Binding DataContext.DeleteLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                            <Button Grid.Column="1" Content="{loc:Loc Edit}" Margin="6,0,0,0" Command="{Binding DataContext.EditLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                            <Button Grid.Column="2" Content="{loc:Loc Delete}" Classes="danger" Margin="6,0,0,0" Command="{Binding DataContext.DeleteLoadedProblemCommand, ElementName=Root}" CommandParameter="{Binding}"/>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
@@ -48,38 +49,38 @@
                                         </StackPanel>
                                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="10">
                                         <StackPanel Spacing="6">
-                                            <TextBlock Classes="muted" Text="題目代碼"/>
-                                            <TextBox Text="{Binding SingleProblemCode}" PlaceholderText="例如：PYD101"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc ProblemCode}"/>
+                                            <TextBox Text="{Binding SingleProblemCode}" PlaceholderText="{loc:Loc ProblemCodePlaceholder}"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1" Spacing="6">
-                                            <TextBlock Classes="muted" Text="考照種類"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc ExamType}"/>
                                             <TextBox Text="{Binding SingleExamType}" PlaceholderText="TQC / CPE / Leetcode"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2" Spacing="6">
-                                            <TextBlock Classes="muted" Text="難度"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc Difficulty}"/>
                                             <TextBox Text="{Binding SingleDifficulty}" PlaceholderText="1 / 2 / 3"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Row="1" Spacing="6">
-                                            <TextBlock Classes="muted" Text="題目標題"/>
-                                            <TextBox Text="{Binding SingleTitle}" PlaceholderText="標題"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc TitleLabel}"/>
+                                            <TextBox Text="{Binding SingleTitle}" PlaceholderText="{loc:Loc TitleLabel}"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Row="1" Grid.Column="1" Spacing="6">
-                                            <TextBlock Classes="muted" Text="狀態"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc Status}"/>
                                             <TextBox Text="{Binding SingleStatus}" PlaceholderText="Draft / Active"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Row="1" Grid.Column="2" Spacing="6">
-                                            <TextBlock Classes="muted" Text="解法語言"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc SolutionLanguage}"/>
                                             <TextBox Text="{Binding SingleSolutionLanguage}" PlaceholderText="Python / C# / C++"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Spacing="6">
-                                            <TextBlock Classes="muted" Text="題目敘述"/>
-                                            <TextBox Text="{Binding SingleDescription}" AcceptsReturn="True" AcceptsTab="True" MinHeight="120" TextWrapping="Wrap" PlaceholderText="請輸入題目敘述"/>
+                                            <TextBlock Classes="muted" Text="{loc:Loc Description}"/>
+                                            <TextBox Text="{Binding SingleDescription}" AcceptsReturn="True" AcceptsTab="True" MinHeight="120" TextWrapping="Wrap" PlaceholderText="{loc:Loc DescriptionPlaceholder}"/>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
@@ -87,8 +88,8 @@
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="12">
-                                    <TextBlock FontWeight="Bold" Text="解法內容"/>
-                                    <TextBox Text="{Binding SingleSolutionCode}" AcceptsReturn="True" AcceptsTab="True" MinHeight="160" TextWrapping="Wrap" PlaceholderText="貼上解法程式碼"/>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc SolutionContent}"/>
+                                    <TextBox Text="{Binding SingleSolutionCode}" AcceptsReturn="True" AcceptsTab="True" MinHeight="160" TextWrapping="Wrap" PlaceholderText="{loc:Loc SolutionPlaceholder}"/>
                                 </StackPanel>
                             </Border>
 
@@ -96,15 +97,15 @@
                                     <StackPanel Spacing="12">
                                     <Grid ColumnDefinitions="*,Auto">
                                         <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="測試資料與驗證資料"/>
-                                            <TextBlock Classes="muted" VerticalAlignment="Center" Text="{Binding SingleTestCases.Count, StringFormat=共 {0} 筆}"/>
+                                            <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="{loc:Loc TestAndValidation}"/>
+                                            <TextBlock Classes="muted" VerticalAlignment="Center" Text="{Binding SingleTestCases.Count, Converter={StaticResource LocFmt}, ConverterParameter=TotalRowsFmt}"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
-                                            <Button Content="新增" Classes="primary" Command="{Binding AddSingleProblemCommand}"/>
-                                            <Button Content="新增測試資料" Command="{Binding AddSingleTestCaseCommand}"/>
-                                            <Button Content="重設" Classes="ghost" Command="{Binding ResetSingleFormCommand}"/>
-                                            <Button Content="匯入 / 更新" Classes="primary" Command="{Binding ImportSingleProblemCommand}"/>
+                                            <Button Content="{loc:Loc Add}" Classes="primary" Command="{Binding AddSingleProblemCommand}"/>
+                                            <Button Content="{loc:Loc AddTestCase}" Command="{Binding AddSingleTestCaseCommand}"/>
+                                            <Button Content="{loc:Loc ResetForm}" Classes="ghost" Command="{Binding ResetSingleFormCommand}"/>
+                                            <Button Content="{loc:Loc ImportUpdate}" Classes="primary" Command="{Binding ImportSingleProblemCommand}"/>
                                         </StackPanel>
                                     </Grid>
 
@@ -114,26 +115,26 @@
                                                 <Border Classes="list-item" Padding="12" Margin="0,0,0,8">
                                                     <Grid ColumnDefinitions="80,*,*,90,110" ColumnSpacing="10" RowDefinitions="Auto,Auto" RowSpacing="8">
                                                         <StackPanel Spacing="6">
-                                                            <TextBlock Classes="muted" Text="順序"/>
+                                                            <TextBlock Classes="muted" Text="{loc:Loc Order}"/>
                                                             <TextBox Text="{Binding OrderIndex}"/>
                                                         </StackPanel>
 
                                                         <StackPanel Grid.Column="1" Spacing="6">
-                                                            <TextBlock Classes="muted" Text="測試資料"/>
-                                                            <TextBox Text="{Binding Input}" AcceptsReturn="True" MinHeight="72" TextWrapping="Wrap" PlaceholderText="輸入資料"/>
+                                                            <TextBlock Classes="muted" Text="{loc:Loc TestData}"/>
+                                                            <TextBox Text="{Binding Input}" AcceptsReturn="True" MinHeight="72" TextWrapping="Wrap" PlaceholderText="{loc:Loc TestDataPlaceholder}"/>
                                                         </StackPanel>
 
                                                         <StackPanel Grid.Column="2" Spacing="6">
-                                                            <TextBlock Classes="muted" Text="驗證資料"/>
-                                                            <TextBox Text="{Binding ExpectedOutput}" AcceptsReturn="True" MinHeight="72" TextWrapping="Wrap" PlaceholderText="期望輸出"/>
+                                                            <TextBlock Classes="muted" Text="{loc:Loc ValidationData}"/>
+                                                            <TextBox Text="{Binding ExpectedOutput}" AcceptsReturn="True" MinHeight="72" TextWrapping="Wrap" PlaceholderText="{loc:Loc ValidationDataPlaceholder}"/>
                                                         </StackPanel>
 
                                                         <StackPanel Grid.Column="3" Spacing="6">
-                                                            <TextBlock Classes="muted" Text="範例"/>
-                                                            <CheckBox IsChecked="{Binding IsExample}" Content="顯示"/>
+                                                            <TextBlock Classes="muted" Text="{loc:Loc Example}"/>
+                                                            <CheckBox IsChecked="{Binding IsExample}" Content="{loc:Loc Show}"/>
                                                         </StackPanel>
 
-                                                        <Button Grid.Column="4" Grid.RowSpan="2" Content="移除" Classes="ghost" HorizontalAlignment="Stretch" Command="{Binding DataContext.RemoveSingleTestCaseCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                        <Button Grid.Column="4" Grid.RowSpan="2" Content="{loc:Loc Remove}" Classes="ghost" HorizontalAlignment="Stretch" Command="{Binding DataContext.RemoveSingleTestCaseCommand, ElementName=Root}" CommandParameter="{Binding}"/>
                                                     </Grid>
                                                 </Border>
                                             </DataTemplate>
@@ -145,28 +146,28 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Header="表單匯入">
+                <TabItem Header="{loc:Loc TabSheet}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Spacing="16" Margin="4">
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="10">
-                                    <TextBlock FontWeight="Bold" Text="檔案匯入與模板"/>
-                                    <TextBlock Classes="muted" Text="每一列代表一筆測試資料，相同 ProblemCode 的列會合併成同一題。" TextWrapping="Wrap"/>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc FileImportTemplate}"/>
+                                    <TextBlock Classes="muted" Text="{loc:Loc SheetRowDesc}" TextWrapping="Wrap"/>
                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                        <Button Content="新增一列" Command="{Binding AddSpreadsheetRowCommand}"/>
-                                        <Button Content="選擇 CSV / XLS / XLSX" Classes="primary" Click="OnPickSpreadsheetClicked"/>
-                                        <Button Content="驗證目前列" Command="{Binding ValidateSpreadsheetRowsCommand}"/>
-                                        <Button Content="預覽 / 驗證" Click="OnPreviewSpreadsheetClicked"/>
-                                        <Button Content="匯入 / 更新" Classes="primary" Click="OnImportSpreadsheetClicked"/>
-                                        <Button Content="下載模板" Classes="ghost" Click="OnDownloadTemplateClicked"/>
+                                        <Button Content="{loc:Loc AddRow}" Command="{Binding AddSpreadsheetRowCommand}"/>
+                                        <Button Content="{loc:Loc PickFile}" Classes="primary" Click="OnPickSpreadsheetClicked"/>
+                                        <Button Content="{loc:Loc ValidateRows}" Command="{Binding ValidateSpreadsheetRowsCommand}"/>
+                                        <Button Content="{loc:Loc PreviewValidate}" Click="OnPreviewSpreadsheetClicked"/>
+                                        <Button Content="{loc:Loc ImportUpdate}" Classes="primary" Click="OnImportSpreadsheetClicked"/>
+                                        <Button Content="{loc:Loc DownloadTemplate}" Classes="ghost" Click="OnDownloadTemplateClicked"/>
                                     </StackPanel>
-                                    <TextBox Text="{Binding SpreadsheetFilePath}" IsReadOnly="True" PlaceholderText="尚未選擇檔案"/>
+                                    <TextBox Text="{Binding SpreadsheetFilePath}" IsReadOnly="True" PlaceholderText="{loc:Loc NoFileSelected}"/>
                                 </StackPanel>
                             </Border>
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="8">
-                                    <TextBlock FontWeight="Bold" Text="模板規格"/>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc TemplateSpec}"/>
                                     <TextBlock Classes="muted" Text="{Binding TemplateSpecification}" TextWrapping="Wrap"/>
                                     <TextBlock Classes="muted" Text="{Binding TemplateNotes}" TextWrapping="Wrap"/>
                                 </StackPanel>
@@ -174,16 +175,16 @@
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="10">
-                                    <TextBlock FontWeight="Bold" Text="預覽結果"/>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc PreviewResult}"/>
                                     <ItemsControl ItemsSource="{Binding PreviewRows}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Classes="list-item" Padding="10" Margin="0,0,0,8">
                                                     <StackPanel Spacing="8">
                                                         <StackPanel Orientation="Horizontal" Spacing="10">
-                                                            <TextBlock Classes="muted" Text="{Binding RowNumber, StringFormat=第 {0} 列}"/>
+                                                            <TextBlock Classes="muted" Text="{Binding RowNumber, Converter={StaticResource LocFmt}, ConverterParameter=RowFmt}"/>
                                                             <TextBlock Text="{Binding IsValid, StringFormat=Valid: {0}}"/>
-                                                            <Button Content="移除" Classes="ghost" Command="{Binding DataContext.RemoveSpreadsheetRowCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                                            <Button Content="{loc:Loc Remove}" Classes="ghost" Command="{Binding DataContext.RemoveSpreadsheetRowCommand, ElementName=Root}" CommandParameter="{Binding}"/>
                                                         </StackPanel>
 
                                                         <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="8">
@@ -215,14 +216,14 @@
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="10">
-                                    <TextBlock FontWeight="Bold" Text="驗證訊息"/>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc ValidationMessages}"/>
                                     <ItemsControl ItemsSource="{Binding ValidationIssues}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Classes="muted" Padding="8" CornerRadius="8" Margin="0,0,0,8">
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding RowNumber, StringFormat=第 {0} 列}" FontWeight="Bold"/>
-                                                        <TextBlock Text="{Binding Field, StringFormat=欄位：{0}}"/>
+                                                        <TextBlock Text="{Binding RowNumber, Converter={StaticResource LocFmt}, ConverterParameter=RowFmt}" FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Field, Converter={StaticResource LocFmt}, ConverterParameter=FieldFmt}"/>
                                                         <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
                                                     </StackPanel>
                                                 </Border>

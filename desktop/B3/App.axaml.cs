@@ -77,6 +77,9 @@ public partial class App : Application
         if (settings == null) return;
         CurrentSettings = settings;
 
+        // 套用介面語言
+        Localization.LocalizationService.Instance.SetLanguage(settings.UiLanguage);
+
         // 更新資源字典
         try
         {

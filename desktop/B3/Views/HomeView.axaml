@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Class="B3.Views.HomeView"
              x:DataType="vm:HomeViewModel">
@@ -12,21 +13,21 @@
             <Border Classes="card" Padding="26">
                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="6">
                     <StackPanel Spacing="6">
-                        <TextBlock FontSize="24" FontWeight="Bold" Text="快速模擬"/>
-                        <TextBlock Classes="muted" Text="選擇您需要的考照類型，直接開始練習。"/>
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="{loc:Loc QuickSim}"/>
+                        <TextBlock Classes="muted" Text="{loc:Loc QuickSimDesc}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                        <Button Content="匯入題庫" Classes="ghost"/>
-                        <Button Content="開始練習" Classes="primary"/>
+                        <Button Content="{loc:Loc ImportBank}" Classes="ghost"/>
+                        <Button Content="{loc:Loc StartPractice}" Classes="primary"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- 熱門考照題庫 -->
             <StackPanel Spacing="14">
-                <TextBlock FontWeight="Bold" FontSize="16" Text="熱門考照題庫"/>
-                <TextBlock Classes="muted" Text="熱門題庫卡片即時顯示進度，支援每日自我練習"/>
+                <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc HotBanks}"/>
+                <TextBlock Classes="muted" Text="{loc:Loc HotBanksDesc}"/>
 
             <ItemsControl ItemsSource="{Binding HotCards}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
@@ -55,13 +56,13 @@
                                         <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}" MaxLines="2"/>
 
                                         <StackPanel Orientation="Horizontal" Spacing="14">
-                                            <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
-                                            <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
+                                            <TextBlock Text="{Binding QuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
+                                            <TextBlock Text="{Binding DurationMinutes, Converter={StaticResource LocFmt}, ConverterParameter=MinutesFmt}"/>
                                         </StackPanel>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
-                                        <TextBlock Grid.Column="1" Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
+                                        <TextBlock Grid.Column="1" Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=CompletedFmt}"/>
                                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
                                     </StackPanel>
                                 </Grid>
@@ -92,13 +93,13 @@
                                         <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}" MaxLines="2"/>
 
                                         <StackPanel Orientation="Horizontal" Spacing="14">
-                                            <TextBlock Text="{Binding QuestionCount, StringFormat='{}{0} 題'}"/>
-                                            <TextBlock Text="{Binding DurationMinutes, StringFormat='{}{0} 分鐘'}"/>
+                                            <TextBlock Text="{Binding QuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
+                                            <TextBlock Text="{Binding DurationMinutes, Converter={StaticResource LocFmt}, ConverterParameter=MinutesFmt}"/>
                                         </StackPanel>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
-                                        <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, StringFormat='已完成 {0}%'}"/>
+                                        <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=CompletedFmt}"/>
                                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
                                     </StackPanel>
                                 </Grid>

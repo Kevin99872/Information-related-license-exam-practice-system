@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
              xmlns:conv="using:B3.Converters"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Name="Root"
              x:CompileBindings="False"
@@ -19,10 +20,10 @@
         <Grid Grid.Column="0" RowDefinitions="Auto,*" RowSpacing="12">
             <Border Classes="card" Padding="16" Grid.Row="0">
                 <StackPanel Spacing="12">
-                    <TextBlock FontWeight="Bold" FontSize="16" Text="篩選"/>
+                    <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc Filter}"/>
                     <StackPanel Spacing="10">
                         <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="考照類型"/>
+                            <TextBlock Classes="muted" Text="{loc:Loc ExamType}"/>
                             <ComboBox SelectedItem="{Binding SelectedExamType}" Width="300" HorizontalAlignment="Stretch">
                                 <x:String>All</x:String>
                                 <x:String>TQC</x:String>
@@ -32,7 +33,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="難度"/>
+                            <TextBlock Classes="muted" Text="{loc:Loc Difficulty}"/>
                             <ComboBox SelectedItem="{Binding SelectedDifficulty}" Width="300" HorizontalAlignment="Stretch">
                                 <x:String>All</x:String>
                                 <x:String>簡單</x:String>
@@ -42,7 +43,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="狀態"/>
+                            <TextBlock Classes="muted" Text="{loc:Loc Status}"/>
                             <ComboBox SelectedItem="{Binding SelectedStatus}" Width="300" HorizontalAlignment="Stretch">
                                 <x:String>All</x:String>
                                 <x:String>Active</x:String>
@@ -51,7 +52,7 @@
                         </StackPanel>
 
                         <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="搜尋"/>
+                            <TextBlock Classes="muted" Text="{loc:Loc Search}"/>
                             <TextBox Text="{Binding SearchKeyword}" Width="300" HorizontalAlignment="Stretch"/>
                         </StackPanel>
                     </StackPanel>
@@ -70,9 +71,9 @@
                                         <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
                                         <TextBlock Classes="muted" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="2"/>
                                         <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <TextBlock Classes="muted" Text="{Binding ExamType, StringFormat=類型：{0}}"/>
-                                            <TextBlock Classes="muted" Text="{Binding TestCases.Count, StringFormat='{}{0} 題'}"/>
-                                            <TextBlock Classes="muted" Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
+                                            <TextBlock Classes="muted" Text="{Binding ExamType, Converter={StaticResource LocFmt}, ConverterParameter=TypeFmt}"/>
+                                            <TextBlock Classes="muted" Text="{Binding TestCases.Count, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
+                                            <TextBlock Classes="muted" Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -93,16 +94,16 @@
                 <Grid RowDefinitions="Auto,*" RowSpacing="10">
                     <StackPanel Spacing="6">
                         <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ProblemCode, StringFormat=代碼：{0}}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ExamType, StringFormat=考照種類：{0}}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, StringFormat=難度：{0}}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ProblemCode, Converter={StaticResource LocFmt}, ConverterParameter=CodeFmt}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ExamType, Converter={StaticResource LocFmt}, ConverterParameter=ExamKindFmt}"/>
+                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                         <StackPanel Spacing="12">
                             <TextBlock Text="{Binding SelectedProblem.Description}" TextWrapping="Wrap"/>
 
-                            <TextBlock FontWeight="Bold" Text="測試案例" Margin="0,6,0,0"/>
+                            <TextBlock FontWeight="Bold" Text="{loc:Loc TestCases}" Margin="0,6,0,0"/>
                             <ItemsControl ItemsSource="{Binding SelectedProblem.TestCases}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -131,7 +132,7 @@
                         <Grid Grid.Row="1" ColumnDefinitions="170,*" ColumnSpacing="12">
                             <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="10">
                                 <StackPanel Spacing="8">
-                                    <TextBlock Text="檔案選單" FontWeight="Bold" FontSize="14"/>
+                                    <TextBlock Text="{loc:Loc FileMenu}" FontWeight="Bold" FontSize="14"/>
                                     <ListBox ItemsSource="{Binding EditorFiles}" SelectedItem="{Binding SelectedEditorFile}" Background="Transparent" BorderThickness="0">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
@@ -177,7 +178,7 @@
 
                                 <Border Grid.Row="1" Background="#101923" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                                     <StackPanel Spacing="8">
-                                        <TextBlock Text="編輯器提示" Classes="exam-title" FontSize="14"/>
+                                        <TextBlock Text="{loc:Loc EditorHints}" Classes="exam-title" FontSize="14"/>
                                         <TextBlock Text="{Binding SelectedEditorHint}" Classes="muted" TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
@@ -189,9 +190,9 @@
                 <Border Grid.Column="1" Classes="card" Padding="16">
                     <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="語言"/>
+                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="{loc:Loc Language}"/>
                             <ComboBox ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedLanguage}" Width="140"/>
-                            <Button Content="編譯" Command="{Binding CompileCommand}"/>
+                            <Button Content="{loc:Loc Compile}" Command="{Binding CompileCommand}"/>
                         </StackPanel>
 
                         <Border Grid.Row="1" Background="#101923" CornerRadius="6" Padding="10">
@@ -201,8 +202,8 @@
                         </Border>
 
                         <StackPanel Grid.Row="2" Spacing="6">
-                            <TextBlock Text="編譯選項" FontWeight="Bold"/>
-                            <TextBlock Classes="muted" Text="目前為模擬編譯；之後可接上實際編譯服務。" TextWrapping="Wrap"/>
+                            <TextBlock Text="{loc:Loc CompileOptions}" FontWeight="Bold"/>
+                            <TextBlock Classes="muted" Text="{loc:Loc CompileNote}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Grid>
                 </Border>

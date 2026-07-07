@@ -3,6 +3,7 @@
             
              x:Class="B3.App"
              xmlns:local="using:B3"
+             xmlns:conv="using:B3.Converters"
              RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -11,6 +12,7 @@
     </Application.DataTemplates>
 
     <Application.Resources>
+        <conv:LocalizedFormatConverter x:Key="LocFmt"/>
         <Color x:Key="PrimaryColor">#4C7ED6</Color>
         <Color x:Key="PrimaryDarkColor">#355AA5</Color>
         <Color x:Key="SurfaceColor">#151A23</Color>
@@ -58,6 +60,12 @@
 
         <Style Selector="Window">
             <Setter Property="Background" Value="{DynamicResource PageBgBrush}"/>
+            <!-- 主題切換時背景色平滑過渡 -->
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.25"/>
+                </Transitions>
+            </Setter>
         </Style>
 
         <Style Selector="Window Grid">
@@ -68,6 +76,12 @@
             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
             <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}"/>
             <Setter Property="FontFamily" Value="{DynamicResource GlobalFontFamily}"/>
+            <!-- 主題切換時文字顏色平滑過渡 -->
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.25"/>
+                </Transitions>
+            </Setter>
         </Style>
 
         <Style Selector="TextBox">
@@ -232,6 +246,7 @@
             <Setter Property="Transitions">
                 <Transitions>
                     <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.16"/>
                     <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
                     <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16"/>
                 </Transitions>
@@ -297,6 +312,22 @@
 
         <Style Selector="ScrollViewer">
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+        </Style>
+
+        <!-- 進度條數值平滑滾動 -->
+        <Style Selector="ProgressBar">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Value" Duration="0:0:0.35" Easing="CubicEaseOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- Expander 展開內容淡入 -->
+        <Style Selector="Expander">
+            <Setter Property="ContentTransition">
+                <CrossFade Duration="0:0:0.2"/>
+            </Setter>
         </Style>
     </Application.Styles>
 </Application>

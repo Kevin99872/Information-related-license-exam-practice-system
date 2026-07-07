@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
+             xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="B3.Views.ExamResultView"
              x:DataType="vm:ExamResultViewModel">
@@ -35,23 +36,23 @@
     <Border Classes="result-card">
         <Grid ColumnDefinitions="1*,0.9*" ColumnSpacing="12">
             <StackPanel Spacing="10">
-                <TextBlock Text="考試結算" Classes="exam-title" FontSize="18"/>
-                <TextBlock Text="{Binding ScoreGrade, StringFormat='等級：{0}'}" FontSize="16" FontWeight="Bold" Foreground="#FFC266"/>
-                <TextBlock Text="{Binding CorrectCount, StringFormat='答對：{0} 題'}"/>
-                <TextBlock Text="{Binding AnsweredCount, StringFormat='作答：{0} 題'}"/>
-                <TextBlock Text="{Binding TotalProblems, StringFormat='題庫總題數：{0} 題'}"/>
-                <TextBlock Text="{Binding ElapsedTimeText, StringFormat='花費時間：{0}'}"/>
+                <TextBlock Text="{loc:Loc ExamResult}" Classes="exam-title" FontSize="18"/>
+                <TextBlock Text="{Binding ScoreGrade, Converter={StaticResource LocFmt}, ConverterParameter=GradeFmt}" FontSize="16" FontWeight="Bold" Foreground="#FFC266"/>
+                <TextBlock Text="{Binding CorrectCount, Converter={StaticResource LocFmt}, ConverterParameter=CorrectFmt}"/>
+                <TextBlock Text="{Binding AnsweredCount, Converter={StaticResource LocFmt}, ConverterParameter=AnsweredFmt}"/>
+                <TextBlock Text="{Binding TotalProblems, Converter={StaticResource LocFmt}, ConverterParameter=TotalBankFmt}"/>
+                <TextBlock Text="{Binding ElapsedTimeText, Converter={StaticResource LocFmt}, ConverterParameter=ElapsedFmt}"/>
                 <ProgressBar Minimum="0" Maximum="100" Value="{Binding ScorePercent}" Height="8"/>
-                <TextBlock Classes="muted" Text="{Binding ScorePercent, StringFormat='答對率 {0}%'}"/>
+                <TextBlock Classes="muted" Text="{Binding ScorePercent, Converter={StaticResource LocFmt}, ConverterParameter=AccuracyFmt}"/>
 
                 <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Button Content="返回首頁" Classes="primary" Command="{Binding ReturnHomeCommand}"/>
+                    <Button Content="{loc:Loc ReturnHome}" Classes="primary" Command="{Binding ReturnHomeCommand}"/>
                 </StackPanel>
 
                 <Grid ColumnDefinitions="1*,1*" ColumnSpacing="12">
                     <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                         <StackPanel Spacing="8">
-                            <TextBlock Text="本次考題" Classes="exam-title" FontSize="14"/>
+                            <TextBlock Text="{loc:Loc ThisExamProblems}" Classes="exam-title" FontSize="14"/>
                             <ListBox ItemsSource="{Binding ExamProblems}" SelectedItem="{Binding SelectedExamProblem}" Height="180">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -68,14 +69,14 @@
 
                     <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                         <StackPanel Spacing="8">
-                            <TextBlock Text="提交記錄" Classes="exam-title" FontSize="14"/>
+                            <TextBlock Text="{loc:Loc SubmissionLog}" Classes="exam-title" FontSize="14"/>
                             <ListBox ItemsSource="{Binding ExamSubmissions}" SelectedItem="{Binding SelectedSubmission}" Height="180">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <TextBlock Text="{Binding SubmittedAt, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" FontSize="12" Classes="muted"/>
-                                            <TextBlock Text="{Binding Problem.ProblemCode, StringFormat='題目：{0}'}"/>
-                                            <TextBlock Text="{Binding IsCorrect, StringFormat='是否正確：{0}'}" Classes="muted" FontSize="12"/>
+                                            <TextBlock Text="{Binding Problem.ProblemCode, Converter={StaticResource LocFmt}, ConverterParameter=ProblemFmt}"/>
+                                            <TextBlock Text="{Binding IsCorrect, Converter={StaticResource LocFmt}, ConverterParameter=IsCorrectFmt}" Classes="muted" FontSize="12"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -92,14 +93,14 @@
             <StackPanel Grid.Column="1" Spacing="10">
                 <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="AI 問答" Classes="exam-title" FontSize="14"/>
-                        <TextBox Text="{Binding AiQuestion}" AcceptsReturn="True" Height="70" Classes="exam-output" PlaceholderText="輸入想詢問的題目或程式碼觀念"/>
+                        <TextBlock Text="{loc:Loc AiQa}" Classes="exam-title" FontSize="14"/>
+                        <TextBox Text="{Binding AiQuestion}" AcceptsReturn="True" Height="70" Classes="exam-output" PlaceholderText="{loc:Loc AiQuestionPlaceholder}"/>
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <Button Content="送出問題" Classes="primary" Command="{Binding AskAiCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
-                            <Button Content="分析程式" Classes="ghost" Command="{Binding AnalyzeCodeCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
+                            <Button Content="{loc:Loc SendQuestion}" Classes="primary" Command="{Binding AskAiCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
+                            <Button Content="{loc:Loc AnalyzeCode}" Classes="ghost" Command="{Binding AnalyzeCodeCommand}" IsEnabled="{Binding IsAiNotBusy}"/>
                         </StackPanel>
-                        <TextBox Text="{Binding AiAnswer}" AcceptsReturn="True" Height="110" IsReadOnly="True" Classes="exam-output" PlaceholderText="AI 回答"/>
-                        <TextBox Text="{Binding AiAnalysis}" AcceptsReturn="True" Height="110" IsReadOnly="True" Classes="exam-output" PlaceholderText="AI 程式分析"/>
+                        <TextBox Text="{Binding AiAnswer}" AcceptsReturn="True" Height="110" IsReadOnly="True" Classes="exam-output" PlaceholderText="{loc:Loc AiAnswer}"/>
+                        <TextBox Text="{Binding AiAnalysis}" AcceptsReturn="True" Height="110" IsReadOnly="True" Classes="exam-output" PlaceholderText="{loc:Loc AiAnalysis}"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
