@@ -1,0 +1,21 @@
+CPE 272 TeX Quotes
+
+難度：簡單
+來源：改編自 UVa Online Judge #272 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+在 TeX 排版中，英文左雙引號以 `` 表示、右雙引號以 '' 表示。
+給定一段文字，將其中的雙引號 " 依序交替替換為 `` 與 ''。
+
+輸入說明：一段文字 (可含多行)。
+輸出說明：替換後的文字。
+
+== 範例 1 輸入 ==
+"To be or not to be," quoth the Bard.
+== 範例 1 輸出 ==
+``To be or not to be,'' quoth the Bard.
+
+== 範例 2 輸入 ==
+She said "yes" and "no".
+== 範例 2 輸出 ==
+She said ``yes'' and ``no''.

@@ -1,0 +1,365 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+CPE001,CPE,The 3n + 1 Problem,"對於任意正整數 n，重複套用：n 為偶數時 n=n/2，n 為奇數時 n=3n+1，直到 n=1。
+一個數字的「循環長度」為此過程經過的數字個數 (含起點與終點 1)。
+給定兩個整數 i 與 j，請找出 i 與 j 之間 (含兩端) 所有整數中最大的循環長度。
+
+輸入說明：每行兩個整數 i 與 j (可能 i>j)，處理到檔案結尾。
+輸出說明：每行輸出 i j 與該區間最大循環長度，i、j 依原輸入順序。",2,Active,Python,,0,True,"1 10
+100 200
+201 210
+900 1000","1 10 20
+100 200 125
+201 210 89
+900 1000 174"
+CPE001,CPE,The 3n + 1 Problem,"對於任意正整數 n，重複套用：n 為偶數時 n=n/2，n 為奇數時 n=3n+1，直到 n=1。
+一個數字的「循環長度」為此過程經過的數字個數 (含起點與終點 1)。
+給定兩個整數 i 與 j，請找出 i 與 j 之間 (含兩端) 所有整數中最大的循環長度。
+
+輸入說明：每行兩個整數 i 與 j (可能 i>j)，處理到檔案結尾。
+輸出說明：每行輸出 i j 與該區間最大循環長度，i、j 依原輸入順序。",2,Active,Python,,1,False,"1 1
+22 22","1 1 1
+22 22 16"
+CPE002,CPE,Hashmat the Brave Warrior,"Hashmat 是勇敢的戰士，只要對方兵力不多於自己就會開戰。
+給定兩個整數 (自己與對方的兵力，順序不定)，請輸出兩者差的絕對值。
+
+輸入說明：每行兩個非負整數，處理到檔案結尾。數值可能很大。
+輸出說明：每行輸出兩數差的絕對值。",1,Active,Python,,0,True,"10 12
+10 14
+100 200","2
+4
+100"
+CPE002,CPE,Hashmat the Brave Warrior,"Hashmat 是勇敢的戰士，只要對方兵力不多於自己就會開戰。
+給定兩個整數 (自己與對方的兵力，順序不定)，請輸出兩者差的絕對值。
+
+輸入說明：每行兩個非負整數，處理到檔案結尾。數值可能很大。
+輸出說明：每行輸出兩數差的絕對值。",1,Active,Python,,1,False,"0 0
+2147483647 0","0
+2147483647"
+CPE003,CPE,Back to High School Physics,"一個粒子以初速度 v、加速度固定，t 秒後速度變為 2v。
+求此粒子在 t 秒內移動的距離 (答案恆為 2*v*t)。
+
+輸入說明：每行兩個整數 v 與 t (-100<=v<=100, 0<=t<=200)，處理到檔案結尾。
+輸出說明：每行輸出移動距離。",1,Active,Python,,0,True,"0 0
+5 12","0
+120"
+CPE003,CPE,Back to High School Physics,"一個粒子以初速度 v、加速度固定，t 秒後速度變為 2v。
+求此粒子在 t 秒內移動的距離 (答案恆為 2*v*t)。
+
+輸入說明：每行兩個整數 v 與 t (-100<=v<=100, 0<=t<=200)，處理到檔案結尾。
+輸出說明：每行輸出移動距離。",1,Active,Python,,1,False,"3 7
+-4 10","42
+-80"
+CPE004,CPE,Beat the Spread!,"已知兩隊總分 s 與分差 d (勝隊減負隊)，求兩隊各自得分。
+得分必須為非負整數，否則輸出 impossible。
+
+輸入說明：第一行為測資組數 n，接著 n 行，每行兩個非負整數 s 與 d。
+輸出說明：每組輸出較高分與較低分 (以空白分隔)，無解則輸出 impossible。",1,Active,Python,,0,True,"2
+40 20
+20 40","30 10
+impossible"
+CPE004,CPE,Beat the Spread!,"已知兩隊總分 s 與分差 d (勝隊減負隊)，求兩隊各自得分。
+得分必須為非負整數，否則輸出 impossible。
+
+輸入說明：第一行為測資組數 n，接著 n 行，每行兩個非負整數 s 與 d。
+輸出說明：每組輸出較高分與較低分 (以空白分隔)，無解則輸出 impossible。",1,Active,Python,,1,False,"3
+10 10
+3 2
+0 0","10 0
+impossible
+0 0"
+CPE005,CPE,Vito's Family,"Vito 要搬到一條街上，使他到所有親戚家的距離總和最小。
+街道以整數座標表示，距離為座標差的絕對值。求最小距離總和。
+
+輸入說明：第一行測資組數 t；每組第一個數 r 為親戚人數，接著 r 個親戚的座標。
+輸出說明：每組輸出最小距離總和 (答案為到中位數的距離和)。",2,Active,Python,,0,True,"2
+2 2 4
+3 2 4 6","2
+4"
+CPE005,CPE,Vito's Family,"Vito 要搬到一條街上，使他到所有親戚家的距離總和最小。
+街道以整數座標表示，距離為座標差的絕對值。求最小距離總和。
+
+輸入說明：第一行測資組數 t；每組第一個數 r 為親戚人數，接著 r 個親戚的座標。
+輸出說明：每組輸出最小距離總和 (答案為到中位數的距離和)。",2,Active,Python,,1,False,"1
+5 1 2 3 100 200",297
+CPE006,CPE,Primary Arithmetic,"小學直式加法中，每次進位都是一項運算。給定兩個數，計算相加時的進位次數。
+
+輸入說明：每行兩個不超過十位的非負整數，以 0 0 結束 (不處理)。
+輸出說明：無進位輸出 No carry operation.；一次輸出 1 carry operation.；多次輸出 N carry operations.",2,Active,Python,,0,True,"123 456
+555 555
+123 594
+0 0","No carry operation.
+3 carry operations.
+1 carry operation."
+CPE006,CPE,Primary Arithmetic,"小學直式加法中，每次進位都是一項運算。給定兩個數，計算相加時的進位次數。
+
+輸入說明：每行兩個不超過十位的非負整數，以 0 0 結束 (不處理)。
+輸出說明：無進位輸出 No carry operation.；一次輸出 1 carry operation.；多次輸出 N carry operations.",2,Active,Python,,1,False,"99999 1
+0 0",5 carry operations.
+CPE007,CPE,You Can Say 11,"判斷一個 (可能非常大的) 非負整數是否為 11 的倍數。
+
+輸入說明：每行一個整數，以單獨一行 0 結束 (不處理)。
+輸出說明：是 11 的倍數輸出 N is a multiple of 11.，否則 N is not a multiple of 11.",2,Active,Python,,0,True,"112233
+30800
+2937
+5992492872857485
+0","112233 is a multiple of 11.
+30800 is a multiple of 11.
+2937 is a multiple of 11.
+5992492872857485 is not a multiple of 11."
+CPE007,CPE,You Can Say 11,"判斷一個 (可能非常大的) 非負整數是否為 11 的倍數。
+
+輸入說明：每行一個整數，以單獨一行 0 結束 (不處理)。
+輸出說明：是 11 的倍數輸出 N is a multiple of 11.，否則 N is not a multiple of 11.",2,Active,Python,,1,False,"11
+123456789
+0","11 is a multiple of 11.
+123456789 is not a multiple of 11."
+CPE008,CPE,Odd Sum,"求區間 [a,b] 內所有奇數的總和。
+
+輸入說明：第一行測資組數 t；每組一行兩個整數 a 與 b (0<a<=b<=100)。
+輸出說明：每組輸出 Case X: 總和 (X 由 1 起算)。",1,Active,Python,,0,True,"2
+1 5
+3 5","Case 1: 9
+Case 2: 8"
+CPE008,CPE,Odd Sum,"求區間 [a,b] 內所有奇數的總和。
+
+輸入說明：第一行測資組數 t；每組一行兩個整數 a 與 b (0<a<=b<=100)。
+輸出說明：每組輸出 Case X: 總和 (X 由 1 起算)。",1,Active,Python,,1,False,"3
+1 1
+2 8
+10 20","Case 1: 1
+Case 2: 15
+Case 3: 75"
+CPE009,CPE,Summing Digits,"對正整數重複做「各位數字相加」，直到結果為個位數為止，輸出該個位數。
+
+輸入說明：每行一個正整數，以 0 結束 (不處理)。
+輸出說明：每行輸出最終的個位數。",1,Active,Python,,0,True,"2
+11
+47
+0","2
+2
+2"
+CPE009,CPE,Summing Digits,"對正整數重複做「各位數字相加」，直到結果為個位數為止，輸出該個位數。
+
+輸入說明：每行一個正整數，以 0 結束 (不處理)。
+輸出說明：每行輸出最終的個位數。",1,Active,Python,,1,False,"9999
+12345
+0","9
+6"
+CPE010,CPE,Jolly Jumpers,"一個含 n 個元素的數列，若相鄰兩數差的絕對值恰好涵蓋 1 到 n-1 的每個值，則稱為 Jolly。
+
+輸入說明：每行第一個數為 n，接著 n 個整數，處理到檔案結尾。
+輸出說明：是 Jolly 輸出 Jolly，否則輸出 Not jolly。",2,Active,Python,,0,True,"4 1 4 2 3
+5 1 4 2 -1 6","Jolly
+Not jolly"
+CPE010,CPE,Jolly Jumpers,"一個含 n 個元素的數列，若相鄰兩數差的絕對值恰好涵蓋 1 到 n-1 的每個值，則稱為 Jolly。
+
+輸入說明：每行第一個數為 n，接著 n 個整數，處理到檔案結尾。
+輸出說明：是 Jolly 輸出 Jolly，否則輸出 Not jolly。",2,Active,Python,,1,False,"1 100
+3 1 2 3","Jolly
+Not jolly"
+CPE011,CPE,Common Permutation,"給定兩個由小寫字母組成的字串 a 與 b，找出最長的字串 x，使 x 同時是 a 與 b 的排列子集，並以字母由小到大輸出。
+
+輸入說明：兩行，分別為字串 a 與 b。
+輸出說明：一行，輸出符合條件且字母遞增排列的字串 (可能為多字元)。",2,Active,Python,,0,True,"pretty
+women",e
+CPE011,CPE,Common Permutation,"給定兩個由小寫字母組成的字串 a 與 b，找出最長的字串 x，使 x 同時是 a 與 b 的排列子集，並以字母由小到大輸出。
+
+輸入說明：兩行，分別為字串 a 與 b。
+輸出說明：一行，輸出符合條件且字母遞增排列的字串 (可能為多字元)。",2,Active,Python,,1,False,"hello
+world",lo
+CPE012,CPE,TeX Quotes,"在 TeX 排版中，英文左雙引號以 `` 表示、右雙引號以 '' 表示。
+給定一段文字，將其中的雙引號 "" 依序交替替換為 `` 與 ''。
+
+輸入說明：一段文字 (可含多行)。
+輸出說明：替換後的文字。",1,Active,Python,,0,True,"""To be or not to be,"" quoth the Bard.","``To be or not to be,'' quoth the Bard."
+CPE012,CPE,TeX Quotes,"在 TeX 排版中，英文左雙引號以 `` 表示、右雙引號以 '' 表示。
+給定一段文字，將其中的雙引號 "" 依序交替替換為 `` 與 ''。
+
+輸入說明：一段文字 (可含多行)。
+輸出說明：替換後的文字。",1,Active,Python,,1,False,"She said ""yes"" and ""no"".",She said ``yes'' and ``no''.
+CPE013,CPE,An Easy Problem!,"數字的每個字元代表一個位數，字元值為 0-9->0..9、A-Z->10..35、a-z->36..61。
+請找出最小的進制 B (2<=B<=62)，使得此數在 B 進制下能被 (B-1) 整除；B 必須大於所有出現的位數值。
+
+輸入說明：每行一個以上述字元表示的數，處理到檔案結尾。
+輸出說明：輸出最小可行的進制；若無 (<=62) 則輸出 such number is impossible!",3,Active,Python,,0,True,"3
+5
+AA","4
+6
+11"
+CPE013,CPE,An Easy Problem!,"數字的每個字元代表一個位數，字元值為 0-9->0..9、A-Z->10..35、a-z->36..61。
+請找出最小的進制 B (2<=B<=62)，使得此數在 B 進制下能被 (B-1) 整除；B 必須大於所有出現的位數值。
+
+輸入說明：每行一個以上述字元表示的數，處理到檔案結尾。
+輸出說明：輸出最小可行的進制；若無 (<=62) 則輸出 such number is impossible!",3,Active,Python,,1,False,"Z
+1A","36
+12"
+CPE014,CPE,Square Numbers,"完全平方數是可寫成某整數平方的數。求區間 [a,b] 內完全平方數的個數。
+
+輸入說明：每行兩個整數 a 與 b (0<a<=b<=100000)，以 0 0 結束 (不處理)。
+輸出說明：每行輸出該區間完全平方數的個數。",1,Active,Python,,0,True,"1 4
+1 10
+35 70
+0 0","2
+3
+3"
+CPE014,CPE,Square Numbers,"完全平方數是可寫成某整數平方的數。求區間 [a,b] 內完全平方數的個數。
+
+輸入說明：每行兩個整數 a 與 b (0<a<=b<=100000)，以 0 0 結束 (不處理)。
+輸出說明：每行輸出該區間完全平方數的個數。",1,Active,Python,,1,False,"100 100
+1 100000
+0 0","1
+316"
+CPE015,CPE,Parity,"一個數的 parity 是其二進位表示中 1 的個數。
+
+輸入說明：每行一個正整數，以 0 結束 (不處理)。
+輸出說明：每行輸出 The parity of B is P (mod 2). 其中 B 為二進位字串，P 為 1 的個數。",1,Active,Python,,0,True,"1
+2
+10
+0","The parity of 1 is 1 (mod 2).
+The parity of 10 is 1 (mod 2).
+The parity of 1010 is 2 (mod 2)."
+CPE015,CPE,Parity,"一個數的 parity 是其二進位表示中 1 的個數。
+
+輸入說明：每行一個正整數，以 0 結束 (不處理)。
+輸出說明：每行輸出 The parity of B is P (mod 2). 其中 B 為二進位字串，P 為 1 的個數。",1,Active,Python,,1,False,"255
+1023
+0","The parity of 11111111 is 8 (mod 2).
+The parity of 1111111111 is 10 (mod 2)."
+CPE016,CPE,Simply Emirp,"emirp 是指本身為質數，且將其數字反轉後為「不同的」質數。
+
+輸入說明：每行一個整數 (1<n<1000000)，處理到檔案結尾。
+輸出說明：非質數輸出 N is not prime.；是 emirp 輸出 N is emirp.；其餘質數輸出 N is prime.",2,Active,Python,,0,True,"17
+18
+19
+179
+199","17 is emirp.
+18 is not prime.
+19 is prime.
+179 is emirp.
+199 is emirp."
+CPE016,CPE,Simply Emirp,"emirp 是指本身為質數，且將其數字反轉後為「不同的」質數。
+
+輸入說明：每行一個整數 (1<n<1000000)，處理到檔案結尾。
+輸出說明：非質數輸出 N is not prime.；是 emirp 輸出 N is emirp.；其餘質數輸出 N is prime.",2,Active,Python,,1,False,"13
+31
+11","13 is emirp.
+31 is emirp.
+11 is prime."
+CPE017,CPE,What's Cryptanalysis?,"統計一段文字中各英文字母出現的次數 (不分大小寫，非字母忽略)。
+
+輸入說明：第一行為文字行數 N，接著 N 行文字。
+輸出說明：依出現次數由多到少輸出 (次數相同者依字母 A-Z)，格式為 大寫字母 次數。",2,Active,Python,,0,True,"3
+This is a test.
+Big xxxxxx.
+abcabc","X 6
+A 3
+B 3
+I 3
+S 3
+T 3
+C 2
+E 1
+G 1
+H 1"
+CPE017,CPE,What's Cryptanalysis?,"統計一段文字中各英文字母出現的次數 (不分大小寫，非字母忽略)。
+
+輸入說明：第一行為文字行數 N，接著 N 行文字。
+輸出說明：依出現次數由多到少輸出 (次數相同者依字母 A-Z)，格式為 大寫字母 次數。",2,Active,Python,,1,False,"1
+AaBbBb","B 4
+A 2"
+CPE018,CPE,List of Conquests,"統計名單中每個國家出現的次數。每行第一個單字為國家名稱。
+
+輸入說明：第一行為筆數 N，接著 N 行，每行以國家名稱開頭 (其後為人名)。
+輸出說明：依國家名稱字典序輸出，格式為 國家 次數。",2,Active,Python,,0,True,"3
+Spain Donna Elvira
+England Jane Doe
+Spain Donna Anna","England 1
+Spain 2"
+CPE018,CPE,List of Conquests,"統計名單中每個國家出現的次數。每行第一個單字為國家名稱。
+
+輸入說明：第一行為筆數 N，接著 N 行，每行以國家名稱開頭 (其後為人名)。
+輸出說明：依國家名稱字典序輸出，格式為 國家 次數。",2,Active,Python,,1,False,"2
+France Alice
+France Bob",France 2
+CPE019,CPE,GCD,"計算 sum(gcd(i,j))，其中 1<=i<j<=n。
+
+輸入說明：每行一個整數 n (1<n<=500)，以小於 1 的數結束 (不處理)。
+輸出說明：每行輸出對應的總和。",2,Active,Python,,0,True,"10
+100
+500
+0","67
+13015
+442011"
+CPE019,CPE,GCD,"計算 sum(gcd(i,j))，其中 1<=i<j<=n。
+
+輸入說明：每行一個整數 n (1<n<=500)，以小於 1 的數結束 (不處理)。
+輸出說明：每行輸出對應的總和。",2,Active,Python,,1,False,"2
+3
+0","1
+3"
+CPE020,CPE,2 the 9s,"若一個數為 9 的倍數，其「重數」為：反覆對各位數字求和直到剩個位數所需的次數。
+
+輸入說明：每行一個正整數 (可能很大)，以 0 結束 (不處理)。
+輸出說明：是 9 的倍數輸出 N is a multiple of 9 and has multiplicity K.，否則輸出 N is not a multiple of 9.",2,Active,Python,,0,True,"999999999999999999
+9
+18
+0","999999999999999999 is a multiple of 9 and has multiplicity 2.
+9 is a multiple of 9 and has multiplicity 1.
+18 is a multiple of 9 and has multiplicity 1."
+CPE020,CPE,2 the 9s,"若一個數為 9 的倍數，其「重數」為：反覆對各位數字求和直到剩個位數所需的次數。
+
+輸入說明：每行一個正整數 (可能很大)，以 0 結束 (不處理)。
+輸出說明：是 9 的倍數輸出 N is a multiple of 9 and has multiplicity K.，否則輸出 N is not a multiple of 9.",2,Active,Python,,1,False,"81
+100
+0","81 is a multiple of 9 and has multiplicity 1.
+100 is not a multiple of 9."
+CPE021,CPE,Fibonaccimal Base,"費氏進位制以費氏數 1,2,3,5,8,13,... 為權重，任何正整數都能唯一表示成不相鄰費氏數之和。
+
+輸入說明：第一行為個數 m，接著 m 個正整數。
+輸出說明：每個數輸出 N = R，R 為其費氏進位表示 (最高位在前，無前導 0)。",3,Active,Python,,0,True,"4
+1
+5
+10
+100","1 = 1
+5 = 1000
+10 = 10010
+100 = 1000010100"
+CPE021,CPE,Fibonaccimal Base,"費氏進位制以費氏數 1,2,3,5,8,13,... 為權重，任何正整數都能唯一表示成不相鄰費氏數之和。
+
+輸入說明：第一行為個數 m，接著 m 個正整數。
+輸出說明：每個數輸出 N = R，R 為其費氏進位表示 (最高位在前，無前導 0)。",3,Active,Python,,1,False,"3
+16
+19
+40","16 = 100100
+19 = 101001
+40 = 10001001"
+CPE022,CPE,"Divide, But Not Quite Conquer!","從 n 開始，每次除以 m，必須整除，直到變為 1，輸出整個序列；否則輸出 Boring!。
+
+輸入說明：每行兩個整數 n 與 m，處理到檔案結尾。
+輸出說明：可行則輸出以空白分隔的序列，否則輸出 Boring!。",2,Active,Python,,0,True,"100 10
+1024 2
+12 2","100 10 1
+1024 512 256 128 64 32 16 8 4 2 1
+Boring!"
+CPE022,CPE,"Divide, But Not Quite Conquer!","從 n 開始，每次除以 m，必須整除，直到變為 1，輸出整個序列；否則輸出 Boring!。
+
+輸入說明：每行兩個整數 n 與 m，處理到檔案結尾。
+輸出說明：可行則輸出以空白分隔的序列，否則輸出 Boring!。",2,Active,Python,,1,False,"1000000 10
+7 3","1000000 100000 10000 1000 100 10 1
+Boring!"
+CPE023,CPE,Doom's Day Algorithm,"給定 2011 年的月份與日期，輸出當天是星期幾 (英文)。
+
+輸入說明：第一行測資組數 T；每組一行兩個整數：月 與 日。
+輸出說明：每組輸出星期幾 (Monday..Sunday)。",2,Active,Python,,0,True,"3
+1 1
+10 29
+12 31","Saturday
+Saturday
+Saturday"
+CPE023,CPE,Doom's Day Algorithm,"給定 2011 年的月份與日期，輸出當天是星期幾 (英文)。
+
+輸入說明：第一行測資組數 T；每組一行兩個整數：月 與 日。
+輸出說明：每組輸出星期幾 (Monday..Sunday)。",2,Active,Python,,1,False,"2
+2 28
+7 4","Monday
+Monday"

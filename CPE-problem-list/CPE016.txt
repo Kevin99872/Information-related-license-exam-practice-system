@@ -1,0 +1,32 @@
+CPE 10235 Simply Emirp
+
+難度：中等
+來源：改編自 UVa Online Judge #10235 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+emirp 是指本身為質數，且將其數字反轉後為「不同的」質數。
+
+輸入說明：每行一個整數 (1<n<1000000)，處理到檔案結尾。
+輸出說明：非質數輸出 N is not prime.；是 emirp 輸出 N is emirp.；其餘質數輸出 N is prime.
+
+== 範例 1 輸入 ==
+17
+18
+19
+179
+199
+== 範例 1 輸出 ==
+17 is emirp.
+18 is not prime.
+19 is prime.
+179 is emirp.
+199 is emirp.
+
+== 範例 2 輸入 ==
+13
+31
+11
+== 範例 2 輸出 ==
+13 is emirp.
+31 is emirp.
+11 is prime.

@@ -1,0 +1,28 @@
+CPE 10931 Parity
+
+難度：簡單
+來源：改編自 UVa Online Judge #10931 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一個數的 parity 是其二進位表示中 1 的個數。
+
+輸入說明：每行一個正整數，以 0 結束 (不處理)。
+輸出說明：每行輸出 The parity of B is P (mod 2). 其中 B 為二進位字串，P 為 1 的個數。
+
+== 範例 1 輸入 ==
+1
+2
+10
+0
+== 範例 1 輸出 ==
+The parity of 1 is 1 (mod 2).
+The parity of 10 is 1 (mod 2).
+The parity of 1010 is 2 (mod 2).
+
+== 範例 2 輸入 ==
+255
+1023
+0
+== 範例 2 輸出 ==
+The parity of 11111111 is 8 (mod 2).
+The parity of 1111111111 is 10 (mod 2).
