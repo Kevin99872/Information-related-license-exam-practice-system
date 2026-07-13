@@ -1,0 +1,546 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+SWB01,軟設乙級,費氏數列,"輸入一個正整數 n，輸出費氏數列的前 n 項 (F1=1, F2=1, F3=2, ...)，以空白分隔於同一行。
+
+輸入說明：一行一個正整數 n (1<=n<=40)。
+輸出說明：一行，前 n 項費氏數，以空白分隔。",1,Active,Python,"n = int(input())
+a, b = 1, 1
+res = []
+for _ in range(n):
+    res.append(a)
+    a, b = b, a + b
+print(' '.join(map(str, res)))",0,True,5,1 1 2 3 5
+SWB01,軟設乙級,費氏數列,"輸入一個正整數 n，輸出費氏數列的前 n 項 (F1=1, F2=1, F3=2, ...)，以空白分隔於同一行。
+
+輸入說明：一行一個正整數 n (1<=n<=40)。
+輸出說明：一行，前 n 項費氏數，以空白分隔。",1,Active,Python,"n = int(input())
+a, b = 1, 1
+res = []
+for _ in range(n):
+    res.append(a)
+    a, b = b, a + b
+print(' '.join(map(str, res)))",1,False,10,1 1 2 3 5 8 13 21 34 55
+SWB01,軟設乙級,費氏數列,"輸入一個正整數 n，輸出費氏數列的前 n 項 (F1=1, F2=1, F3=2, ...)，以空白分隔於同一行。
+
+輸入說明：一行一個正整數 n (1<=n<=40)。
+輸出說明：一行，前 n 項費氏數，以空白分隔。",1,Active,Python,"n = int(input())
+a, b = 1, 1
+res = []
+for _ in range(n):
+    res.append(a)
+    a, b = b, a + b
+print(' '.join(map(str, res)))",2,False,1,1
+SWB02,軟設乙級,選擇排序（由小到大）,"以「選擇排序法」將 n 個整數由小到大排序後輸出。
+
+輸入說明：第一行整數 n；第二行 n 個整數 (以空白分隔)。
+輸出說明：一行，排序後的 n 個整數。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+for i in range(n):
+    m = i
+    for j in range(i + 1, n):
+        if a[j] < a[m]:
+            m = j
+    a[i], a[m] = a[m], a[i]
+print(' '.join(map(str, a)))",0,True,"5
+5 2 8 1 9",1 2 5 8 9
+SWB02,軟設乙級,選擇排序（由小到大）,"以「選擇排序法」將 n 個整數由小到大排序後輸出。
+
+輸入說明：第一行整數 n；第二行 n 個整數 (以空白分隔)。
+輸出說明：一行，排序後的 n 個整數。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+for i in range(n):
+    m = i
+    for j in range(i + 1, n):
+        if a[j] < a[m]:
+            m = j
+    a[i], a[m] = a[m], a[i]
+print(' '.join(map(str, a)))",1,False,"6
+3 3 1 2 2 1",1 1 2 2 3 3
+SWB03,軟設乙級,氣泡排序（由大到小）,"以「氣泡排序法」將 n 個整數由大到小排序後輸出。
+
+輸入說明：第一行整數 n；第二行 n 個整數。
+輸出說明：一行，由大到小排序後的結果。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        if a[j] < a[j + 1]:
+            a[j], a[j + 1] = a[j + 1], a[j]
+print(' '.join(map(str, a)))",0,True,"5
+5 2 8 1 9",9 8 5 2 1
+SWB03,軟設乙級,氣泡排序（由大到小）,"以「氣泡排序法」將 n 個整數由大到小排序後輸出。
+
+輸入說明：第一行整數 n；第二行 n 個整數。
+輸出說明：一行，由大到小排序後的結果。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        if a[j] < a[j + 1]:
+            a[j], a[j + 1] = a[j + 1], a[j]
+print(' '.join(map(str, a)))",1,False,"4
+10 10 5 20",20 10 10 5
+SWB04,軟設乙級,十進位轉二進位,"將一個非負十進位整數轉換為二進位字串。
+
+輸入說明：一行一個非負整數 n (0<=n<=1000000000)。
+輸出說明：n 的二進位表示 (n=0 輸出 0)。",1,Active,Python,"n = int(input())
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = str(n % 2) + r
+        n //= 2
+    print(r)",0,True,10,1010
+SWB04,軟設乙級,十進位轉二進位,"將一個非負十進位整數轉換為二進位字串。
+
+輸入說明：一行一個非負整數 n (0<=n<=1000000000)。
+輸出說明：n 的二進位表示 (n=0 輸出 0)。",1,Active,Python,"n = int(input())
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = str(n % 2) + r
+        n //= 2
+    print(r)",1,False,0,0
+SWB04,軟設乙級,十進位轉二進位,"將一個非負十進位整數轉換為二進位字串。
+
+輸入說明：一行一個非負整數 n (0<=n<=1000000000)。
+輸出說明：n 的二進位表示 (n=0 輸出 0)。",1,Active,Python,"n = int(input())
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = str(n % 2) + r
+        n //= 2
+    print(r)",2,False,255,11111111
+SWB05,軟設乙級,十進位轉任意進位（2~16）,"將十進位整數轉換為指定的 N 進位 (2<=N<=16)，超過 9 的位數以大寫英文字母 A~F 表示。
+
+輸入說明：一行兩個整數：數值 與 進位基底 N。
+輸出說明：轉換後的字串 (數值為 0 時輸出 0)。",2,Active,Python,"digs = ""0123456789ABCDEF""
+s = input().split()
+n, base = int(s[0]), int(s[1])
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = digs[n % base] + r
+        n //= base
+    print(r)",0,True,255 16,FF
+SWB05,軟設乙級,十進位轉任意進位（2~16）,"將十進位整數轉換為指定的 N 進位 (2<=N<=16)，超過 9 的位數以大寫英文字母 A~F 表示。
+
+輸入說明：一行兩個整數：數值 與 進位基底 N。
+輸出說明：轉換後的字串 (數值為 0 時輸出 0)。",2,Active,Python,"digs = ""0123456789ABCDEF""
+s = input().split()
+n, base = int(s[0]), int(s[1])
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = digs[n % base] + r
+        n //= base
+    print(r)",1,False,30 2,11110
+SWB05,軟設乙級,十進位轉任意進位（2~16）,"將十進位整數轉換為指定的 N 進位 (2<=N<=16)，超過 9 的位數以大寫英文字母 A~F 表示。
+
+輸入說明：一行兩個整數：數值 與 進位基底 N。
+輸出說明：轉換後的字串 (數值為 0 時輸出 0)。",2,Active,Python,"digs = ""0123456789ABCDEF""
+s = input().split()
+n, base = int(s[0]), int(s[1])
+if n == 0:
+    print('0')
+else:
+    r = ''
+    while n > 0:
+        r = digs[n % base] + r
+        n //= base
+    print(r)",2,False,100 8,144
+SWB06,軟設乙級,任意進位轉十進位,"將一個 N 進位數 (2<=N<=16) 轉換為十進位。位數可含 0~9 與大寫 A~F。
+
+輸入說明：一行：進位基底 N 與該進位下的數字字串。
+輸出說明：對應的十進位整數。",2,Active,Python,"s = input().split()
+base, num = int(s[0]), s[1]
+print(int(num, base))",0,True,16 FF,255
+SWB06,軟設乙級,任意進位轉十進位,"將一個 N 進位數 (2<=N<=16) 轉換為十進位。位數可含 0~9 與大寫 A~F。
+
+輸入說明：一行：進位基底 N 與該進位下的數字字串。
+輸出說明：對應的十進位整數。",2,Active,Python,"s = input().split()
+base, num = int(s[0]), s[1]
+print(int(num, base))",1,False,2 11110,30
+SWB06,軟設乙級,任意進位轉十進位,"將一個 N 進位數 (2<=N<=16) 轉換為十進位。位數可含 0~9 與大寫 A~F。
+
+輸入說明：一行：進位基底 N 與該進位下的數字字串。
+輸出說明：對應的十進位整數。",2,Active,Python,"s = input().split()
+base, num = int(s[0]), s[1]
+print(int(num, base))",2,False,8 144,100
+SWB07,軟設乙級,矩陣相乘,"計算兩個 n x n 方陣的乘積。
+
+輸入說明：第一行整數 n；接著 n 行為矩陣 A；再 n 行為矩陣 B (每行 n 個整數)。
+輸出說明：n 行，為 A x B 的結果。",3,Active,Python,"n = int(input())
+A = [list(map(int, input().split())) for _ in range(n)]
+B = [list(map(int, input().split())) for _ in range(n)]
+for i in range(n):
+    row = [sum(A[i][k] * B[k][j] for k in range(n)) for j in range(n)]
+    print(' '.join(map(str, row)))",0,True,"2
+1 2
+3 4
+5 6
+7 8","19 22
+43 50"
+SWB07,軟設乙級,矩陣相乘,"計算兩個 n x n 方陣的乘積。
+
+輸入說明：第一行整數 n；接著 n 行為矩陣 A；再 n 行為矩陣 B (每行 n 個整數)。
+輸出說明：n 行，為 A x B 的結果。",3,Active,Python,"n = int(input())
+A = [list(map(int, input().split())) for _ in range(n)]
+B = [list(map(int, input().split())) for _ in range(n)]
+for i in range(n):
+    row = [sum(A[i][k] * B[k][j] for k in range(n)) for j in range(n)]
+    print(' '.join(map(str, row)))",1,False,"2
+1 0
+0 1
+9 8
+7 6","9 8
+7 6"
+SWB08,軟設乙級,矩陣轉置,"輸出一個 r x c 矩陣的轉置矩陣 (c x r)。
+
+輸入說明：第一行兩個整數 r 與 c；接著 r 行，每行 c 個整數。
+輸出說明：c 行，為轉置後的矩陣。",2,Active,Python,"r, c = map(int, input().split())
+M = [list(map(int, input().split())) for _ in range(r)]
+for j in range(c):
+    print(' '.join(str(M[i][j]) for i in range(r)))",0,True,"2 3
+1 2 3
+4 5 6","1 4
+2 5
+3 6"
+SWB08,軟設乙級,矩陣轉置,"輸出一個 r x c 矩陣的轉置矩陣 (c x r)。
+
+輸入說明：第一行兩個整數 r 與 c；接著 r 行，每行 c 個整數。
+輸出說明：c 行，為轉置後的矩陣。",2,Active,Python,"r, c = map(int, input().split())
+M = [list(map(int, input().split())) for _ in range(r)]
+for j in range(c):
+    print(' '.join(str(M[i][j]) for i in range(r)))",1,False,"3 2
+1 2
+3 4
+5 6","1 3 5
+2 4 6"
+SWB09,軟設乙級,最大公因數與最小公倍數,"計算兩個正整數的最大公因數 (GCD) 與最小公倍數 (LCM)。
+
+輸入說明：一行兩個正整數 a 與 b。
+輸出說明：一行，GCD 與 LCM，以空白分隔。",1,Active,Python,"def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+a, b = map(int, input().split())
+g = gcd(a, b)
+print(g, a * b // g)",0,True,12 18,6 36
+SWB09,軟設乙級,最大公因數與最小公倍數,"計算兩個正整數的最大公因數 (GCD) 與最小公倍數 (LCM)。
+
+輸入說明：一行兩個正整數 a 與 b。
+輸出說明：一行，GCD 與 LCM，以空白分隔。",1,Active,Python,"def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+a, b = map(int, input().split())
+g = gcd(a, b)
+print(g, a * b // g)",1,False,7 5,1 35
+SWB09,軟設乙級,最大公因數與最小公倍數,"計算兩個正整數的最大公因數 (GCD) 與最小公倍數 (LCM)。
+
+輸入說明：一行兩個正整數 a 與 b。
+輸出說明：一行，GCD 與 LCM，以空白分隔。",1,Active,Python,"def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+a, b = map(int, input().split())
+g = gcd(a, b)
+print(g, a * b // g)",2,False,100 40,20 200
+SWB10,軟設乙級,質因數分解,"將一個大於 1 的整數分解為質因數的乘積，由小到大輸出所有質因數 (含重複)。
+
+輸入說明：一行一個整數 n (2<=n<=1000000)。
+輸出說明：一行，質因數由小到大以空白分隔，例如 60 -> 2 2 3 5。",2,Active,Python,"n = int(input())
+res = []
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        res.append(d)
+        n //= d
+    d += 1
+if n > 1:
+    res.append(n)
+print(' '.join(map(str, res)))",0,True,60,2 2 3 5
+SWB10,軟設乙級,質因數分解,"將一個大於 1 的整數分解為質因數的乘積，由小到大輸出所有質因數 (含重複)。
+
+輸入說明：一行一個整數 n (2<=n<=1000000)。
+輸出說明：一行，質因數由小到大以空白分隔，例如 60 -> 2 2 3 5。",2,Active,Python,"n = int(input())
+res = []
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        res.append(d)
+        n //= d
+    d += 1
+if n > 1:
+    res.append(n)
+print(' '.join(map(str, res)))",1,False,97,97
+SWB10,軟設乙級,質因數分解,"將一個大於 1 的整數分解為質因數的乘積，由小到大輸出所有質因數 (含重複)。
+
+輸入說明：一行一個整數 n (2<=n<=1000000)。
+輸出說明：一行，質因數由小到大以空白分隔，例如 60 -> 2 2 3 5。",2,Active,Python,"n = int(input())
+res = []
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        res.append(d)
+        n //= d
+    d += 1
+if n > 1:
+    res.append(n)
+print(' '.join(map(str, res)))",2,False,360,2 2 2 3 3 5
+SWB11,軟設乙級,巴斯卡三角形,"輸出巴斯卡 (Pascal) 三角形的前 n 列，每列數字以空白分隔。
+
+輸入說明：一行一個正整數 n (1<=n<=20)。
+輸出說明：n 行，第 i 行為第 i 列的二項式係數。",2,Active,Python,"n = int(input())
+row = [1]
+for _ in range(n):
+    print(' '.join(map(str, row)))
+    row = [1] + [row[j] + row[j + 1] for j in range(len(row) - 1)] + [1]",0,True,5,"1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1"
+SWB11,軟設乙級,巴斯卡三角形,"輸出巴斯卡 (Pascal) 三角形的前 n 列，每列數字以空白分隔。
+
+輸入說明：一行一個正整數 n (1<=n<=20)。
+輸出說明：n 行，第 i 行為第 i 列的二項式係數。",2,Active,Python,"n = int(input())
+row = [1]
+for _ in range(n):
+    print(' '.join(map(str, row)))
+    row = [1] + [row[j] + row[j + 1] for j in range(len(row) - 1)] + [1]",1,False,1,1
+SWB12,軟設乙級,河內塔,"n 個大小不同的圓盤，依規則從 A 柱搬到 C 柱 (B 為輔助柱)。輸出總步數與每一步的搬移。
+
+輸入說明：一行一個正整數 n (1<=n<=10)。
+輸出說明：第一行為總步數 (2^n - 1)；其後每行一個搬移，格式 起點->終點。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+n = int(input())
+out = []
+def hanoi(k, frm, to, via):
+    if k == 0:
+        return
+    hanoi(k - 1, frm, via, to)
+    out.append(f""{frm}->{to}"")
+    hanoi(k - 1, via, to, frm)
+hanoi(n, 'A', 'C', 'B')
+print(len(out))
+for mv in out:
+    print(mv)",0,True,3,"7
+A->C
+A->B
+C->B
+A->C
+B->A
+B->C
+A->C"
+SWB12,軟設乙級,河內塔,"n 個大小不同的圓盤，依規則從 A 柱搬到 C 柱 (B 為輔助柱)。輸出總步數與每一步的搬移。
+
+輸入說明：一行一個正整數 n (1<=n<=10)。
+輸出說明：第一行為總步數 (2^n - 1)；其後每行一個搬移，格式 起點->終點。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+n = int(input())
+out = []
+def hanoi(k, frm, to, via):
+    if k == 0:
+        return
+    hanoi(k - 1, frm, via, to)
+    out.append(f""{frm}->{to}"")
+    hanoi(k - 1, via, to, frm)
+hanoi(n, 'A', 'C', 'B')
+print(len(out))
+for mv in out:
+    print(mv)",1,False,1,"1
+A->C"
+SWB13,軟設乙級,完全數,"完全數是指等於其所有真因數 (不含自身) 之和的正整數，如 6=1+2+3。輸出區間 [a,b] 內的所有完全數。
+
+輸入說明：一行兩個正整數 a 與 b (1<=a<=b<=10000)。
+輸出說明：區間內的完全數 (由小到大，空白分隔)；若無則輸出 none。",2,Active,Python,"a, b = map(int, input().split())
+res = []
+for n in range(max(a, 1), b + 1):
+    s = sum(d for d in range(1, n) if n % d == 0)
+    if s == n:
+        res.append(n)
+print(' '.join(map(str, res)) if res else 'none')",0,True,1 30,6 28
+SWB13,軟設乙級,完全數,"完全數是指等於其所有真因數 (不含自身) 之和的正整數，如 6=1+2+3。輸出區間 [a,b] 內的所有完全數。
+
+輸入說明：一行兩個正整數 a 與 b (1<=a<=b<=10000)。
+輸出說明：區間內的完全數 (由小到大，空白分隔)；若無則輸出 none。",2,Active,Python,"a, b = map(int, input().split())
+res = []
+for n in range(max(a, 1), b + 1):
+    s = sum(d for d in range(1, n) if n % d == 0)
+    if s == n:
+        res.append(n)
+print(' '.join(map(str, res)) if res else 'none')",1,False,1 10000,6 28 496 8128
+SWB13,軟設乙級,完全數,"完全數是指等於其所有真因數 (不含自身) 之和的正整數，如 6=1+2+3。輸出區間 [a,b] 內的所有完全數。
+
+輸入說明：一行兩個正整數 a 與 b (1<=a<=b<=10000)。
+輸出說明：區間內的完全數 (由小到大，空白分隔)；若無則輸出 none。",2,Active,Python,"a, b = map(int, input().split())
+res = []
+for n in range(max(a, 1), b + 1):
+    s = sum(d for d in range(1, n) if n % d == 0)
+    if s == n:
+        res.append(n)
+print(' '.join(map(str, res)) if res else 'none')",2,False,10 20,none
+SWB14,軟設乙級,二分搜尋法,"在一個「已由小到大排序」的陣列中，以二分搜尋法尋找目標值，輸出其位置 (1 起算)，找不到輸出 -1。
+
+輸入說明：第一行整數 n；第二行 n 個遞增整數；第三行為目標值 t。
+輸出說明：t 的位置 (1 起算)，找不到則 -1。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+t = int(input())
+lo, hi, ans = 0, n - 1, -1
+while lo <= hi:
+    mid = (lo + hi) // 2
+    if a[mid] == t:
+        ans = mid + 1
+        break
+    elif a[mid] < t:
+        lo = mid + 1
+    else:
+        hi = mid - 1
+print(ans)",0,True,"7
+1 3 5 7 9 11 13
+7",4
+SWB14,軟設乙級,二分搜尋法,"在一個「已由小到大排序」的陣列中，以二分搜尋法尋找目標值，輸出其位置 (1 起算)，找不到輸出 -1。
+
+輸入說明：第一行整數 n；第二行 n 個遞增整數；第三行為目標值 t。
+輸出說明：t 的位置 (1 起算)，找不到則 -1。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+t = int(input())
+lo, hi, ans = 0, n - 1, -1
+while lo <= hi:
+    mid = (lo + hi) // 2
+    if a[mid] == t:
+        ans = mid + 1
+        break
+    elif a[mid] < t:
+        lo = mid + 1
+    else:
+        hi = mid - 1
+print(ans)",1,False,"5
+2 4 6 8 10
+5",-1
+SWB15,軟設乙級,迴文判斷,"判斷一串文字是否為迴文 (正讀反讀相同)。只比對英數字元且不分大小寫。
+
+輸入說明：一行文字。
+輸出說明：是迴文輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+t = ''.join(c.lower() for c in s if c.isalnum())
+print('Yes' if t == t[::-1] else 'No')",0,True,A man a plan a canal Panama,Yes
+SWB15,軟設乙級,迴文判斷,"判斷一串文字是否為迴文 (正讀反讀相同)。只比對英數字元且不分大小寫。
+
+輸入說明：一行文字。
+輸出說明：是迴文輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+t = ''.join(c.lower() for c in s if c.isalnum())
+print('Yes' if t == t[::-1] else 'No')",1,False,Hello World,No
+SWB15,軟設乙級,迴文判斷,"判斷一串文字是否為迴文 (正讀反讀相同)。只比對英數字元且不分大小寫。
+
+輸入說明：一行文字。
+輸出說明：是迴文輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+t = ''.join(c.lower() for c in s if c.isalnum())
+print('Yes' if t == t[::-1] else 'No')",2,False,12321,Yes
+SWB16,軟設乙級,阿拉伯數字轉羅馬數字,"將 1~3999 的整數轉換為羅馬數字。
+
+輸入說明：一行一個整數 n (1<=n<=3999)。
+輸出說明：對應的羅馬數字。",3,Active,Python,"n = int(input())
+table = [(1000,'M'),(900,'CM'),(500,'D'),(400,'CD'),(100,'C'),(90,'XC'),
+         (50,'L'),(40,'XL'),(10,'X'),(9,'IX'),(5,'V'),(4,'IV'),(1,'I')]
+r = ''
+for v, sym in table:
+    while n >= v:
+        r += sym
+        n -= v
+print(r)",0,True,4,IV
+SWB16,軟設乙級,阿拉伯數字轉羅馬數字,"將 1~3999 的整數轉換為羅馬數字。
+
+輸入說明：一行一個整數 n (1<=n<=3999)。
+輸出說明：對應的羅馬數字。",3,Active,Python,"n = int(input())
+table = [(1000,'M'),(900,'CM'),(500,'D'),(400,'CD'),(100,'C'),(90,'XC'),
+         (50,'L'),(40,'XL'),(10,'X'),(9,'IX'),(5,'V'),(4,'IV'),(1,'I')]
+r = ''
+for v, sym in table:
+    while n >= v:
+        r += sym
+        n -= v
+print(r)",1,False,1994,MCMXCIV
+SWB16,軟設乙級,阿拉伯數字轉羅馬數字,"將 1~3999 的整數轉換為羅馬數字。
+
+輸入說明：一行一個整數 n (1<=n<=3999)。
+輸出說明：對應的羅馬數字。",3,Active,Python,"n = int(input())
+table = [(1000,'M'),(900,'CM'),(500,'D'),(400,'CD'),(100,'C'),(90,'XC'),
+         (50,'L'),(40,'XL'),(10,'X'),(9,'IX'),(5,'V'),(4,'IV'),(1,'I')]
+r = ''
+for v, sym in table:
+    while n >= v:
+        r += sym
+        n -= v
+print(r)",2,False,3888,MMMDCCCLXXXVIII
+SWB17,軟設乙級,陣列統計（最大/最小/總和/平均）,"讀入 n 個整數，輸出其最大值、最小值、總和與平均值 (平均取到小數點後兩位)。
+
+輸入說明：第一行整數 n；第二行 n 個整數。
+輸出說明：一行，依序為 最大 最小 總和 平均，以空白分隔。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(f""{max(a)} {min(a)} {sum(a)} {sum(a) / n:.2f}"")",0,True,"5
+10 20 30 40 50",50 10 150 30.00
+SWB17,軟設乙級,陣列統計（最大/最小/總和/平均）,"讀入 n 個整數，輸出其最大值、最小值、總和與平均值 (平均取到小數點後兩位)。
+
+輸入說明：第一行整數 n；第二行 n 個整數。
+輸出說明：一行，依序為 最大 最小 總和 平均，以空白分隔。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(f""{max(a)} {min(a)} {sum(a)} {sum(a) / n:.2f}"")",1,False,"3
+7 2 6",7 2 15 5.00
+SWB18,軟設乙級,約瑟夫問題,"n 個人圍成一圈 (編號 1~n)，從第 1 人開始報數，每數到第 m 人就將其淘汰，直到全部淘汰。
+輸出淘汰的順序。
+
+輸入說明：一行兩個正整數 n 與 m。
+輸出說明：一行，被淘汰者的編號順序，以空白分隔。",3,Active,Python,"from collections import deque
+n, m = map(int, input().split())
+q = deque(range(1, n + 1))
+order = []
+while q:
+    q.rotate(-(m - 1))
+    order.append(q.popleft())
+print(' '.join(map(str, order)))",0,True,7 3,3 6 2 7 5 1 4
+SWB18,軟設乙級,約瑟夫問題,"n 個人圍成一圈 (編號 1~n)，從第 1 人開始報數，每數到第 m 人就將其淘汰，直到全部淘汰。
+輸出淘汰的順序。
+
+輸入說明：一行兩個正整數 n 與 m。
+輸出說明：一行，被淘汰者的編號順序，以空白分隔。",3,Active,Python,"from collections import deque
+n, m = map(int, input().split())
+q = deque(range(1, n + 1))
+order = []
+while q:
+    q.rotate(-(m - 1))
+    order.append(q.popleft())
+print(' '.join(map(str, order)))",1,False,5 2,2 4 1 5 3
+SWB19,軟設乙級,十六進位加法,"計算兩個十六進位數的和，並以大寫十六進位輸出 (數值可能很大)。
+
+輸入說明：一行兩個十六進位數 (可含 0~9、A~F)。
+輸出說明：兩數之和的十六進位表示 (大寫)。",2,Active,Python,"s = input().split()
+print(format(int(s[0], 16) + int(s[1], 16), 'X'))",0,True,FF 1,100
+SWB19,軟設乙級,十六進位加法,"計算兩個十六進位數的和，並以大寫十六進位輸出 (數值可能很大)。
+
+輸入說明：一行兩個十六進位數 (可含 0~9、A~F)。
+輸出說明：兩數之和的十六進位表示 (大寫)。",2,Active,Python,"s = input().split()
+print(format(int(s[0], 16) + int(s[1], 16), 'X'))",1,False,1A2B 00C4,1AEF
+SWB19,軟設乙級,十六進位加法,"計算兩個十六進位數的和，並以大寫十六進位輸出 (數值可能很大)。
+
+輸入說明：一行兩個十六進位數 (可含 0~9、A~F)。
+輸出說明：兩數之和的十六進位表示 (大寫)。",2,Active,Python,"s = input().split()
+print(format(int(s[0], 16) + int(s[1], 16), 'X'))",2,False,FFFFFFFF FFFFFFFF,1FFFFFFFE
+SWB20,軟設乙級,閏年判斷,"閏年規則：能被 4 整除但不能被 100 整除，或能被 400 整除。輸出區間 [a,b] 內的所有閏年。
+
+輸入說明：一行兩個整數 a 與 b (1<=a<=b<=3000)。
+輸出說明：區間內的閏年 (由小到大，空白分隔)；若無則輸出 none。",1,Active,Python,"a, b = map(int, input().split())
+res = [y for y in range(a, b + 1) if (y % 4 == 0 and y % 100 != 0) or y % 400 == 0]
+print(' '.join(map(str, res)) if res else 'none')",0,True,2000 2012,2000 2004 2008 2012
+SWB20,軟設乙級,閏年判斷,"閏年規則：能被 4 整除但不能被 100 整除，或能被 400 整除。輸出區間 [a,b] 內的所有閏年。
+
+輸入說明：一行兩個整數 a 與 b (1<=a<=b<=3000)。
+輸出說明：區間內的閏年 (由小到大，空白分隔)；若無則輸出 none。",1,Active,Python,"a, b = map(int, input().split())
+res = [y for y in range(a, b + 1) if (y % 4 == 0 and y % 100 != 0) or y % 400 == 0]
+print(' '.join(map(str, res)) if res else 'none')",1,False,1900 1901,none

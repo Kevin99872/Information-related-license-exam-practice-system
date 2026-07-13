@@ -31,13 +31,24 @@ public class OllamaService
         return await GenerateAsync(prompt);
     }
 
-    /// <summary>呼叫 Ollama 生成</summary>
+    /// <summary>依設定的供應商呼叫 AI 生成</summary>
     private async Task<string> GenerateAsync(string prompt)
+    {
+        var settings = _settingsService.Load();
+
+        return settings.AiProvider switch
+        {
+            "OpenAI" => await GenerateWithOpenAiAsync(settings, prompt),
+            "Claude" => await GenerateWithClaudeAsync(settings, prompt),
+            _ => await GenerateWithOllamaAsync(settings, prompt)
+        };
+    }
+
+    /// <summary>呼叫 Ollama 生成</summary>
+    private async Task<string> GenerateWithOllamaAsync(AppSettings settings, string prompt)
     {
         try
         {
-            var settings = _settingsService.Load();
-
             // If user selected a local transformers model, try to call it via python
             if (settings.UseLocalTransformers && !string.IsNullOrWhiteSpace(settings.LocalTransformersModelPath))
             {
@@ -67,6 +78,99 @@ public class OllamaService
         catch (Exception ex)
         {
             return $"Ollama 呼叫失敗: {ex.Message}";
+        }
+    }
+
+    /// <summary>呼叫 OpenAI Chat Completions 生成 (相容 API 亦可)</summary>
+    private async Task<string> GenerateWithOpenAiAsync(AppSettings settings, string prompt)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(settings.OpenAiApiKey))
+            {
+                return "尚未設定 OpenAI API Key，請至 設定 > AI 模型 填入。";
+            }
+
+            var endpoint = settings.OpenAiEndpoint.TrimEnd('/');
+            var url = $"{endpoint}/chat/completions";
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", settings.OpenAiApiKey);
+
+            var payload = new
+            {
+                model = settings.OpenAiModel,
+                messages = new[]
+                {
+                    new { role = "user", content = prompt }
+                }
+            };
+
+            var json = JsonSerializer.Serialize(payload);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+            using var response = await client.PostAsync(url, content);
+            var body = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+
+            using var doc = JsonDocument.Parse(body);
+            var text = doc.RootElement
+                .GetProperty("choices")[0]
+                .GetProperty("message")
+                .GetProperty("content")
+                .GetString();
+            return text?.Trim() ?? string.Empty;
+        }
+        catch (Exception ex)
+        {
+            return $"OpenAI 呼叫失敗: {ex.Message}";
+        }
+    }
+
+    /// <summary>呼叫 Claude Messages API 生成</summary>
+    private async Task<string> GenerateWithClaudeAsync(AppSettings settings, string prompt)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(settings.ClaudeApiKey))
+            {
+                return "尚未設定 Claude API Key，請至 設定 > AI 模型 填入。";
+            }
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("x-api-key", settings.ClaudeApiKey);
+            client.DefaultRequestHeaders.Add("anthropic-version", "2023-06-01");
+
+            var payload = new
+            {
+                model = settings.ClaudeModel,
+                max_tokens = 4096,
+                messages = new[]
+                {
+                    new { role = "user", content = prompt }
+                }
+            };
+
+            var json = JsonSerializer.Serialize(payload);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+            using var response = await client.PostAsync("https://api.anthropic.com/v1/messages", content);
+            var body = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+
+            using var doc = JsonDocument.Parse(body);
+            var sb = new StringBuilder();
+            foreach (var block in doc.RootElement.GetProperty("content").EnumerateArray())
+            {
+                if (block.GetProperty("type").GetString() == "text")
+                {
+                    sb.Append(block.GetProperty("text").GetString());
+                }
+            }
+            return sb.ToString().Trim();
+        }
+        catch (Exception ex)
+        {
+            return $"Claude 呼叫失敗: {ex.Message}";
         }
     }
 

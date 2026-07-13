@@ -5,8 +5,26 @@ namespace B3.Models;
 /// </summary>
 public class AppSettings
 {
+    /// <summary>AI 服務供應商 (Ollama / OpenAI / Claude)</summary>
+    public string AiProvider { get; set; } = "Ollama";
+
     /// <summary>Ollama 端點</summary>
     public string OllamaEndpoint { get; set; } = "http://localhost:11434";
+
+    /// <summary>OpenAI 端點 (相容 API 亦可)</summary>
+    public string OpenAiEndpoint { get; set; } = "https://api.openai.com/v1";
+
+    /// <summary>OpenAI API Key</summary>
+    public string OpenAiApiKey { get; set; } = string.Empty;
+
+    /// <summary>OpenAI 模型名稱</summary>
+    public string OpenAiModel { get; set; } = "gpt-4o-mini";
+
+    /// <summary>Claude API Key</summary>
+    public string ClaudeApiKey { get; set; } = string.Empty;
+
+    /// <summary>Claude 模型名稱</summary>
+    public string ClaudeModel { get; set; } = "claude-opus-4-8";
 
     /// <summary>Ollama 模型名稱</summary>
     public string OllamaModel { get; set; } = "llama3";

@@ -1,0 +1,29 @@
+電腦軟體設計乙級 練習題 SWB15  迴文判斷
+
+難度：簡單
+
+== 題目 ==
+判斷一串文字是否為迴文 (正讀反讀相同)。只比對英數字元且不分大小寫。
+
+輸入說明：一行文字。
+輸出說明：是迴文輸出 Yes，否則輸出 No。
+
+== 參考解法 (Python) ==
+s = input()
+t = ''.join(c.lower() for c in s if c.isalnum())
+print('Yes' if t == t[::-1] else 'No')
+
+== 範例 1 輸入 ==
+A man a plan a canal Panama
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+Hello World
+== 範例 2 輸出 ==
+No
+
+== 範例 3 輸入 ==
+12321
+== 範例 3 輸出 ==
+Yes

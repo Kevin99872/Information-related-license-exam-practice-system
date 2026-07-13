@@ -98,6 +98,26 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty]
     private string lastSyncDate = "2026-05-10";
 
+    /// <summary>AI 服務供應商選項</summary>
+    [ObservableProperty]
+    private ObservableCollection<string> aiProviderOptions = new();
+
+    /// <summary>選取的 AI 服務供應商</summary>
+    [ObservableProperty]
+    private string selectedAiProvider = "Ollama";
+
+    /// <summary>Ollama 供應商欄位顯示</summary>
+    [ObservableProperty]
+    private bool isOllamaProvider = true;
+
+    /// <summary>OpenAI 供應商欄位顯示</summary>
+    [ObservableProperty]
+    private bool isOpenAiProvider;
+
+    /// <summary>Claude 供應商欄位顯示</summary>
+    [ObservableProperty]
+    private bool isClaudeProvider;
+
     /// <summary>Ollama 端點</summary>
     [ObservableProperty]
     private string ollamaEndpoint = string.Empty;
@@ -105,6 +125,26 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>Ollama 模型</summary>
     [ObservableProperty]
     private string ollamaModel = string.Empty;
+
+    /// <summary>OpenAI 端點</summary>
+    [ObservableProperty]
+    private string openAiEndpoint = string.Empty;
+
+    /// <summary>OpenAI API Key</summary>
+    [ObservableProperty]
+    private string openAiApiKey = string.Empty;
+
+    /// <summary>OpenAI 模型</summary>
+    [ObservableProperty]
+    private string openAiModel = string.Empty;
+
+    /// <summary>Claude API Key</summary>
+    [ObservableProperty]
+    private string claudeApiKey = string.Empty;
+
+    /// <summary>Claude 模型</summary>
+    [ObservableProperty]
+    private string claudeModel = string.Empty;
 
     /// <summary>是否使用本地 Transformers 模型</summary>
     [ObservableProperty]
@@ -144,6 +184,13 @@ public partial class SettingsViewModel : ViewModelBase
         {
             new(LocalizationService.ZhTw, "繁體中文"),
             new(LocalizationService.EnUs, "English")
+        };
+
+        AiProviderOptions = new ObservableCollection<string>
+        {
+            "Ollama",
+            "OpenAI",
+            "Claude"
         };
 
         Sections = new ObservableCollection<SettingsSection>
@@ -256,11 +303,25 @@ public partial class SettingsViewModel : ViewModelBase
         ApplyToViewModel(settings);
     }
 
+    /// <summary>供應商切換 - 更新對應輸入欄位的顯示</summary>
+    partial void OnSelectedAiProviderChanged(string value)
+    {
+        IsOllamaProvider = value == "Ollama";
+        IsOpenAiProvider = value == "OpenAI";
+        IsClaudeProvider = value == "Claude";
+    }
+
     /// <summary>將設定值套用到 ViewModel 屬性</summary>
     private void ApplyToViewModel(AppSettings settings)
     {
+        SelectedAiProvider = AiProviderOptions.Contains(settings.AiProvider) ? settings.AiProvider : "Ollama";
         OllamaEndpoint = settings.OllamaEndpoint;
         OllamaModel = settings.OllamaModel;
+        OpenAiEndpoint = settings.OpenAiEndpoint;
+        OpenAiApiKey = settings.OpenAiApiKey;
+        OpenAiModel = settings.OpenAiModel;
+        ClaudeApiKey = settings.ClaudeApiKey;
+        ClaudeModel = settings.ClaudeModel;
         UseLocalTransformers = settings.UseLocalTransformers;
         LocalTransformersModelPath = settings.LocalTransformersModelPath;
         PythonPath = settings.PythonPath;
@@ -281,8 +342,14 @@ public partial class SettingsViewModel : ViewModelBase
     {
         // 以現有設定為基底，避免覆寫樣式頁維護的欄位 (主題、字體等)
         var settings = _settingsService.Load();
+        settings.AiProvider = SelectedAiProvider;
         settings.OllamaEndpoint = OllamaEndpoint;
         settings.OllamaModel = OllamaModel;
+        settings.OpenAiEndpoint = OpenAiEndpoint;
+        settings.OpenAiApiKey = OpenAiApiKey;
+        settings.OpenAiModel = OpenAiModel;
+        settings.ClaudeApiKey = ClaudeApiKey;
+        settings.ClaudeModel = ClaudeModel;
         settings.UseLocalTransformers = UseLocalTransformers;
         settings.LocalTransformersModelPath = LocalTransformersModelPath;
         settings.PythonPath = PythonPath;

@@ -1,0 +1,43 @@
+電腦軟體設計乙級 練習題 SWB12  河內塔
+
+難度：困難
+
+== 題目 ==
+n 個大小不同的圓盤，依規則從 A 柱搬到 C 柱 (B 為輔助柱)。輸出總步數與每一步的搬移。
+
+輸入說明：一行一個正整數 n (1<=n<=10)。
+輸出說明：第一行為總步數 (2^n - 1)；其後每行一個搬移，格式 起點->終點。
+
+== 參考解法 (Python) ==
+import sys
+sys.setrecursionlimit(10000)
+n = int(input())
+out = []
+def hanoi(k, frm, to, via):
+    if k == 0:
+        return
+    hanoi(k - 1, frm, via, to)
+    out.append(f"{frm}->{to}")
+    hanoi(k - 1, via, to, frm)
+hanoi(n, 'A', 'C', 'B')
+print(len(out))
+for mv in out:
+    print(mv)
+
+== 範例 1 輸入 ==
+3
+== 範例 1 輸出 ==
+7
+A->C
+A->B
+C->B
+A->C
+B->A
+B->C
+A->C
+
+== 範例 2 輸入 ==
+1
+== 範例 2 輸出 ==
+1
+A->C

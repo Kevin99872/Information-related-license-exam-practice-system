@@ -1,0 +1,37 @@
+電腦軟體設計乙級 練習題 SWB07  矩陣相乘
+
+難度：困難
+
+== 題目 ==
+計算兩個 n x n 方陣的乘積。
+
+輸入說明：第一行整數 n；接著 n 行為矩陣 A；再 n 行為矩陣 B (每行 n 個整數)。
+輸出說明：n 行，為 A x B 的結果。
+
+== 參考解法 (Python) ==
+n = int(input())
+A = [list(map(int, input().split())) for _ in range(n)]
+B = [list(map(int, input().split())) for _ in range(n)]
+for i in range(n):
+    row = [sum(A[i][k] * B[k][j] for k in range(n)) for j in range(n)]
+    print(' '.join(map(str, row)))
+
+== 範例 1 輸入 ==
+2
+1 2
+3 4
+5 6
+7 8
+== 範例 1 輸出 ==
+19 22
+43 50
+
+== 範例 2 輸入 ==
+2
+1 0
+0 1
+9 8
+7 6
+== 範例 2 輸出 ==
+9 8
+7 6

@@ -180,22 +180,72 @@
                     <TextBlock FontWeight="Bold" Text="{loc:Loc AiModel}"/>
                     <Border Classes="card">
                         <StackPanel Spacing="12">
-                            <StackPanel Spacing="6">
-                                <TextBlock Classes="muted" Text="{loc:Loc OllamaEndpoint}"/>
-                                <TextBox Text="{Binding OllamaEndpoint}"/>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc AiProviderTitle}"/>
+                                    <TextBlock Classes="muted" Text="{loc:Loc AiProviderDesc}"/>
+                                </StackPanel>
+                                <ComboBox Grid.Column="1"
+                                          ItemsSource="{Binding AiProviderOptions}"
+                                          SelectedItem="{Binding SelectedAiProvider}"
+                                          Width="160"
+                                          VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Ollama -->
+                            <StackPanel Spacing="12" IsVisible="{Binding IsOllamaProvider}">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc OllamaEndpoint}"/>
+                                    <TextBox Text="{Binding OllamaEndpoint}"/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc ModelName}"/>
+                                    <TextBox Text="{Binding OllamaModel}"/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc UseLocalTransformers}"/>
+                                    <ToggleSwitch IsChecked="{Binding UseLocalTransformers}"/>
+                                </StackPanel>
+                                <StackPanel Spacing="6" IsVisible="{Binding UseLocalTransformers}">
+                                    <TextBlock Classes="muted" Text="{loc:Loc LocalModelPath}"/>
+                                    <TextBox Text="{Binding LocalTransformersModelPath}"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Spacing="6">
-                                <TextBlock Classes="muted" Text="{loc:Loc ModelName}"/>
-                                <TextBox Text="{Binding OllamaModel}"/>
+
+                            <!-- OpenAI -->
+                            <StackPanel Spacing="12" IsVisible="{Binding IsOpenAiProvider}">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc OpenAiEndpoint}"/>
+                                    <TextBox Text="{Binding OpenAiEndpoint}"/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc ApiKeyLabel}"/>
+                                    <TextBox Text="{Binding OpenAiApiKey}"
+                                             PasswordChar="●"
+                                             Classes="revealPasswordButton"
+                                             PlaceholderText="sk-..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc ModelName}"/>
+                                    <TextBox Text="{Binding OpenAiModel}" PlaceholderText="gpt-4o-mini"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Spacing="6">
-                                <TextBlock Classes="muted" Text="{loc:Loc UseLocalTransformers}"/>
-                                <ToggleSwitch IsChecked="{Binding UseLocalTransformers}"/>
+
+                            <!-- Claude -->
+                            <StackPanel Spacing="12" IsVisible="{Binding IsClaudeProvider}">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc ApiKeyLabel}"/>
+                                    <TextBox Text="{Binding ClaudeApiKey}"
+                                             PasswordChar="●"
+                                             Classes="revealPasswordButton"
+                                             PlaceholderText="sk-ant-..."/>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="muted" Text="{loc:Loc ModelName}"/>
+                                    <TextBox Text="{Binding ClaudeModel}" PlaceholderText="claude-opus-4-8"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Spacing="6" IsVisible="{Binding UseLocalTransformers}">
-                                <TextBlock Classes="muted" Text="{loc:Loc LocalModelPath}"/>
-                                <TextBox Text="{Binding LocalTransformersModelPath}"/>
-                            </StackPanel>
+
                             <TextBlock Classes="muted" Text="{loc:Loc AiApplyNote}"/>
                         </StackPanel>
                     </Border>
