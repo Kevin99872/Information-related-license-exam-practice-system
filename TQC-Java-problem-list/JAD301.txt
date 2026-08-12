@@ -1,0 +1,35 @@
+TQC+ 程式語言Java JAD301  字串長度與反轉
+
+難度：簡單
+主題：字串
+
+== 題目 ==
+輸入一個字串，輸出它的長度以及反轉後的字串。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「長度: n」，第二行為「反轉: xxx」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println("長度: " + s.length());
+        System.out.println("反轉: " + reversed);
+    }
+}
+
+== 範例 1 輸入 ==
+hello
+== 範例 1 輸出 ==
+長度: 5
+反轉: olleh
+
+== 範例 2 輸入 ==
+Java
+== 範例 2 輸出 ==
+長度: 4
+反轉: avaJ

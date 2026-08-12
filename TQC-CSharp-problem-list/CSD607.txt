@@ -1,0 +1,55 @@
+TQC+ 程式語言C# CSD607  多重 catch 與 finally
+
+難度：困難
+主題：例外處理
+
+== 題目 ==
+輸入一個整數陣列與一個索引值，嘗試存取該索引位置的元素並乘以 10。若索引超出範圍，攔截 IndexOutOfRangeException 並輸出「索引超出範圍」；若輸入格式錯誤導致轉換失敗，攔截 FormatException 並輸出「輸入格式錯誤」；無論是否發生例外，最後都輸出「處理完畢」。
+
+輸入說明：第一行為 n 個以空白分隔的整數；第二行為欲存取的索引（可能為超出範圍的整數，字串輸入保證可解析為整數）。
+輸出說明：若存取成功，輸出「結果:X」；若索引超出範圍，輸出「索引超出範圍」；最後一律再輸出一行「處理完畢」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int index = int.Parse(Console.ReadLine() ?? "0");
+        try
+        {
+            int value = nums[index] * 10;
+            Console.WriteLine($"結果:{value}");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("索引超出範圍");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("輸入格式錯誤");
+        }
+        finally
+        {
+            Console.WriteLine("處理完畢");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+1 2 3 4 5
+2
+== 範例 1 輸出 ==
+結果:30
+處理完畢
+
+== 範例 2 輸入 ==
+1 2 3
+10
+== 範例 2 輸出 ==
+索引超出範圍
+處理完畢

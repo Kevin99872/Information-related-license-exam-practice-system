@@ -1,0 +1,41 @@
+APCS 實作題 APCP021 兩數之和（雙指標）
+
+難度：中等
+主題：雙指標
+
+== 題目 ==
+給定一個已由小到大排序的整數陣列與一個目標值 target，請找出陣列中是否存在兩個元素之和恰等於 target。若存在（保證最多一組解），輸出這兩個元素的索引（1-indexed，由小到大）；若不存在，輸出 "No solution"。
+
+輸入說明：第一行一個正整數 n (2<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個整數 target。
+輸出說明：一行，若有解輸出兩個索引（以空白分隔），否則輸出 "No solution"。
+
+== 參考解法 (Python) ==
+n = int(input())
+arr = list(map(int, input().split()))
+target = int(input())
+left, right = 0, n - 1
+ans = None
+while left < right:
+    s = arr[left] + arr[right]
+    if s == target:
+        ans = (left + 1, right + 1)
+        break
+    elif s < target:
+        left += 1
+    else:
+        right -= 1
+print(f"{ans[0]} {ans[1]}" if ans else "No solution")
+
+== 範例 1 輸入 ==
+5
+1 2 3 4 6
+6
+== 範例 1 輸出 ==
+2 4
+
+== 範例 2 輸入 ==
+4
+1 2 3 9
+100
+== 範例 2 輸出 ==
+No solution

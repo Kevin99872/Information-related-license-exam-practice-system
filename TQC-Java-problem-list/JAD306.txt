@@ -1,0 +1,37 @@
+TQC+ 程式語言Java JAD306  判斷回文（忽略大小寫）
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一個字串，忽略英文字母的大小寫差異，判斷它是否為回文（正讀反讀相同）。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若為回文輸出「是回文」，否則輸出「不是回文」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next().toLowerCase();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(s.equals(reversed) ? "是回文" : "不是回文");
+    }
+}
+
+== 範例 1 輸入 ==
+Level
+== 範例 1 輸出 ==
+是回文
+
+== 範例 2 輸入 ==
+Hello
+== 範例 2 輸出 ==
+不是回文
+
+== 範例 3 輸入 ==
+RaceCar
+== 範例 3 輸出 ==
+是回文

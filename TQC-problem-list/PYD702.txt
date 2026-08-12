@@ -16,15 +16,13 @@ TQC+ 程式語言Python 702 數組合併排序
 排序前的數組
 排序後的串列
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Create tuple1:
+範例輸入
 9
 0
 -1
 3
 8
 -9999
-Create tuple2:
 28
 16
 39
@@ -32,6 +30,9 @@ Create tuple2:
 78
 88
 -9999
+範例輸出
+Create tuple1:
+Create tuple2:
 Combined tuple before sorting: (9, 0, -1, 3, 8, 28, 16, 39, 56, 78, 88)
 Combined list after sorting: [-1, 0, 3, 8, 9, 16, 28, 39, 56, 78, 88]
 '''

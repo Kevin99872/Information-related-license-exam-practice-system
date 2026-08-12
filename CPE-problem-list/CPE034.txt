@@ -1,0 +1,44 @@
+CPE 10346 Peter's Smokes
+
+難度：中等
+來源：改編自 UVa Online Judge #10346 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+Peter 有 n 根新菸。每抽完一根菸會留下一個菸蒂，每 k 個菸蒂可以換一根新菸 (換來的菸抽完後菸蒂可以繼續換)。求 Peter 總共能抽幾根菸。
+
+輸入說明：每行兩個整數 n 與 k (k>=2)，以 0 0 結束 (不處理)。
+輸出說明：每行輸出總共能抽的菸數。
+
+== 參考解法 (Python) ==
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    if n == 0 and k == 0:
+        break
+    total = n
+    butts = n
+    while butts >= k:
+        new_smokes = butts // k
+        total += new_smokes
+        butts = butts % k + new_smokes
+    print(total)
+
+== 範例 1 輸入 ==
+4 3
+10 3
+0 0
+== 範例 1 輸出 ==
+5
+14
+
+== 範例 2 輸入 ==
+100 2
+17 5
+0 0
+== 範例 2 輸出 ==
+199
+21

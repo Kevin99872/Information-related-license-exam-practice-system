@@ -1,0 +1,52 @@
+APCS 實作題 APCP048 N 皇后可行解數
+
+難度：困難
+主題：回溯法
+
+== 題目 ==
+給定一個整數 n，請使用回溯法計算在 n x n 的棋盤上放置 n 個皇后、使任兩個皇后都不能互相攻擊（不同列、不同行、不同對角線）的總擺放方式數量。
+
+輸入說明：一行一個整數 n (1<=n<=9)。
+輸出說明：一行，輸出 n 皇后問題的解法總數。
+
+== 參考解法 (Python) ==
+def solve(n):
+    cols = set()
+    diag1 = set()
+    diag2 = set()
+    count = 0
+    def backtrack(row):
+        nonlocal count
+        if row == n:
+            count += 1
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col)
+            diag1.add(row - col)
+            diag2.add(row + col)
+            backtrack(row + 1)
+            cols.remove(col)
+            diag1.remove(row - col)
+            diag2.remove(row + col)
+    backtrack(0)
+    return count
+
+n = int(input())
+print(solve(n))
+
+== 範例 1 輸入 ==
+4
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+1
+== 範例 2 輸出 ==
+1
+
+== 範例 3 輸入 ==
+8
+== 範例 3 輸出 ==
+92

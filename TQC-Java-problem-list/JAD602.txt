@@ -1,0 +1,44 @@
+TQC+ 程式語言Java JAD602  陣列索引例外處理
+
+難度：中等
+主題：例外處理
+
+== 題目 ==
+輸入一個陣列與一個索引，嘗試存取該索引對應的元素。若索引超出範圍，會拋出 ArrayIndexOutOfBoundsException，請捕捉此例外並輸出提示訊息；否則輸出該元素值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數，代表要存取的索引。
+輸出說明：一行，若索引合法輸出「元素值: x」，否則輸出「索引超出範圍」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int index = sc.nextInt();
+        try {
+            System.out.println("元素值: " + arr[index]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("索引超出範圍");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+3
+10 20 30
+1
+== 範例 1 輸出 ==
+元素值: 20
+
+== 範例 2 輸入 ==
+3
+10 20 30
+5
+== 範例 2 輸出 ==
+索引超出範圍

@@ -1,0 +1,46 @@
+TQC+ 程式語言Java JAD206  質數判斷
+
+難度：中等
+主題：控制流程
+
+== 題目 ==
+輸入一個大於 1 的整數，判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=100000)。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        boolean isPrime = true;
+        if (n < 2) {
+            isPrime = false;
+        }
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        System.out.println(isPrime ? "是質數" : "不是質數");
+    }
+}
+
+== 範例 1 輸入 ==
+7
+== 範例 1 輸出 ==
+是質數
+
+== 範例 2 輸入 ==
+15
+== 範例 2 輸出 ==
+不是質數
+
+== 範例 3 輸入 ==
+97
+== 範例 3 輸出 ==
+是質數

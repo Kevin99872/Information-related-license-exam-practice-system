@@ -1,0 +1,40 @@
+APCS 實作題 APCP038 遞迴計算組合數
+
+難度：困難
+主題：遞迴
+
+== 題目 ==
+給定兩個整數 n 與 k，請使用遞迴（帕斯卡公式 C(n,k) = C(n-1,k-1) + C(n-1,k)，邊界條件 C(n,0) = C(n,n) = 1）搭配記憶化計算組合數 C(n,k) 的值。
+
+輸入說明：一行兩個整數 n k (0<=k<=n<=30)。
+輸出說明：一行，輸出 C(n,k) 的值。
+
+== 參考解法 (Python) ==
+import sys
+sys.setrecursionlimit(10000)
+memo = {}
+def comb(n, k):
+    if k == 0 or k == n:
+        return 1
+    if (n, k) in memo:
+        return memo[(n, k)]
+    res = comb(n - 1, k - 1) + comb(n - 1, k)
+    memo[(n, k)] = res
+    return res
+n, k = map(int, input().split())
+print(comb(n, k))
+
+== 範例 1 輸入 ==
+5 2
+== 範例 1 輸出 ==
+10
+
+== 範例 2 輸入 ==
+30 15
+== 範例 2 輸出 ==
+155117520
+
+== 範例 3 輸入 ==
+6 0
+== 範例 3 輸出 ==
+1

@@ -1,0 +1,34 @@
+電腦軟體設計丙級 練習題 SWC28  判斷字串是否全部為大寫字母
+
+難度：簡單
+
+== 題目 ==
+輸入一行文字，判斷其中的英文字母是否全部為大寫 (忽略非英文字母字元；若字串中沒有任何英文字母則視為 No)。
+
+輸入說明：一行文字。
+輸出說明：全部為大寫字母輸出 Yes，否則輸出 No。
+
+== 參考解法 (Python) ==
+s = input()
+letters = [ch for ch in s if ch.isalpha()]
+print("Yes" if letters and all(ch.isupper() for ch in letters) else "No")
+
+== 範例 1 輸入 ==
+HELLO
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+Hello
+== 範例 2 輸出 ==
+No
+
+== 範例 3 輸入 ==
+ABC123
+== 範例 3 輸出 ==
+Yes
+
+== 範例 4 輸入 ==
+123
+== 範例 4 輸出 ==
+No

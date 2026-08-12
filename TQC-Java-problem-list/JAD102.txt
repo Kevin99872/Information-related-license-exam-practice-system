@@ -1,0 +1,44 @@
+TQC+ 程式語言Java JAD102  四則運算格式化輸出
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入兩個整數 a 與 b（b 不為 0），依序輸出 a+b、a-b、a*b、a/b（整數除法）與 a%b 的結果，每個結果各占一行。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：五行，格式依序為「a + b = 結果」「a - b = 結果」「a * b = 結果」「a / b = 結果」「a % b = 結果」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + " + " + b + " = " + (a + b));
+        System.out.println(a + " - " + b + " = " + (a - b));
+        System.out.println(a + " * " + b + " = " + (a * b));
+        System.out.println(a + " / " + b + " = " + (a / b));
+        System.out.println(a + " % " + b + " = " + (a % b));
+    }
+}
+
+== 範例 1 輸入 ==
+7 2
+== 範例 1 輸出 ==
+7 + 2 = 9
+7 - 2 = 5
+7 * 2 = 14
+7 / 2 = 3
+7 % 2 = 1
+
+== 範例 2 輸入 ==
+-9 4
+== 範例 2 輸出 ==
+-9 + 4 = -5
+-9 - 4 = -13
+-9 * 4 = -36
+-9 / 4 = -2
+-9 % 4 = -1

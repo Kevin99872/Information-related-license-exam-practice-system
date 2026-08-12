@@ -1,0 +1,34 @@
+TQC+ 程式語言Java JAD302  大小寫轉換
+
+難度：簡單
+主題：字串
+
+== 題目 ==
+輸入一個字串，分別輸出它的全部大寫版本與全部小寫版本。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「大寫: XXX」，第二行為「小寫: xxx」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println("大寫: " + s.toUpperCase());
+        System.out.println("小寫: " + s.toLowerCase());
+    }
+}
+
+== 範例 1 輸入 ==
+HeLLo123
+== 範例 1 輸出 ==
+大寫: HELLO123
+小寫: hello123
+
+== 範例 2 輸入 ==
+JavaTQC
+== 範例 2 輸出 ==
+大寫: JAVATQC
+小寫: javatqc

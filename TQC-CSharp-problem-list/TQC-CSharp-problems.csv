@@ -1,0 +1,3587 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+CSD101,TQC,個人資料格式化輸出,"輸入姓名與年齡，輸出一句自我介紹。
+
+輸入說明：第一行為姓名（字串）；第二行為年齡（整數）。
+輸出說明：輸出一行「我是 <姓名>，今年 <年齡> 歲。」。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int age = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine($""我是 {name}，今年 {age} 歲。"");
+    }
+}",0,True,"小明
+18",我是 小明，今年 18 歲。
+CSD101,TQC,個人資料格式化輸出,"輸入姓名與年齡，輸出一句自我介紹。
+
+輸入說明：第一行為姓名（字串）；第二行為年齡（整數）。
+輸出說明：輸出一行「我是 <姓名>，今年 <年齡> 歲。」。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int age = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine($""我是 {name}，今年 {age} 歲。"");
+    }
+}",1,True,"Alice
+25",我是 Alice，今年 25 歲。
+CSD102,TQC,四則運算格式化輸出,"輸入兩個整數 a、b，依序輸出兩數的和、差、積、商（整數除法）與餘數，每項各佔一行，格式為「a 運算符 b = 結果」。
+
+輸入說明：第一行為整數 a；第二行為整數 b（b 不為 0）。
+輸出說明：五行，依序為加、減、乘、除、餘數的算式與結果。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a = int.Parse(Console.ReadLine() ?? ""0"");
+        int b = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine($""{a} + {b} = {a + b}"");
+        Console.WriteLine($""{a} - {b} = {a - b}"");
+        Console.WriteLine($""{a} * {b} = {a * b}"");
+        Console.WriteLine($""{a} / {b} = {a / b}"");
+        Console.WriteLine($""{a} % {b} = {a % b}"");
+    }
+}",0,True,"10
+3","10 + 3 = 13
+10 - 3 = 7
+10 * 3 = 30
+10 / 3 = 3
+10 % 3 = 1"
+CSD102,TQC,四則運算格式化輸出,"輸入兩個整數 a、b，依序輸出兩數的和、差、積、商（整數除法）與餘數，每項各佔一行，格式為「a 運算符 b = 結果」。
+
+輸入說明：第一行為整數 a；第二行為整數 b（b 不為 0）。
+輸出說明：五行，依序為加、減、乘、除、餘數的算式與結果。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a = int.Parse(Console.ReadLine() ?? ""0"");
+        int b = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine($""{a} + {b} = {a + b}"");
+        Console.WriteLine($""{a} - {b} = {a - b}"");
+        Console.WriteLine($""{a} * {b} = {a * b}"");
+        Console.WriteLine($""{a} / {b} = {a / b}"");
+        Console.WriteLine($""{a} % {b} = {a % b}"");
+    }
+}",1,True,"7
+7","7 + 7 = 14
+7 - 7 = 0
+7 * 7 = 49
+7 / 7 = 1
+7 % 7 = 0"
+CSD103,TQC,浮點數四捨五入格式化,"輸入一個浮點數，輸出其分別四捨五入至小數點後 0 位、1 位、2 位的結果，使用 string.Format 的固定小數位格式。
+
+輸入說明：一行浮點數 x。
+輸出說明：三行，依序為 0 位、1 位、2 位小數的四捨五入結果。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double x = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F0}"", x));
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F1}"", x));
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F2}"", x));
+    }
+}",0,True,3.14159,"3
+3.1
+3.14"
+CSD103,TQC,浮點數四捨五入格式化,"輸入一個浮點數，輸出其分別四捨五入至小數點後 0 位、1 位、2 位的結果，使用 string.Format 的固定小數位格式。
+
+輸入說明：一行浮點數 x。
+輸出說明：三行，依序為 0 位、1 位、2 位小數的四捨五入結果。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double x = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F0}"", x));
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F1}"", x));
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""{0:F2}"", x));
+    }
+}",1,True,2.995,"3
+3.0
+3.00"
+CSD104,TQC,千分位金額格式化,"輸入一個整數金額，輸出加上千分位逗號分隔符與新台幣符號的格式化字串。
+
+輸入說明：一行整數 amount（0 <= amount <= 2000000000）。
+輸出說明：一行，格式為「NT$ 金額」，金額每三位加一個逗號，例如 NT$ 1,234,567。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        long amount = long.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(""NT$ "" + amount.ToString(""#,0"", CultureInfo.InvariantCulture));
+    }
+}",0,True,1234567,"NT$ 1,234,567"
+CSD104,TQC,千分位金額格式化,"輸入一個整數金額，輸出加上千分位逗號分隔符與新台幣符號的格式化字串。
+
+輸入說明：一行整數 amount（0 <= amount <= 2000000000）。
+輸出說明：一行，格式為「NT$ 金額」，金額每三位加一個逗號，例如 NT$ 1,234,567。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        long amount = long.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(""NT$ "" + amount.ToString(""#,0"", CultureInfo.InvariantCulture));
+    }
+}",1,True,500,NT$ 500
+CSD105,TQC,溫度轉換格式化輸出,"輸入攝氏溫度，計算對應的華氏溫度（公式：F = C * 9 / 5 + 32），並輸出到小數點後 1 位。
+
+輸入說明：一行浮點數，攝氏溫度 C。
+輸出說明：一行，格式為「攝氏 C 度 = 華氏 F 度」，其中 C 與 F 皆保留小數點後 1 位。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double c = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double f = c * 9.0 / 5.0 + 32.0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""攝氏 {0:F1} 度 = 華氏 {1:F1} 度"", c, f));
+    }
+}",0,True,0,攝氏 0.0 度 = 華氏 32.0 度
+CSD105,TQC,溫度轉換格式化輸出,"輸入攝氏溫度，計算對應的華氏溫度（公式：F = C * 9 / 5 + 32），並輸出到小數點後 1 位。
+
+輸入說明：一行浮點數，攝氏溫度 C。
+輸出說明：一行，格式為「攝氏 C 度 = 華氏 F 度」，其中 C 與 F 皆保留小數點後 1 位。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double c = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double f = c * 9.0 / 5.0 + 32.0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""攝氏 {0:F1} 度 = 華氏 {1:F1} 度"", c, f));
+    }
+}",1,True,36.5,攝氏 36.5 度 = 華氏 97.7 度
+CSD106,TQC,百分比格式化輸出,"輸入及格人數與總人數，計算及格率並以百分比格式輸出（小數點後 1 位，含 % 符號）。
+
+輸入說明：第一行為及格人數 pass（整數）；第二行為總人數 total（整數，total > 0）。
+輸出說明：一行，格式為「及格率：XX.X%」。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        int pass = int.Parse(Console.ReadLine() ?? ""0"");
+        int total = int.Parse(Console.ReadLine() ?? ""1"");
+        double rate = pass * 100.0 / total;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""及格率：{0:F1}%"", rate));
+    }
+}",0,True,"18
+20",及格率：90.0%
+CSD106,TQC,百分比格式化輸出,"輸入及格人數與總人數，計算及格率並以百分比格式輸出（小數點後 1 位，含 % 符號）。
+
+輸入說明：第一行為及格人數 pass（整數）；第二行為總人數 total（整數，total > 0）。
+輸出說明：一行，格式為「及格率：XX.X%」。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        int pass = int.Parse(Console.ReadLine() ?? ""0"");
+        int total = int.Parse(Console.ReadLine() ?? ""1"");
+        double rate = pass * 100.0 / total;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""及格率：{0:F1}%"", rate));
+    }
+}",1,True,"7
+9",及格率：77.8%
+CSD107,TQC,表格欄位對齊輸出,"輸入三筆商品資料（名稱與價格），以固定欄寬對齊的方式輸出成表格，名稱靠左對齊佔 10 格、價格靠右對齊佔 6 格。
+
+輸入說明：三行，每行為「名稱 價格」，以空白分隔，價格為整數。
+輸出說明：三行，每行為對齊後的「名稱價格」字串（名稱 PadRight(10)，價格 PadLeft(6)）。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            string name = parts[0];
+            string price = parts[1];
+            Console.WriteLine(name.PadRight(10) + price.PadLeft(6));
+        }
+    }
+}",0,True,"筆記本 45
+鉛筆 8
+橡皮擦 15","筆記本           45
+鉛筆             8
+橡皮擦           15"
+CSD107,TQC,表格欄位對齊輸出,"輸入三筆商品資料（名稱與價格），以固定欄寬對齊的方式輸出成表格，名稱靠左對齊佔 10 格、價格靠右對齊佔 6 格。
+
+輸入說明：三行，每行為「名稱 價格」，以空白分隔，價格為整數。
+輸出說明：三行，每行為對齊後的「名稱價格」字串（名稱 PadRight(10)，價格 PadLeft(6)）。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            string name = parts[0];
+            string price = parts[1];
+            Console.WriteLine(name.PadRight(10) + price.PadLeft(6));
+        }
+    }
+}",1,True,"A 1
+BB 22
+CCC 333","A              1
+BB            22
+CCC          333"
+CSD108,TQC,三角形星號圖案,"輸入一個正整數 n，輸出一個 n 列的直角三角形星號圖案，第 i 列（由 1 開始）包含 i 個星號。
+
+輸入說明：一行正整數 n（1 <= n <= 20）。
+輸出說明：n 行，第 i 行為 i 個 '*' 字元。",2,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 1; i <= n; i++)
+        {
+            Console.WriteLine(new string('*', i));
+        }
+    }
+}",0,True,3,"*
+**
+***"
+CSD108,TQC,三角形星號圖案,"輸入一個正整數 n，輸出一個 n 列的直角三角形星號圖案，第 i 列（由 1 開始）包含 i 個星號。
+
+輸入說明：一行正整數 n（1 <= n <= 20）。
+輸出說明：n 行，第 i 行為 i 個 '*' 字元。",2,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 1; i <= n; i++)
+        {
+            Console.WriteLine(new string('*', i));
+        }
+    }
+}",1,True,5,"*
+**
+***
+****
+*****"
+CSD109,TQC,九九乘法表單一直行,"輸入一個 1 到 9 的整數 n，輸出該數字的九九乘法表（n 乘以 1 到 9），格式為「n x i = 結果」。
+
+輸入說明：一行整數 n（1 <= n <= 9）。
+輸出說明：九行，依序為 n x 1 = ... 到 n x 9 = ...。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""1"");
+        for (int i = 1; i <= 9; i++)
+        {
+            Console.WriteLine($""{n} x {i} = {n * i}"");
+        }
+    }
+}",0,True,3,"3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9
+3 x 4 = 12
+3 x 5 = 15
+3 x 6 = 18
+3 x 7 = 21
+3 x 8 = 24
+3 x 9 = 27"
+CSD109,TQC,九九乘法表單一直行,"輸入一個 1 到 9 的整數 n，輸出該數字的九九乘法表（n 乘以 1 到 9），格式為「n x i = 結果」。
+
+輸入說明：一行整數 n（1 <= n <= 9）。
+輸出說明：九行，依序為 n x 1 = ... 到 n x 9 = ...。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""1"");
+        for (int i = 1; i <= 9; i++)
+        {
+            Console.WriteLine($""{n} x {i} = {n * i}"");
+        }
+    }
+}",1,True,9,"9 x 1 = 9
+9 x 2 = 18
+9 x 3 = 27
+9 x 4 = 36
+9 x 5 = 45
+9 x 6 = 54
+9 x 7 = 63
+9 x 8 = 72
+9 x 9 = 81"
+CSD110,TQC,BMI 計算與等級判斷,"輸入身高（公分）與體重（公斤），計算 BMI 值（BMI = 體重 / (身高公尺)^2），輸出保留小數點後 1 位的 BMI 值，並依下列標準判斷等級：BMI < 18.5 為「過輕」；18.5 <= BMI < 24 為「正常」；24 <= BMI < 27 為「過重」；BMI >= 27 為「肥胖」。
+
+輸入說明：第一行為身高 height（公分，浮點數）；第二行為體重 weight（公斤，浮點數）。
+輸出說明：一行，格式為「BMI: XX.X 等級: 等級名稱」。",2,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double height = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double weight = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double m = height / 100.0;
+        double bmi = weight / (m * m);
+        string level;
+        if (bmi < 18.5) level = ""過輕"";
+        else if (bmi < 24) level = ""正常"";
+        else if (bmi < 27) level = ""過重"";
+        else level = ""肥胖"";
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""BMI: {0:F1} 等級: {1}"", bmi, level));
+    }
+}",0,True,"170
+65",BMI: 22.5 等級: 正常
+CSD110,TQC,BMI 計算與等級判斷,"輸入身高（公分）與體重（公斤），計算 BMI 值（BMI = 體重 / (身高公尺)^2），輸出保留小數點後 1 位的 BMI 值，並依下列標準判斷等級：BMI < 18.5 為「過輕」；18.5 <= BMI < 24 為「正常」；24 <= BMI < 27 為「過重」；BMI >= 27 為「肥胖」。
+
+輸入說明：第一行為身高 height（公分，浮點數）；第二行為體重 weight（公斤，浮點數）。
+輸出說明：一行，格式為「BMI: XX.X 等級: 等級名稱」。",2,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double height = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double weight = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+        double m = height / 100.0;
+        double bmi = weight / (m * m);
+        string level;
+        if (bmi < 18.5) level = ""過輕"";
+        else if (bmi < 24) level = ""正常"";
+        else if (bmi < 27) level = ""過重"";
+        else level = ""肥胖"";
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""BMI: {0:F1} 等級: {1}"", bmi, level));
+    }
+}",1,True,"160
+80",BMI: 31.2 等級: 肥胖
+CSD201,TQC,奇偶數判斷與計數,"輸入 n 個整數（同一行，以空白分隔），統計其中奇數與偶數的個數。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「奇數:X 偶數:Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int odd = 0, even = 0;
+        foreach (int x in nums)
+        {
+            if (x % 2 == 0) even++;
+            else odd++;
+        }
+        Console.WriteLine($""奇數:{odd} 偶數:{even}"");
+    }
+}",0,True,1 2 3 4 5,奇數:3 偶數:2
+CSD201,TQC,奇偶數判斷與計數,"輸入 n 個整數（同一行，以空白分隔），統計其中奇數與偶數的個數。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「奇數:X 偶數:Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int odd = 0, even = 0;
+        foreach (int x in nums)
+        {
+            if (x % 2 == 0) even++;
+            else odd++;
+        }
+        Console.WriteLine($""奇數:{odd} 偶數:{even}"");
+    }
+}",1,True,2 4 6 8,奇數:0 偶數:4
+CSD202,TQC,陣列最大值與最小值,"輸入 n 個整數，找出其中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數（至少一個）。
+輸出說明：一行，格式為「最大值:X 最小值:Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int max = nums[0], min = nums[0];
+        foreach (int x in nums)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+        Console.WriteLine($""最大值:{max} 最小值:{min}"");
+    }
+}",0,True,3 7 1 9 4,最大值:9 最小值:1
+CSD202,TQC,陣列最大值與最小值,"輸入 n 個整數，找出其中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數（至少一個）。
+輸出說明：一行，格式為「最大值:X 最小值:Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int max = nums[0], min = nums[0];
+        foreach (int x in nums)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+        Console.WriteLine($""最大值:{max} 最小值:{min}"");
+    }
+}",1,True,5,最大值:5 最小值:5
+CSD203,TQC,數字位數加總,"輸入一個正整數，計算其各位數字的總和。
+
+輸入說明：一行正整數 n（1 <= n <= 2000000000）。
+輸出說明：一行，該整數各位數字的總和。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        long n = long.Parse(Console.ReadLine() ?? ""0"");
+        long sum = 0;
+        while (n > 0)
+        {
+            sum += n % 10;
+            n /= 10;
+        }
+        Console.WriteLine(sum);
+    }
+}",0,True,12345,15
+CSD203,TQC,數字位數加總,"輸入一個正整數，計算其各位數字的總和。
+
+輸入說明：一行正整數 n（1 <= n <= 2000000000）。
+輸出說明：一行，該整數各位數字的總和。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        long n = long.Parse(Console.ReadLine() ?? ""0"");
+        long sum = 0;
+        while (n > 0)
+        {
+            sum += n % 10;
+            n /= 10;
+        }
+        Console.WriteLine(sum);
+    }
+}",1,True,9999,36
+CSD204,TQC,成績等級判斷,"輸入一個 0~100 的整數分數，依下列標準判斷等第：90 分以上為 A；80~89 為 B；70~79 為 C；60~69 為 D；60 分以下為 E。
+
+輸入說明：一行整數分數 score（0 <= score <= 100）。
+輸出說明：一行，格式為「等第:X」。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int score = int.Parse(Console.ReadLine() ?? ""0"");
+        char grade;
+        if (score >= 90) grade = 'A';
+        else if (score >= 80) grade = 'B';
+        else if (score >= 70) grade = 'C';
+        else if (score >= 60) grade = 'D';
+        else grade = 'E';
+        Console.WriteLine($""等第:{grade}"");
+    }
+}",0,True,95,等第:A
+CSD204,TQC,成績等級判斷,"輸入一個 0~100 的整數分數，依下列標準判斷等第：90 分以上為 A；80~89 為 B；70~79 為 C；60~69 為 D；60 分以下為 E。
+
+輸入說明：一行整數分數 score（0 <= score <= 100）。
+輸出說明：一行，格式為「等第:X」。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int score = int.Parse(Console.ReadLine() ?? ""0"");
+        char grade;
+        if (score >= 90) grade = 'A';
+        else if (score >= 80) grade = 'B';
+        else if (score >= 70) grade = 'C';
+        else if (score >= 60) grade = 'D';
+        else grade = 'E';
+        Console.WriteLine($""等第:{grade}"");
+    }
+}",1,True,55,等第:E
+CSD205,TQC,迴圈計算階乘,"輸入一個非負整數 n，使用迴圈計算 n 的階乘（n!）。
+
+輸入說明：一行整數 n（0 <= n <= 20）。
+輸出說明：一行，n! 的計算結果。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        long result = 1;
+        for (int i = 2; i <= n; i++)
+        {
+            result *= i;
+        }
+        Console.WriteLine(result);
+    }
+}",0,True,5,120
+CSD205,TQC,迴圈計算階乘,"輸入一個非負整數 n，使用迴圈計算 n 的階乘（n!）。
+
+輸入說明：一行整數 n（0 <= n <= 20）。
+輸出說明：一行，n! 的計算結果。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        long result = 1;
+        for (int i = 2; i <= n; i++)
+        {
+            result *= i;
+        }
+        Console.WriteLine(result);
+    }
+}",1,True,0,1
+CSD206,TQC,陣列反轉輸出,"輸入 n 個整數，將陣列反轉後輸出（不使用內建 Reverse 方法，自行以迴圈實作）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，反轉後的整數，以空白分隔。",2,Active,C#,"using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int n = nums.Length;
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i] = nums[n - 1 - i];
+        }
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",0,True,1 2 3 4 5,5 4 3 2 1
+CSD206,TQC,陣列反轉輸出,"輸入 n 個整數，將陣列反轉後輸出（不使用內建 Reverse 方法，自行以迴圈實作）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，反轉後的整數，以空白分隔。",2,Active,C#,"using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int n = nums.Length;
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i] = nums[n - 1 - i];
+        }
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",1,True,10 20 30,30 20 10
+CSD207,TQC,氣泡排序由小到大,"輸入 n 個整數，使用氣泡排序法將其由小到大排序後輸出。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，排序後的整數，以空白分隔。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int n = nums.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - 1 - i; j++)
+            {
+                if (nums[j] > nums[j + 1])
+                {
+                    (nums[j], nums[j + 1]) = (nums[j + 1], nums[j]);
+                }
+            }
+        }
+        Console.WriteLine(string.Join("" "", nums));
+    }
+}",0,True,5 3 8 1 9,1 3 5 8 9
+CSD207,TQC,氣泡排序由小到大,"輸入 n 個整數，使用氣泡排序法將其由小到大排序後輸出。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，排序後的整數，以空白分隔。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int n = nums.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - 1 - i; j++)
+            {
+                if (nums[j] > nums[j + 1])
+                {
+                    (nums[j], nums[j + 1]) = (nums[j + 1], nums[j]);
+                }
+            }
+        }
+        Console.WriteLine(string.Join("" "", nums));
+    }
+}",1,True,4 4 2 1,1 2 4 4
+CSD208,TQC,矩陣列與欄總和,"輸入一個 r 列 c 欄的整數矩陣，輸出每一列的總和，再輸出每一欄的總和。
+
+輸入說明：第一行為兩個整數 r c；接著 r 行，每行 c 個以空白分隔的整數。
+輸出說明：第一行為 r 個以空白分隔的列總和；第二行為 c 個以空白分隔的欄總和。",2,Active,C#,"using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string[] first = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int r = int.Parse(first[0]);
+        int c = int.Parse(first[1]);
+        int[][] mat = new int[r][];
+        for (int i = 0; i < r; i++)
+        {
+            mat[i] = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+        }
+
+        int[] rowSum = new int[r];
+        int[] colSum = new int[c];
+        for (int i = 0; i < r; i++)
+        {
+            for (int j = 0; j < c; j++)
+            {
+                rowSum[i] += mat[i][j];
+                colSum[j] += mat[i][j];
+            }
+        }
+        Console.WriteLine(string.Join("" "", rowSum));
+        Console.WriteLine(string.Join("" "", colSum));
+    }
+}",0,True,"2 3
+1 2 3
+4 5 6","6 15
+5 7 9"
+CSD208,TQC,矩陣列與欄總和,"輸入一個 r 列 c 欄的整數矩陣，輸出每一列的總和，再輸出每一欄的總和。
+
+輸入說明：第一行為兩個整數 r c；接著 r 行，每行 c 個以空白分隔的整數。
+輸出說明：第一行為 r 個以空白分隔的列總和；第二行為 c 個以空白分隔的欄總和。",2,Active,C#,"using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string[] first = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int r = int.Parse(first[0]);
+        int c = int.Parse(first[1]);
+        int[][] mat = new int[r][];
+        for (int i = 0; i < r; i++)
+        {
+            mat[i] = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+        }
+
+        int[] rowSum = new int[r];
+        int[] colSum = new int[c];
+        for (int i = 0; i < r; i++)
+        {
+            for (int j = 0; j < c; j++)
+            {
+                rowSum[i] += mat[i][j];
+                colSum[j] += mat[i][j];
+            }
+        }
+        Console.WriteLine(string.Join("" "", rowSum));
+        Console.WriteLine(string.Join("" "", colSum));
+    }
+}",1,True,"3 2
+1 1
+2 2
+3 3","2 4 6
+6 6"
+CSD209,TQC,星期幾判斷,"輸入一個 1~7 的整數代表星期幾（1 為星期一，7 為星期日），使用 switch 陳述式輸出對應的星期名稱，並標示是否為假日（星期六、日為假日，其餘為平日）。
+
+輸入說明：一行整數 d（1 <= d <= 7）。
+輸出說明：一行，格式為「星期X：假日」或「星期X：平日」，其中星期日以「星期日」表示。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int d = int.Parse(Console.ReadLine() ?? ""1"");
+        string name;
+        switch (d)
+        {
+            case 1: name = ""星期一""; break;
+            case 2: name = ""星期二""; break;
+            case 3: name = ""星期三""; break;
+            case 4: name = ""星期四""; break;
+            case 5: name = ""星期五""; break;
+            case 6: name = ""星期六""; break;
+            default: name = ""星期日""; break;
+        }
+        string kind = (d == 6 || d == 7) ? ""假日"" : ""平日"";
+        Console.WriteLine($""{name}：{kind}"");
+    }
+}",0,True,6,星期六：假日
+CSD209,TQC,星期幾判斷,"輸入一個 1~7 的整數代表星期幾（1 為星期一，7 為星期日），使用 switch 陳述式輸出對應的星期名稱，並標示是否為假日（星期六、日為假日，其餘為平日）。
+
+輸入說明：一行整數 d（1 <= d <= 7）。
+輸出說明：一行，格式為「星期X：假日」或「星期X：平日」，其中星期日以「星期日」表示。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        int d = int.Parse(Console.ReadLine() ?? ""1"");
+        string name;
+        switch (d)
+        {
+            case 1: name = ""星期一""; break;
+            case 2: name = ""星期二""; break;
+            case 3: name = ""星期三""; break;
+            case 4: name = ""星期四""; break;
+            case 5: name = ""星期五""; break;
+            case 6: name = ""星期六""; break;
+            default: name = ""星期日""; break;
+        }
+        string kind = (d == 6 || d == 7) ? ""假日"" : ""平日"";
+        Console.WriteLine($""{name}：{kind}"");
+    }
+}",1,True,3,星期三：平日
+CSD210,TQC,質數判斷,"輸入一個大於 1 的整數，判斷該數是否為質數。
+
+輸入說明：一行整數 n（2 <= n <= 1000000）。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        long n = long.Parse(Console.ReadLine() ?? ""2"");
+        bool isPrime = true;
+        if (n < 2)
+        {
+            isPrime = false;
+        }
+        else
+        {
+            for (long i = 2; i * i <= n; i++)
+            {
+                if (n % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+        Console.WriteLine(isPrime ? ""是質數"" : ""不是質數"");
+    }
+}",0,True,17,是質數
+CSD210,TQC,質數判斷,"輸入一個大於 1 的整數，判斷該數是否為質數。
+
+輸入說明：一行整數 n（2 <= n <= 1000000）。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        long n = long.Parse(Console.ReadLine() ?? ""2"");
+        bool isPrime = true;
+        if (n < 2)
+        {
+            isPrime = false;
+        }
+        else
+        {
+            for (long i = 2; i * i <= n; i++)
+            {
+                if (n % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+        Console.WriteLine(isPrime ? ""是質數"" : ""不是質數"");
+    }
+}",1,True,20,不是質數
+CSD301,TQC,字串反轉,"輸入一個字串，將其反轉後輸出。
+
+輸入說明：一行字串 s（不含空白，長度 1~100）。
+輸出說明：一行，s 反轉後的結果。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        char[] arr = s.ToCharArray();
+        Array.Reverse(arr);
+        Console.WriteLine(new string(arr));
+    }
+}",0,True,hello,olleh
+CSD301,TQC,字串反轉,"輸入一個字串，將其反轉後輸出。
+
+輸入說明：一行字串 s（不含空白，長度 1~100）。
+輸出說明：一行，s 反轉後的結果。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        char[] arr = s.ToCharArray();
+        Array.Reverse(arr);
+        Console.WriteLine(new string(arr));
+    }
+}",1,True,ABCDE,EDCBA
+CSD302,TQC,字元出現次數統計,"輸入一個字串與一個欲查詢的字元，統計該字元在字串中出現的次數。
+
+輸入說明：第一行為字串 s（長度 1~200，不含空白）；第二行為單一字元 ch。
+輸出說明：一行，字元 ch 在 s 中出現的次數。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        string chLine = Console.ReadLine() ?? """";
+        char ch = chLine[0];
+        int count = s.Count(c => c == ch);
+        Console.WriteLine(count);
+    }
+}",0,True,"banana
+a",3
+CSD302,TQC,字元出現次數統計,"輸入一個字串與一個欲查詢的字元，統計該字元在字串中出現的次數。
+
+輸入說明：第一行為字串 s（長度 1~200，不含空白）；第二行為單一字元 ch。
+輸出說明：一行，字元 ch 在 s 中出現的次數。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        string chLine = Console.ReadLine() ?? """";
+        char ch = chLine[0];
+        int count = s.Count(c => c == ch);
+        Console.WriteLine(count);
+    }
+}",1,True,"mississippi
+s",4
+CSD303,TQC,英文字母大小寫轉換,"輸入一個英文字串，分別輸出其全大寫與全小寫版本。
+
+輸入說明：一行英文字串 s（長度 1~100）。
+輸出說明：兩行，第一行為 s 的全大寫，第二行為 s 的全小寫。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        Console.WriteLine(s.ToUpper());
+        Console.WriteLine(s.ToLower());
+    }
+}",0,True,Hello World,"HELLO WORLD
+hello world"
+CSD303,TQC,英文字母大小寫轉換,"輸入一個英文字串，分別輸出其全大寫與全小寫版本。
+
+輸入說明：一行英文字串 s（長度 1~100）。
+輸出說明：兩行，第一行為 s 的全大寫，第二行為 s 的全小寫。",1,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        Console.WriteLine(s.ToUpper());
+        Console.WriteLine(s.ToLower());
+    }
+}",1,True,CSharp,"CSHARP
+csharp"
+CSD304,TQC,忽略大小寫的迴文判斷,"輸入一個字串，判斷忽略英文字母大小寫後是否為迴文（正讀反讀相同）。
+
+輸入說明：一行字串 s（僅含英文字母，長度 1~200）。
+輸出說明：一行，若為迴文輸出「是迴文」，否則輸出「不是迴文」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = (Console.ReadLine() ?? """").ToLower();
+        int i = 0, j = s.Length - 1;
+        bool ok = true;
+        while (i < j)
+        {
+            if (s[i] != s[j])
+            {
+                ok = false;
+                break;
+            }
+            i++;
+            j--;
+        }
+        Console.WriteLine(ok ? ""是迴文"" : ""不是迴文"");
+    }
+}",0,True,Level,是迴文
+CSD304,TQC,忽略大小寫的迴文判斷,"輸入一個字串，判斷忽略英文字母大小寫後是否為迴文（正讀反讀相同）。
+
+輸入說明：一行字串 s（僅含英文字母，長度 1~200）。
+輸出說明：一行，若為迴文輸出「是迴文」，否則輸出「不是迴文」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = (Console.ReadLine() ?? """").ToLower();
+        int i = 0, j = s.Length - 1;
+        bool ok = true;
+        while (i < j)
+        {
+            if (s[i] != s[j])
+            {
+                ok = false;
+                break;
+            }
+            i++;
+            j--;
+        }
+        Console.WriteLine(ok ? ""是迴文"" : ""不是迴文"");
+    }
+}",1,True,Hello,不是迴文
+CSD305,TQC,CSV 欄位解析,"輸入一行以逗號分隔的資料（姓名,科目,分數），將其切割後以「姓名 的 科目 成績為 分數 分」的格式重新輸出。
+
+輸入說明：一行字串，格式為「姓名,科目,分數」，皆不含空白。
+輸出說明：一行，格式為「姓名 的 科目 成績為 分數 分」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? """";
+        string[] parts = line.Split(',');
+        string name = parts[0];
+        string subject = parts[1];
+        string score = parts[2];
+        Console.WriteLine($""{name} 的 {subject} 成績為 {score} 分"");
+    }
+}",0,True,"小華,數學,88",小華 的 數學 成績為 88 分
+CSD305,TQC,CSV 欄位解析,"輸入一行以逗號分隔的資料（姓名,科目,分數），將其切割後以「姓名 的 科目 成績為 分數 分」的格式重新輸出。
+
+輸入說明：一行字串，格式為「姓名,科目,分數」，皆不含空白。
+輸出說明：一行，格式為「姓名 的 科目 成績為 分數 分」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? """";
+        string[] parts = line.Split(',');
+        string name = parts[0];
+        string subject = parts[1];
+        string score = parts[2];
+        Console.WriteLine($""{name} 的 {subject} 成績為 {score} 分"");
+    }
+}",1,True,"Tom,English,92",Tom 的 English 成績為 92 分
+CSD306,TQC,StringBuilder 組合報表列,"輸入 n 筆「品名 數量 單價」資料，使用 StringBuilder 組合輸出報表，每筆一行，格式為「品名 x 數量 = 小計」，小計為數量乘以單價，最後一行輸出「總計：X」為所有小計加總。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「品名 數量 單價」，數量與單價皆為整數。
+輸出說明：n 行商品小計，最後一行為總計。",2,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        StringBuilder sb = new StringBuilder();
+        int total = 0;
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            string name = parts[0];
+            int qty = int.Parse(parts[1]);
+            int price = int.Parse(parts[2]);
+            int subtotal = qty * price;
+            total += subtotal;
+            sb.AppendLine($""{name} x {qty} = {subtotal}"");
+        }
+        sb.Append($""總計：{total}"");
+        Console.WriteLine(sb.ToString());
+    }
+}",0,True,"2
+筆記本 3 45
+鉛筆 5 8","筆記本 x 3 = 135
+鉛筆 x 5 = 40
+總計：175"
+CSD306,TQC,StringBuilder 組合報表列,"輸入 n 筆「品名 數量 單價」資料，使用 StringBuilder 組合輸出報表，每筆一行，格式為「品名 x 數量 = 小計」，小計為數量乘以單價，最後一行輸出「總計：X」為所有小計加總。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「品名 數量 單價」，數量與單價皆為整數。
+輸出說明：n 行商品小計，最後一行為總計。",2,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        StringBuilder sb = new StringBuilder();
+        int total = 0;
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            string name = parts[0];
+            int qty = int.Parse(parts[1]);
+            int price = int.Parse(parts[2]);
+            int subtotal = qty * price;
+            total += subtotal;
+            sb.AppendLine($""{name} x {qty} = {subtotal}"");
+        }
+        sb.Append($""總計：{total}"");
+        Console.WriteLine(sb.ToString());
+    }
+}",1,True,"1
+橡皮擦 10 15","橡皮擦 x 10 = 150
+總計：150"
+CSD307,TQC,手機號碼遮罩,"輸入一組 10 碼手機號碼（皆為數字），使用 Substring 將中間 4 碼（第 4~7 碼）替換為 ""****"" 後輸出，其餘碼保留原樣。
+
+輸入說明：一行 10 碼數字字串。
+輸出說明：一行，遮罩後的手機號碼。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string phone = Console.ReadLine() ?? """";
+        string prefix = phone.Substring(0, 3);
+        string suffix = phone.Substring(7);
+        Console.WriteLine(prefix + ""****"" + suffix);
+    }
+}",0,True,0912345678,091****678
+CSD307,TQC,手機號碼遮罩,"輸入一組 10 碼手機號碼（皆為數字），使用 Substring 將中間 4 碼（第 4~7 碼）替換為 ""****"" 後輸出，其餘碼保留原樣。
+
+輸入說明：一行 10 碼數字字串。
+輸出說明：一行，遮罩後的手機號碼。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string phone = Console.ReadLine() ?? """";
+        string prefix = phone.Substring(0, 3);
+        string suffix = phone.Substring(7);
+        Console.WriteLine(prefix + ""****"" + suffix);
+    }
+}",1,True,0987654321,098****321
+CSD308,TQC,字串清單排序,"輸入 n 個字串，使用 List&lt;string&gt; 儲存後依字典順序排序並輸出。
+
+輸入說明：第一行為整數 n；接著 n 行，每行一個字串（不含空白）。
+輸出說明：n 行，依字典順序（由小到大）排序後的字串，每行一個。",2,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<string> words = new List<string>();
+        for (int i = 0; i < n; i++)
+        {
+            words.Add(Console.ReadLine() ?? """");
+        }
+        List<string> sorted = words.OrderBy(w => w, StringComparer.Ordinal).ToList();
+        foreach (string w in sorted)
+        {
+            Console.WriteLine(w);
+        }
+    }
+}",0,True,"3
+banana
+apple
+cherry","apple
+banana
+cherry"
+CSD308,TQC,字串清單排序,"輸入 n 個字串，使用 List&lt;string&gt; 儲存後依字典順序排序並輸出。
+
+輸入說明：第一行為整數 n；接著 n 行，每行一個字串（不含空白）。
+輸出說明：n 行，依字典順序（由小到大）排序後的字串，每行一個。",2,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<string> words = new List<string>();
+        for (int i = 0; i < n; i++)
+        {
+            words.Add(Console.ReadLine() ?? """");
+        }
+        List<string> sorted = words.OrderBy(w => w, StringComparer.Ordinal).ToList();
+        foreach (string w in sorted)
+        {
+            Console.WriteLine(w);
+        }
+    }
+}",1,True,"4
+dog
+cat
+bird
+ant","ant
+bird
+cat
+dog"
+CSD309,TQC,句子單字反轉,"輸入一句以空白分隔單字的英文句子，將句子中單字的順序反轉（單字本身內容不變），輸出反轉後的句子。
+
+輸入說明：一行英文句子，單字間以單一空白分隔。
+輸出說明：一行，單字順序反轉後的句子。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? """";
+        string[] words = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Array.Reverse(words);
+        Console.WriteLine(string.Join("" "", words));
+    }
+}",0,True,I love C Sharp,Sharp C love I
+CSD309,TQC,句子單字反轉,"輸入一句以空白分隔單字的英文句子，將句子中單字的順序反轉（單字本身內容不變），輸出反轉後的句子。
+
+輸入說明：一行英文句子，單字間以單一空白分隔。
+輸出說明：一行，單字順序反轉後的句子。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? """";
+        string[] words = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Array.Reverse(words);
+        Console.WriteLine(string.Join("" "", words));
+    }
+}",1,True,hello world,world hello
+CSD310,TQC,字串遊程編碼,"輸入一個只含大寫英文字母的字串，使用遊程編碼（Run-Length Encoding）壓縮：將連續重複出現的字元以「字元+出現次數」表示（若出現次數為 1 則不加數字）。
+
+輸入說明：一行大寫英文字母字串 s（長度 1~200）。
+輸出說明：一行，遊程編碼後的結果。",3,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.Length)
+        {
+            char c = s[i];
+            int count = 1;
+            while (i + count < s.Length && s[i + count] == c)
+            {
+                count++;
+            }
+            sb.Append(c);
+            if (count > 1)
+            {
+                sb.Append(count);
+            }
+            i += count;
+        }
+        Console.WriteLine(sb.ToString());
+    }
+}",0,True,AAABBCDDDD,A3B2CD4
+CSD310,TQC,字串遊程編碼,"輸入一個只含大寫英文字母的字串，使用遊程編碼（Run-Length Encoding）壓縮：將連續重複出現的字元以「字元+出現次數」表示（若出現次數為 1 則不加數字）。
+
+輸入說明：一行大寫英文字母字串 s（長度 1~200）。
+輸出說明：一行，遊程編碼後的結果。",3,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.Length)
+        {
+            char c = s[i];
+            int count = 1;
+            while (i + count < s.Length && s[i + count] == c)
+            {
+                count++;
+            }
+            sb.Append(c);
+            if (count > 1)
+            {
+                sb.Append(count);
+            }
+            i += count;
+        }
+        Console.WriteLine(sb.ToString());
+    }
+}",1,True,ABCDE,ABCDE
+CSD401,TQC,方法多載計算面積,"撰寫方法多載 Area，分別接受一個參數（圓形半徑，回傳圓面積，取 3.14 為 π 且四捨五入至小數點後 2 位）與兩個參數（矩形長寬，回傳矩形面積）。依輸入資料判斷呼叫哪一種多載。
+
+輸入說明：第一行為整數 type（1 表示圓形、2 表示矩形）；若 type 為 1，第二行為半徑（浮點數）；若 type 為 2，第二行為長與寬（浮點數，以空白分隔）。
+輸出說明：一行，面積計算結果，圓形保留小數點後 2 位，矩形保留小數點後 1 位。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static double Area(double radius)
+    {
+        return 3.14 * radius * radius;
+    }
+
+    static double Area(double width, double height)
+    {
+        return width * height;
+    }
+
+    static void Main()
+    {
+        int type = int.Parse(Console.ReadLine() ?? ""1"");
+        if (type == 1)
+        {
+            double r = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(r).ToString(""F2"", CultureInfo.InvariantCulture));
+        }
+        else
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double w = double.Parse(parts[0], CultureInfo.InvariantCulture);
+            double h = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(w, h).ToString(""F1"", CultureInfo.InvariantCulture));
+        }
+    }
+}",0,True,"1
+5",78.50
+CSD401,TQC,方法多載計算面積,"撰寫方法多載 Area，分別接受一個參數（圓形半徑，回傳圓面積，取 3.14 為 π 且四捨五入至小數點後 2 位）與兩個參數（矩形長寬，回傳矩形面積）。依輸入資料判斷呼叫哪一種多載。
+
+輸入說明：第一行為整數 type（1 表示圓形、2 表示矩形）；若 type 為 1，第二行為半徑（浮點數）；若 type 為 2，第二行為長與寬（浮點數，以空白分隔）。
+輸出說明：一行，面積計算結果，圓形保留小數點後 2 位，矩形保留小數點後 1 位。",1,Active,C#,"using System;
+using System.Globalization;
+
+class Program
+{
+    static double Area(double radius)
+    {
+        return 3.14 * radius * radius;
+    }
+
+    static double Area(double width, double height)
+    {
+        return width * height;
+    }
+
+    static void Main()
+    {
+        int type = int.Parse(Console.ReadLine() ?? ""1"");
+        if (type == 1)
+        {
+            double r = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(r).ToString(""F2"", CultureInfo.InvariantCulture));
+        }
+        else
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double w = double.Parse(parts[0], CultureInfo.InvariantCulture);
+            double h = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(w, h).ToString(""F1"", CultureInfo.InvariantCulture));
+        }
+    }
+}",1,True,"2
+4 6",24.0
+CSD402,TQC,out 參數求最大最小值,"撰寫方法 FindMinMax，使用 out 參數同時回傳陣列中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「Max=X Min=Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void FindMinMax(int[] arr, out int max, out int min)
+    {
+        max = arr[0];
+        min = arr[0];
+        foreach (int x in arr)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        FindMinMax(nums, out int max, out int min);
+        Console.WriteLine($""Max={max} Min={min}"");
+    }
+}",0,True,3 7 1 9 4,Max=9 Min=1
+CSD402,TQC,out 參數求最大最小值,"撰寫方法 FindMinMax，使用 out 參數同時回傳陣列中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「Max=X Min=Y」。",1,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void FindMinMax(int[] arr, out int max, out int min)
+    {
+        max = arr[0];
+        min = arr[0];
+        foreach (int x in arr)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        FindMinMax(nums, out int max, out int min);
+        Console.WriteLine($""Max={max} Min={min}"");
+    }
+}",1,True,-2 -8 -1 -5,Max=-1 Min=-8
+CSD403,TQC,ref 參數交換兩數,"撰寫方法 Swap，使用 ref 參數交換兩個整數變數的值，並輸出交換前後的結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：兩行，第一行為交換前的「a=X b=Y」，第二行為交換後的「a=X b=Y」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Swap(ref int x, ref int y)
+    {
+        int temp = x;
+        x = y;
+        y = temp;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        Console.WriteLine($""a={a} b={b}"");
+        Swap(ref a, ref b);
+        Console.WriteLine($""a={a} b={b}"");
+    }
+}",0,True,3 8,"a=3 b=8
+a=8 b=3"
+CSD403,TQC,ref 參數交換兩數,"撰寫方法 Swap，使用 ref 參數交換兩個整數變數的值，並輸出交換前後的結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：兩行，第一行為交換前的「a=X b=Y」，第二行為交換後的「a=X b=Y」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Swap(ref int x, ref int y)
+    {
+        int temp = x;
+        x = y;
+        y = temp;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        Console.WriteLine($""a={a} b={b}"");
+        Swap(ref a, ref b);
+        Console.WriteLine($""a={a} b={b}"");
+    }
+}",1,True,-1 5,"a=-1 b=5
+a=5 b=-1"
+CSD404,TQC,遞迴方法計算階乘,"撰寫遞迴方法 Factorial，計算並輸出 n 的階乘。
+
+輸入說明：一行整數 n（0 <= n <= 15）。
+輸出說明：一行，n! 的計算結果。",2,Active,C#,"using System;
+
+class Program
+{
+    static long Factorial(int n)
+    {
+        if (n <= 1) return 1;
+        return n * Factorial(n - 1);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(Factorial(n));
+    }
+}",0,True,6,720
+CSD404,TQC,遞迴方法計算階乘,"撰寫遞迴方法 Factorial，計算並輸出 n 的階乘。
+
+輸入說明：一行整數 n（0 <= n <= 15）。
+輸出說明：一行，n! 的計算結果。",2,Active,C#,"using System;
+
+class Program
+{
+    static long Factorial(int n)
+    {
+        if (n <= 1) return 1;
+        return n * Factorial(n - 1);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(Factorial(n));
+    }
+}",1,True,0,1
+CSD405,TQC,學生成績類別,"定義 Student 類別，包含屬性 Name（字串）與 Score（整數），以及方法 GetLevel() 依 Score 回傳等第（>=90 為 A，>=80 為 B，>=70 為 C，其餘為 D）。輸入姓名與分數建立物件並輸出結果。
+
+輸入說明：第一行為姓名；第二行為分數（整數）。
+輸出說明：一行，格式為「姓名: 分數分 (等第)」。",2,Active,C#,"using System;
+
+class Student
+{
+    public string Name { get; set; }
+    public int Score { get; set; }
+
+    public Student(string name, int score)
+    {
+        Name = name;
+        Score = score;
+    }
+
+    public string GetLevel()
+    {
+        if (Score >= 90) return ""A"";
+        if (Score >= 80) return ""B"";
+        if (Score >= 70) return ""C"";
+        return ""D"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int score = int.Parse(Console.ReadLine() ?? ""0"");
+        Student s = new Student(name, score);
+        Console.WriteLine($""{s.Name}: {s.Score}分 ({s.GetLevel()})"");
+    }
+}",0,True,"小美
+92",小美: 92分 (A)
+CSD405,TQC,學生成績類別,"定義 Student 類別，包含屬性 Name（字串）與 Score（整數），以及方法 GetLevel() 依 Score 回傳等第（>=90 為 A，>=80 為 B，>=70 為 C，其餘為 D）。輸入姓名與分數建立物件並輸出結果。
+
+輸入說明：第一行為姓名；第二行為分數（整數）。
+輸出說明：一行，格式為「姓名: 分數分 (等第)」。",2,Active,C#,"using System;
+
+class Student
+{
+    public string Name { get; set; }
+    public int Score { get; set; }
+
+    public Student(string name, int score)
+    {
+        Name = name;
+        Score = score;
+    }
+
+    public string GetLevel()
+    {
+        if (Score >= 90) return ""A"";
+        if (Score >= 80) return ""B"";
+        if (Score >= 70) return ""C"";
+        return ""D"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int score = int.Parse(Console.ReadLine() ?? ""0"");
+        Student s = new Student(name, score);
+        Console.WriteLine($""{s.Name}: {s.Score}分 ({s.GetLevel()})"");
+    }
+}",1,True,"Tom
+65",Tom: 65分 (D)
+CSD406,TQC,矩形類別建構子多載,"定義 Rectangle 類別，含屬性 Width、Height。提供兩個建構子：一個接受長寬兩個參數；一個不接受參數，預設長寬皆為 1。並提供方法 GetArea() 與 GetPerimeter() 分別回傳面積與周長。
+
+輸入說明：第一行為整數 mode（1 表示使用雙參數建構子，0 表示使用無參數建構子）；若 mode 為 1，第二行為長與寬（整數，以空白分隔）。
+輸出說明：一行，格式為「面積:X 周長:Y」。",2,Active,C#,"using System;
+
+class Rectangle
+{
+    public int Width { get; set; }
+    public int Height { get; set; }
+
+    public Rectangle(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public Rectangle() : this(1, 1)
+    {
+    }
+
+    public int GetArea()
+    {
+        return Width * Height;
+    }
+
+    public int GetPerimeter()
+    {
+        return 2 * (Width + Height);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int mode = int.Parse(Console.ReadLine() ?? ""0"");
+        Rectangle r;
+        if (mode == 1)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            r = new Rectangle(int.Parse(parts[0]), int.Parse(parts[1]));
+        }
+        else
+        {
+            r = new Rectangle();
+        }
+        Console.WriteLine($""面積:{r.GetArea()} 周長:{r.GetPerimeter()}"");
+    }
+}",0,True,"1
+4 6",面積:24 周長:20
+CSD406,TQC,矩形類別建構子多載,"定義 Rectangle 類別，含屬性 Width、Height。提供兩個建構子：一個接受長寬兩個參數；一個不接受參數，預設長寬皆為 1。並提供方法 GetArea() 與 GetPerimeter() 分別回傳面積與周長。
+
+輸入說明：第一行為整數 mode（1 表示使用雙參數建構子，0 表示使用無參數建構子）；若 mode 為 1，第二行為長與寬（整數，以空白分隔）。
+輸出說明：一行，格式為「面積:X 周長:Y」。",2,Active,C#,"using System;
+
+class Rectangle
+{
+    public int Width { get; set; }
+    public int Height { get; set; }
+
+    public Rectangle(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public Rectangle() : this(1, 1)
+    {
+    }
+
+    public int GetArea()
+    {
+        return Width * Height;
+    }
+
+    public int GetPerimeter()
+    {
+        return 2 * (Width + Height);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int mode = int.Parse(Console.ReadLine() ?? ""0"");
+        Rectangle r;
+        if (mode == 1)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            r = new Rectangle(int.Parse(parts[0]), int.Parse(parts[1]));
+        }
+        else
+        {
+            r = new Rectangle();
+        }
+        Console.WriteLine($""面積:{r.GetArea()} 周長:{r.GetPerimeter()}"");
+    }
+}",1,True,0,面積:1 周長:4
+CSD407,TQC,靜態欄位計數器類別,"定義 Counter 類別，使用靜態欄位 Count 記錄目前已建立的物件個數，每建立一個物件 Count 加一。輸入建立物件的次數 n，輸出建立完成後的 Count 值。
+
+輸入說明：一行整數 n（1 <= n <= 100）。
+輸出說明：一行，格式為「目前物件數量:X」。",2,Active,C#,"using System;
+
+class Counter
+{
+    public static int Count { get; private set; } = 0;
+
+    public Counter()
+    {
+        Count++;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 0; i < n; i++)
+        {
+            new Counter();
+        }
+        Console.WriteLine($""目前物件數量:{Counter.Count}"");
+    }
+}",0,True,5,目前物件數量:5
+CSD407,TQC,靜態欄位計數器類別,"定義 Counter 類別，使用靜態欄位 Count 記錄目前已建立的物件個數，每建立一個物件 Count 加一。輸入建立物件的次數 n，輸出建立完成後的 Count 值。
+
+輸入說明：一行整數 n（1 <= n <= 100）。
+輸出說明：一行，格式為「目前物件數量:X」。",2,Active,C#,"using System;
+
+class Counter
+{
+    public static int Count { get; private set; } = 0;
+
+    public Counter()
+    {
+        Count++;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 0; i < n; i++)
+        {
+            new Counter();
+        }
+        Console.WriteLine($""目前物件數量:{Counter.Count}"");
+    }
+}",1,True,1,目前物件數量:1
+CSD408,TQC,方法回傳篩選後陣列,"撰寫方法 FilterEven，接受一個整數陣列，回傳只包含偶數的新陣列（保持原順序）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，篩選出的偶數，以空白分隔；若無偶數則輸出空行。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static int[] FilterEven(int[] arr)
+    {
+        return arr.Where(x => x % 2 == 0).ToArray();
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] result = FilterEven(nums);
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",0,True,1 2 3 4 5 6,2 4 6
+CSD408,TQC,方法回傳篩選後陣列,"撰寫方法 FilterEven，接受一個整數陣列，回傳只包含偶數的新陣列（保持原順序）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，篩選出的偶數，以空白分隔；若無偶數則輸出空行。",2,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static int[] FilterEven(int[] arr)
+    {
+        return arr.Where(x => x % 2 == 0).ToArray();
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] result = FilterEven(nums);
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",1,True,7 9 11 4,4
+CSD409,TQC,遞迴計算費氏數列,"撰寫遞迴方法 Fib，計算費氏數列第 n 項（F1=1, F2=1, F(n)=F(n-1)+F(n-2)），並輸出第 1 項到第 n 項。
+
+輸入說明：一行正整數 n（1 <= n <= 25）。
+輸出說明：一行，費氏數列前 n 項，以空白分隔。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static long Fib(int n)
+    {
+        if (n <= 2) return 1;
+        return Fib(n - 1) + Fib(n - 2);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""1"");
+        List<long> result = new List<long>();
+        for (int i = 1; i <= n; i++)
+        {
+            result.Add(Fib(i));
+        }
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",0,True,8,1 1 2 3 5 8 13 21
+CSD409,TQC,遞迴計算費氏數列,"撰寫遞迴方法 Fib，計算費氏數列第 n 項（F1=1, F2=1, F(n)=F(n-1)+F(n-2)），並輸出第 1 項到第 n 項。
+
+輸入說明：一行正整數 n（1 <= n <= 25）。
+輸出說明：一行，費氏數列前 n 項，以空白分隔。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static long Fib(int n)
+    {
+        if (n <= 2) return 1;
+        return Fib(n - 1) + Fib(n - 2);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""1"");
+        List<long> result = new List<long>();
+        for (int i = 1; i <= n; i++)
+        {
+            result.Add(Fib(i));
+        }
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",1,True,1,1
+CSD410,TQC,凱薩加密方法,"撰寫方法 CaesarEncrypt，接受一個只含大寫英文字母的字串與位移量 shift，回傳將每個字母往後位移 shift 個字母（超過 Z 則循環回 A）後的加密字串。
+
+輸入說明：第一行為大寫英文字母字串 s（長度 1~100）；第二行為位移量 shift（整數，0 <= shift <= 25）。
+輸出說明：一行，加密後的字串。",3,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static string CaesarEncrypt(string s, int shift)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in s)
+        {
+            int offset = (c - 'A' + shift) % 26;
+            sb.Append((char)('A' + offset));
+        }
+        return sb.ToString();
+    }
+
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        int shift = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(CaesarEncrypt(s, shift));
+    }
+}",0,True,"HELLO
+3",KHOOR
+CSD410,TQC,凱薩加密方法,"撰寫方法 CaesarEncrypt，接受一個只含大寫英文字母的字串與位移量 shift，回傳將每個字母往後位移 shift 個字母（超過 Z 則循環回 A）後的加密字串。
+
+輸入說明：第一行為大寫英文字母字串 s（長度 1~100）；第二行為位移量 shift（整數，0 <= shift <= 25）。
+輸出說明：一行，加密後的字串。",3,Active,C#,"using System;
+using System.Text;
+
+class Program
+{
+    static string CaesarEncrypt(string s, int shift)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in s)
+        {
+            int offset = (c - 'A' + shift) % 26;
+            sb.Append((char)('A' + offset));
+        }
+        return sb.ToString();
+    }
+
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? """";
+        int shift = int.Parse(Console.ReadLine() ?? ""0"");
+        Console.WriteLine(CaesarEncrypt(s, shift));
+    }
+}",1,True,"XYZ
+2",ZAB
+CSD501,TQC,動物類別繼承,"定義基底類別 Animal，含屬性 Name 與方法 Speak()（回傳「(名字) 發出聲音」）。定義子類別 Dog 繼承 Animal，並覆寫 Speak() 回傳「(名字) 汪汪叫」。輸入名字與種類（1 為一般動物、2 為狗），建立對應物件並輸出 Speak() 的結果。
+
+輸入說明：第一行為名字；第二行為整數 kind（1 或 2）。
+輸出說明：一行，Speak() 方法回傳的字串。",1,Active,C#,"using System;
+
+class Animal
+{
+    public string Name { get; set; }
+
+    public Animal(string name)
+    {
+        Name = name;
+    }
+
+    public virtual string Speak()
+    {
+        return $""{Name} 發出聲音"";
+    }
+}
+
+class Dog : Animal
+{
+    public Dog(string name) : base(name)
+    {
+    }
+
+    public override string Speak()
+    {
+        return $""{Name} 汪汪叫"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int kind = int.Parse(Console.ReadLine() ?? ""1"");
+        Animal a = (kind == 2) ? new Dog(name) : new Animal(name);
+        Console.WriteLine(a.Speak());
+    }
+}",0,True,"小白
+2",小白 汪汪叫
+CSD501,TQC,動物類別繼承,"定義基底類別 Animal，含屬性 Name 與方法 Speak()（回傳「(名字) 發出聲音」）。定義子類別 Dog 繼承 Animal，並覆寫 Speak() 回傳「(名字) 汪汪叫」。輸入名字與種類（1 為一般動物、2 為狗），建立對應物件並輸出 Speak() 的結果。
+
+輸入說明：第一行為名字；第二行為整數 kind（1 或 2）。
+輸出說明：一行，Speak() 方法回傳的字串。",1,Active,C#,"using System;
+
+class Animal
+{
+    public string Name { get; set; }
+
+    public Animal(string name)
+    {
+        Name = name;
+    }
+
+    public virtual string Speak()
+    {
+        return $""{Name} 發出聲音"";
+    }
+}
+
+class Dog : Animal
+{
+    public Dog(string name) : base(name)
+    {
+    }
+
+    public override string Speak()
+    {
+        return $""{Name} 汪汪叫"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? """";
+        int kind = int.Parse(Console.ReadLine() ?? ""1"");
+        Animal a = (kind == 2) ? new Dog(name) : new Animal(name);
+        Console.WriteLine(a.Speak());
+    }
+}",1,True,"神秘生物
+1",神秘生物 發出聲音
+CSD502,TQC,方法覆寫多型行為,"定義基底類別 Shape，含虛擬方法 Describe() 回傳「圖形」。定義子類別 Circle 覆寫 Describe() 回傳「圓形」，子類別 Square 覆寫 Describe() 回傳「正方形」。輸入 n 個代碼（1=Shape, 2=Circle, 3=Square），依序建立物件並以基底類別參考呼叫 Describe()，逐行輸出結果。
+
+輸入說明：第一行為整數 n；第二行為 n 個以空白分隔的代碼（1、2 或 3）。
+輸出說明：n 行，依序為每個物件呼叫 Describe() 的結果。",2,Active,C#,"using System;
+using System.Linq;
+
+class Shape
+{
+    public virtual string Describe()
+    {
+        return ""圖形"";
+    }
+}
+
+class Circle : Shape
+{
+    public override string Describe()
+    {
+        return ""圓形"";
+    }
+}
+
+class Square : Shape
+{
+    public override string Describe()
+    {
+        return ""正方形"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        int[] codes = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        for (int i = 0; i < n; i++)
+        {
+            Shape s = codes[i] switch
+            {
+                2 => new Circle(),
+                3 => new Square(),
+                _ => new Shape(),
+            };
+            Console.WriteLine(s.Describe());
+        }
+    }
+}",0,True,"3
+1 2 3","圖形
+圓形
+正方形"
+CSD502,TQC,方法覆寫多型行為,"定義基底類別 Shape，含虛擬方法 Describe() 回傳「圖形」。定義子類別 Circle 覆寫 Describe() 回傳「圓形」，子類別 Square 覆寫 Describe() 回傳「正方形」。輸入 n 個代碼（1=Shape, 2=Circle, 3=Square），依序建立物件並以基底類別參考呼叫 Describe()，逐行輸出結果。
+
+輸入說明：第一行為整數 n；第二行為 n 個以空白分隔的代碼（1、2 或 3）。
+輸出說明：n 行，依序為每個物件呼叫 Describe() 的結果。",2,Active,C#,"using System;
+using System.Linq;
+
+class Shape
+{
+    public virtual string Describe()
+    {
+        return ""圖形"";
+    }
+}
+
+class Circle : Shape
+{
+    public override string Describe()
+    {
+        return ""圓形"";
+    }
+}
+
+class Square : Shape
+{
+    public override string Describe()
+    {
+        return ""正方形"";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        int[] codes = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        for (int i = 0; i < n; i++)
+        {
+            Shape s = codes[i] switch
+            {
+                2 => new Circle(),
+                3 => new Square(),
+                _ => new Shape(),
+            };
+            Console.WriteLine(s.Describe());
+        }
+    }
+}",1,True,"2
+2 2","圓形
+圓形"
+CSD503,TQC,抽象類別計算圖形面積,"定義抽象類別 Shape，含抽象方法 GetArea() 回傳 double。定義子類別 Circle（半徑，面積 = 3.14 * r * r）與 Rectangle（長寬，面積 = 長 * 寬），皆實作 GetArea()。輸入類別代碼與對應參數，輸出面積（保留小數點後 2 位）。
+
+輸入說明：第一行為整數 type（1=圓形，2=矩形）；若 type=1，第二行為半徑；若 type=2，第二行為長與寬（以空白分隔）。
+輸出說明：一行，格式為「面積:X」，X 為面積並保留小數點後 2 位。",2,Active,C#,"using System;
+using System.Globalization;
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+
+    public Circle(double radius)
+    {
+        this.radius = radius;
+    }
+
+    public override double GetArea()
+    {
+        return 3.14 * radius * radius;
+    }
+}
+
+class Rectangle : Shape
+{
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+
+    public override double GetArea()
+    {
+        return width * height;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int type = int.Parse(Console.ReadLine() ?? ""1"");
+        Shape shape;
+        if (type == 1)
+        {
+            double r = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+            shape = new Circle(r);
+        }
+        else
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double w = double.Parse(parts[0], CultureInfo.InvariantCulture);
+            double h = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            shape = new Rectangle(w, h);
+        }
+        Console.WriteLine($""面積:{shape.GetArea().ToString(""F2"", CultureInfo.InvariantCulture)}"");
+    }
+}",0,True,"1
+10",面積:314.00
+CSD503,TQC,抽象類別計算圖形面積,"定義抽象類別 Shape，含抽象方法 GetArea() 回傳 double。定義子類別 Circle（半徑，面積 = 3.14 * r * r）與 Rectangle（長寬，面積 = 長 * 寬），皆實作 GetArea()。輸入類別代碼與對應參數，輸出面積（保留小數點後 2 位）。
+
+輸入說明：第一行為整數 type（1=圓形，2=矩形）；若 type=1，第二行為半徑；若 type=2，第二行為長與寬（以空白分隔）。
+輸出說明：一行，格式為「面積:X」，X 為面積並保留小數點後 2 位。",2,Active,C#,"using System;
+using System.Globalization;
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+
+    public Circle(double radius)
+    {
+        this.radius = radius;
+    }
+
+    public override double GetArea()
+    {
+        return 3.14 * radius * radius;
+    }
+}
+
+class Rectangle : Shape
+{
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+
+    public override double GetArea()
+    {
+        return width * height;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int type = int.Parse(Console.ReadLine() ?? ""1"");
+        Shape shape;
+        if (type == 1)
+        {
+            double r = double.Parse(Console.ReadLine() ?? ""0"", CultureInfo.InvariantCulture);
+            shape = new Circle(r);
+        }
+        else
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double w = double.Parse(parts[0], CultureInfo.InvariantCulture);
+            double h = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            shape = new Rectangle(w, h);
+        }
+        Console.WriteLine($""面積:{shape.GetArea().ToString(""F2"", CultureInfo.InvariantCulture)}"");
+    }
+}",1,True,"2
+4 5",面積:20.00
+CSD504,TQC,介面實作可比較物件,"定義介面 IComparableItem，含方法 CompareTo(IComparableItem other) 回傳 int。定義類別 Product（含 Name 與 Price），實作該介面，依 Price 比較大小（回傳負數表示較小、0 表示相等、正數表示較大）。輸入兩個商品資料，輸出價格較低者的名稱；若相等則輸出「相同」。
+
+輸入說明：兩行，每行為「名稱 價格」（價格為整數），以空白分隔。
+輸出說明：一行，價格較低的商品名稱，若相等輸出「相同」。",2,Active,C#,"using System;
+
+interface IComparableItem
+{
+    int CompareTo(IComparableItem other);
+}
+
+class Product : IComparableItem
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+
+    public Product(string name, int price)
+    {
+        Name = name;
+        Price = price;
+    }
+
+    public int CompareTo(IComparableItem other)
+    {
+        Product p = (Product)other;
+        return Price.CompareTo(p.Price);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string[] p1 = (Console.ReadLine() ?? """").Split(' ');
+        string[] p2 = (Console.ReadLine() ?? """").Split(' ');
+        Product a = new Product(p1[0], int.Parse(p1[1]));
+        Product b = new Product(p2[0], int.Parse(p2[1]));
+        int cmp = a.CompareTo(b);
+        if (cmp < 0) Console.WriteLine(a.Name);
+        else if (cmp > 0) Console.WriteLine(b.Name);
+        else Console.WriteLine(""相同"");
+    }
+}",0,True,"筆記本 120
+鉛筆 15",鉛筆
+CSD504,TQC,介面實作可比較物件,"定義介面 IComparableItem，含方法 CompareTo(IComparableItem other) 回傳 int。定義類別 Product（含 Name 與 Price），實作該介面，依 Price 比較大小（回傳負數表示較小、0 表示相等、正數表示較大）。輸入兩個商品資料，輸出價格較低者的名稱；若相等則輸出「相同」。
+
+輸入說明：兩行，每行為「名稱 價格」（價格為整數），以空白分隔。
+輸出說明：一行，價格較低的商品名稱，若相等輸出「相同」。",2,Active,C#,"using System;
+
+interface IComparableItem
+{
+    int CompareTo(IComparableItem other);
+}
+
+class Product : IComparableItem
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+
+    public Product(string name, int price)
+    {
+        Name = name;
+        Price = price;
+    }
+
+    public int CompareTo(IComparableItem other)
+    {
+        Product p = (Product)other;
+        return Price.CompareTo(p.Price);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string[] p1 = (Console.ReadLine() ?? """").Split(' ');
+        string[] p2 = (Console.ReadLine() ?? """").Split(' ');
+        Product a = new Product(p1[0], int.Parse(p1[1]));
+        Product b = new Product(p2[0], int.Parse(p2[1]));
+        int cmp = a.CompareTo(b);
+        if (cmp < 0) Console.WriteLine(a.Name);
+        else if (cmp > 0) Console.WriteLine(b.Name);
+        else Console.WriteLine(""相同"");
+    }
+}",1,True,"A 50
+B 50",相同
+CSD505,TQC,銀行帳戶封裝驗證,"定義 BankAccount 類別，含私有欄位餘額，屬性 Balance 只可讀取。提供方法 Deposit(amount) 存款（amount 必須大於 0，否則不變動）與 Withdraw(amount) 提款（amount 必須大於 0 且不可超過餘額，否則不變動）。依序輸入起始餘額與 n 筆操作，輸出每筆操作後的餘額。
+
+輸入說明：第一行為起始餘額（整數）；第二行為整數 n；接著 n 行，每行為「D 金額」（存款）或「W 金額」（提款）。
+輸出說明：n 行，每筆操作後的餘額。",2,Active,C#,"using System;
+
+class BankAccount
+{
+    public int Balance { get; private set; }
+
+    public BankAccount(int initial)
+    {
+        Balance = initial;
+    }
+
+    public void Deposit(int amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+        }
+    }
+
+    public void Withdraw(int amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int initial = int.Parse(Console.ReadLine() ?? ""0"");
+        BankAccount account = new BankAccount(initial);
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            int amount = int.Parse(parts[1]);
+            if (parts[0] == ""D"")
+            {
+                account.Deposit(amount);
+            }
+            else
+            {
+                account.Withdraw(amount);
+            }
+            Console.WriteLine(account.Balance);
+        }
+    }
+}",0,True,"1000
+3
+D 500
+W 200
+W 2000","1500
+1300
+1300"
+CSD505,TQC,銀行帳戶封裝驗證,"定義 BankAccount 類別，含私有欄位餘額，屬性 Balance 只可讀取。提供方法 Deposit(amount) 存款（amount 必須大於 0，否則不變動）與 Withdraw(amount) 提款（amount 必須大於 0 且不可超過餘額，否則不變動）。依序輸入起始餘額與 n 筆操作，輸出每筆操作後的餘額。
+
+輸入說明：第一行為起始餘額（整數）；第二行為整數 n；接著 n 行，每行為「D 金額」（存款）或「W 金額」（提款）。
+輸出說明：n 行，每筆操作後的餘額。",2,Active,C#,"using System;
+
+class BankAccount
+{
+    public int Balance { get; private set; }
+
+    public BankAccount(int initial)
+    {
+        Balance = initial;
+    }
+
+    public void Deposit(int amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+        }
+    }
+
+    public void Withdraw(int amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int initial = int.Parse(Console.ReadLine() ?? ""0"");
+        BankAccount account = new BankAccount(initial);
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            int amount = int.Parse(parts[1]);
+            if (parts[0] == ""D"")
+            {
+                account.Deposit(amount);
+            }
+            else
+            {
+                account.Withdraw(amount);
+            }
+            Console.WriteLine(account.Balance);
+        }
+    }
+}",1,True,"0
+2
+D 100
+W 50","100
+50"
+CSD506,TQC,多型集合計算總面積,"定義抽象類別 Shape 含抽象方法 GetArea()。定義子類別 Circle（半徑）與 Square（邊長），皆實作 GetArea()（Circle 面積 = 3.14 * r * r；Square 面積 = 邊長 * 邊長）。輸入 n 筆圖形資料，存入 List&lt;Shape&gt;，計算並輸出所有圖形面積的總和（保留小數點後 2 位）。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「C 半徑」（圓形）或「S 邊長」（正方形），數值皆為整數。
+輸出說明：一行，格式為「總面積:X」，保留小數點後 2 位。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public override double GetArea() => 3.14 * radius * radius;
+}
+
+class Square : Shape
+{
+    private double side;
+    public Square(double side) { this.side = side; }
+    public override double GetArea() => side * side;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Shape> shapes = new List<Shape>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double value = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            if (parts[0] == ""C"")
+            {
+                shapes.Add(new Circle(value));
+            }
+            else
+            {
+                shapes.Add(new Square(value));
+            }
+        }
+        double total = 0;
+        foreach (Shape s in shapes)
+        {
+            total += s.GetArea();
+        }
+        Console.WriteLine($""總面積:{total.ToString(""F2"", CultureInfo.InvariantCulture)}"");
+    }
+}",0,True,"2
+C 10
+S 4",總面積:330.00
+CSD506,TQC,多型集合計算總面積,"定義抽象類別 Shape 含抽象方法 GetArea()。定義子類別 Circle（半徑）與 Square（邊長），皆實作 GetArea()（Circle 面積 = 3.14 * r * r；Square 面積 = 邊長 * 邊長）。輸入 n 筆圖形資料，存入 List&lt;Shape&gt;，計算並輸出所有圖形面積的總和（保留小數點後 2 位）。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「C 半徑」（圓形）或「S 邊長」（正方形），數值皆為整數。
+輸出說明：一行，格式為「總面積:X」，保留小數點後 2 位。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public override double GetArea() => 3.14 * radius * radius;
+}
+
+class Square : Shape
+{
+    private double side;
+    public Square(double side) { this.side = side; }
+    public override double GetArea() => side * side;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Shape> shapes = new List<Shape>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            double value = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            if (parts[0] == ""C"")
+            {
+                shapes.Add(new Circle(value));
+            }
+            else
+            {
+                shapes.Add(new Square(value));
+            }
+        }
+        double total = 0;
+        foreach (Shape s in shapes)
+        {
+            total += s.GetArea();
+        }
+        Console.WriteLine($""總面積:{total.ToString(""F2"", CultureInfo.InvariantCulture)}"");
+    }
+}",1,True,"3
+S 2
+S 3
+C 1",總面積:16.14
+CSD507,TQC,IComparable 介面排序,"定義 Employee 類別，含 Name 與 Salary 屬性，實作 IComparable&lt;Employee&gt; 介面，依 Salary 由小到大比較。輸入 n 筆員工資料存入 List&lt;Employee&gt;，使用 List&lt;T&gt;.Sort() 依薪資由小到大排序後，依序輸出「姓名 薪資」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「姓名 薪資」（薪資為整數）。
+輸出說明：n 行，依薪資由小到大排序後的「姓名 薪資」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+class Employee : IComparable<Employee>
+{
+    public string Name { get; set; }
+    public int Salary { get; set; }
+
+    public Employee(string name, int salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public int CompareTo(Employee? other)
+    {
+        if (other == null) return 1;
+        return Salary.CompareTo(other.Salary);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Employee> employees = new List<Employee>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            employees.Add(new Employee(parts[0], int.Parse(parts[1])));
+        }
+        employees.Sort();
+        foreach (Employee e in employees)
+        {
+            Console.WriteLine($""{e.Name} {e.Salary}"");
+        }
+    }
+}",0,True,"3
+Amy 45000
+Bob 38000
+Cathy 52000","Bob 38000
+Amy 45000
+Cathy 52000"
+CSD507,TQC,IComparable 介面排序,"定義 Employee 類別，含 Name 與 Salary 屬性，實作 IComparable&lt;Employee&gt; 介面，依 Salary 由小到大比較。輸入 n 筆員工資料存入 List&lt;Employee&gt;，使用 List&lt;T&gt;.Sort() 依薪資由小到大排序後，依序輸出「姓名 薪資」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「姓名 薪資」（薪資為整數）。
+輸出說明：n 行，依薪資由小到大排序後的「姓名 薪資」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+class Employee : IComparable<Employee>
+{
+    public string Name { get; set; }
+    public int Salary { get; set; }
+
+    public Employee(string name, int salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public int CompareTo(Employee? other)
+    {
+        if (other == null) return 1;
+        return Salary.CompareTo(other.Salary);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Employee> employees = new List<Employee>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            employees.Add(new Employee(parts[0], int.Parse(parts[1])));
+        }
+        employees.Sort();
+        foreach (Employee e in employees)
+        {
+            Console.WriteLine($""{e.Name} {e.Salary}"");
+        }
+    }
+}",1,True,"2
+David 30000
+Eric 30000","David 30000
+Eric 30000"
+CSD508,TQC,抽象類別多型薪資計算,"定義抽象類別 Employee，含屬性 Name 與抽象方法 CalcSalary() 回傳 double。定義子類別 FullTimeEmployee（月薪 monthly，CalcSalary() 回傳 monthly）與 PartTimeEmployee（時薪 hourly 與工時 hours，CalcSalary() 回傳 hourly * hours）。輸入 n 筆員工資料，逐一計算並輸出「姓名 薪資:X」，X 為整數。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「F 姓名 月薪」（全職）或「P 姓名 時薪 工時」（兼職），數值皆為整數。
+輸出說明：n 行，格式為「姓名 薪資:X」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+abstract class Employee
+{
+    public string Name { get; set; }
+
+    public Employee(string name)
+    {
+        Name = name;
+    }
+
+    public abstract double CalcSalary();
+}
+
+class FullTimeEmployee : Employee
+{
+    private double monthly;
+
+    public FullTimeEmployee(string name, double monthly) : base(name)
+    {
+        this.monthly = monthly;
+    }
+
+    public override double CalcSalary() => monthly;
+}
+
+class PartTimeEmployee : Employee
+{
+    private double hourly;
+    private double hours;
+
+    public PartTimeEmployee(string name, double hourly, double hours) : base(name)
+    {
+        this.hourly = hourly;
+        this.hours = hours;
+    }
+
+    public override double CalcSalary() => hourly * hours;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Employee> employees = new List<Employee>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            if (parts[0] == ""F"")
+            {
+                employees.Add(new FullTimeEmployee(parts[1], double.Parse(parts[2])));
+            }
+            else
+            {
+                employees.Add(new PartTimeEmployee(parts[1], double.Parse(parts[2]), double.Parse(parts[3])));
+            }
+        }
+        foreach (Employee e in employees)
+        {
+            Console.WriteLine($""{e.Name} 薪資:{(int)e.CalcSalary()}"");
+        }
+    }
+}",0,True,"2
+F Amy 42000
+P Bob 200 80","Amy 薪資:42000
+Bob 薪資:16000"
+CSD508,TQC,抽象類別多型薪資計算,"定義抽象類別 Employee，含屬性 Name 與抽象方法 CalcSalary() 回傳 double。定義子類別 FullTimeEmployee（月薪 monthly，CalcSalary() 回傳 monthly）與 PartTimeEmployee（時薪 hourly 與工時 hours，CalcSalary() 回傳 hourly * hours）。輸入 n 筆員工資料，逐一計算並輸出「姓名 薪資:X」，X 為整數。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「F 姓名 月薪」（全職）或「P 姓名 時薪 工時」（兼職），數值皆為整數。
+輸出說明：n 行，格式為「姓名 薪資:X」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+abstract class Employee
+{
+    public string Name { get; set; }
+
+    public Employee(string name)
+    {
+        Name = name;
+    }
+
+    public abstract double CalcSalary();
+}
+
+class FullTimeEmployee : Employee
+{
+    private double monthly;
+
+    public FullTimeEmployee(string name, double monthly) : base(name)
+    {
+        this.monthly = monthly;
+    }
+
+    public override double CalcSalary() => monthly;
+}
+
+class PartTimeEmployee : Employee
+{
+    private double hourly;
+    private double hours;
+
+    public PartTimeEmployee(string name, double hourly, double hours) : base(name)
+    {
+        this.hourly = hourly;
+        this.hours = hours;
+    }
+
+    public override double CalcSalary() => hourly * hours;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Employee> employees = new List<Employee>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            if (parts[0] == ""F"")
+            {
+                employees.Add(new FullTimeEmployee(parts[1], double.Parse(parts[2])));
+            }
+            else
+            {
+                employees.Add(new PartTimeEmployee(parts[1], double.Parse(parts[2]), double.Parse(parts[3])));
+            }
+        }
+        foreach (Employee e in employees)
+        {
+            Console.WriteLine($""{e.Name} 薪資:{(int)e.CalcSalary()}"");
+        }
+    }
+}",1,True,"1
+P Cathy 150 100",Cathy 薪資:15000
+CSD509,TQC,訂單與商品組合關係,"定義 Item 類別（含 Name、Price、Qty），定義 Order 類別內含 List&lt;Item&gt; 作為組合關係，提供方法 AddItem(Item item) 加入商品，以及方法 GetTotal() 計算所有商品小計（Price * Qty）加總。輸入 n 筆商品資料加入訂單，輸出訂單總金額。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「品名 單價 數量」（單價、數量為整數）。
+輸出說明：一行，格式為「訂單總額:X」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+class Item
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+    public int Qty { get; set; }
+
+    public Item(string name, int price, int qty)
+    {
+        Name = name;
+        Price = price;
+        Qty = qty;
+    }
+
+    public int Subtotal() => Price * Qty;
+}
+
+class Order
+{
+    private List<Item> items = new List<Item>();
+
+    public void AddItem(Item item)
+    {
+        items.Add(item);
+    }
+
+    public int GetTotal()
+    {
+        int total = 0;
+        foreach (Item item in items)
+        {
+            total += item.Subtotal();
+        }
+        return total;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        Order order = new Order();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            order.AddItem(new Item(parts[0], int.Parse(parts[1]), int.Parse(parts[2])));
+        }
+        Console.WriteLine($""訂單總額:{order.GetTotal()}"");
+    }
+}",0,True,"2
+筆記本 45 3
+鉛筆 8 5",訂單總額:175
+CSD509,TQC,訂單與商品組合關係,"定義 Item 類別（含 Name、Price、Qty），定義 Order 類別內含 List&lt;Item&gt; 作為組合關係，提供方法 AddItem(Item item) 加入商品，以及方法 GetTotal() 計算所有商品小計（Price * Qty）加總。輸入 n 筆商品資料加入訂單，輸出訂單總金額。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「品名 單價 數量」（單價、數量為整數）。
+輸出說明：一行，格式為「訂單總額:X」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+class Item
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+    public int Qty { get; set; }
+
+    public Item(string name, int price, int qty)
+    {
+        Name = name;
+        Price = price;
+        Qty = qty;
+    }
+
+    public int Subtotal() => Price * Qty;
+}
+
+class Order
+{
+    private List<Item> items = new List<Item>();
+
+    public void AddItem(Item item)
+    {
+        items.Add(item);
+    }
+
+    public int GetTotal()
+    {
+        int total = 0;
+        foreach (Item item in items)
+        {
+            total += item.Subtotal();
+        }
+        return total;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        Order order = new Order();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            order.AddItem(new Item(parts[0], int.Parse(parts[1]), int.Parse(parts[2])));
+        }
+        Console.WriteLine($""訂單總額:{order.GetTotal()}"");
+    }
+}",1,True,"1
+橡皮擦 15 10",訂單總額:150
+CSD510,TQC,介面預設行為與多型輸出,"定義介面 ILibraryItem，含方法 GetInfo() 回傳字串。定義類別 Book（書名、作者）與 Magazine（刊名、期數）皆實作此介面，GetInfo() 分別回傳「書籍:書名/作者」與「雜誌:刊名 第期數期」。輸入 n 筆資料，依序建立對應物件並輸出 GetInfo() 結果。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「B 書名 作者」（書籍）或「M 刊名 期數」（雜誌，期數為整數）。
+輸出說明：n 行，依序為每筆資料的 GetInfo() 結果。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+interface ILibraryItem
+{
+    string GetInfo();
+}
+
+class Book : ILibraryItem
+{
+    private string title;
+    private string author;
+
+    public Book(string title, string author)
+    {
+        this.title = title;
+        this.author = author;
+    }
+
+    public string GetInfo() => $""書籍:{title}/{author}"";
+}
+
+class Magazine : ILibraryItem
+{
+    private string name;
+    private int issue;
+
+    public Magazine(string name, int issue)
+    {
+        this.name = name;
+        this.issue = issue;
+    }
+
+    public string GetInfo() => $""雜誌:{name} 第{issue}期"";
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<ILibraryItem> items = new List<ILibraryItem>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            if (parts[0] == ""B"")
+            {
+                items.Add(new Book(parts[1], parts[2]));
+            }
+            else
+            {
+                items.Add(new Magazine(parts[1], int.Parse(parts[2])));
+            }
+        }
+        foreach (ILibraryItem item in items)
+        {
+            Console.WriteLine(item.GetInfo());
+        }
+    }
+}",0,True,"2
+B 三國演義 羅貫中
+M 科學人 200","書籍:三國演義/羅貫中
+雜誌:科學人 第200期"
+CSD510,TQC,介面預設行為與多型輸出,"定義介面 ILibraryItem，含方法 GetInfo() 回傳字串。定義類別 Book（書名、作者）與 Magazine（刊名、期數）皆實作此介面，GetInfo() 分別回傳「書籍:書名/作者」與「雜誌:刊名 第期數期」。輸入 n 筆資料，依序建立對應物件並輸出 GetInfo() 結果。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「B 書名 作者」（書籍）或「M 刊名 期數」（雜誌，期數為整數）。
+輸出說明：n 行，依序為每筆資料的 GetInfo() 結果。",3,Active,C#,"using System;
+using System.Collections.Generic;
+
+interface ILibraryItem
+{
+    string GetInfo();
+}
+
+class Book : ILibraryItem
+{
+    private string title;
+    private string author;
+
+    public Book(string title, string author)
+    {
+        this.title = title;
+        this.author = author;
+    }
+
+    public string GetInfo() => $""書籍:{title}/{author}"";
+}
+
+class Magazine : ILibraryItem
+{
+    private string name;
+    private int issue;
+
+    public Magazine(string name, int issue)
+    {
+        this.name = name;
+        this.issue = issue;
+    }
+
+    public string GetInfo() => $""雜誌:{name} 第{issue}期"";
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<ILibraryItem> items = new List<ILibraryItem>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            if (parts[0] == ""B"")
+            {
+                items.Add(new Book(parts[1], parts[2]));
+            }
+            else
+            {
+                items.Add(new Magazine(parts[1], int.Parse(parts[2])));
+            }
+        }
+        foreach (ILibraryItem item in items)
+        {
+            Console.WriteLine(item.GetInfo());
+        }
+    }
+}",1,True,"1
+B 紅樓夢 曹雪芹",書籍:紅樓夢/曹雪芹
+CSD601,TQC,除法例外處理,"輸入兩個整數 a、b，計算 a / b，若 b 為 0 則會拋出 DivideByZeroException，請使用 try-catch 攔截並輸出「除數不可為 0」；否則輸出相除結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：一行，若 b 不為 0 輸出「結果:X」（X 為整數除法結果），若 b 為 0 輸出「除數不可為 0」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        try
+        {
+            int result = a / b;
+            Console.WriteLine($""結果:{result}"");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine(""除數不可為 0"");
+        }
+    }
+}",0,True,10 2,結果:5
+CSD601,TQC,除法例外處理,"輸入兩個整數 a、b，計算 a / b，若 b 為 0 則會拋出 DivideByZeroException，請使用 try-catch 攔截並輸出「除數不可為 0」；否則輸出相除結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：一行，若 b 不為 0 輸出「結果:X」（X 為整數除法結果），若 b 為 0 輸出「除數不可為 0」。",2,Active,C#,"using System;
+
+class Program
+{
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        try
+        {
+            int result = a / b;
+            Console.WriteLine($""結果:{result}"");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine(""除數不可為 0"");
+        }
+    }
+}",1,True,5 0,除數不可為 0
+CSD602,TQC,自訂例外餘額不足,"定義自訂例外類別 InsufficientBalanceException（繼承 Exception）。撰寫方法 Withdraw(balance, amount)，若 amount 大於 balance 則拋出 InsufficientBalanceException 並附上訊息「餘額不足」，否則回傳提款後的餘額。使用 try-catch 呼叫此方法並輸出結果。
+
+輸入說明：一行，兩個以空白分隔的整數 balance amount。
+輸出說明：一行，若可提款成功輸出「餘額:X」，否則輸出例外訊息「餘額不足」。",2,Active,C#,"using System;
+
+class InsufficientBalanceException : Exception
+{
+    public InsufficientBalanceException(string message) : base(message)
+    {
+    }
+}
+
+class Program
+{
+    static int Withdraw(int balance, int amount)
+    {
+        if (amount > balance)
+        {
+            throw new InsufficientBalanceException(""餘額不足"");
+        }
+        return balance - amount;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int balance = int.Parse(parts[0]);
+        int amount = int.Parse(parts[1]);
+        try
+        {
+            int result = Withdraw(balance, amount);
+            Console.WriteLine($""餘額:{result}"");
+        }
+        catch (InsufficientBalanceException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}",0,True,1000 300,餘額:700
+CSD602,TQC,自訂例外餘額不足,"定義自訂例外類別 InsufficientBalanceException（繼承 Exception）。撰寫方法 Withdraw(balance, amount)，若 amount 大於 balance 則拋出 InsufficientBalanceException 並附上訊息「餘額不足」，否則回傳提款後的餘額。使用 try-catch 呼叫此方法並輸出結果。
+
+輸入說明：一行，兩個以空白分隔的整數 balance amount。
+輸出說明：一行，若可提款成功輸出「餘額:X」，否則輸出例外訊息「餘額不足」。",2,Active,C#,"using System;
+
+class InsufficientBalanceException : Exception
+{
+    public InsufficientBalanceException(string message) : base(message)
+    {
+    }
+}
+
+class Program
+{
+    static int Withdraw(int balance, int amount)
+    {
+        if (amount > balance)
+        {
+            throw new InsufficientBalanceException(""餘額不足"");
+        }
+        return balance - amount;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? """").Split(' ');
+        int balance = int.Parse(parts[0]);
+        int amount = int.Parse(parts[1]);
+        try
+        {
+            int result = Withdraw(balance, amount);
+            Console.WriteLine($""餘額:{result}"");
+        }
+        catch (InsufficientBalanceException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}",1,True,100 500,餘額不足
+CSD603,TQC,Dictionary 單字計數,"輸入一行以空白分隔的英文單字，使用 Dictionary&lt;string,int&gt; 統計每個單字出現的次數，依單字字典順序輸出「單字 次數」。
+
+輸入說明：一行，以空白分隔的英文單字（皆為小寫）。
+輸出說明：多行，依單字字典順序排序輸出「單字 次數」。",2,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string[] words = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, int> counts = new Dictionary<string, int>();
+        foreach (string w in words)
+        {
+            if (counts.ContainsKey(w))
+            {
+                counts[w]++;
+            }
+            else
+            {
+                counts[w] = 1;
+            }
+        }
+        foreach (string key in counts.Keys.OrderBy(k => k, StringComparer.Ordinal))
+        {
+            Console.WriteLine($""{key} {counts[key]}"");
+        }
+    }
+}",0,True,apple banana apple cherry banana apple,"apple 3
+banana 2
+cherry 1"
+CSD603,TQC,Dictionary 單字計數,"輸入一行以空白分隔的英文單字，使用 Dictionary&lt;string,int&gt; 統計每個單字出現的次數，依單字字典順序輸出「單字 次數」。
+
+輸入說明：一行，以空白分隔的英文單字（皆為小寫）。
+輸出說明：多行，依單字字典順序排序輸出「單字 次數」。",2,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string[] words = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, int> counts = new Dictionary<string, int>();
+        foreach (string w in words)
+        {
+            if (counts.ContainsKey(w))
+            {
+                counts[w]++;
+            }
+            else
+            {
+                counts[w] = 1;
+            }
+        }
+        foreach (string key in counts.Keys.OrderBy(k => k, StringComparer.Ordinal))
+        {
+            Console.WriteLine($""{key} {counts[key]}"");
+        }
+    }
+}",1,True,dog cat dog,"cat 1
+dog 2"
+CSD604,TQC,LINQ Where 與 Select 篩選轉換,"輸入 n 個整數，使用 LINQ 的 Where 篩選出大於等於 60 的數字，再使用 Select 將每個數字加上 5 分的加分，輸出加分後的結果（以空白分隔）；若無符合條件的數字則輸出空行。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，篩選並加分後的結果，以空白分隔。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var result = nums.Where(x => x >= 60).Select(x => x + 5).ToArray();
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",0,True,55 60 72 88 40,65 77 93
+CSD604,TQC,LINQ Where 與 Select 篩選轉換,"輸入 n 個整數，使用 LINQ 的 Where 篩選出大於等於 60 的數字，再使用 Select 將每個數字加上 5 分的加分，輸出加分後的結果（以空白分隔）；若無符合條件的數字則輸出空行。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，篩選並加分後的結果，以空白分隔。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var result = nums.Where(x => x >= 60).Select(x => x + 5).ToArray();
+        Console.WriteLine(string.Join("" "", result));
+    }
+}",1,True,58 61 59,66
+CSD605,TQC,LINQ OrderBy 多鍵排序,"輸入 n 筆學生資料（姓名、班級、分數），使用 LINQ 先依分數由高到低排序，分數相同時依姓名字典順序排序，輸出排序後的「姓名 班級 分數」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「姓名 班級 分數」（分數為整數）。
+輸出說明：n 行，排序後的「姓名 班級 分數」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Student
+{
+    public string Name = """";
+    public string Class = """";
+    public int Score;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Student> students = new List<Student>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            students.Add(new Student { Name = parts[0], Class = parts[1], Score = int.Parse(parts[2]) });
+        }
+        var sorted = students
+            .OrderByDescending(s => s.Score)
+            .ThenBy(s => s.Name, StringComparer.Ordinal)
+            .ToList();
+        foreach (var s in sorted)
+        {
+            Console.WriteLine($""{s.Name} {s.Class} {s.Score}"");
+        }
+    }
+}",0,True,"3
+Amy A1 88
+Bob A2 92
+Cathy A1 88","Bob A2 92
+Amy A1 88
+Cathy A1 88"
+CSD605,TQC,LINQ OrderBy 多鍵排序,"輸入 n 筆學生資料（姓名、班級、分數），使用 LINQ 先依分數由高到低排序，分數相同時依姓名字典順序排序，輸出排序後的「姓名 班級 分數」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「姓名 班級 分數」（分數為整數）。
+輸出說明：n 行，排序後的「姓名 班級 分數」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Student
+{
+    public string Name = """";
+    public string Class = """";
+    public int Score;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<Student> students = new List<Student>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            students.Add(new Student { Name = parts[0], Class = parts[1], Score = int.Parse(parts[2]) });
+        }
+        var sorted = students
+            .OrderByDescending(s => s.Score)
+            .ThenBy(s => s.Name, StringComparer.Ordinal)
+            .ToList();
+        foreach (var s in sorted)
+        {
+            Console.WriteLine($""{s.Name} {s.Class} {s.Score}"");
+        }
+    }
+}",1,True,"2
+David B1 70
+Eric B2 85","Eric B2 85
+David B1 70"
+CSD606,TQC,GroupBy 分組統計,"輸入 n 筆訂單資料（類別、金額），使用 LINQ 的 GroupBy 依類別分組，計算每一類別的金額總和，依類別字典順序輸出「類別 總額」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「類別 金額」（金額為整數）。
+輸出說明：多行，依類別字典順序排序輸出「類別 總額」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<(string Category, int Amount)> orders = new List<(string, int)>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            orders.Add((parts[0], int.Parse(parts[1])));
+        }
+        var grouped = orders
+            .GroupBy(o => o.Category)
+            .Select(g => new { Category = g.Key, Total = g.Sum(o => o.Amount) })
+            .OrderBy(g => g.Category, StringComparer.Ordinal);
+        foreach (var g in grouped)
+        {
+            Console.WriteLine($""{g.Category} {g.Total}"");
+        }
+    }
+}",0,True,"4
+食品 100
+服飾 250
+食品 50
+3C 999","3C 999
+服飾 250
+食品 150"
+CSD606,TQC,GroupBy 分組統計,"輸入 n 筆訂單資料（類別、金額），使用 LINQ 的 GroupBy 依類別分組，計算每一類別的金額總和，依類別字典順序輸出「類別 總額」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「類別 金額」（金額為整數）。
+輸出說明：多行，依類別字典順序排序輸出「類別 總額」。",3,Active,C#,"using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        List<(string Category, int Amount)> orders = new List<(string, int)>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? """").Split(' ');
+            orders.Add((parts[0], int.Parse(parts[1])));
+        }
+        var grouped = orders
+            .GroupBy(o => o.Category)
+            .Select(g => new { Category = g.Key, Total = g.Sum(o => o.Amount) })
+            .OrderBy(g => g.Category, StringComparer.Ordinal);
+        foreach (var g in grouped)
+        {
+            Console.WriteLine($""{g.Category} {g.Total}"");
+        }
+    }
+}",1,True,"2
+書籍 300
+書籍 200",書籍 500
+CSD607,TQC,多重 catch 與 finally,"輸入一個整數陣列與一個索引值，嘗試存取該索引位置的元素並乘以 10。若索引超出範圍，攔截 IndexOutOfRangeException 並輸出「索引超出範圍」；若輸入格式錯誤導致轉換失敗，攔截 FormatException 並輸出「輸入格式錯誤」；無論是否發生例外，最後都輸出「處理完畢」。
+
+輸入說明：第一行為 n 個以空白分隔的整數；第二行為欲存取的索引（可能為超出範圍的整數，字串輸入保證可解析為整數）。
+輸出說明：若存取成功，輸出「結果:X」；若索引超出範圍，輸出「索引超出範圍」；最後一律再輸出一行「處理完畢」。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int index = int.Parse(Console.ReadLine() ?? ""0"");
+        try
+        {
+            int value = nums[index] * 10;
+            Console.WriteLine($""結果:{value}"");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine(""索引超出範圍"");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine(""輸入格式錯誤"");
+        }
+        finally
+        {
+            Console.WriteLine(""處理完畢"");
+        }
+    }
+}",0,True,"1 2 3 4 5
+2","結果:30
+處理完畢"
+CSD607,TQC,多重 catch 與 finally,"輸入一個整數陣列與一個索引值，嘗試存取該索引位置的元素並乘以 10。若索引超出範圍，攔截 IndexOutOfRangeException 並輸出「索引超出範圍」；若輸入格式錯誤導致轉換失敗，攔截 FormatException 並輸出「輸入格式錯誤」；無論是否發生例外，最後都輸出「處理完畢」。
+
+輸入說明：第一行為 n 個以空白分隔的整數；第二行為欲存取的索引（可能為超出範圍的整數，字串輸入保證可解析為整數）。
+輸出說明：若存取成功，輸出「結果:X」；若索引超出範圍，輸出「索引超出範圍」；最後一律再輸出一行「處理完畢」。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int index = int.Parse(Console.ReadLine() ?? ""0"");
+        try
+        {
+            int value = nums[index] * 10;
+            Console.WriteLine($""結果:{value}"");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine(""索引超出範圍"");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine(""輸入格式錯誤"");
+        }
+        finally
+        {
+            Console.WriteLine(""處理完畢"");
+        }
+    }
+}",1,True,"1 2 3
+10","索引超出範圍
+處理完畢"
+CSD608,TQC,LINQ 條件聚合統計,"輸入 n 個整數成績，使用 LINQ 的聚合方法計算：及格（>=60）人數、及格總分、及格平均分數（保留小數點後 1 位）、最高分。若無人及格，平均輸出 0.0，最高分輸出 0。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，格式為「及格人數:X 總分:Y 平均:Z 最高分:W」，平均保留小數點後 1 位。",3,Active,C#,"using System;
+using System.Linq;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        int[] scores = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var passed = scores.Where(s => s >= 60).ToArray();
+        int count = passed.Length;
+        int total = passed.Sum();
+        double avg = count > 0 ? passed.Average() : 0.0;
+        int max = count > 0 ? passed.Max() : 0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            ""及格人數:{0} 總分:{1} 平均:{2:F1} 最高分:{3}"", count, total, avg, max));
+    }
+}",0,True,55 60 72 88 40 91,及格人數:4 總分:311 平均:77.8 最高分:91
+CSD608,TQC,LINQ 條件聚合統計,"輸入 n 個整數成績，使用 LINQ 的聚合方法計算：及格（>=60）人數、及格總分、及格平均分數（保留小數點後 1 位）、最高分。若無人及格，平均輸出 0.0，最高分輸出 0。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，格式為「及格人數:X 總分:Y 平均:Z 最高分:W」，平均保留小數點後 1 位。",3,Active,C#,"using System;
+using System.Linq;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        int[] scores = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var passed = scores.Where(s => s >= 60).ToArray();
+        int count = passed.Length;
+        int total = passed.Sum();
+        double avg = count > 0 ? passed.Average() : 0.0;
+        int max = count > 0 ? passed.Max() : 0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            ""及格人數:{0} 總分:{1} 平均:{2:F1} 最高分:{3}"", count, total, avg, max));
+    }
+}",1,True,30 45 50,及格人數:0 總分:0 平均:0.0 最高分:0
+CSD609,TQC,集合交集聯集運算,"輸入兩組整數集合 A、B，使用 LINQ 計算並輸出兩集合的聯集（Union）、交集（Intersect）、差集（A Except B），結果皆由小到大排序，以空白分隔。
+
+輸入說明：第一行為集合 A 的整數，以空白分隔；第二行為集合 B 的整數，以空白分隔。
+輸出說明：三行，依序為聯集、交集、差集（A - B），皆由小到大排序並以空白分隔。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] a = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] b = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var union = a.Union(b).OrderBy(x => x);
+        var intersect = a.Intersect(b).OrderBy(x => x);
+        var except = a.Except(b).OrderBy(x => x);
+        Console.WriteLine(string.Join("" "", union));
+        Console.WriteLine(string.Join("" "", intersect));
+        Console.WriteLine(string.Join("" "", except));
+    }
+}",0,True,"1 2 3 4 5
+3 4 5 6 7","1 2 3 4 5 6 7
+3 4 5
+1 2"
+CSD609,TQC,集合交集聯集運算,"輸入兩組整數集合 A、B，使用 LINQ 計算並輸出兩集合的聯集（Union）、交集（Intersect）、差集（A Except B），結果皆由小到大排序，以空白分隔。
+
+輸入說明：第一行為集合 A 的整數，以空白分隔；第二行為集合 B 的整數，以空白分隔。
+輸出說明：三行，依序為聯集、交集、差集（A - B），皆由小到大排序並以空白分隔。",3,Active,C#,"using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] a = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] b = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var union = a.Union(b).OrderBy(x => x);
+        var intersect = a.Intersect(b).OrderBy(x => x);
+        var except = a.Except(b).OrderBy(x => x);
+        Console.WriteLine(string.Join("" "", union));
+        Console.WriteLine(string.Join("" "", intersect));
+        Console.WriteLine(string.Join("" "", except));
+    }
+}",1,True,"1 2 3
+4 5 6","1 2 3 4 5 6
+
+1 2 3"
+CSD610,TQC,自訂例外與 LINQ 資料驗證,"定義自訂例外 InvalidScoreException（繼承 Exception）。輸入 n 個分數，使用迴圈逐一檢查，若分數不在 0~100 範圍內則拋出 InvalidScoreException 並附訊息「發現不合法分數:X」（X 為該分數），以 try-catch 攔截並輸出該訊息後結束；若全部分數皆合法，則使用 LINQ 計算平均分數（保留小數點後 1 位）並輸出「平均:X」。
+
+輸入說明：第一行為整數 n；第二行為 n 個以空白分隔的整數分數（可能包含不合法範圍的值）。
+輸出說明：一行，若有不合法分數輸出「發現不合法分數:X」（X 為第一個發現的不合法分數）；否則輸出「平均:X」。",3,Active,C#,"using System;
+using System.Linq;
+using System.Globalization;
+
+class InvalidScoreException : Exception
+{
+    public InvalidScoreException(string message) : base(message)
+    {
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        int[] scores = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        try
+        {
+            foreach (int s in scores)
+            {
+                if (s < 0 || s > 100)
+                {
+                    throw new InvalidScoreException($""發現不合法分數:{s}"");
+                }
+            }
+            double avg = scores.Average();
+            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""平均:{0:F1}"", avg));
+        }
+        catch (InvalidScoreException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}",0,True,"5
+80 90 75 60 100",平均:81.0
+CSD610,TQC,自訂例外與 LINQ 資料驗證,"定義自訂例外 InvalidScoreException（繼承 Exception）。輸入 n 個分數，使用迴圈逐一檢查，若分數不在 0~100 範圍內則拋出 InvalidScoreException 並附訊息「發現不合法分數:X」（X 為該分數），以 try-catch 攔截並輸出該訊息後結束；若全部分數皆合法，則使用 LINQ 計算平均分數（保留小數點後 1 位）並輸出「平均:X」。
+
+輸入說明：第一行為整數 n；第二行為 n 個以空白分隔的整數分數（可能包含不合法範圍的值）。
+輸出說明：一行，若有不合法分數輸出「發現不合法分數:X」（X 為第一個發現的不合法分數）；否則輸出「平均:X」。",3,Active,C#,"using System;
+using System.Linq;
+using System.Globalization;
+
+class InvalidScoreException : Exception
+{
+    public InvalidScoreException(string message) : base(message)
+    {
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? ""0"");
+        int[] scores = (Console.ReadLine() ?? """").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        try
+        {
+            foreach (int s in scores)
+            {
+                if (s < 0 || s > 100)
+                {
+                    throw new InvalidScoreException($""發現不合法分數:{s}"");
+                }
+            }
+            double avg = scores.Average();
+            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, ""平均:{0:F1}"", avg));
+        }
+        catch (InvalidScoreException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}",1,True,"3
+80 150 60",發現不合法分數:150

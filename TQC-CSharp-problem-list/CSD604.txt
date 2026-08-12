@@ -1,0 +1,36 @@
+TQC+ 程式語言C# CSD604  LINQ Where 與 Select 篩選轉換
+
+難度：困難
+主題：集合與LINQ
+
+== 題目 ==
+輸入 n 個整數，使用 LINQ 的 Where 篩選出大於等於 60 的數字，再使用 Select 將每個數字加上 5 分的加分，輸出加分後的結果（以空白分隔）；若無符合條件的數字則輸出空行。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，篩選並加分後的結果，以空白分隔。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var result = nums.Where(x => x >= 60).Select(x => x + 5).ToArray();
+        Console.WriteLine(string.Join(" ", result));
+    }
+}
+
+== 範例 1 輸入 ==
+55 60 72 88 40
+== 範例 1 輸出 ==
+65 77 93
+
+== 範例 2 輸入 ==
+58 61 59
+== 範例 2 輸出 ==
+66
+

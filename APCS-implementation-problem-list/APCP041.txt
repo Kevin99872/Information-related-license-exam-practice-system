@@ -1,0 +1,32 @@
+APCS 實作題 APCP041 最長遞增子序列
+
+難度：困難
+主題：動態規劃
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請使用動態規劃求出最長「嚴格遞增」子序列（Longest Increasing Subsequence，元素不須連續）的長度。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：一行，輸出最長嚴格遞增子序列的長度。
+
+== 參考解法 (Python) ==
+n = int(input())
+arr = list(map(int, input().split()))
+dp = [1] * n
+for i in range(n):
+    for j in range(i):
+        if arr[j] < arr[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+print(max(dp) if n > 0 else 0)
+
+== 範例 1 輸入 ==
+8
+10 9 2 5 3 7 101 18
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+1
+5
+== 範例 2 輸出 ==
+1

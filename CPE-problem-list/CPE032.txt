@@ -1,0 +1,43 @@
+CPE 11172 Relational Operators
+
+難度：簡單
+來源：改編自 UVa Online Judge #11172 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定兩個整數 (可能非常大，可能帶負號)，比較兩者大小。
+
+輸入說明：每行兩個整數 a 與 b (以空白分隔)，處理到檔案結尾。
+輸出說明：a>b 輸出 >；a<b 輸出 <；相等輸出 =。
+
+== 參考解法 (Python) ==
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = line.split()
+    a = int(a)
+    b = int(b)
+    if a > b:
+        print('>')
+    elif a < b:
+        print('<')
+    else:
+        print('=')
+
+== 範例 1 輸入 ==
+100 200
+500 500
+-3 -7
+== 範例 1 輸出 ==
+<
+=
+>
+
+== 範例 2 輸入 ==
+123456789012345678901234567890 123456789012345678901234567891
+-1 1
+== 範例 2 輸出 ==
+<
+<

@@ -1,0 +1,48 @@
+CPE Twin Primes
+
+難度：中等
+來源：原創（篩法 / 孿生質數基礎題型）
+
+== 題目 ==
+若 p 與 p+2 皆為質數，稱 (p, p+2) 為孿生質數對。給定區間 [a,b]，求滿足 a<=p 且 p+2<=b 的孿生質數對個數。
+
+輸入說明：每行兩個整數 a 與 b (2<=a<=b<=1000000)，處理到檔案結尾。
+輸出說明：每行輸出組數。
+
+== 參考解法 (Python) ==
+import sys
+
+MAXN = 1000000
+sieve = bytearray([1]) * (MAXN + 3)
+sieve[0] = sieve[1] = 0
+i = 2
+while i * i <= MAXN + 2:
+    if sieve[i]:
+        for j in range(i * i, MAXN + 3, i):
+            sieve[j] = 0
+    i += 1
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    count = 0
+    for p in range(a, b - 1):
+        if sieve[p] and sieve[p + 2]:
+            count += 1
+    print(count)
+
+== 範例 1 輸入 ==
+2 20
+1 10
+== 範例 1 輸出 ==
+4
+2
+
+== 範例 2 輸入 ==
+100 200
+2 2
+== 範例 2 輸出 ==
+7
+0

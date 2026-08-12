@@ -20,21 +20,22 @@ X組和Y組的共同科目
 Y組有但X組沒有的科目
 X組和Y組彼此沒有的科目（不包含相同科目）
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Enter group X's subjects:
+範例輸入
 Math
 Literature
 English
 History
 Geography
 end
-Enter group Y's subjects:
 Math
 Literature
 Chinese
 Physical
 Chemistry
 end
+範例輸出
+Enter group X's subjects:
+Enter group Y's subjects:
 ['Chemistry', 'Chinese', 'English', 'Geography', 'History', 'Literature', 'Math', 'Physical']
 ['Literature', 'Math']
 ['Chemistry', 'Chinese', 'Physical']

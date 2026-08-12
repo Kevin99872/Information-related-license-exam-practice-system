@@ -1,0 +1,69 @@
+TQC+ 程式語言C# CSD406  矩形類別建構子多載
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義 Rectangle 類別，含屬性 Width、Height。提供兩個建構子：一個接受長寬兩個參數；一個不接受參數，預設長寬皆為 1。並提供方法 GetArea() 與 GetPerimeter() 分別回傳面積與周長。
+
+輸入說明：第一行為整數 mode（1 表示使用雙參數建構子，0 表示使用無參數建構子）；若 mode 為 1，第二行為長與寬（整數，以空白分隔）。
+輸出說明：一行，格式為「面積:X 周長:Y」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Rectangle
+{
+    public int Width { get; set; }
+    public int Height { get; set; }
+
+    public Rectangle(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public Rectangle() : this(1, 1)
+    {
+    }
+
+    public int GetArea()
+    {
+        return Width * Height;
+    }
+
+    public int GetPerimeter()
+    {
+        return 2 * (Width + Height);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int mode = int.Parse(Console.ReadLine() ?? "0");
+        Rectangle r;
+        if (mode == 1)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            r = new Rectangle(int.Parse(parts[0]), int.Parse(parts[1]));
+        }
+        else
+        {
+            r = new Rectangle();
+        }
+        Console.WriteLine($"面積:{r.GetArea()} 周長:{r.GetPerimeter()}");
+    }
+}
+
+== 範例 1 輸入 ==
+1
+4 6
+== 範例 1 輸出 ==
+面積:24 周長:20
+
+== 範例 2 輸入 ==
+0
+== 範例 2 輸出 ==
+面積:1 周長:4

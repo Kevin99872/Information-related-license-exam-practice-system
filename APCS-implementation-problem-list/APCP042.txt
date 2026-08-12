@@ -1,0 +1,46 @@
+APCS 實作題 APCP042 BFS 走迷宮最短路徑
+
+難度：困難
+主題：圖/BFS
+
+== 題目 ==
+給定一個 r 列 c 行的迷宮，'0' 表示可通行的格子、'1' 表示牆壁。請使用 BFS 求出從起點 (sr, sc) 走到終點 (er, ec) 所需的最少移動步數（每次只能往上下左右移動一格，且只能經過可通行的格子）；若無法到達，輸出 -1。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行一個長度為 c、僅由 '0' 與 '1' 組成的字串；最後一行四個整數 sr sc er ec（0-indexed 座標，保證起點與終點皆可通行）。
+輸出說明：一行，輸出最少移動步數；若無法到達，輸出 -1。
+
+== 參考解法 (Python) ==
+from collections import deque
+r, c = map(int, input().split())
+grid = [input() for _ in range(r)]
+sr, sc, er, ec = map(int, input().split())
+dist = [[-1] * c for _ in range(r)]
+dist[sr][sc] = 0
+q = deque([(sr, sc)])
+while q:
+    x, y = q.popleft()
+    if (x, y) == (er, ec):
+        break
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == '0' and dist[nx][ny] == -1:
+            dist[nx][ny] = dist[x][y] + 1
+            q.append((nx, ny))
+print(dist[er][ec])
+
+== 範例 1 輸入 ==
+3 3
+000
+010
+000
+0 0 2 2
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+2 2
+01
+10
+0 0 1 1
+== 範例 2 輸出 ==
+-1

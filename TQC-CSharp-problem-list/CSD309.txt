@@ -1,0 +1,35 @@
+TQC+ 程式語言C# CSD309  句子單字反轉
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一句以空白分隔單字的英文句子，將句子中單字的順序反轉（單字本身內容不變），輸出反轉後的句子。
+
+輸入說明：一行英文句子，單字間以單一空白分隔。
+輸出說明：一行，單字順序反轉後的句子。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? "";
+        string[] words = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Array.Reverse(words);
+        Console.WriteLine(string.Join(" ", words));
+    }
+}
+
+== 範例 1 輸入 ==
+I love C Sharp
+== 範例 1 輸出 ==
+Sharp C love I
+
+== 範例 2 輸入 ==
+hello world
+== 範例 2 輸出 ==
+world hello

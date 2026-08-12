@@ -1,0 +1,63 @@
+CPE 0/1 Knapsack
+
+難度：困難
+來源：原創（動態規劃：0/1 背包經典題型）
+
+== 題目 ==
+有 n 件物品，第 i 件重量為 w_i、價值為 v_i。背包容量為 C，每件物品最多選一次。求在總重量不超過 C 的情況下，可獲得的最大總價值。
+
+輸入說明：每組第一行為 n 與 C；接著 n 行，每行為 w_i 與 v_i。以 n=0 且 C=0 結束 (不處理)。
+輸出說明：每組輸出最大總價值。
+
+== 參考解法 (Python) ==
+import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n, cap = map(int, line.split())
+    if n == 0 and cap == 0:
+        break
+    items = []
+    for _ in range(n):
+        w, v = map(int, data[idx].split())
+        items.append((w, v))
+        idx += 1
+    dp = [0] * (cap + 1)
+    for w, v in items:
+        for c in range(cap, w - 1, -1):
+            if dp[c - w] + v > dp[c]:
+                dp[c] = dp[c - w] + v
+    out.append(str(dp[cap]))
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+4 5
+2 3
+3 4
+4 5
+5 6
+0 0
+== 範例 1 輸出 ==
+7
+
+== 範例 2 輸入 ==
+3 10
+2 3
+5 8
+7 9
+0 0
+== 範例 2 輸出 ==
+12
+
+== 範例 3 輸入 ==
+1 0
+5 3
+0 0
+== 範例 3 輸出 ==
+0

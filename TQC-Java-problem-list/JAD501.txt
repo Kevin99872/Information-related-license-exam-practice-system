@@ -1,0 +1,72 @@
+TQC+ 程式語言Java JAD501  繼承基礎：動物類別
+
+難度：簡單
+主題：物件導向
+
+== 題目 ==
+定義父類別 Animal，含欄位 name 與方法 speak()（回傳字串 "..."）；子類別 Dog 覆寫 speak() 回傳 "汪汪"，子類別 Cat 覆寫 speak() 回傳 "喵喵"。依輸入的種類建立對應物件並輸出結果。
+
+輸入說明：一行，動物種類（dog 或 cat）與名字，以空白分隔。
+輸出說明：一行，格式為「名字: 叫聲」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static class Animal {
+        String name;
+
+        Animal(String name) {
+            this.name = name;
+        }
+
+        String speak() {
+            return "...";
+        }
+    }
+
+    static class Dog extends Animal {
+        Dog(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return "汪汪";
+        }
+    }
+
+    static class Cat extends Animal {
+        Cat(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return "喵喵";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        Animal animal;
+        if (kind.equals("dog")) {
+            animal = new Dog(name);
+        } else {
+            animal = new Cat(name);
+        }
+        System.out.println(animal.name + ": " + animal.speak());
+    }
+}
+
+== 範例 1 輸入 ==
+dog Rex
+== 範例 1 輸出 ==
+Rex: 汪汪
+
+== 範例 2 輸入 ==
+cat Kitty
+== 範例 2 輸出 ==
+Kitty: 喵喵

@@ -1,0 +1,91 @@
+TQC+ 程式語言C# CSD508  抽象類別多型薪資計算
+
+難度：困難
+主題：物件導向
+
+== 題目 ==
+定義抽象類別 Employee，含屬性 Name 與抽象方法 CalcSalary() 回傳 double。定義子類別 FullTimeEmployee（月薪 monthly，CalcSalary() 回傳 monthly）與 PartTimeEmployee（時薪 hourly 與工時 hours，CalcSalary() 回傳 hourly * hours）。輸入 n 筆員工資料，逐一計算並輸出「姓名 薪資:X」，X 為整數。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「F 姓名 月薪」（全職）或「P 姓名 時薪 工時」（兼職），數值皆為整數。
+輸出說明：n 行，格式為「姓名 薪資:X」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+
+abstract class Employee
+{
+    public string Name { get; set; }
+
+    public Employee(string name)
+    {
+        Name = name;
+    }
+
+    public abstract double CalcSalary();
+}
+
+class FullTimeEmployee : Employee
+{
+    private double monthly;
+
+    public FullTimeEmployee(string name, double monthly) : base(name)
+    {
+        this.monthly = monthly;
+    }
+
+    public override double CalcSalary() => monthly;
+}
+
+class PartTimeEmployee : Employee
+{
+    private double hourly;
+    private double hours;
+
+    public PartTimeEmployee(string name, double hourly, double hours) : base(name)
+    {
+        this.hourly = hourly;
+        this.hours = hours;
+    }
+
+    public override double CalcSalary() => hourly * hours;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        List<Employee> employees = new List<Employee>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            if (parts[0] == "F")
+            {
+                employees.Add(new FullTimeEmployee(parts[1], double.Parse(parts[2])));
+            }
+            else
+            {
+                employees.Add(new PartTimeEmployee(parts[1], double.Parse(parts[2]), double.Parse(parts[3])));
+            }
+        }
+        foreach (Employee e in employees)
+        {
+            Console.WriteLine($"{e.Name} 薪資:{(int)e.CalcSalary()}");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+2
+F Amy 42000
+P Bob 200 80
+== 範例 1 輸出 ==
+Amy 薪資:42000
+Bob 薪資:16000
+
+== 範例 2 輸入 ==
+1
+P Cathy 150 100
+== 範例 2 輸出 ==
+Cathy 薪資:15000

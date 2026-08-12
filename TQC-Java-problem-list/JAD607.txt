@@ -1,0 +1,55 @@
+TQC+ 程式語言Java JAD607  詞頻統計並依次數排序
+
+難度：困難
+主題：集合
+
+== 題目 ==
+輸入一行以空白分隔的多個單字，統計每個單字出現的次數。輸出時依出現次數由高到低排序，次數相同時依字典序（由小到大）排列。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依上述規則排序。
+
+== 參考解法 (Java) ==
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split(" ");
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(freq.entrySet());
+        entries.sort((a, b) -> {
+            if (!a.getValue().equals(b.getValue())) {
+                return b.getValue() - a.getValue();
+            }
+            return a.getKey().compareTo(b.getKey());
+        });
+        for (Map.Entry<String, Integer> entry : entries) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+the quick brown fox the lazy the quick
+== 範例 1 輸出 ==
+the: 3
+quick: 2
+brown: 1
+fox: 1
+lazy: 1
+
+== 範例 2 輸入 ==
+a a b b c
+== 範例 2 輸出 ==
+a: 2
+b: 2
+c: 1

@@ -1,0 +1,36 @@
+TQC+ 程式語言Java JAD603  數字格式例外處理
+
+難度：中等
+主題：例外處理
+
+== 題目 ==
+輸入一個字串，嘗試將其轉換為整數。若轉換失敗會拋出 NumberFormatException，請捕捉此例外並輸出提示訊息；否則輸出轉換後的整數。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若可轉換為整數輸出「轉換成功: n」，否則輸出「格式錯誤」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        try {
+            int n = Integer.parseInt(s);
+            System.out.println("轉換成功: " + n);
+        } catch (NumberFormatException e) {
+            System.out.println("格式錯誤");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+123
+== 範例 1 輸出 ==
+轉換成功: 123
+
+== 範例 2 輸入 ==
+12a3
+== 範例 2 輸出 ==
+格式錯誤

@@ -1,0 +1,47 @@
+TQC+ 程式語言C# CSD609  集合交集聯集運算
+
+難度：困難
+主題：集合與LINQ
+
+== 題目 ==
+輸入兩組整數集合 A、B，使用 LINQ 計算並輸出兩集合的聯集（Union）、交集（Intersect）、差集（A Except B），結果皆由小到大排序，以空白分隔。
+
+輸入說明：第一行為集合 A 的整數，以空白分隔；第二行為集合 B 的整數，以空白分隔。
+輸出說明：三行，依序為聯集、交集、差集（A - B），皆由小到大排序並以空白分隔。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] a = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] b = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var union = a.Union(b).OrderBy(x => x);
+        var intersect = a.Intersect(b).OrderBy(x => x);
+        var except = a.Except(b).OrderBy(x => x);
+        Console.WriteLine(string.Join(" ", union));
+        Console.WriteLine(string.Join(" ", intersect));
+        Console.WriteLine(string.Join(" ", except));
+    }
+}
+
+== 範例 1 輸入 ==
+1 2 3 4 5
+3 4 5 6 7
+== 範例 1 輸出 ==
+1 2 3 4 5 6 7
+3 4 5
+1 2
+
+== 範例 2 輸入 ==
+1 2 3
+4 5 6
+== 範例 2 輸出 ==
+1 2 3 4 5 6
+
+1 2 3

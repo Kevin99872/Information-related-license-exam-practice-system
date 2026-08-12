@@ -1,0 +1,58 @@
+TQC+ 程式語言Java JAD405  簡單類別與建構子
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義類別 Student，含欄位 name（String）與 score（int），並提供建構子初始化這兩個欄位；另撰寫方法 getGrade()，回傳等級：score >= 90 為 "A"，score >= 60 為 "B"，其餘為 "C"。
+
+輸入說明：一行，姓名與分數，以空白分隔。
+輸出說明：一行，格式為「姓名: 等級」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        String getGrade() {
+            if (score >= 90) {
+                return "A";
+            } else if (score >= 60) {
+                return "B";
+            } else {
+                return "C";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int score = sc.nextInt();
+        Student student = new Student(name, score);
+        System.out.println(student.name + ": " + student.getGrade());
+    }
+}
+
+== 範例 1 輸入 ==
+小明 95
+== 範例 1 輸出 ==
+小明: A
+
+== 範例 2 輸入 ==
+小華 70
+== 範例 2 輸出 ==
+小華: B
+
+== 範例 3 輸入 ==
+小美 40
+== 範例 3 輸出 ==
+小美: C

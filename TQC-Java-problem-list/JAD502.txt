@@ -1,0 +1,69 @@
+TQC+ 程式語言Java JAD502  多型：圖形面積計算
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義抽象類別 Shape，含抽象方法 getArea()；子類別 Circle（欄位 radius）與 Square（欄位 side）分別實作 getArea()。圓周率一律使用 3.14159。依輸入建立對應物件並輸出面積（取小數點後兩位）。
+
+輸入說明：一行，形狀種類（circle 或 square）與對應的參數（浮點數），以空白分隔。
+輸出說明：一行，格式為「面積: xx.xx」。
+
+== 參考解法 (Java) ==
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Shape {
+        abstract double getArea();
+    }
+
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        double getArea() {
+            return 3.14159 * radius * radius;
+        }
+    }
+
+    static class Square extends Shape {
+        double side;
+
+        Square(double side) {
+            this.side = side;
+        }
+
+        @Override
+        double getArea() {
+            return side * side;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        double value = sc.nextDouble();
+        Shape shape;
+        if (kind.equals("circle")) {
+            shape = new Circle(value);
+        } else {
+            shape = new Square(value);
+        }
+        System.out.printf(Locale.US, "面積: %.2f%n", shape.getArea());
+    }
+}
+
+== 範例 1 輸入 ==
+circle 2
+== 範例 1 輸出 ==
+面積: 12.57
+
+== 範例 2 輸入 ==
+square 5
+== 範例 2 輸出 ==
+面積: 25.00

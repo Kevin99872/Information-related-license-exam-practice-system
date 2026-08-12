@@ -1,0 +1,31 @@
+APCS 觀念題 APCC021 堆疊實作括號配對追蹤
+
+難度：困難
+主題：資料結構
+
+== 題目 ==
+下列程式使用堆疊（stack）檢查括號是否成對匹配，執行 is_balanced("(()())") 後回傳值為何？
+
+    def is_balanced(s):
+        stack = []
+        for ch in s:
+            if ch == '(':
+                stack.append(ch)
+            elif ch == ')':
+                if not stack:
+                    return False
+                stack.pop()
+        return len(stack) == 0
+
+    print(is_balanced("(()())"))
+
+(A) True
+(B) False
+(C) None
+(D) 程式會出錯
+
+== 正解 ==
+A
+
+== 解析 ==
+逐字元處理：( push→[(]；( push→[(,(]；) pop→[(]；( push→[(,(]；) pop→[(]；) pop→[]。掃描結束後堆疊為空，回傳 True，代表括號完全配對。

@@ -1,0 +1,1723 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+APCP001,APCS,陣列總和與平均,"給定一個長度為 n 的整數陣列，請計算所有元素的總和與平均值。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，範圍在 -1000 到 1000 之間，以空白分隔。
+輸出說明：一行，依序輸出總和與平均值（平均值四捨五入至小數點後兩位），以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+s = sum(arr)
+avg = s / n
+print(f""{s} {avg:.2f}"")",0,True,"5
+1 2 3 4 5",15 3.00
+APCP001,APCS,陣列總和與平均,"給定一個長度為 n 的整數陣列，請計算所有元素的總和與平均值。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，範圍在 -1000 到 1000 之間，以空白分隔。
+輸出說明：一行，依序輸出總和與平均值（平均值四捨五入至小數點後兩位），以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+s = sum(arr)
+avg = s / n
+print(f""{s} {avg:.2f}"")",1,True,"3
+-1 0 1",0 0.00
+APCP002,APCS,找最大值與其位置,"給定一個長度為 n 的整數陣列，請找出最大值以及它第一次出現的位置。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，輸出最大值與其位置（位置從 1 開始計數；若最大值重複出現，取第一次出現的位置），以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+mx = arr[0]
+idx = 1
+for i in range(1, n):
+    if arr[i] > mx:
+        mx = arr[i]
+        idx = i + 1
+print(mx, idx)",0,True,"5
+3 1 4 1 5",5 5
+APCP002,APCS,找最大值與其位置,"給定一個長度為 n 的整數陣列，請找出最大值以及它第一次出現的位置。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，輸出最大值與其位置（位置從 1 開始計數；若最大值重複出現，取第一次出現的位置），以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+mx = arr[0]
+idx = 1
+for i in range(1, n):
+    if arr[i] > mx:
+        mx = arr[i]
+        idx = i + 1
+print(mx, idx)",1,True,"4
+7 7 2 1",7 1
+APCP003,APCS,計算奇偶數個數,"給定一個長度為 n 的整數陣列，請計算其中奇數與偶數的個數。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，依序輸出奇數個數與偶數個數，以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+odd = sum(1 for x in arr if x % 2 != 0)
+even = n - odd
+print(odd, even)",0,True,"5
+1 2 3 4 5",3 2
+APCP003,APCS,計算奇偶數個數,"給定一個長度為 n 的整數陣列，請計算其中奇數與偶數的個數。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，依序輸出奇數個數與偶數個數，以空白分隔。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+odd = sum(1 for x in arr if x % 2 != 0)
+even = n - odd
+print(odd, even)",1,True,"3
+2 4 6",0 3
+APCP004,APCS,字串反轉,"給定一行不含空白字元的字串 s，請輸出將其反轉後的結果。
+
+輸入說明：一行字串 s（僅含英數字元，長度 1<=len(s)<=100）。
+輸出說明：一行，輸出 s 反轉後的字串。",1,Active,Python,"s = input()
+print(s[::-1])",0,True,hello,olleh
+APCP004,APCS,字串反轉,"給定一行不含空白字元的字串 s，請輸出將其反轉後的結果。
+
+輸入說明：一行字串 s（僅含英數字元，長度 1<=len(s)<=100）。
+輸出說明：一行，輸出 s 反轉後的字串。",1,Active,Python,"s = input()
+print(s[::-1])",1,True,apcs2026,6202scpa
+APCP005,APCS,判斷回文字串,"給定一行不含空白字元的字串 s，請判斷它是否為回文字串（正著讀與反著讀相同）。
+
+輸入說明：一行字串 s（僅含英文小寫字母，長度 1<=len(s)<=200）。
+輸出說明：若為回文輸出「是」，否則輸出「否」。",1,Active,Python,"s = input()
+print(""是"" if s == s[::-1] else ""否"")",0,True,level,是
+APCP005,APCS,判斷回文字串,"給定一行不含空白字元的字串 s，請判斷它是否為回文字串（正著讀與反著讀相同）。
+
+輸入說明：一行字串 s（僅含英文小寫字母，長度 1<=len(s)<=200）。
+輸出說明：若為回文輸出「是」，否則輸出「否」。",1,Active,Python,"s = input()
+print(""是"" if s == s[::-1] else ""否"")",1,True,apcs,否
+APCP005,APCS,判斷回文字串,"給定一行不含空白字元的字串 s，請判斷它是否為回文字串（正著讀與反著讀相同）。
+
+輸入說明：一行字串 s（僅含英文小寫字母，長度 1<=len(s)<=200）。
+輸出說明：若為回文輸出「是」，否則輸出「否」。",1,Active,Python,"s = input()
+print(""是"" if s == s[::-1] else ""否"")",2,True,a,是
+APCP006,APCS,攝氏轉華氏,"給定一個攝氏溫度 c，請將其轉換為華氏溫度。轉換公式為 F = C * 9 / 5 + 32。
+
+輸入說明：一行一個實數 c，代表攝氏溫度。
+輸出說明：一行，輸出對應的華氏溫度，四捨五入至小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",0,True,0,32.0
+APCP006,APCS,攝氏轉華氏,"給定一個攝氏溫度 c，請將其轉換為華氏溫度。轉換公式為 F = C * 9 / 5 + 32。
+
+輸入說明：一行一個實數 c，代表攝氏溫度。
+輸出說明：一行，輸出對應的華氏溫度，四捨五入至小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",1,True,100,212.0
+APCP006,APCS,攝氏轉華氏,"給定一個攝氏溫度 c，請將其轉換為華氏溫度。轉換公式為 F = C * 9 / 5 + 32。
+
+輸入說明：一行一個實數 c，代表攝氏溫度。
+輸出說明：一行，輸出對應的華氏溫度，四捨五入至小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",2,True,37.5,99.5
+APCP007,APCS,成績等第判斷,"給定 n 位學生的分數，請依下列規則判斷每位學生的等第：
+分數 >= 90 為 A；分數 >= 80 為 B；分數 >= 70 為 C；分數 >= 60 為 D；其餘為 E。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數分數 (0<=分數<=100)，以空白分隔。
+輸出說明：共 n 行，依序輸出每位學生的等第。",1,Active,Python,"n = int(input())
+scores = list(map(int, input().split()))
+for s in scores:
+    if s >= 90:
+        print(""A"")
+    elif s >= 80:
+        print(""B"")
+    elif s >= 70:
+        print(""C"")
+    elif s >= 60:
+        print(""D"")
+    else:
+        print(""E"")",0,True,"3
+95 82 55","A
+B
+E"
+APCP007,APCS,成績等第判斷,"給定 n 位學生的分數，請依下列規則判斷每位學生的等第：
+分數 >= 90 為 A；分數 >= 80 為 B；分數 >= 70 為 C；分數 >= 60 為 D；其餘為 E。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數分數 (0<=分數<=100)，以空白分隔。
+輸出說明：共 n 行，依序輸出每位學生的等第。",1,Active,Python,"n = int(input())
+scores = list(map(int, input().split()))
+for s in scores:
+    if s >= 90:
+        print(""A"")
+    elif s >= 80:
+        print(""B"")
+    elif s >= 70:
+        print(""C"")
+    elif s >= 60:
+        print(""D"")
+    else:
+        print(""E"")",1,True,"2
+60 59","D
+E"
+APCP008,APCS,最大公因數（輾轉相除法）,"給定兩個正整數 a 與 b，請使用輾轉相除法計算兩數的最大公因數。
+
+輸入說明：一行兩個正整數 a 與 b (1<=a,b<=10^6)，以空白分隔。
+輸出說明：一行，輸出 a 與 b 的最大公因數。",1,Active,Python,"a, b = map(int, input().split())
+while b:
+    a, b = b, a % b
+print(a)",0,True,12 18,6
+APCP008,APCS,最大公因數（輾轉相除法）,"給定兩個正整數 a 與 b，請使用輾轉相除法計算兩數的最大公因數。
+
+輸入說明：一行兩個正整數 a 與 b (1<=a,b<=10^6)，以空白分隔。
+輸出說明：一行，輸出 a 與 b 的最大公因數。",1,Active,Python,"a, b = map(int, input().split())
+while b:
+    a, b = b, a % b
+print(a)",1,True,17 5,1
+APCP009,APCS,質數判斷,"給定一個整數 n，請判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=10^6)。
+輸出說明：若 n 為質數輸出「是質數」，否則輸出「不是質數」。",1,Active,Python,"n = int(input())
+is_prime = True
+if n < 2:
+    is_prime = False
+else:
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            is_prime = False
+            break
+        i += 1
+print(""是質數"" if is_prime else ""不是質數"")",0,True,7,是質數
+APCP009,APCS,質數判斷,"給定一個整數 n，請判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=10^6)。
+輸出說明：若 n 為質數輸出「是質數」，否則輸出「不是質數」。",1,Active,Python,"n = int(input())
+is_prime = True
+if n < 2:
+    is_prime = False
+else:
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            is_prime = False
+            break
+        i += 1
+print(""是質數"" if is_prime else ""不是質數"")",1,True,12,不是質數
+APCP009,APCS,質數判斷,"給定一個整數 n，請判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=10^6)。
+輸出說明：若 n 為質數輸出「是質數」，否則輸出「不是質數」。",1,Active,Python,"n = int(input())
+is_prime = True
+if n < 2:
+    is_prime = False
+else:
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            is_prime = False
+            break
+        i += 1
+print(""是質數"" if is_prime else ""不是質數"")",2,True,2,是質數
+APCP010,APCS,陣列中特定值出現次數,"給定一個長度為 n 的整數陣列，以及一個查詢值 x，請計算 x 在陣列中出現的次數。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔；第三行一個整數 x。
+輸出說明：一行，輸出 x 在陣列中出現的次數。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+x = int(input())
+print(arr.count(x))",0,True,"5
+1 2 2 3 2
+2",3
+APCP010,APCS,陣列中特定值出現次數,"給定一個長度為 n 的整數陣列，以及一個查詢值 x，請計算 x 在陣列中出現的次數。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數，以空白分隔；第三行一個整數 x。
+輸出說明：一行，輸出 x 在陣列中出現的次數。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+x = int(input())
+print(arr.count(x))",1,True,"4
+5 6 7 8
+9",0
+APCP011,APCS,二維座標距離,"給定平面上兩個點的座標 (x1, y1) 與 (x2, y2)，請計算兩點之間的歐幾里得距離。
+
+輸入說明：一行四個整數 x1 y1 x2 y2，以空白分隔（座標範圍 -10000<=值<=10000）。
+輸出說明：一行，輸出兩點之間的距離，四捨五入至小數點後三位。",1,Active,Python,"import math
+x1, y1, x2, y2 = map(int, input().split())
+d = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+print(f""{d:.3f}"")",0,True,0 0 3 4,5.000
+APCP011,APCS,二維座標距離,"給定平面上兩個點的座標 (x1, y1) 與 (x2, y2)，請計算兩點之間的歐幾里得距離。
+
+輸入說明：一行四個整數 x1 y1 x2 y2，以空白分隔（座標範圍 -10000<=值<=10000）。
+輸出說明：一行，輸出兩點之間的距離，四捨五入至小數點後三位。",1,Active,Python,"import math
+x1, y1, x2, y2 = map(int, input().split())
+d = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+print(f""{d:.3f}"")",1,True,1 1 1 1,0.000
+APCP012,APCS,字元大小寫轉換計數,"給定一行字串 s，請計算其中大寫英文字母與小寫英文字母各出現幾次（其他字元不計）。
+
+輸入說明：一行字串 s（長度 1<=len(s)<=200，可能包含空白、數字或標點）。
+輸出說明：一行，依序輸出大寫字母個數與小寫字母個數，以空白分隔。",1,Active,Python,"s = input()
+upper = sum(1 for ch in s if ch.isupper())
+lower = sum(1 for ch in s if ch.islower())
+print(upper, lower)",0,True,Hello World,2 8
+APCP012,APCS,字元大小寫轉換計數,"給定一行字串 s，請計算其中大寫英文字母與小寫英文字母各出現幾次（其他字元不計）。
+
+輸入說明：一行字串 s（長度 1<=len(s)<=200，可能包含空白、數字或標點）。
+輸出說明：一行，依序輸出大寫字母個數與小寫字母個數，以空白分隔。",1,Active,Python,"s = input()
+upper = sum(1 for ch in s if ch.isupper())
+lower = sum(1 for ch in s if ch.islower())
+print(upper, lower)",1,True,APCS 2026,4 0
+APCP013,APCS,簡單數列求和,"給定一個正整數 n，請計算 1^2 + 2^2 + ... + n^2 的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：一行，輸出此總和。",1,Active,Python,"n = int(input())
+print(n * (n + 1) * (2 * n + 1) // 6)",0,True,3,14
+APCP013,APCS,簡單數列求和,"給定一個正整數 n，請計算 1^2 + 2^2 + ... + n^2 的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：一行，輸出此總和。",1,Active,Python,"n = int(input())
+print(n * (n + 1) * (2 * n + 1) // 6)",1,True,5,55
+APCP014,APCS,找出陣列中第二大的值,"給定一個長度為 n 的整數陣列（陣列中至少存在兩個相異值），請找出陣列中相異值裡第二大的值。
+
+輸入說明：第一行一個正整數 n (2<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，輸出第二大的相異值。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+uniq = sorted(set(arr), reverse=True)
+print(uniq[1])",0,True,"5
+5 3 9 9 1",5
+APCP014,APCS,找出陣列中第二大的值,"給定一個長度為 n 的整數陣列（陣列中至少存在兩個相異值），請找出陣列中相異值裡第二大的值。
+
+輸入說明：第一行一個正整數 n (2<=n<=1000)；第二行 n 個整數，以空白分隔。
+輸出說明：一行，輸出第二大的相異值。",1,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+uniq = sorted(set(arr), reverse=True)
+print(uniq[1])",1,True,"4
+2 2 2 7",2
+APCP015,APCS,數字反轉,"給定一個整數 n（可能為負數），請將其數字部分反轉後輸出（負號維持在最前面；若反轉後出現前導零，則自動省略）。
+
+輸入說明：一行一個整數 n (-10^9<=n<=10^9)。
+輸出說明：一行，輸出反轉後的整數。",1,Active,Python,"n = int(input())
+sign = -1 if n < 0 else 1
+n = abs(n)
+rev = int(str(n)[::-1])
+print(sign * rev)",0,True,1234,4321
+APCP015,APCS,數字反轉,"給定一個整數 n（可能為負數），請將其數字部分反轉後輸出（負號維持在最前面；若反轉後出現前導零，則自動省略）。
+
+輸入說明：一行一個整數 n (-10^9<=n<=10^9)。
+輸出說明：一行，輸出反轉後的整數。",1,Active,Python,"n = int(input())
+sign = -1 if n < 0 else 1
+n = abs(n)
+rev = int(str(n)[::-1])
+print(sign * rev)",1,True,-520,-25
+APCP015,APCS,數字反轉,"給定一個整數 n（可能為負數），請將其數字部分反轉後輸出（負號維持在最前面；若反轉後出現前導零，則自動省略）。
+
+輸入說明：一行一個整數 n (-10^9<=n<=10^9)。
+輸出說明：一行，輸出反轉後的整數。",1,Active,Python,"n = int(input())
+sign = -1 if n < 0 else 1
+n = abs(n)
+rev = int(str(n)[::-1])
+print(sign * rev)",2,True,100,1
+APCP016,APCS,氣泡排序過程,"給定一個長度為 n 的整數陣列，請使用氣泡排序（由小到大）將其排序，並依序印出每一輪排序後的陣列狀態，共 n-1 輪（每輪皆需輸出，即使該輪未發生交換）。
+
+輸入說明：第一行一個正整數 n (2<=n<=100)；第二行 n 個整數，以空白分隔。
+輸出說明：共 n-1 行，每行輸出該輪結束後的陣列內容，元素間以空白分隔。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+lines = []
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        if arr[j] > arr[j + 1]:
+            arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    lines.append(' '.join(map(str, arr)))
+print('\n'.join(lines))",0,True,"4
+4 3 2 1","3 2 1 4
+2 1 3 4
+1 2 3 4"
+APCP016,APCS,氣泡排序過程,"給定一個長度為 n 的整數陣列，請使用氣泡排序（由小到大）將其排序，並依序印出每一輪排序後的陣列狀態，共 n-1 輪（每輪皆需輸出，即使該輪未發生交換）。
+
+輸入說明：第一行一個正整數 n (2<=n<=100)；第二行 n 個整數，以空白分隔。
+輸出說明：共 n-1 行，每行輸出該輪結束後的陣列內容，元素間以空白分隔。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+lines = []
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        if arr[j] > arr[j + 1]:
+            arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    lines.append(' '.join(map(str, arr)))
+print('\n'.join(lines))",1,True,"3
+1 2 3","1 2 3
+1 2 3"
+APCP017,APCS,二分搜尋,"給定一個已由小到大排序的整數陣列，以及 q 個查詢值，請對每個查詢值使用二分搜尋法找出其在陣列中的索引（從 0 開始）；若不存在則輸出 -1。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個正整數 q (1<=q<=1000)；第四行 q 個查詢值。
+輸出說明：共 q 行，依序輸出每個查詢值的索引，若不存在輸出 -1。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+q = int(input())
+queries = list(map(int, input().split()))
+out = []
+for x in queries:
+    lo, hi = 0, n - 1
+    ans = -1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == x:
+            ans = mid
+            break
+        elif arr[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    out.append(str(ans))
+print('\n'.join(out))",0,True,"5
+1 3 5 7 9
+3
+5 2 9","2
+-1
+4"
+APCP017,APCS,二分搜尋,"給定一個已由小到大排序的整數陣列，以及 q 個查詢值，請對每個查詢值使用二分搜尋法找出其在陣列中的索引（從 0 開始）；若不存在則輸出 -1。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個正整數 q (1<=q<=1000)；第四行 q 個查詢值。
+輸出說明：共 q 行，依序輸出每個查詢值的索引，若不存在輸出 -1。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+q = int(input())
+queries = list(map(int, input().split()))
+out = []
+for x in queries:
+    lo, hi = 0, n - 1
+    ans = -1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == x:
+            ans = mid
+            break
+        elif arr[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    out.append(str(ans))
+print('\n'.join(out))",1,True,"1
+10
+2
+10 5","0
+-1"
+APCP018,APCS,出現最多次的字元,"給定一行僅由小寫英文字母組成的字串 s，請找出出現次數最多的字元；若有多個字元並列最多次，輸出字母序最小的那一個。
+
+輸入說明：一行字串 s（僅含小寫英文字母，長度 1<=len(s)<=1000）。
+輸出說明：一行，輸出出現次數最多的字元。",2,Active,Python,"from collections import Counter
+s = input()
+c = Counter(s)
+mx = max(c.values())
+candidates = [ch for ch, v in c.items() if v == mx]
+print(min(candidates))",0,True,banana,a
+APCP018,APCS,出現最多次的字元,"給定一行僅由小寫英文字母組成的字串 s，請找出出現次數最多的字元；若有多個字元並列最多次，輸出字母序最小的那一個。
+
+輸入說明：一行字串 s（僅含小寫英文字母，長度 1<=len(s)<=1000）。
+輸出說明：一行，輸出出現次數最多的字元。",2,Active,Python,"from collections import Counter
+s = input()
+c = Counter(s)
+mx = max(c.values())
+candidates = [ch for ch, v in c.items() if v == mx]
+print(min(candidates))",1,True,abcabc,a
+APCP019,APCS,矩陣轉置,"給定一個 r 列 c 行的整數矩陣，請輸出其轉置矩陣（即 c 列 r 行，第 i 列第 j 行的元素等於原矩陣第 j 列第 i 行的元素）。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數，以空白分隔。
+輸出說明：共 c 行，每行 r 個整數，以空白分隔，代表轉置後的矩陣。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+for j in range(c):
+    print(' '.join(str(mat[i][j]) for i in range(r)))",0,True,"2 3
+1 2 3
+4 5 6","1 4
+2 5
+3 6"
+APCP019,APCS,矩陣轉置,"給定一個 r 列 c 行的整數矩陣，請輸出其轉置矩陣（即 c 列 r 行，第 i 列第 j 行的元素等於原矩陣第 j 列第 i 行的元素）。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數，以空白分隔。
+輸出說明：共 c 行，每行 r 個整數，以空白分隔，代表轉置後的矩陣。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+for j in range(c):
+    print(' '.join(str(mat[i][j]) for i in range(r)))",1,True,"1 1
+5",5
+APCP020,APCS,前綴和區間查詢,"給定一個長度為 n 的整數陣列，以及 q 個區間查詢 (l, r)（1-indexed，包含兩端），請對每個查詢輸出該區間內所有元素的總和。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個正整數 q (1<=q<=1000)；接下來 q 行，每行兩個整數 l r (1<=l<=r<=n)。
+輸出說明：共 q 行，依序輸出每個查詢區間的總和。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+prefix = [0] * (n + 1)
+for i in range(n):
+    prefix[i + 1] = prefix[i] + arr[i]
+q = int(input())
+out = []
+for _ in range(q):
+    l, r = map(int, input().split())
+    out.append(str(prefix[r] - prefix[l - 1]))
+print('\n'.join(out))",0,True,"5
+1 2 3 4 5
+2
+1 3
+2 5","6
+14"
+APCP020,APCS,前綴和區間查詢,"給定一個長度為 n 的整數陣列，以及 q 個區間查詢 (l, r)（1-indexed，包含兩端），請對每個查詢輸出該區間內所有元素的總和。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個正整數 q (1<=q<=1000)；接下來 q 行，每行兩個整數 l r (1<=l<=r<=n)。
+輸出說明：共 q 行，依序輸出每個查詢區間的總和。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+prefix = [0] * (n + 1)
+for i in range(n):
+    prefix[i + 1] = prefix[i] + arr[i]
+q = int(input())
+out = []
+for _ in range(q):
+    l, r = map(int, input().split())
+    out.append(str(prefix[r] - prefix[l - 1]))
+print('\n'.join(out))",1,True,"3
+-1 -2 -3
+1
+1 3",-6
+APCP021,APCS,兩數之和（雙指標）,"給定一個已由小到大排序的整數陣列與一個目標值 target，請找出陣列中是否存在兩個元素之和恰等於 target。若存在（保證最多一組解），輸出這兩個元素的索引（1-indexed，由小到大）；若不存在，輸出 ""No solution""。
+
+輸入說明：第一行一個正整數 n (2<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個整數 target。
+輸出說明：一行，若有解輸出兩個索引（以空白分隔），否則輸出 ""No solution""。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+target = int(input())
+left, right = 0, n - 1
+ans = None
+while left < right:
+    s = arr[left] + arr[right]
+    if s == target:
+        ans = (left + 1, right + 1)
+        break
+    elif s < target:
+        left += 1
+    else:
+        right -= 1
+print(f""{ans[0]} {ans[1]}"" if ans else ""No solution"")",0,True,"5
+1 2 3 4 6
+6",2 4
+APCP021,APCS,兩數之和（雙指標）,"給定一個已由小到大排序的整數陣列與一個目標值 target，請找出陣列中是否存在兩個元素之和恰等於 target。若存在（保證最多一組解），輸出這兩個元素的索引（1-indexed，由小到大）；若不存在，輸出 ""No solution""。
+
+輸入說明：第一行一個正整數 n (2<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個整數 target。
+輸出說明：一行，若有解輸出兩個索引（以空白分隔），否則輸出 ""No solution""。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+target = int(input())
+left, right = 0, n - 1
+ans = None
+while left < right:
+    s = arr[left] + arr[right]
+    if s == target:
+        ans = (left + 1, right + 1)
+        break
+    elif s < target:
+        left += 1
+    else:
+        right -= 1
+print(f""{ans[0]} {ans[1]}"" if ans else ""No solution"")",1,True,"4
+1 2 3 9
+100",No solution
+APCP022,APCS,滑動視窗最大和,"給定一個長度為 n 的整數陣列與一個視窗大小 k，請找出所有長度為 k 的連續子陣列中，總和最大的那個。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個正整數 k (1<=k<=n)。
+輸出說明：一行，輸出長度為 k 的連續子陣列中的最大總和。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+k = int(input())
+window = sum(arr[:k])
+best = window
+for i in range(k, n):
+    window += arr[i] - arr[i - k]
+    best = max(best, window)
+print(best)",0,True,"5
+2 1 5 1 3
+2",6
+APCP022,APCS,滑動視窗最大和,"給定一個長度為 n 的整數陣列與一個視窗大小 k，請找出所有長度為 k 的連續子陣列中，總和最大的那個。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個正整數 k (1<=k<=n)。
+輸出說明：一行，輸出長度為 k 的連續子陣列中的最大總和。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+k = int(input())
+window = sum(arr[:k])
+best = window
+for i in range(k, n):
+    window += arr[i] - arr[i - k]
+    best = max(best, window)
+print(best)",1,True,"4
+-1 -2 -3 -4
+1",-1
+APCP023,APCS,括號匹配檢查,"給定一行僅由 ( ) [ ] { } 六種符號組成的字串（可能為空字串），請判斷括號是否完全匹配（每個左括號都有對應同種類的右括號，且順序正確）。
+
+輸入說明：一行字串 s（僅含括號符號，長度 0<=len(s)<=1000，字串可能為空）。
+輸出說明：若完全匹配輸出 ""Valid""，否則輸出 ""Invalid""。",2,Active,Python,"s = input()
+pairs = {')': '(', ']': '[', '}': '{'}
+stack = []
+valid = True
+for ch in s:
+    if ch in '([{':
+        stack.append(ch)
+    elif ch in ')]}':
+        if not stack or stack.pop() != pairs[ch]:
+            valid = False
+            break
+if stack:
+    valid = False
+print(""Valid"" if valid else ""Invalid"")",0,True,([{}]),Valid
+APCP023,APCS,括號匹配檢查,"給定一行僅由 ( ) [ ] { } 六種符號組成的字串（可能為空字串），請判斷括號是否完全匹配（每個左括號都有對應同種類的右括號，且順序正確）。
+
+輸入說明：一行字串 s（僅含括號符號，長度 0<=len(s)<=1000，字串可能為空）。
+輸出說明：若完全匹配輸出 ""Valid""，否則輸出 ""Invalid""。",2,Active,Python,"s = input()
+pairs = {')': '(', ']': '[', '}': '{'}
+stack = []
+valid = True
+for ch in s:
+    if ch in '([{':
+        stack.append(ch)
+    elif ch in ')]}':
+        if not stack or stack.pop() != pairs[ch]:
+            valid = False
+            break
+if stack:
+    valid = False
+print(""Valid"" if valid else ""Invalid"")",1,True,([)],Invalid
+APCP023,APCS,括號匹配檢查,"給定一行僅由 ( ) [ ] { } 六種符號組成的字串（可能為空字串），請判斷括號是否完全匹配（每個左括號都有對應同種類的右括號，且順序正確）。
+
+輸入說明：一行字串 s（僅含括號符號，長度 0<=len(s)<=1000，字串可能為空）。
+輸出說明：若完全匹配輸出 ""Valid""，否則輸出 ""Invalid""。",2,Active,Python,"s = input()
+pairs = {')': '(', ']': '[', '}': '{'}
+stack = []
+valid = True
+for ch in s:
+    if ch in '([{':
+        stack.append(ch)
+    elif ch in ')]}':
+        if not stack or stack.pop() != pairs[ch]:
+            valid = False
+            break
+if stack:
+    valid = False
+print(""Valid"" if valid else ""Invalid"")",2,True,(((,Invalid
+APCP024,APCS,費氏數列（遞迴＋記憶化）,"定義費氏數列 F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)（n>=2）。給定一個整數 n，請使用遞迴（搭配記憶化以避免重複計算）求出 F(n)。
+
+輸入說明：一行一個整數 n (0<=n<=50)。
+輸出說明：一行，輸出 F(n) 的值。",2,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {0: 0, 1: 1}
+def fib(k):
+    if k in memo:
+        return memo[k]
+    memo[k] = fib(k - 1) + fib(k - 2)
+    return memo[k]
+n = int(input())
+print(fib(n))",0,True,10,55
+APCP024,APCS,費氏數列（遞迴＋記憶化）,"定義費氏數列 F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)（n>=2）。給定一個整數 n，請使用遞迴（搭配記憶化以避免重複計算）求出 F(n)。
+
+輸入說明：一行一個整數 n (0<=n<=50)。
+輸出說明：一行，輸出 F(n) 的值。",2,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {0: 0, 1: 1}
+def fib(k):
+    if k in memo:
+        return memo[k]
+    memo[k] = fib(k - 1) + fib(k - 2)
+    return memo[k]
+n = int(input())
+print(fib(n))",1,True,0,0
+APCP024,APCS,費氏數列（遞迴＋記憶化）,"定義費氏數列 F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)（n>=2）。給定一個整數 n，請使用遞迴（搭配記憶化以避免重複計算）求出 F(n)。
+
+輸入說明：一行一個整數 n (0<=n<=50)。
+輸出說明：一行，輸出 F(n) 的值。",2,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {0: 0, 1: 1}
+def fib(k):
+    if k in memo:
+        return memo[k]
+    memo[k] = fib(k - 1) + fib(k - 2)
+    return memo[k]
+n = int(input())
+print(fib(n))",2,True,50,12586269025
+APCP025,APCS,質因數分解,"給定一個整數 n，請將其分解為質因數的乘積，並由小到大輸出所有質因數（重複的質因數需重複列出）。
+
+輸入說明：一行一個整數 n (2<=n<=10^9)。
+輸出說明：一行，輸出 n 的所有質因數，由小到大排列，以空白分隔。",2,Active,Python,"n = int(input())
+factors = []
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        factors.append(d)
+        n //= d
+    d += 1
+if n > 1:
+    factors.append(n)
+print(' '.join(map(str, factors)))",0,True,60,2 2 3 5
+APCP025,APCS,質因數分解,"給定一個整數 n，請將其分解為質因數的乘積，並由小到大輸出所有質因數（重複的質因數需重複列出）。
+
+輸入說明：一行一個整數 n (2<=n<=10^9)。
+輸出說明：一行，輸出 n 的所有質因數，由小到大排列，以空白分隔。",2,Active,Python,"n = int(input())
+factors = []
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        factors.append(d)
+        n //= d
+    d += 1
+if n > 1:
+    factors.append(n)
+print(' '.join(map(str, factors)))",1,True,97,97
+APCP026,APCS,最長連續遞增子序列,"給定一個長度為 n 的整數陣列，請找出其中「連續」且嚴格遞增的最長子序列的長度。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數。
+輸出說明：一行，輸出最長連續嚴格遞增子序列的長度。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+best = 1
+cur = 1
+for i in range(1, n):
+    if arr[i] > arr[i - 1]:
+        cur += 1
+    else:
+        cur = 1
+    best = max(best, cur)
+print(best)",0,True,"6
+1 2 2 3 4 1",3
+APCP026,APCS,最長連續遞增子序列,"給定一個長度為 n 的整數陣列，請找出其中「連續」且嚴格遞增的最長子序列的長度。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數。
+輸出說明：一行，輸出最長連續嚴格遞增子序列的長度。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+best = 1
+cur = 1
+for i in range(1, n):
+    if arr[i] > arr[i - 1]:
+        cur += 1
+    else:
+        cur = 1
+    best = max(best, cur)
+print(best)",1,True,"1
+5",1
+APCP027,APCS,字串壓縮,"給定一行僅由英文大寫字母組成的字串 s，請以「字元＋連續出現次數」的方式壓縮字串（即使某字元只連續出現一次，仍需輸出次數 1）。
+
+輸入說明：一行字串 s（僅含英文大寫字母，長度 1<=len(s)<=1000）。
+輸出說明：一行，輸出壓縮後的字串。",2,Active,Python,"s = input()
+res = []
+i = 0
+n = len(s)
+while i < n:
+    j = i
+    while j < n and s[j] == s[i]:
+        j += 1
+    res.append(s[i] + str(j - i))
+    i = j
+print(''.join(res))",0,True,AAABCCDDDD,A3B1C2D4
+APCP027,APCS,字串壓縮,"給定一行僅由英文大寫字母組成的字串 s，請以「字元＋連續出現次數」的方式壓縮字串（即使某字元只連續出現一次，仍需輸出次數 1）。
+
+輸入說明：一行字串 s（僅含英文大寫字母，長度 1<=len(s)<=1000）。
+輸出說明：一行，輸出壓縮後的字串。",2,Active,Python,"s = input()
+res = []
+i = 0
+n = len(s)
+while i < n:
+    j = i
+    while j < n and s[j] == s[i]:
+        j += 1
+    res.append(s[i] + str(j - i))
+    i = j
+print(''.join(res))",1,True,A,A1
+APCP028,APCS,合併兩個排序陣列,"給定兩個已由小到大排序的整數陣列（長度可能為 0），請將它們合併為一個由小到大排序的陣列（保留重複值）。
+
+輸入說明：第一行一個非負整數 n；第二行 n 個遞增整數（n 為 0 時此行可能為空行）；第三行一個非負整數 m；第四行 m 個遞增整數（m 為 0 時此行可能為空行）。
+輸出說明：一行，輸出合併後由小到大排序的陣列，以空白分隔；若結果為空，輸出空行。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+m = int(input())
+b = list(map(int, input().split()))
+merged = []
+i = j = 0
+while i < n and j < m:
+    if a[i] <= b[j]:
+        merged.append(a[i])
+        i += 1
+    else:
+        merged.append(b[j])
+        j += 1
+merged.extend(a[i:])
+merged.extend(b[j:])
+print(' '.join(map(str, merged)))",0,True,"3
+1 3 5
+3
+2 4 6",1 2 3 4 5 6
+APCP028,APCS,合併兩個排序陣列,"給定兩個已由小到大排序的整數陣列（長度可能為 0），請將它們合併為一個由小到大排序的陣列（保留重複值）。
+
+輸入說明：第一行一個非負整數 n；第二行 n 個遞增整數（n 為 0 時此行可能為空行）；第三行一個非負整數 m；第四行 m 個遞增整數（m 為 0 時此行可能為空行）。
+輸出說明：一行，輸出合併後由小到大排序的陣列，以空白分隔；若結果為空，輸出空行。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+m = int(input())
+b = list(map(int, input().split()))
+merged = []
+i = j = 0
+while i < n and j < m:
+    if a[i] <= b[j]:
+        merged.append(a[i])
+        i += 1
+    else:
+        merged.append(b[j])
+        j += 1
+merged.extend(a[i:])
+merged.extend(b[j:])
+print(' '.join(map(str, merged)))",1,True,"0
+
+2
+7 8",7 8
+APCP029,APCS,找出缺失的數字,"有一個長度為 n 的整數陣列，其內容原本應為 1 到 n+1 之間所有整數，但其中恰好缺少一個數字。請找出這個缺失的數字。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)，代表陣列長度；第二行 n 個相異整數，範圍在 1 到 n+1 之間。
+輸出說明：一行，輸出缺失的數字。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+total = (n + 1) * (n + 2) // 2
+print(total - sum(arr))",0,True,"4
+1 2 4 5",3
+APCP029,APCS,找出缺失的數字,"有一個長度為 n 的整數陣列，其內容原本應為 1 到 n+1 之間所有整數，但其中恰好缺少一個數字。請找出這個缺失的數字。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)，代表陣列長度；第二行 n 個相異整數，範圍在 1 到 n+1 之間。
+輸出說明：一行，輸出缺失的數字。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+total = (n + 1) * (n + 2) // 2
+print(total - sum(arr))",1,True,"1
+2",1
+APCP030,APCS,螺旋矩陣輸出,"給定一個 r 列 c 行的整數矩陣，請依照「由左上角開始，順時針方向、由外而內」的順序，將所有元素輸出成一行。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：一行，依螺旋順序輸出所有元素，以空白分隔。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+top, bottom, left, right = 0, r - 1, 0, c - 1
+res = []
+while top <= bottom and left <= right:
+    for j in range(left, right + 1):
+        res.append(mat[top][j])
+    top += 1
+    for i in range(top, bottom + 1):
+        res.append(mat[i][right])
+    right -= 1
+    if top <= bottom:
+        for j in range(right, left - 1, -1):
+            res.append(mat[bottom][j])
+        bottom -= 1
+    if left <= right:
+        for i in range(bottom, top - 1, -1):
+            res.append(mat[i][left])
+        left += 1
+print(' '.join(map(str, res)))",0,True,"3 3
+1 2 3
+4 5 6
+7 8 9",1 2 3 6 9 8 7 4 5
+APCP030,APCS,螺旋矩陣輸出,"給定一個 r 列 c 行的整數矩陣，請依照「由左上角開始，順時針方向、由外而內」的順序，將所有元素輸出成一行。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：一行，依螺旋順序輸出所有元素，以空白分隔。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+top, bottom, left, right = 0, r - 1, 0, c - 1
+res = []
+while top <= bottom and left <= right:
+    for j in range(left, right + 1):
+        res.append(mat[top][j])
+    top += 1
+    for i in range(top, bottom + 1):
+        res.append(mat[i][right])
+    right -= 1
+    if top <= bottom:
+        for j in range(right, left - 1, -1):
+            res.append(mat[bottom][j])
+        bottom -= 1
+    if left <= right:
+        for i in range(bottom, top - 1, -1):
+            res.append(mat[i][left])
+        left += 1
+print(' '.join(map(str, res)))",1,True,"2 2
+1 2
+3 4",1 2 4 3
+APCP031,APCS,貪心找零錢,"假設硬幣的面額只有 1, 5, 10, 50 四種，請問要湊出金額 amount，最少需要幾枚硬幣（使用貪心法，由大面額硬幣優先使用即可得到最少枚數）。
+
+輸入說明：一行一個非負整數 amount (0<=amount<=100000)。
+輸出說明：一行，輸出所需的最少硬幣數。",2,Active,Python,"amount = int(input())
+coins = [50, 10, 5, 1]
+count = 0
+for c in coins:
+    count += amount // c
+    amount %= c
+print(count)",0,True,88,8
+APCP031,APCS,貪心找零錢,"假設硬幣的面額只有 1, 5, 10, 50 四種，請問要湊出金額 amount，最少需要幾枚硬幣（使用貪心法，由大面額硬幣優先使用即可得到最少枚數）。
+
+輸入說明：一行一個非負整數 amount (0<=amount<=100000)。
+輸出說明：一行，輸出所需的最少硬幣數。",2,Active,Python,"amount = int(input())
+coins = [50, 10, 5, 1]
+count = 0
+for c in coins:
+    count += amount // c
+    amount %= c
+print(count)",1,True,0,0
+APCP032,APCS,選擇排序與交換次數,"給定一個長度為 n 的整數陣列，請使用選擇排序（由小到大）將其排序，並統計排序過程中實際發生的「交換」次數（若該輪最小值本來就在正確位置，不計為一次交換）。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：共兩行：第一行輸出排序後的陣列（由小到大），以空白分隔；第二行輸出總交換次數。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+swaps = 0
+for i in range(n):
+    min_idx = i
+    for j in range(i + 1, n):
+        if arr[j] < arr[min_idx]:
+            min_idx = j
+    if min_idx != i:
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        swaps += 1
+print(' '.join(map(str, arr)))
+print(swaps)",0,True,"5
+5 2 4 1 3","1 2 3 4 5
+3"
+APCP032,APCS,選擇排序與交換次數,"給定一個長度為 n 的整數陣列，請使用選擇排序（由小到大）將其排序，並統計排序過程中實際發生的「交換」次數（若該輪最小值本來就在正確位置，不計為一次交換）。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：共兩行：第一行輸出排序後的陣列（由小到大），以空白分隔；第二行輸出總交換次數。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+swaps = 0
+for i in range(n):
+    min_idx = i
+    for j in range(i + 1, n):
+        if arr[j] < arr[min_idx]:
+            min_idx = j
+    if min_idx != i:
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        swaps += 1
+print(' '.join(map(str, arr)))
+print(swaps)",1,True,"3
+1 2 3","1 2 3
+0"
+APCP033,APCS,第 K 小的值,"給定一個長度為 n 的整數陣列與一個整數 k，請找出陣列由小到大排序後，第 k 個位置的值。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個整數 k (1<=k<=n)。
+輸出說明：一行，輸出排序後第 k 小的值。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+k = int(input())
+arr.sort()
+print(arr[k - 1])",0,True,"5
+5 3 8 1 9
+3",5
+APCP033,APCS,第 K 小的值,"給定一個長度為 n 的整數陣列與一個整數 k，請找出陣列由小到大排序後，第 k 個位置的值。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數；第三行一個整數 k (1<=k<=n)。
+輸出說明：一行，輸出排序後第 k 小的值。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+k = int(input())
+arr.sort()
+print(arr[k - 1])",1,True,"1
+100
+1",100
+APCP034,APCS,字串字典序比較,"給定兩個僅由小寫英文字母組成的字串 a 與 b，請比較兩者的字典序大小。
+
+輸入說明：第一行字串 a；第二行字串 b（長度皆 1<=len<=1000）。
+輸出說明：若 a 的字典序小於 b，輸出 ""<""；若大於，輸出 "">""；若相等，輸出 ""=""。",2,Active,Python,"a = input()
+b = input()
+if a < b:
+    print(""<"")
+elif a > b:
+    print("">"")
+else:
+    print(""="")",0,True,"apple
+banana",<
+APCP034,APCS,字串字典序比較,"給定兩個僅由小寫英文字母組成的字串 a 與 b，請比較兩者的字典序大小。
+
+輸入說明：第一行字串 a；第二行字串 b（長度皆 1<=len<=1000）。
+輸出說明：若 a 的字典序小於 b，輸出 ""<""；若大於，輸出 "">""；若相等，輸出 ""=""。",2,Active,Python,"a = input()
+b = input()
+if a < b:
+    print(""<"")
+elif a > b:
+    print("">"")
+else:
+    print(""="")",1,True,"zoo
+zoo",=
+APCP035,APCS,找出陣列中的峰值元素,"給定一個長度為 n 的整數陣列（相鄰元素皆不相等），峰值元素定義為比左右相鄰元素都大的元素（陣列頭尾的元素只需比唯一的相鄰元素大即可視為峰值）。請由左到右掃描，輸出第一個找到的峰值元素的索引（1-indexed）。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數，相鄰元素皆不相等。
+輸出說明：一行，輸出第一個峰值元素的索引。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+for i in range(n):
+    left_ok = (i == 0) or arr[i] > arr[i - 1]
+    right_ok = (i == n - 1) or arr[i] > arr[i + 1]
+    if left_ok and right_ok:
+        print(i + 1)
+        break",0,True,"5
+1 3 2 4 1",2
+APCP035,APCS,找出陣列中的峰值元素,"給定一個長度為 n 的整數陣列（相鄰元素皆不相等），峰值元素定義為比左右相鄰元素都大的元素（陣列頭尾的元素只需比唯一的相鄰元素大即可視為峰值）。請由左到右掃描，輸出第一個找到的峰值元素的索引（1-indexed）。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數，相鄰元素皆不相等。
+輸出說明：一行，輸出第一個峰值元素的索引。",2,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+for i in range(n):
+    left_ok = (i == 0) or arr[i] > arr[i - 1]
+    right_ok = (i == n - 1) or arr[i] > arr[i + 1]
+    if left_ok and right_ok:
+        print(i + 1)
+        break",1,True,"1
+5",1
+APCP036,APCS,貪心活動選擇問題,"給定 n 個活動，每個活動有開始時間與結束時間，一個場地一次只能舉辦一個活動（活動之間不可時間重疊，但允許前一個活動結束時間等於下一個活動開始時間）。請問最多能舉辦幾個不重疊的活動。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；接下來 n 行，每行兩個整數 s e (0<=s<e<=10^9)，代表該活動的開始與結束時間。
+輸出說明：一行，輸出最多可舉辦的不重疊活動數量。",2,Active,Python,"n = int(input())
+activities = []
+for _ in range(n):
+    s, e = map(int, input().split())
+    activities.append((s, e))
+activities.sort(key=lambda x: x[1])
+count = 0
+last_end = -1
+for s, e in activities:
+    if s >= last_end:
+        count += 1
+        last_end = e
+print(count)",0,True,"4
+1 3
+2 4
+3 5
+6 7",3
+APCP036,APCS,貪心活動選擇問題,"給定 n 個活動，每個活動有開始時間與結束時間，一個場地一次只能舉辦一個活動（活動之間不可時間重疊，但允許前一個活動結束時間等於下一個活動開始時間）。請問最多能舉辦幾個不重疊的活動。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；接下來 n 行，每行兩個整數 s e (0<=s<e<=10^9)，代表該活動的開始與結束時間。
+輸出說明：一行，輸出最多可舉辦的不重疊活動數量。",2,Active,Python,"n = int(input())
+activities = []
+for _ in range(n):
+    s, e = map(int, input().split())
+    activities.append((s, e))
+activities.sort(key=lambda x: x[1])
+count = 0
+last_end = -1
+for s, e in activities:
+    if s >= last_end:
+        count += 1
+        last_end = e
+print(count)",1,True,"1
+1 2",1
+APCP037,APCS,二維陣列鞍點,"給定一個 r 列 c 行的整數矩陣，鞍點定義為「該元素是其所在列中的最大值，同時也是其所在行中的最小值」。請由上到下、由左到右尋找第一個鞍點並輸出其值與位置（1-indexed）；若不存在鞍點，輸出 ""None""。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：若存在鞍點，輸出一行「值 列 行」；否則輸出 ""None""。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+found = False
+for i in range(r):
+    row_max = max(mat[i])
+    for j in range(c):
+        if mat[i][j] == row_max:
+            col_min = min(mat[k][j] for k in range(r))
+            if mat[i][j] == col_min:
+                print(mat[i][j], i + 1, j + 1)
+                found = True
+                break
+    if found:
+        break
+if not found:
+    print(""None"")",0,True,"3 3
+1 2 3
+4 5 6
+7 8 9",3 1 3
+APCP037,APCS,二維陣列鞍點,"給定一個 r 列 c 行的整數矩陣，鞍點定義為「該元素是其所在列中的最大值，同時也是其所在行中的最小值」。請由上到下、由左到右尋找第一個鞍點並輸出其值與位置（1-indexed）；若不存在鞍點，輸出 ""None""。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：若存在鞍點，輸出一行「值 列 行」；否則輸出 ""None""。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+found = False
+for i in range(r):
+    row_max = max(mat[i])
+    for j in range(c):
+        if mat[i][j] == row_max:
+            col_min = min(mat[k][j] for k in range(r))
+            if mat[i][j] == col_min:
+                print(mat[i][j], i + 1, j + 1)
+                found = True
+                break
+    if found:
+        break
+if not found:
+    print(""None"")",1,True,"2 2
+1 2
+3 4",2 1 2
+APCP037,APCS,二維陣列鞍點,"給定一個 r 列 c 行的整數矩陣，鞍點定義為「該元素是其所在列中的最大值，同時也是其所在行中的最小值」。請由上到下、由左到右尋找第一個鞍點並輸出其值與位置（1-indexed）；若不存在鞍點，輸出 ""None""。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：若存在鞍點，輸出一行「值 列 行」；否則輸出 ""None""。",2,Active,Python,"r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+found = False
+for i in range(r):
+    row_max = max(mat[i])
+    for j in range(c):
+        if mat[i][j] == row_max:
+            col_min = min(mat[k][j] for k in range(r))
+            if mat[i][j] == col_min:
+                print(mat[i][j], i + 1, j + 1)
+                found = True
+                break
+    if found:
+        break
+if not found:
+    print(""None"")",2,True,"2 2
+3 1
+1 3",None
+APCP038,APCS,遞迴計算組合數,"給定兩個整數 n 與 k，請使用遞迴（帕斯卡公式 C(n,k) = C(n-1,k-1) + C(n-1,k)，邊界條件 C(n,0) = C(n,n) = 1）搭配記憶化計算組合數 C(n,k) 的值。
+
+輸入說明：一行兩個整數 n k (0<=k<=n<=30)。
+輸出說明：一行，輸出 C(n,k) 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {}
+def comb(n, k):
+    if k == 0 or k == n:
+        return 1
+    if (n, k) in memo:
+        return memo[(n, k)]
+    res = comb(n - 1, k - 1) + comb(n - 1, k)
+    memo[(n, k)] = res
+    return res
+n, k = map(int, input().split())
+print(comb(n, k))",0,True,5 2,10
+APCP038,APCS,遞迴計算組合數,"給定兩個整數 n 與 k，請使用遞迴（帕斯卡公式 C(n,k) = C(n-1,k-1) + C(n-1,k)，邊界條件 C(n,0) = C(n,n) = 1）搭配記憶化計算組合數 C(n,k) 的值。
+
+輸入說明：一行兩個整數 n k (0<=k<=n<=30)。
+輸出說明：一行，輸出 C(n,k) 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {}
+def comb(n, k):
+    if k == 0 or k == n:
+        return 1
+    if (n, k) in memo:
+        return memo[(n, k)]
+    res = comb(n - 1, k - 1) + comb(n - 1, k)
+    memo[(n, k)] = res
+    return res
+n, k = map(int, input().split())
+print(comb(n, k))",1,True,30 15,155117520
+APCP038,APCS,遞迴計算組合數,"給定兩個整數 n 與 k，請使用遞迴（帕斯卡公式 C(n,k) = C(n-1,k-1) + C(n-1,k)，邊界條件 C(n,0) = C(n,n) = 1）搭配記憶化計算組合數 C(n,k) 的值。
+
+輸入說明：一行兩個整數 n k (0<=k<=n<=30)。
+輸出說明：一行，輸出 C(n,k) 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+memo = {}
+def comb(n, k):
+    if k == 0 or k == n:
+        return 1
+    if (n, k) in memo:
+        return memo[(n, k)]
+    res = comb(n - 1, k - 1) + comb(n - 1, k)
+    memo[(n, k)] = res
+    return res
+n, k = map(int, input().split())
+print(comb(n, k))",2,True,6 0,1
+APCP039,APCS,最長共同子序列,"給定兩個僅由小寫英文字母組成的字串 a 與 b，請使用動態規劃求出兩字串的最長共同子序列（Longest Common Subsequence）的長度。
+
+輸入說明：第一行字串 a；第二行字串 b（長度皆 0<=len<=200，可能為空字串）。
+輸出說明：一行，輸出最長共同子序列的長度。",3,Active,Python,"a = input()
+b = input()
+n, m = len(a), len(b)
+dp = [[0] * (m + 1) for _ in range(n + 1)]
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        if a[i - 1] == b[j - 1]:
+            dp[i][j] = dp[i - 1][j - 1] + 1
+        else:
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+print(dp[n][m])",0,True,"abcde
+ace",3
+APCP039,APCS,最長共同子序列,"給定兩個僅由小寫英文字母組成的字串 a 與 b，請使用動態規劃求出兩字串的最長共同子序列（Longest Common Subsequence）的長度。
+
+輸入說明：第一行字串 a；第二行字串 b（長度皆 0<=len<=200，可能為空字串）。
+輸出說明：一行，輸出最長共同子序列的長度。",3,Active,Python,"a = input()
+b = input()
+n, m = len(a), len(b)
+dp = [[0] * (m + 1) for _ in range(n + 1)]
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        if a[i - 1] == b[j - 1]:
+            dp[i][j] = dp[i - 1][j - 1] + 1
+        else:
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+print(dp[n][m])",1,True,"abc
+def",0
+APCP040,APCS,0/1 背包問題,"有 n 件物品與一個容量為 W 的背包，第 i 件物品重量為 w[i]、價值為 v[i]。每件物品最多只能取一次，請問在不超過背包容量的前提下，能獲得的最大總價值為何。
+
+輸入說明：第一行兩個正整數 n W (1<=n<=100, 1<=W<=1000)；接下來 n 行，每行兩個整數 w v (1<=w<=1000, 1<=v<=1000)。
+輸出說明：一行，輸出能獲得的最大總價值。",3,Active,Python,"n, W = map(int, input().split())
+items = [tuple(map(int, input().split())) for _ in range(n)]
+dp = [0] * (W + 1)
+for w, v in items:
+    for cap in range(W, w - 1, -1):
+        dp[cap] = max(dp[cap], dp[cap - w] + v)
+print(dp[W])",0,True,"3 50
+10 60
+20 100
+30 120",220
+APCP040,APCS,0/1 背包問題,"有 n 件物品與一個容量為 W 的背包，第 i 件物品重量為 w[i]、價值為 v[i]。每件物品最多只能取一次，請問在不超過背包容量的前提下，能獲得的最大總價值為何。
+
+輸入說明：第一行兩個正整數 n W (1<=n<=100, 1<=W<=1000)；接下來 n 行，每行兩個整數 w v (1<=w<=1000, 1<=v<=1000)。
+輸出說明：一行，輸出能獲得的最大總價值。",3,Active,Python,"n, W = map(int, input().split())
+items = [tuple(map(int, input().split())) for _ in range(n)]
+dp = [0] * (W + 1)
+for w, v in items:
+    for cap in range(W, w - 1, -1):
+        dp[cap] = max(dp[cap], dp[cap - w] + v)
+print(dp[W])",1,True,"1 5
+10 100",0
+APCP041,APCS,最長遞增子序列,"給定一個長度為 n 的整數陣列，請使用動態規劃求出最長「嚴格遞增」子序列（Longest Increasing Subsequence，元素不須連續）的長度。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：一行，輸出最長嚴格遞增子序列的長度。",3,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+dp = [1] * n
+for i in range(n):
+    for j in range(i):
+        if arr[j] < arr[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+print(max(dp) if n > 0 else 0)",0,True,"8
+10 9 2 5 3 7 101 18",4
+APCP041,APCS,最長遞增子序列,"給定一個長度為 n 的整數陣列，請使用動態規劃求出最長「嚴格遞增」子序列（Longest Increasing Subsequence，元素不須連續）的長度。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：一行，輸出最長嚴格遞增子序列的長度。",3,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+dp = [1] * n
+for i in range(n):
+    for j in range(i):
+        if arr[j] < arr[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+print(max(dp) if n > 0 else 0)",1,True,"1
+5",1
+APCP042,APCS,BFS 走迷宮最短路徑,"給定一個 r 列 c 行的迷宮，'0' 表示可通行的格子、'1' 表示牆壁。請使用 BFS 求出從起點 (sr, sc) 走到終點 (er, ec) 所需的最少移動步數（每次只能往上下左右移動一格，且只能經過可通行的格子）；若無法到達，輸出 -1。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行一個長度為 c、僅由 '0' 與 '1' 組成的字串；最後一行四個整數 sr sc er ec（0-indexed 座標，保證起點與終點皆可通行）。
+輸出說明：一行，輸出最少移動步數；若無法到達，輸出 -1。",3,Active,Python,"from collections import deque
+r, c = map(int, input().split())
+grid = [input() for _ in range(r)]
+sr, sc, er, ec = map(int, input().split())
+dist = [[-1] * c for _ in range(r)]
+dist[sr][sc] = 0
+q = deque([(sr, sc)])
+while q:
+    x, y = q.popleft()
+    if (x, y) == (er, ec):
+        break
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == '0' and dist[nx][ny] == -1:
+            dist[nx][ny] = dist[x][y] + 1
+            q.append((nx, ny))
+print(dist[er][ec])",0,True,"3 3
+000
+010
+000
+0 0 2 2",4
+APCP042,APCS,BFS 走迷宮最短路徑,"給定一個 r 列 c 行的迷宮，'0' 表示可通行的格子、'1' 表示牆壁。請使用 BFS 求出從起點 (sr, sc) 走到終點 (er, ec) 所需的最少移動步數（每次只能往上下左右移動一格，且只能經過可通行的格子）；若無法到達，輸出 -1。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行一個長度為 c、僅由 '0' 與 '1' 組成的字串；最後一行四個整數 sr sc er ec（0-indexed 座標，保證起點與終點皆可通行）。
+輸出說明：一行，輸出最少移動步數；若無法到達，輸出 -1。",3,Active,Python,"from collections import deque
+r, c = map(int, input().split())
+grid = [input() for _ in range(r)]
+sr, sc, er, ec = map(int, input().split())
+dist = [[-1] * c for _ in range(r)]
+dist[sr][sc] = 0
+q = deque([(sr, sc)])
+while q:
+    x, y = q.popleft()
+    if (x, y) == (er, ec):
+        break
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == '0' and dist[nx][ny] == -1:
+            dist[nx][ny] = dist[x][y] + 1
+            q.append((nx, ny))
+print(dist[er][ec])",1,True,"2 2
+01
+10
+0 0 1 1",-1
+APCP043,APCS,DFS 連通元件計數,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向圖，請使用 DFS 求出圖中連通元件（connected component）的個數。
+
+輸入說明：第一行兩個非負整數 n m (1<=n<=100000, 0<=m<=100000)；接下來 m 行，每行兩個整數 u v (1<=u,v<=n)，代表一條無向邊。
+輸出說明：一行，輸出連通元件的個數。",3,Active,Python,"import sys
+sys.setrecursionlimit(200000)
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+visited = [False] * (n + 1)
+def dfs(start):
+    stack = [start]
+    visited[start] = True
+    while stack:
+        node = stack.pop()
+        for nxt in adj[node]:
+            if not visited[nxt]:
+                visited[nxt] = True
+                stack.append(nxt)
+count = 0
+for i in range(1, n + 1):
+    if not visited[i]:
+        count += 1
+        dfs(i)
+print(count)",0,True,"5 2
+1 2
+3 4",3
+APCP043,APCS,DFS 連通元件計數,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向圖，請使用 DFS 求出圖中連通元件（connected component）的個數。
+
+輸入說明：第一行兩個非負整數 n m (1<=n<=100000, 0<=m<=100000)；接下來 m 行，每行兩個整數 u v (1<=u,v<=n)，代表一條無向邊。
+輸出說明：一行，輸出連通元件的個數。",3,Active,Python,"import sys
+sys.setrecursionlimit(200000)
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+visited = [False] * (n + 1)
+def dfs(start):
+    stack = [start]
+    visited[start] = True
+    while stack:
+        node = stack.pop()
+        for nxt in adj[node]:
+            if not visited[nxt]:
+                visited[nxt] = True
+                stack.append(nxt)
+count = 0
+for i in range(1, n + 1):
+    if not visited[i]:
+        count += 1
+        dfs(i)
+print(count)",1,True,"4 3
+1 2
+2 3
+3 4",1
+APCP044,APCS,圖的最短路徑（Dijkstra）,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向加權圖（邊權皆為正整數），請使用 Dijkstra 演算法求出從節點 s 到節點 t 的最短距離；若不可達，輸出 -1。
+
+輸入說明：第一行兩個正整數 n m (1<=n<=1000, 0<=m<=10000)；接下來 m 行，每行三個整數 u v w (1<=u,v<=n, 1<=w<=1000)，代表節點 u 與 v 之間有一條權重為 w 的無向邊；最後一行兩個整數 s t。
+輸出說明：一行，輸出 s 到 t 的最短距離；若不可達，輸出 -1。",3,Active,Python,"import heapq
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v, w = map(int, input().split())
+    adj[u].append((v, w))
+    adj[v].append((u, w))
+s, t = map(int, input().split())
+INF = float('inf')
+dist = [INF] * (n + 1)
+dist[s] = 0
+pq = [(0, s)]
+while pq:
+    d, u = heapq.heappop(pq)
+    if d > dist[u]:
+        continue
+    for v, w in adj[u]:
+        nd = d + w
+        if nd < dist[v]:
+            dist[v] = nd
+            heapq.heappush(pq, (nd, v))
+print(dist[t] if dist[t] != INF else -1)",0,True,"4 4
+1 2 1
+2 3 2
+1 3 4
+3 4 1
+1 4",4
+APCP044,APCS,圖的最短路徑（Dijkstra）,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向加權圖（邊權皆為正整數），請使用 Dijkstra 演算法求出從節點 s 到節點 t 的最短距離；若不可達，輸出 -1。
+
+輸入說明：第一行兩個正整數 n m (1<=n<=1000, 0<=m<=10000)；接下來 m 行，每行三個整數 u v w (1<=u,v<=n, 1<=w<=1000)，代表節點 u 與 v 之間有一條權重為 w 的無向邊；最後一行兩個整數 s t。
+輸出說明：一行，輸出 s 到 t 的最短距離；若不可達，輸出 -1。",3,Active,Python,"import heapq
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v, w = map(int, input().split())
+    adj[u].append((v, w))
+    adj[v].append((u, w))
+s, t = map(int, input().split())
+INF = float('inf')
+dist = [INF] * (n + 1)
+dist[s] = 0
+pq = [(0, s)]
+while pq:
+    d, u = heapq.heappop(pq)
+    if d > dist[u]:
+        continue
+    for v, w in adj[u]:
+        nd = d + w
+        if nd < dist[v]:
+            dist[v] = nd
+            heapq.heappush(pq, (nd, v))
+print(dist[t] if dist[t] != INF else -1)",1,True,"3 1
+1 2 5
+1 3",-1
+APCP045,APCS,遞迴生成全排列,"給定一個由不重複的小寫英文字母組成的字串 s，請使用遞迴（回溯法）產生 s 所有字母的排列，並依字典序由小到大輸出。
+
+輸入說明：一行字串 s（僅含相異的小寫英文字母，長度 1<=len(s)<=6）。
+輸出說明：共 len(s)! 行，依字典序輸出每一種排列。",3,Active,Python,"def perm(path, remaining, out):
+    if not remaining:
+        out.append(''.join(path))
+        return
+    for i in range(len(remaining)):
+        perm(path + [remaining[i]], remaining[:i] + remaining[i + 1:], out)
+
+s = sorted(input().strip())
+out = []
+perm([], s, out)
+print('\n'.join(out))",0,True,ba,"ab
+ba"
+APCP045,APCS,遞迴生成全排列,"給定一個由不重複的小寫英文字母組成的字串 s，請使用遞迴（回溯法）產生 s 所有字母的排列，並依字典序由小到大輸出。
+
+輸入說明：一行字串 s（僅含相異的小寫英文字母，長度 1<=len(s)<=6）。
+輸出說明：共 len(s)! 行，依字典序輸出每一種排列。",3,Active,Python,"def perm(path, remaining, out):
+    if not remaining:
+        out.append(''.join(path))
+        return
+    for i in range(len(remaining)):
+        perm(path + [remaining[i]], remaining[:i] + remaining[i + 1:], out)
+
+s = sorted(input().strip())
+out = []
+perm([], s, out)
+print('\n'.join(out))",1,True,cab,"abc
+acb
+bac
+bca
+cab
+cba"
+APCP046,APCS,動態規劃湊零錢（最少硬幣數）,"給定 n 種硬幣面額（不保證是常見面額組合）與一個目標金額 amount，每種硬幣可使用無限多次，請使用動態規劃求出湊出 amount 所需的最少硬幣數；若無法湊出，輸出 -1。
+
+輸入說明：第一行一個非負整數 amount (0<=amount<=100000)；第二行一個正整數 n (1<=n<=50)，代表硬幣種類數；第三行 n 個正整數，代表各硬幣面額。
+輸出說明：一行，輸出湊出 amount 所需的最少硬幣數；若無法湊出，輸出 -1。",3,Active,Python,"amount = int(input())
+n = int(input())
+coins = list(map(int, input().split()))
+INF = float('inf')
+dp = [0] + [INF] * amount
+for i in range(1, amount + 1):
+    for c in coins:
+        if c <= i and dp[i - c] + 1 < dp[i]:
+            dp[i] = dp[i - c] + 1
+print(dp[amount] if dp[amount] != INF else -1)",0,True,"6
+3
+1 3 4",2
+APCP046,APCS,動態規劃湊零錢（最少硬幣數）,"給定 n 種硬幣面額（不保證是常見面額組合）與一個目標金額 amount，每種硬幣可使用無限多次，請使用動態規劃求出湊出 amount 所需的最少硬幣數；若無法湊出，輸出 -1。
+
+輸入說明：第一行一個非負整數 amount (0<=amount<=100000)；第二行一個正整數 n (1<=n<=50)，代表硬幣種類數；第三行 n 個正整數，代表各硬幣面額。
+輸出說明：一行，輸出湊出 amount 所需的最少硬幣數；若無法湊出，輸出 -1。",3,Active,Python,"amount = int(input())
+n = int(input())
+coins = list(map(int, input().split()))
+INF = float('inf')
+dp = [0] + [INF] * amount
+for i in range(1, amount + 1):
+    for c in coins:
+        if c <= i and dp[i - c] + 1 < dp[i]:
+            dp[i] = dp[i - c] + 1
+print(dp[amount] if dp[amount] != INF else -1)",1,True,"7
+2
+2 4",-1
+APCP047,APCS,最大不相鄰子序列和,"給定一個長度為 n 的非負整數陣列，請從中挑選若干個「不相鄰」的元素（可以不挑選任何元素，此時總和為 0），使其總和最大，並輸出此最大總和。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個非負整數 (0<=值<=1000)。
+輸出說明：一行，輸出可達到的最大總和。",3,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+prev2 = 0
+prev1 = 0
+for i in range(n):
+    cur = max(prev1, prev2 + arr[i])
+    prev2 = prev1
+    prev1 = cur
+print(prev1)",0,True,"5
+3 2 5 10 7",15
+APCP047,APCS,最大不相鄰子序列和,"給定一個長度為 n 的非負整數陣列，請從中挑選若干個「不相鄰」的元素（可以不挑選任何元素，此時總和為 0），使其總和最大，並輸出此最大總和。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個非負整數 (0<=值<=1000)。
+輸出說明：一行，輸出可達到的最大總和。",3,Active,Python,"n = int(input())
+arr = list(map(int, input().split()))
+prev2 = 0
+prev1 = 0
+for i in range(n):
+    cur = max(prev1, prev2 + arr[i])
+    prev2 = prev1
+    prev1 = cur
+print(prev1)",1,True,"1
+0",0
+APCP048,APCS,N 皇后可行解數,"給定一個整數 n，請使用回溯法計算在 n x n 的棋盤上放置 n 個皇后、使任兩個皇后都不能互相攻擊（不同列、不同行、不同對角線）的總擺放方式數量。
+
+輸入說明：一行一個整數 n (1<=n<=9)。
+輸出說明：一行，輸出 n 皇后問題的解法總數。",3,Active,Python,"def solve(n):
+    cols = set()
+    diag1 = set()
+    diag2 = set()
+    count = 0
+    def backtrack(row):
+        nonlocal count
+        if row == n:
+            count += 1
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col)
+            diag1.add(row - col)
+            diag2.add(row + col)
+            backtrack(row + 1)
+            cols.remove(col)
+            diag1.remove(row - col)
+            diag2.remove(row + col)
+    backtrack(0)
+    return count
+
+n = int(input())
+print(solve(n))",0,True,4,2
+APCP048,APCS,N 皇后可行解數,"給定一個整數 n，請使用回溯法計算在 n x n 的棋盤上放置 n 個皇后、使任兩個皇后都不能互相攻擊（不同列、不同行、不同對角線）的總擺放方式數量。
+
+輸入說明：一行一個整數 n (1<=n<=9)。
+輸出說明：一行，輸出 n 皇后問題的解法總數。",3,Active,Python,"def solve(n):
+    cols = set()
+    diag1 = set()
+    diag2 = set()
+    count = 0
+    def backtrack(row):
+        nonlocal count
+        if row == n:
+            count += 1
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col)
+            diag1.add(row - col)
+            diag2.add(row + col)
+            backtrack(row + 1)
+            cols.remove(col)
+            diag1.remove(row - col)
+            diag2.remove(row + col)
+    backtrack(0)
+    return count
+
+n = int(input())
+print(solve(n))",1,True,1,1
+APCP048,APCS,N 皇后可行解數,"給定一個整數 n，請使用回溯法計算在 n x n 的棋盤上放置 n 個皇后、使任兩個皇后都不能互相攻擊（不同列、不同行、不同對角線）的總擺放方式數量。
+
+輸入說明：一行一個整數 n (1<=n<=9)。
+輸出說明：一行，輸出 n 皇后問題的解法總數。",3,Active,Python,"def solve(n):
+    cols = set()
+    diag1 = set()
+    diag2 = set()
+    count = 0
+    def backtrack(row):
+        nonlocal count
+        if row == n:
+            count += 1
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col)
+            diag1.add(row - col)
+            diag2.add(row + col)
+            backtrack(row + 1)
+            cols.remove(col)
+            diag1.remove(row - col)
+            diag2.remove(row + col)
+    backtrack(0)
+    return count
+
+n = int(input())
+print(solve(n))",2,True,8,92
+APCP049,APCS,遞迴快速冪,"給定三個整數 base、exp、mod，請使用遞迴實作的快速冪演算法，計算 (base ^ exp) mod mod 的值。
+
+輸入說明：一行三個整數 base exp mod (0<=base<=10^9, 0<=exp<=10^9, 1<=mod<=10^9)。
+輸出說明：一行，輸出 (base ^ exp) mod mod 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+def power(b, e, m):
+    if e == 0:
+        return 1 % m
+    half = power(b, e // 2, m)
+    half = (half * half) % m
+    if e % 2 == 1:
+        half = (half * b) % m
+    return half
+
+b, e, m = map(int, input().split())
+print(power(b, e, m))",0,True,2 10 1000,24
+APCP049,APCS,遞迴快速冪,"給定三個整數 base、exp、mod，請使用遞迴實作的快速冪演算法，計算 (base ^ exp) mod mod 的值。
+
+輸入說明：一行三個整數 base exp mod (0<=base<=10^9, 0<=exp<=10^9, 1<=mod<=10^9)。
+輸出說明：一行，輸出 (base ^ exp) mod mod 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+def power(b, e, m):
+    if e == 0:
+        return 1 % m
+    half = power(b, e // 2, m)
+    half = (half * half) % m
+    if e % 2 == 1:
+        half = (half * b) % m
+    return half
+
+b, e, m = map(int, input().split())
+print(power(b, e, m))",1,True,7 0 5,1
+APCP049,APCS,遞迴快速冪,"給定三個整數 base、exp、mod，請使用遞迴實作的快速冪演算法，計算 (base ^ exp) mod mod 的值。
+
+輸入說明：一行三個整數 base exp mod (0<=base<=10^9, 0<=exp<=10^9, 1<=mod<=10^9)。
+輸出說明：一行，輸出 (base ^ exp) mod mod 的值。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+def power(b, e, m):
+    if e == 0:
+        return 1 % m
+    half = power(b, e // 2, m)
+    half = (half * half) % m
+    if e % 2 == 1:
+        half = (half * b) % m
+    return half
+
+b, e, m = map(int, input().split())
+print(power(b, e, m))",2,True,3 13 7,3
+APCP050,APCS,圖的二分圖判斷,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向圖，請使用 BFS（二著色法）判斷此圖是否為二分圖（即是否能將所有節點分成兩組，使得每條邊的兩端點分別屬於不同組）。圖不保證連通。
+
+輸入說明：第一行兩個非負整數 n m (1<=n<=100000, 0<=m<=100000)；接下來 m 行，每行兩個整數 u v (1<=u,v<=n)，代表一條無向邊。
+輸出說明：若此圖是二分圖，輸出 ""Yes""；否則輸出 ""No""。",3,Active,Python,"from collections import deque
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+color = [-1] * (n + 1)
+is_bipartite = True
+for start in range(1, n + 1):
+    if color[start] != -1:
+        continue
+    color[start] = 0
+    q = deque([start])
+    while q:
+        u = q.popleft()
+        for v in adj[u]:
+            if color[v] == -1:
+                color[v] = 1 - color[u]
+                q.append(v)
+            elif color[v] == color[u]:
+                is_bipartite = False
+print(""Yes"" if is_bipartite else ""No"")",0,True,"4 4
+1 2
+2 3
+3 4
+4 1",Yes
+APCP050,APCS,圖的二分圖判斷,"給定一個含 n 個節點（編號 1 到 n）、m 條邊的無向圖，請使用 BFS（二著色法）判斷此圖是否為二分圖（即是否能將所有節點分成兩組，使得每條邊的兩端點分別屬於不同組）。圖不保證連通。
+
+輸入說明：第一行兩個非負整數 n m (1<=n<=100000, 0<=m<=100000)；接下來 m 行，每行兩個整數 u v (1<=u,v<=n)，代表一條無向邊。
+輸出說明：若此圖是二分圖，輸出 ""Yes""；否則輸出 ""No""。",3,Active,Python,"from collections import deque
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+color = [-1] * (n + 1)
+is_bipartite = True
+for start in range(1, n + 1):
+    if color[start] != -1:
+        continue
+    color[start] = 0
+    q = deque([start])
+    while q:
+        u = q.popleft()
+        for v in adj[u]:
+            if color[v] == -1:
+                color[v] = 1 - color[u]
+                q.append(v)
+            elif color[v] == color[u]:
+                is_bipartite = False
+print(""Yes"" if is_bipartite else ""No"")",1,True,"3 3
+1 2
+2 3
+3 1",No
+APCP051,APCS,逆序數計算（合併排序法）,"給定一個長度為 n 的整數陣列，對於任意 i < j，若 arr[i] > arr[j]，則稱 (i, j) 為一組逆序對。請使用分治法（合併排序）有效率地計算陣列中逆序對的總數。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數。
+輸出說明：一行，輸出逆序對的總數。",3,Active,Python,"def merge_count(arr):
+    n = len(arr)
+    if n <= 1:
+        return arr, 0
+    mid = n // 2
+    left, cnt_l = merge_count(arr[:mid])
+    right, cnt_r = merge_count(arr[mid:])
+    merged = []
+    i = j = 0
+    cnt = cnt_l + cnt_r
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+            cnt += len(left) - i
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged, cnt
+
+n = int(input())
+arr = list(map(int, input().split()))
+_, total = merge_count(arr)
+print(total)",0,True,"5
+2 4 1 3 5",3
+APCP051,APCS,逆序數計算（合併排序法）,"給定一個長度為 n 的整數陣列，對於任意 i < j，若 arr[i] > arr[j]，則稱 (i, j) 為一組逆序對。請使用分治法（合併排序）有效率地計算陣列中逆序對的總數。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個整數。
+輸出說明：一行，輸出逆序對的總數。",3,Active,Python,"def merge_count(arr):
+    n = len(arr)
+    if n <= 1:
+        return arr, 0
+    mid = n // 2
+    left, cnt_l = merge_count(arr[:mid])
+    right, cnt_r = merge_count(arr[mid:])
+    merged = []
+    i = j = 0
+    cnt = cnt_l + cnt_r
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+            cnt += len(left) - i
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged, cnt
+
+n = int(input())
+arr = list(map(int, input().split()))
+_, total = merge_count(arr)
+print(total)",1,True,"3
+3 2 1",3
+APCP052,APCS,二元樹前序與中序走訪,"有一棵以陣列表示的二元樹，共有 n 個位置（1-indexed），根節點位於位置 1，位置 i 的左子節點位於位置 2i、右子節點位於位置 2i+1。陣列中的值若為 0，代表該位置沒有節點。請使用遞迴，分別輸出此二元樹的前序走訪與中序走訪結果（不存在的位置不輸出）。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數 a[1..n]（a[i]=0 表示該位置無節點；保證 a[1] != 0）。
+輸出說明：共兩行：第一行輸出前序走訪結果，第二行輸出中序走訪結果，元素間以空白分隔。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+n = int(input())
+a = list(map(int, input().split()))
+
+def preorder(i, out):
+    if i > n or a[i - 1] == 0:
+        return
+    out.append(a[i - 1])
+    preorder(2 * i, out)
+    preorder(2 * i + 1, out)
+
+def inorder(i, out):
+    if i > n or a[i - 1] == 0:
+        return
+    inorder(2 * i, out)
+    out.append(a[i - 1])
+    inorder(2 * i + 1, out)
+
+pre, ino = [], []
+preorder(1, pre)
+inorder(1, ino)
+print(' '.join(map(str, pre)))
+print(' '.join(map(str, ino)))",0,True,"7
+1 2 3 4 5 6 7","1 2 4 5 3 6 7
+4 2 5 1 6 3 7"
+APCP052,APCS,二元樹前序與中序走訪,"有一棵以陣列表示的二元樹，共有 n 個位置（1-indexed），根節點位於位置 1，位置 i 的左子節點位於位置 2i、右子節點位於位置 2i+1。陣列中的值若為 0，代表該位置沒有節點。請使用遞迴，分別輸出此二元樹的前序走訪與中序走訪結果（不存在的位置不輸出）。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數 a[1..n]（a[i]=0 表示該位置無節點；保證 a[1] != 0）。
+輸出說明：共兩行：第一行輸出前序走訪結果，第二行輸出中序走訪結果，元素間以空白分隔。",3,Active,Python,"import sys
+sys.setrecursionlimit(10000)
+n = int(input())
+a = list(map(int, input().split()))
+
+def preorder(i, out):
+    if i > n or a[i - 1] == 0:
+        return
+    out.append(a[i - 1])
+    preorder(2 * i, out)
+    preorder(2 * i + 1, out)
+
+def inorder(i, out):
+    if i > n or a[i - 1] == 0:
+        return
+    inorder(2 * i, out)
+    out.append(a[i - 1])
+    inorder(2 * i + 1, out)
+
+pre, ino = [], []
+preorder(1, pre)
+inorder(1, ino)
+print(' '.join(map(str, pre)))
+print(' '.join(map(str, ino)))",1,True,"3
+1 0 3","1 3
+1 3"

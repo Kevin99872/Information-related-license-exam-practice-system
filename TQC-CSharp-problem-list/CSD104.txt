@@ -1,0 +1,33 @@
+TQC+ 程式語言C# CSD104  千分位金額格式化
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入一個整數金額，輸出加上千分位逗號分隔符與新台幣符號的格式化字串。
+
+輸入說明：一行整數 amount（0 <= amount <= 2000000000）。
+輸出說明：一行，格式為「NT$ 金額」，金額每三位加一個逗號，例如 NT$ 1,234,567。
+
+== 參考解法 (C#) ==
+using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        long amount = long.Parse(Console.ReadLine() ?? "0");
+        Console.WriteLine("NT$ " + amount.ToString("#,0", CultureInfo.InvariantCulture));
+    }
+}
+
+== 範例 1 輸入 ==
+1234567
+== 範例 1 輸出 ==
+NT$ 1,234,567
+
+== 範例 2 輸入 ==
+500
+== 範例 2 輸出 ==
+NT$ 500

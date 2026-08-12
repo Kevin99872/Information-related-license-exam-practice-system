@@ -1,0 +1,39 @@
+CPE Shift Cipher
+
+難度：中等
+來源：原創（凱撒密碼位移基礎題型）
+
+== 題目 ==
+凱撒密碼將每個英文字母往後移動 k 個位置 (超過 Z / z 則從頭接續)，數字與空白等其他字元不變。給定位移量 k 與密文，請還原出明文 (即往前位移 k 個位置)。
+
+輸入說明：每行第一個整數為 k (0<=k<=25)，接著一個空白後為密文 (僅含大小寫英文字母與空白)，處理到檔案結尾。
+輸出說明：每行輸出解密後的明文。
+
+== 參考解法 (Python) ==
+import sys
+
+for raw in sys.stdin:
+    raw = raw.rstrip('\n')
+    if not raw.strip():
+        continue
+    k_str, text = raw.split(' ', 1)
+    k = int(k_str)
+    out = []
+    for c in text:
+        if 'a' <= c <= 'z':
+            out.append(chr((ord(c) - ord('a') - k) % 26 + ord('a')))
+        elif 'A' <= c <= 'Z':
+            out.append(chr((ord(c) - ord('A') - k) % 26 + ord('A')))
+        else:
+            out.append(c)
+    print(''.join(out))
+
+== 範例 1 輸入 ==
+3 khoor zruog
+== 範例 1 輸出 ==
+hello world
+
+== 範例 2 輸入 ==
+5 Btew Nqzj
+== 範例 2 輸出 ==
+Wozr Ilue

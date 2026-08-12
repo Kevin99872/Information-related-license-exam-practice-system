@@ -1,0 +1,34 @@
+TQC+ 程式語言C# CSD105  溫度轉換格式化輸出
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入攝氏溫度，計算對應的華氏溫度（公式：F = C * 9 / 5 + 32），並輸出到小數點後 1 位。
+
+輸入說明：一行浮點數，攝氏溫度 C。
+輸出說明：一行，格式為「攝氏 C 度 = 華氏 F 度」，其中 C 與 F 皆保留小數點後 1 位。
+
+== 參考解法 (C#) ==
+using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double c = double.Parse(Console.ReadLine() ?? "0", CultureInfo.InvariantCulture);
+        double f = c * 9.0 / 5.0 + 32.0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "攝氏 {0:F1} 度 = 華氏 {1:F1} 度", c, f));
+    }
+}
+
+== 範例 1 輸入 ==
+0
+== 範例 1 輸出 ==
+攝氏 0.0 度 = 華氏 32.0 度
+
+== 範例 2 輸入 ==
+36.5
+== 範例 2 輸出 ==
+攝氏 36.5 度 = 華氏 97.7 度

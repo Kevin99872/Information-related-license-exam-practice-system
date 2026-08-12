@@ -1,0 +1,50 @@
+TQC+ 程式語言C# CSD310  字串遊程編碼
+
+難度：困難
+主題：字串
+
+== 題目 ==
+輸入一個只含大寫英文字母的字串，使用遊程編碼（Run-Length Encoding）壓縮：將連續重複出現的字元以「字元+出現次數」表示（若出現次數為 1 則不加數字）。
+
+輸入說明：一行大寫英文字母字串 s（長度 1~200）。
+輸出說明：一行，遊程編碼後的結果。
+
+== 參考解法 (C#) ==
+using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? "";
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.Length)
+        {
+            char c = s[i];
+            int count = 1;
+            while (i + count < s.Length && s[i + count] == c)
+            {
+                count++;
+            }
+            sb.Append(c);
+            if (count > 1)
+            {
+                sb.Append(count);
+            }
+            i += count;
+        }
+        Console.WriteLine(sb.ToString());
+    }
+}
+
+== 範例 1 輸入 ==
+AAABBCDDDD
+== 範例 1 輸出 ==
+A3B2CD4
+
+== 範例 2 輸入 ==
+ABCDE
+== 範例 2 輸出 ==
+ABCDE

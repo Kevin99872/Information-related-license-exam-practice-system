@@ -1,0 +1,55 @@
+CPE Postfix Evaluation
+
+難度：中等
+來源：原創（堆疊 / 後綴表達式求值基礎題型）
+
+== 題目 ==
+給定一個以空白分隔的後綴 (逆波蘭) 表達式，內容為整數與四則運算子 + - * /，除法採無條件向零取整 (例如 -7/2=-3)。求其運算結果。
+
+輸入說明：每行一個後綴表達式，處理到檔案結尾 (輸入保證合法且不會除以零)。
+輸出說明：每行輸出計算結果。
+
+== 參考解法 (Python) ==
+import sys
+
+def trunc_div(a, b):
+    q = abs(a) // abs(b)
+    if (a < 0) != (b < 0):
+        q = -q
+    return q
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    tokens = line.split()
+    stack = []
+    for t in tokens:
+        if t in ('+', '-', '*', '/'):
+            b = stack.pop()
+            a = stack.pop()
+            if t == '+':
+                stack.append(a + b)
+            elif t == '-':
+                stack.append(a - b)
+            elif t == '*':
+                stack.append(a * b)
+            else:
+                stack.append(trunc_div(a, b))
+        else:
+            stack.append(int(t))
+    print(stack[-1])
+
+== 範例 1 輸入 ==
+3 4 +
+5 1 2 + 4 * + 3 -
+== 範例 1 輸出 ==
+7
+14
+
+== 範例 2 輸入 ==
+7 2 /
+-7 2 /
+== 範例 2 輸出 ==
+3
+-3

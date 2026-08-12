@@ -1,0 +1,35 @@
+TQC+ 程式語言Java JAD201  奇偶數判斷
+
+難度：簡單
+主題：控制流程
+
+== 題目 ==
+輸入一個整數，判斷它是奇數還是偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，若為偶數輸出「偶數」，否則輸出「奇數」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if (n % 2 == 0) {
+            System.out.println("偶數");
+        } else {
+            System.out.println("奇數");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+7
+== 範例 1 輸出 ==
+奇數
+
+== 範例 2 輸入 ==
+10
+== 範例 2 輸出 ==
+偶數

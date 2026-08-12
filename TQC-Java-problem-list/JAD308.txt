@@ -1,0 +1,52 @@
+TQC+ 程式語言Java JAD308  最長不重複子字串長度
+
+難度：困難
+主題：字串
+
+== 題目 ==
+輸入一個只包含英文小寫字母的字串，找出其中最長「不含重複字元」的連續子字串，輸出其長度。
+
+輸入說明：一行一個字串（不含空白，僅由小寫英文字母組成）。
+輸出說明：一行，最長不重複子字串的長度。
+
+== 參考解法 (Java) ==
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        Map<Character, Integer> lastSeen = new HashMap<>();
+        int maxLen = 0;
+        int start = 0;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (lastSeen.containsKey(c) && lastSeen.get(c) >= start) {
+                start = lastSeen.get(c) + 1;
+            }
+            lastSeen.put(c, end);
+            int currentLen = end - start + 1;
+            if (currentLen > maxLen) {
+                maxLen = currentLen;
+            }
+        }
+        System.out.println(maxLen);
+    }
+}
+
+== 範例 1 輸入 ==
+abcabcbb
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+bbbbb
+== 範例 2 輸出 ==
+1
+
+== 範例 3 輸入 ==
+pwwkew
+== 範例 3 輸出 ==
+3

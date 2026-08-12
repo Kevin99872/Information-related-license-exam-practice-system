@@ -1,0 +1,40 @@
+TQC+ 程式語言C# CSD202  陣列最大值與最小值
+
+難度：簡單
+主題：陣列
+
+== 題目 ==
+輸入 n 個整數，找出其中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數（至少一個）。
+輸出說明：一行，格式為「最大值:X 最小值:Y」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int max = nums[0], min = nums[0];
+        foreach (int x in nums)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+        Console.WriteLine($"最大值:{max} 最小值:{min}");
+    }
+}
+
+== 範例 1 輸入 ==
+3 7 1 9 4
+== 範例 1 輸出 ==
+最大值:9 最小值:1
+
+== 範例 2 輸入 ==
+5
+== 範例 2 輸出 ==
+最大值:5 最小值:5

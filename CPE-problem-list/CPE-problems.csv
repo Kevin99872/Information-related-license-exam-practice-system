@@ -363,3 +363,1851 @@ CPE023,CPE,Doom's Day Algorithm,"給定 2011 年的月份與日期，輸出當�
 2 28
 7 4","Monday
 Monday"
+CPE024,CPE,Reverse and Add,"給定正整數 n，反覆執行「加上自己反轉後的數」，直到得到迴文數為止；若嘗試 60 次仍未得到迴文數，則視為失敗。
+
+輸入說明：每行一個正整數 n (1<=n<=1000000000)，處理到檔案結尾。
+輸出說明：每行輸出達到迴文所需的次數與最終迴文數 (以空白分隔)；若 60 次內找不到迴文，輸出 Palindrome not found.",1,Active,Python,"import sys
+
+def reverse_num(n):
+    return int(str(n)[::-1])
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    steps = 0
+    found = False
+    while steps <= 60:
+        if str(n) == str(n)[::-1]:
+            found = True
+            break
+        n = n + reverse_num(n)
+        steps += 1
+    if found:
+        print(steps, n)
+    else:
+        print(""Palindrome not found."")",0,True,"1
+195
+1234","0 1
+4 9339
+1 5555"
+CPE024,CPE,Reverse and Add,"給定正整數 n，反覆執行「加上自己反轉後的數」，直到得到迴文數為止；若嘗試 60 次仍未得到迴文數，則視為失敗。
+
+輸入說明：每行一個正整數 n (1<=n<=1000000000)，處理到檔案結尾。
+輸出說明：每行輸出達到迴文所需的次數與最終迴文數 (以空白分隔)；若 60 次內找不到迴文，輸出 Palindrome not found.",1,Active,Python,"import sys
+
+def reverse_num(n):
+    return int(str(n)[::-1])
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    steps = 0
+    found = False
+    while steps <= 60:
+        if str(n) == str(n)[::-1]:
+            found = True
+            break
+        n = n + reverse_num(n)
+        steps += 1
+    if found:
+        print(steps, n)
+    else:
+        print(""Palindrome not found."")",1,False,"89
+990","24 8813200023188
+5 79497"
+CPE025,CPE,Goldbach's Conjecture,"每個大於等於 4 的偶數，都可以表示成兩個質數之和 (Goldbach 猜想)。給定偶數 n，找出質數 p 與 q，使 p+q=n 且 p<=q，並使 q-p 最小 (即兩質數盡量接近)。
+
+輸入說明：每行一個偶數 n (4<=n<=1000000)，以 0 結束 (不處理)。
+輸出說明：每行輸出 p 與 q (以空白分隔)。",2,Active,Python,"import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    p = n // 2
+    while p >= 2:
+        q = n - p
+        if is_prime(p) and is_prime(q):
+            print(p, q)
+            break
+        p -= 1",0,True,"4
+0",2 2
+CPE025,CPE,Goldbach's Conjecture,"每個大於等於 4 的偶數，都可以表示成兩個質數之和 (Goldbach 猜想)。給定偶數 n，找出質數 p 與 q，使 p+q=n 且 p<=q，並使 q-p 最小 (即兩質數盡量接近)。
+
+輸入說明：每行一個偶數 n (4<=n<=1000000)，以 0 結束 (不處理)。
+輸出說明：每行輸出 p 與 q (以空白分隔)。",2,Active,Python,"import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    p = n // 2
+    while p >= 2:
+        q = n - p
+        if is_prime(p) and is_prime(q):
+            print(p, q)
+            break
+        p -= 1",1,False,"26
+100
+0","13 13
+47 53"
+CPE026,CPE,Strong Number,"若一個正整數「每一位數字的階乘」總和等於原數字本身，稱為強數 (Strong Number)。例如 145 = 1! + 4! + 5! = 1 + 24 + 120 = 145。
+
+輸入說明：每行一個正整數 n (1<=n<=100000)，以 0 結束 (不處理)。
+輸出說明：是強數輸出 N is a Strong Number.，否則輸出 N is not a Strong Number.",1,Active,Python,"import sys
+
+FACT = [1] * 10
+for i in range(1, 10):
+    FACT[i] = FACT[i - 1] * i
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    total = sum(FACT[int(d)] for d in str(n))
+    if total == n:
+        print(f""{n} is a Strong Number."")
+    else:
+        print(f""{n} is not a Strong Number."")",0,True,"145
+1
+2
+0","145 is a Strong Number.
+1 is a Strong Number.
+2 is a Strong Number."
+CPE026,CPE,Strong Number,"若一個正整數「每一位數字的階乘」總和等於原數字本身，稱為強數 (Strong Number)。例如 145 = 1! + 4! + 5! = 1 + 24 + 120 = 145。
+
+輸入說明：每行一個正整數 n (1<=n<=100000)，以 0 結束 (不處理)。
+輸出說明：是強數輸出 N is a Strong Number.，否則輸出 N is not a Strong Number.",1,Active,Python,"import sys
+
+FACT = [1] * 10
+for i in range(1, 10):
+    FACT[i] = FACT[i - 1] * i
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    total = sum(FACT[int(d)] for d in str(n))
+    if total == n:
+        print(f""{n} is a Strong Number."")
+    else:
+        print(f""{n} is not a Strong Number."")",1,False,"40585
+123
+0","40585 is a Strong Number.
+123 is not a Strong Number."
+CPE027,CPE,Simplifying Fractions,"給定分數 a/b (a、b 為正整數)，請將其化簡為最簡分數。
+
+輸入說明：每行兩個正整數 a 與 b，處理到檔案結尾。
+輸出說明：每行輸出化簡後的分數，格式為 a/b；若化簡後分母為 1，僅輸出分子。",1,Active,Python,"import sys, math
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    g = math.gcd(a, b)
+    a //= g
+    b //= g
+    if b == 1:
+        print(a)
+    else:
+        print(f""{a}/{b}"")",0,True,"4 8
+6 3
+7 5","1/2
+2
+7/5"
+CPE027,CPE,Simplifying Fractions,"給定分數 a/b (a、b 為正整數)，請將其化簡為最簡分數。
+
+輸入說明：每行兩個正整數 a 與 b，處理到檔案結尾。
+輸出說明：每行輸出化簡後的分數，格式為 a/b；若化簡後分母為 1，僅輸出分子。",1,Active,Python,"import sys, math
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    g = math.gcd(a, b)
+    a //= g
+    b //= g
+    if b == 1:
+        print(a)
+    else:
+        print(f""{a}/{b}"")",1,False,"100 1000
+17 17","1/10
+1"
+CPE028,CPE,WERTYU,"打字時，因為手指位置多按了一格，每個字元都變成了標準 QWERTY 鍵盤上「同一行、右邊一格」的按鍵。請還原原本要輸入的文字。
+鍵盤排列 (由左至右)：
+第一列：`1234567890-=`
+第二列：`QWERTYUIOP[]`
+第三列：`ASDFGHJKL;'`
+第四列：`ZXCVBNM,./`
+
+輸入說明：一行文字 (可能包含空白，空白字元保持不變；其餘字元皆可在上述鍵盤表中找到)。
+輸出說明：還原後的文字 (每個字元往左移一格)。",1,Active,Python,"import sys
+
+ROWS = [
+    ""1234567890-="",
+    ""QWERTYUIOP[]"",
+    ""ASDFGHJKL;'"",
+    ""ZXCVBNM,./"",
+]
+
+def decode_char(ch):
+    if ch == ' ':
+        return ' '
+    for row in ROWS:
+        idx = row.find(ch)
+        if idx > 0:
+            return row[idx - 1]
+    return ch
+
+line = sys.stdin.readline().rstrip('\n')
+print(''.join(decode_char(c) for c in line))",0,True,"O S, GOMR YPFSU/",I AM FINE TODAY.
+CPE028,CPE,WERTYU,"打字時，因為手指位置多按了一格，每個字元都變成了標準 QWERTY 鍵盤上「同一行、右邊一格」的按鍵。請還原原本要輸入的文字。
+鍵盤排列 (由左至右)：
+第一列：`1234567890-=`
+第二列：`QWERTYUIOP[]`
+第三列：`ASDFGHJKL;'`
+第四列：`ZXCVBNM,./`
+
+輸入說明：一行文字 (可能包含空白，空白字元保持不變；其餘字元皆可在上述鍵盤表中找到)。
+輸出說明：還原後的文字 (每個字元往左移一格)。",1,Active,Python,"import sys
+
+ROWS = [
+    ""1234567890-="",
+    ""QWERTYUIOP[]"",
+    ""ASDFGHJKL;'"",
+    ""ZXCVBNM,./"",
+]
+
+def decode_char(ch):
+    if ch == ' ':
+        return ' '
+    for row in ROWS:
+        idx = row.find(ch)
+        if idx > 0:
+            return row[idx - 1]
+    return ch
+
+line = sys.stdin.readline().rstrip('\n')
+print(''.join(decode_char(c) for c in line))",1,False,JQOU/,HQIY.
+CPE028,CPE,WERTYU,"打字時，因為手指位置多按了一格，每個字元都變成了標準 QWERTY 鍵盤上「同一行、右邊一格」的按鍵。請還原原本要輸入的文字。
+鍵盤排列 (由左至右)：
+第一列：`1234567890-=`
+第二列：`QWERTYUIOP[]`
+第三列：`ASDFGHJKL;'`
+第四列：`ZXCVBNM,./`
+
+輸入說明：一行文字 (可能包含空白，空白字元保持不變；其餘字元皆可在上述鍵盤表中找到)。
+輸出說明：還原後的文字 (每個字元往左移一格)。",1,Active,Python,"import sys
+
+ROWS = [
+    ""1234567890-="",
+    ""QWERTYUIOP[]"",
+    ""ASDFGHJKL;'"",
+    ""ZXCVBNM,./"",
+]
+
+def decode_char(ch):
+    if ch == ' ':
+        return ' '
+    for row in ROWS:
+        idx = row.find(ch)
+        if idx > 0:
+            return row[idx - 1]
+    return ch
+
+line = sys.stdin.readline().rstrip('\n')
+print(''.join(decode_char(c) for c in line))",2,False,TOKAY/ GOKPI RSTOKAY,RIJAT. FIJOU EARIJAT
+CPE029,CPE,Shift Cipher,"凱撒密碼將每個英文字母往後移動 k 個位置 (超過 Z / z 則從頭接續)，數字與空白等其他字元不變。給定位移量 k 與密文，請還原出明文 (即往前位移 k 個位置)。
+
+輸入說明：每行第一個整數為 k (0<=k<=25)，接著一個空白後為密文 (僅含大小寫英文字母與空白)，處理到檔案結尾。
+輸出說明：每行輸出解密後的明文。",2,Active,Python,"import sys
+
+for raw in sys.stdin:
+    raw = raw.rstrip('\n')
+    if not raw.strip():
+        continue
+    k_str, text = raw.split(' ', 1)
+    k = int(k_str)
+    out = []
+    for c in text:
+        if 'a' <= c <= 'z':
+            out.append(chr((ord(c) - ord('a') - k) % 26 + ord('a')))
+        elif 'A' <= c <= 'Z':
+            out.append(chr((ord(c) - ord('A') - k) % 26 + ord('A')))
+        else:
+            out.append(c)
+    print(''.join(out))",0,True,3 khoor zruog,hello world
+CPE029,CPE,Shift Cipher,"凱撒密碼將每個英文字母往後移動 k 個位置 (超過 Z / z 則從頭接續)，數字與空白等其他字元不變。給定位移量 k 與密文，請還原出明文 (即往前位移 k 個位置)。
+
+輸入說明：每行第一個整數為 k (0<=k<=25)，接著一個空白後為密文 (僅含大小寫英文字母與空白)，處理到檔案結尾。
+輸出說明：每行輸出解密後的明文。",2,Active,Python,"import sys
+
+for raw in sys.stdin:
+    raw = raw.rstrip('\n')
+    if not raw.strip():
+        continue
+    k_str, text = raw.split(' ', 1)
+    k = int(k_str)
+    out = []
+    for c in text:
+        if 'a' <= c <= 'z':
+            out.append(chr((ord(c) - ord('a') - k) % 26 + ord('a')))
+        elif 'A' <= c <= 'Z':
+            out.append(chr((ord(c) - ord('A') - k) % 26 + ord('A')))
+        else:
+            out.append(c)
+    print(''.join(out))",1,False,5 Btew Nqzj,Wozr Ilue
+CPE030,CPE,Box of Bricks,"給定 n 疊積木的高度，欲搬移積木使所有疊高度相同 (等於平均高度，保證整除)，每次搬移可將 1 塊積木從某疊移到另一疊。求最少搬移次數 (即所有高度超過平均值的疊，其超出部分的總和)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數高度。以 n=0 結束 (不處理)。
+輸出說明：每組輸出一行 Set #k: X moves.，k 為組別 (由 1 起算)，X 為最少搬移次數。",1,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+case = 1
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    heights = list(map(int, data[idx].split()))
+    idx += 1
+    avg = sum(heights) // n
+    moves = sum(h - avg for h in heights if h > avg)
+    out.append(f""Set #{case}: {moves} moves."")
+    case += 1
+print('\n'.join(out))",0,True,"6
+5 2 4 1 7 5
+0",Set #1: 5 moves.
+CPE030,CPE,Box of Bricks,"給定 n 疊積木的高度，欲搬移積木使所有疊高度相同 (等於平均高度，保證整除)，每次搬移可將 1 塊積木從某疊移到另一疊。求最少搬移次數 (即所有高度超過平均值的疊，其超出部分的總和)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數高度。以 n=0 結束 (不處理)。
+輸出說明：每組輸出一行 Set #k: X moves.，k 為組別 (由 1 起算)，X 為最少搬移次數。",1,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+case = 1
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    heights = list(map(int, data[idx].split()))
+    idx += 1
+    avg = sum(heights) // n
+    moves = sum(h - avg for h in heights if h > avg)
+    out.append(f""Set #{case}: {moves} moves."")
+    case += 1
+print('\n'.join(out))",1,False,"5
+1 2 3 4 5
+4
+2 2 2 2
+0","Set #1: 3 moves.
+Set #2: 0 moves."
+CPE031,CPE,Prime Words,"將一個單字視為由字母組成，計算所有字母的英文字母序值總和 (a/A=1, b/B=2, ..., z/Z=26)。若總和為質數，稱為 Prime Word。
+
+輸入說明：每行一個單字 (僅含英文字母)，處理到檔案結尾。
+輸出說明：是質數輸出 It is a prime word.，否則輸出 It is not a prime word.",1,Active,Python,"import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    word = line.strip()
+    if not word:
+        continue
+    total = sum(ord(c.lower()) - ord('a') + 1 for c in word)
+    if is_prime(total):
+        print(""It is a prime word."")
+    else:
+        print(""It is not a prime word."")",0,True,"synapse
+hi","It is not a prime word.
+It is a prime word."
+CPE031,CPE,Prime Words,"將一個單字視為由字母組成，計算所有字母的英文字母序值總和 (a/A=1, b/B=2, ..., z/Z=26)。若總和為質數，稱為 Prime Word。
+
+輸入說明：每行一個單字 (僅含英文字母)，處理到檔案結尾。
+輸出說明：是質數輸出 It is a prime word.，否則輸出 It is not a prime word.",1,Active,Python,"import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    word = line.strip()
+    if not word:
+        continue
+    total = sum(ord(c.lower()) - ord('a') + 1 for c in word)
+    if is_prime(total):
+        print(""It is a prime word."")
+    else:
+        print(""It is not a prime word."")",1,False,"abc
+Programming","It is not a prime word.
+It is a prime word."
+CPE032,CPE,Relational Operators,"給定兩個整數 (可能非常大，可能帶負號)，比較兩者大小。
+
+輸入說明：每行兩個整數 a 與 b (以空白分隔)，處理到檔案結尾。
+輸出說明：a>b 輸出 >；a<b 輸出 <；相等輸出 =。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = line.split()
+    a = int(a)
+    b = int(b)
+    if a > b:
+        print('>')
+    elif a < b:
+        print('<')
+    else:
+        print('=')",0,True,"100 200
+500 500
+-3 -7","<
+=
+>"
+CPE032,CPE,Relational Operators,"給定兩個整數 (可能非常大，可能帶負號)，比較兩者大小。
+
+輸入說明：每行兩個整數 a 與 b (以空白分隔)，處理到檔案結尾。
+輸出說明：a>b 輸出 >；a<b 輸出 <；相等輸出 =。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = line.split()
+    a = int(a)
+    b = int(b)
+    if a > b:
+        print('>')
+    elif a < b:
+        print('<')
+    else:
+        print('=')",1,False,"123456789012345678901234567890 123456789012345678901234567891
+-1 1","<
+<"
+CPE033,CPE,f91,"定義函式 M(n)：若 n>100，M(n)=n-10；否則 M(n)=M(M(n+11))。給定整數 n，求 M(n) 的值。
+
+輸入說明：每行一個整數 n (-2000000000<=n<=2147483647)，以單獨一行 -99999999 結束 (不處理)。
+輸出說明：每行輸出 M(n) 的值。",2,Active,Python,"import sys
+
+def m91(n):
+    if n > 100:
+        return n - 10
+    return 91
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == -99999999:
+        break
+    print(m91(n))",0,True,"1
+100
+101
+-99999999","91
+91
+91"
+CPE033,CPE,f91,"定義函式 M(n)：若 n>100，M(n)=n-10；否則 M(n)=M(M(n+11))。給定整數 n，求 M(n) 的值。
+
+輸入說明：每行一個整數 n (-2000000000<=n<=2147483647)，以單獨一行 -99999999 結束 (不處理)。
+輸出說明：每行輸出 M(n) 的值。",2,Active,Python,"import sys
+
+def m91(n):
+    if n > 100:
+        return n - 10
+    return 91
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == -99999999:
+        break
+    print(m91(n))",1,False,"50
+1000000
+-500
+-99999999","91
+999990
+91"
+CPE034,CPE,Peter's Smokes,"Peter 有 n 根新菸。每抽完一根菸會留下一個菸蒂，每 k 個菸蒂可以換一根新菸 (換來的菸抽完後菸蒂可以繼續換)。求 Peter 總共能抽幾根菸。
+
+輸入說明：每行兩個整數 n 與 k (k>=2)，以 0 0 結束 (不處理)。
+輸出說明：每行輸出總共能抽的菸數。",2,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    if n == 0 and k == 0:
+        break
+    total = n
+    butts = n
+    while butts >= k:
+        new_smokes = butts // k
+        total += new_smokes
+        butts = butts % k + new_smokes
+    print(total)",0,True,"4 3
+10 3
+0 0","5
+14"
+CPE034,CPE,Peter's Smokes,"Peter 有 n 根新菸。每抽完一根菸會留下一個菸蒂，每 k 個菸蒂可以換一根新菸 (換來的菸抽完後菸蒂可以繼續換)。求 Peter 總共能抽幾根菸。
+
+輸入說明：每行兩個整數 n 與 k (k>=2)，以 0 0 結束 (不處理)。
+輸出說明：每行輸出總共能抽的菸數。",2,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    if n == 0 and k == 0:
+        break
+    total = n
+    butts = n
+    while butts >= k:
+        new_smokes = butts // k
+        total += new_smokes
+        butts = butts % k + new_smokes
+    print(total)",1,False,"100 2
+17 5
+0 0","199
+21"
+CPE035,CPE,Breaking Chocolate,"一塊 n x m 的巧克力，每次只能沿一條直線把一塊巧克力掰成兩塊。求要把整塊巧克力掰成 n*m 塊 1x1 小塊，最少需要幾次 (答案恆為 n*m-1，與掰法順序無關)。
+
+輸入說明：每行兩個正整數 n 與 m，處理到檔案結尾。
+輸出說明：每行輸出最少次數。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, m = map(int, line.split())
+    print(n * m - 1)",0,True,"2 3
+1 1
+5 5","5
+0
+24"
+CPE035,CPE,Breaking Chocolate,"一塊 n x m 的巧克力，每次只能沿一條直線把一塊巧克力掰成兩塊。求要把整塊巧克力掰成 n*m 塊 1x1 小塊，最少需要幾次 (答案恆為 n*m-1，與掰法順序無關)。
+
+輸入說明：每行兩個正整數 n 與 m，處理到檔案結尾。
+輸出說明：每行輸出最少次數。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, m = map(int, line.split())
+    print(n * m - 1)",1,False,"10 10
+1 100","99
+99"
+CPE036,CPE,Spiral Tap,"在一個由 1 開始編號的方格螺旋中，1 位於原點 (0,0)，之後依序往「右」走 1 格 (2)、往「上」走 1 格 (3)、往「左」走 2 格 (4,5)、往「下」走 2 格 (6,7)、往「右」走 3 格 (8,9,10)、往「上」走 3 格...，方向依 右→上→左→下 循環，且每完成兩個方向就將步數加 1。給定 n，求編號 n 所在的座標 (x,y)。
+
+輸入說明：每行一個正整數 n (1<=n<=100000)，處理到檔案結尾。
+輸出說明：每行輸出 x 與 y (以空白分隔)。",2,Active,Python,"import sys
+
+def spiral_xy(n):
+    x, y = 0, 0
+    if n == 1:
+        return x, y
+    label = 1
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    dir_idx = 0
+    step_len = 1
+    dirs_done = 0
+    while True:
+        for _ in range(step_len):
+            x += directions[dir_idx][0]
+            y += directions[dir_idx][1]
+            label += 1
+            if label == n:
+                return x, y
+        dir_idx = (dir_idx + 1) % 4
+        dirs_done += 1
+        if dirs_done == 2:
+            step_len += 1
+            dirs_done = 0
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    x, y = spiral_xy(n)
+    print(x, y)",0,True,"1
+2
+3
+4
+5","0 0
+1 0
+1 1
+0 1
+-1 1"
+CPE036,CPE,Spiral Tap,"在一個由 1 開始編號的方格螺旋中，1 位於原點 (0,0)，之後依序往「右」走 1 格 (2)、往「上」走 1 格 (3)、往「左」走 2 格 (4,5)、往「下」走 2 格 (6,7)、往「右」走 3 格 (8,9,10)、往「上」走 3 格...，方向依 右→上→左→下 循環，且每完成兩個方向就將步數加 1。給定 n，求編號 n 所在的座標 (x,y)。
+
+輸入說明：每行一個正整數 n (1<=n<=100000)，處理到檔案結尾。
+輸出說明：每行輸出 x 與 y (以空白分隔)。",2,Active,Python,"import sys
+
+def spiral_xy(n):
+    x, y = 0, 0
+    if n == 1:
+        return x, y
+    label = 1
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    dir_idx = 0
+    step_len = 1
+    dirs_done = 0
+    while True:
+        for _ in range(step_len):
+            x += directions[dir_idx][0]
+            y += directions[dir_idx][1]
+            label += 1
+            if label == n:
+                return x, y
+        dir_idx = (dir_idx + 1) % 4
+        dirs_done += 1
+        if dirs_done == 2:
+            step_len += 1
+            dirs_done = 0
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    x, y = spiral_xy(n)
+    print(x, y)",1,False,"10
+13
+50","2 -1
+2 2
+4 -3"
+CPE037,CPE,Base Conversion,"給定一個以來源進制表示的數字字串，將其轉換為目標進制的字串表示。數字以 0-9、A-Z 代表 0 至 35 (字母一律以大寫表示)。
+
+輸入說明：每行三個以空白分隔的值：來源進制 sb (2<=sb<=36)、目標進制 tb (2<=tb<=36)、以及以 sb 進制表示的數字字串 (不含前導 0，除非數值本身為 0)。處理到檔案結尾。
+輸出說明：每行輸出轉換後 tb 進制的字串。",2,Active,Python,"import sys
+
+DIGITS = ""0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ""
+
+def to_base(num, base):
+    if num == 0:
+        return ""0""
+    digits = []
+    while num > 0:
+        digits.append(DIGITS[num % base])
+        num //= base
+    return ''.join(reversed(digits))
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    sb, tb, s = line.split()
+    sb = int(sb)
+    tb = int(tb)
+    num = int(s, sb)
+    print(to_base(num, tb))",0,True,"10 2 255
+16 10 FF
+2 16 11111111","11111111
+255
+FF"
+CPE037,CPE,Base Conversion,"給定一個以來源進制表示的數字字串，將其轉換為目標進制的字串表示。數字以 0-9、A-Z 代表 0 至 35 (字母一律以大寫表示)。
+
+輸入說明：每行三個以空白分隔的值：來源進制 sb (2<=sb<=36)、目標進制 tb (2<=tb<=36)、以及以 sb 進制表示的數字字串 (不含前導 0，除非數值本身為 0)。處理到檔案結尾。
+輸出說明：每行輸出轉換後 tb 進制的字串。",2,Active,Python,"import sys
+
+DIGITS = ""0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ""
+
+def to_base(num, base):
+    if num == 0:
+        return ""0""
+    digits = []
+    while num > 0:
+        digits.append(DIGITS[num % base])
+        num //= base
+    return ''.join(reversed(digits))
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    sb, tb, s = line.split()
+    sb = int(sb)
+    tb = int(tb)
+    num = int(s, sb)
+    print(to_base(num, tb))",1,False,"36 10 Z
+10 36 35","35
+Z"
+CPE038,CPE,How Many Zeros and How Many Digits?,"給定 n 與進制 b，求 n! (n 的階乘) 在 b 進制表示下，結尾共有幾個 0。
+
+輸入說明：每行兩個整數 n 與 b (0<=n<=1000000000000, 2<=b<=1000)，處理到檔案結尾。
+輸出說明：每行輸出 n! 在 b 進制下結尾 0 的個數。",3,Active,Python,"import sys
+
+def factorize(b):
+    factors = {}
+    d = 2
+    while d * d <= b:
+        while b % d == 0:
+            factors[d] = factors.get(d, 0) + 1
+            b //= d
+        d += 1
+    if b > 1:
+        factors[b] = factors.get(b, 0) + 1
+    return factors
+
+def legendre(n, p):
+    count = 0
+    power = p
+    while power <= n:
+        count += n // power
+        power *= p
+    return count
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, b = map(int, line.split())
+    factors = factorize(b)
+    if n == 0:
+        print(0)
+        continue
+    ans = min(legendre(n, p) // e for p, e in factors.items())
+    print(ans)",0,True,"10 10
+25 2
+5 3","2
+22
+1"
+CPE038,CPE,How Many Zeros and How Many Digits?,"給定 n 與進制 b，求 n! (n 的階乘) 在 b 進制表示下，結尾共有幾個 0。
+
+輸入說明：每行兩個整數 n 與 b (0<=n<=1000000000000, 2<=b<=1000)，處理到檔案結尾。
+輸出說明：每行輸出 n! 在 b 進制下結尾 0 的個數。",3,Active,Python,"import sys
+
+def factorize(b):
+    factors = {}
+    d = 2
+    while d * d <= b:
+        while b % d == 0:
+            factors[d] = factors.get(d, 0) + 1
+            b //= d
+        d += 1
+    if b > 1:
+        factors[b] = factors.get(b, 0) + 1
+    return factors
+
+def legendre(n, p):
+    count = 0
+    power = p
+    while power <= n:
+        count += n // power
+        power *= p
+    return count
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, b = map(int, line.split())
+    factors = factorize(b)
+    if n == 0:
+        print(0)
+        continue
+    ans = min(legendre(n, p) // e for p, e in factors.items())
+    print(ans)",1,False,"0 5
+100 1000
+20 7","0
+8
+2"
+CPE038,CPE,How Many Zeros and How Many Digits?,"給定 n 與進制 b，求 n! (n 的階乘) 在 b 進制表示下，結尾共有幾個 0。
+
+輸入說明：每行兩個整數 n 與 b (0<=n<=1000000000000, 2<=b<=1000)，處理到檔案結尾。
+輸出說明：每行輸出 n! 在 b 進制下結尾 0 的個數。",3,Active,Python,"import sys
+
+def factorize(b):
+    factors = {}
+    d = 2
+    while d * d <= b:
+        while b % d == 0:
+            factors[d] = factors.get(d, 0) + 1
+            b //= d
+        d += 1
+    if b > 1:
+        factors[b] = factors.get(b, 0) + 1
+    return factors
+
+def legendre(n, p):
+    count = 0
+    power = p
+    while power <= n:
+        count += n // power
+        power *= p
+    return count
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, b = map(int, line.split())
+    factors = factorize(b)
+    if n == 0:
+        print(0)
+        continue
+    ans = min(legendre(n, p) // e for p, e in factors.items())
+    print(ans)",2,False,"1000000000000 2
+30 6","999999999987
+14"
+CPE039,CPE,Anagram Groups,"給定 n 個單字，將由相同字母組成 (不分大小寫、不計順序) 的單字視為同一組。
+
+輸入說明：第一行為 n；接著 n 行，每行一個單字。處理到檔案結尾直到 n=0。
+輸出說明：每組測資輸出若干行，每行代表一組，該行列出屬於同一組的所有單字 (依原始輸入出現順序，以空白分隔)；各組依「該組第一個出現的單字在輸入中的順序」輸出。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+blocks = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx].strip())
+        idx += 1
+    groups = {}
+    order = []
+    for w in words:
+        key = ''.join(sorted(w.lower()))
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        groups[key].append(w)
+    lines = [' '.join(groups[k]) for k in order]
+    blocks.append('\n'.join(lines))
+print('\n'.join(blocks))",0,True,"5
+listen
+silent
+cat
+act
+dog","listen silent
+cat act
+dog"
+CPE039,CPE,Anagram Groups,"給定 n 個單字，將由相同字母組成 (不分大小寫、不計順序) 的單字視為同一組。
+
+輸入說明：第一行為 n；接著 n 行，每行一個單字。處理到檔案結尾直到 n=0。
+輸出說明：每組測資輸出若干行，每行代表一組，該行列出屬於同一組的所有單字 (依原始輸入出現順序，以空白分隔)；各組依「該組第一個出現的單字在輸入中的順序」輸出。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+blocks = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx].strip())
+        idx += 1
+    groups = {}
+    order = []
+    for w in words:
+        key = ''.join(sorted(w.lower()))
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        groups[key].append(w)
+    lines = [' '.join(groups[k]) for k in order]
+    blocks.append('\n'.join(lines))
+print('\n'.join(blocks))",1,False,"3
+abc
+ABC
+xyz","abc ABC
+xyz"
+CPE040,CPE,Run-Length Encoding,"將字串進行行程長度編碼 (RLE)：把連續重複出現的字元表示成「字元+出現次數」，即使某字元只連續出現 1 次，也要輸出數字 1。
+
+輸入說明：每行一個非空字串 (僅含大小寫英文字母，大小寫視為不同字元)，處理到檔案結尾。
+輸出說明：每行輸出編碼後的字串。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == '':
+        continue
+    result = []
+    i = 0
+    while i < len(s):
+        j = i
+        while j < len(s) and s[j] == s[i]:
+            j += 1
+        result.append(s[i] + str(j - i))
+        i = j
+    print(''.join(result))",0,True,"aaabbc
+abcd","a3b2c1
+a1b1c1d1"
+CPE040,CPE,Run-Length Encoding,"將字串進行行程長度編碼 (RLE)：把連續重複出現的字元表示成「字元+出現次數」，即使某字元只連續出現 1 次，也要輸出數字 1。
+
+輸入說明：每行一個非空字串 (僅含大小寫英文字母，大小寫視為不同字元)，處理到檔案結尾。
+輸出說明：每行輸出編碼後的字串。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == '':
+        continue
+    result = []
+    i = 0
+    while i < len(s):
+        j = i
+        while j < len(s) and s[j] == s[i]:
+            j += 1
+        result.append(s[i] + str(j - i))
+        i = j
+    print(''.join(result))",1,False,"aaaaaaaaaa
+AaAaAa","a10
+A1a1A1a1A1a1"
+CPE041,CPE,Josephus Problem,"n 個人圍成一圈，依序編號 1 到 n。從編號 1 的人開始報數，每數到第 k 個人就讓該人出列 (出列後圈子縮小，從下一個人重新報數 1)，直到所有人都出列為止。求出列的順序。
+
+輸入說明：每行兩個整數 n 與 k (1<=n<=1000, 1<=k<=1000)，處理到檔案結尾。
+輸出說明：每行輸出出列順序 (依序列出所有人的編號，以空白分隔)。",2,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    people = list(range(1, n + 1))
+    order = []
+    pos = 0
+    while people:
+        pos = (pos + k - 1) % len(people)
+        order.append(people.pop(pos))
+    print(' '.join(map(str, order)))",0,True,7 3,3 6 2 7 5 1 4
+CPE041,CPE,Josephus Problem,"n 個人圍成一圈，依序編號 1 到 n。從編號 1 的人開始報數，每數到第 k 個人就讓該人出列 (出列後圈子縮小，從下一個人重新報數 1)，直到所有人都出列為止。求出列的順序。
+
+輸入說明：每行兩個整數 n 與 k (1<=n<=1000, 1<=k<=1000)，處理到檔案結尾。
+輸出說明：每行輸出出列順序 (依序列出所有人的編號，以空白分隔)。",2,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    people = list(range(1, n + 1))
+    order = []
+    pos = 0
+    while people:
+        pos = (pos + k - 1) % len(people)
+        order.append(people.pop(pos))
+    print(' '.join(map(str, order)))",1,False,"5 1
+6 2","1 2 3 4 5
+2 4 6 3 1 5"
+CPE042,CPE,Balanced Brackets,"給定一段只含 ()[]{} 六種符號的字串，判斷括號是否完全成對且正確巢狀匹配。
+
+輸入說明：每行一個字串 (可能為空字串)，以單獨一行 END 結束 (不處理)。
+輸出說明：每行輸出 Yes 或 No。",2,Active,Python,"import sys
+
+PAIRS = {')': '(', ']': '[', '}': '{'}
+OPENERS = set(PAIRS.values())
+
+def is_balanced(s):
+    stack = []
+    for c in s:
+        if c in OPENERS:
+            stack.append(c)
+        elif c in PAIRS:
+            if not stack or stack.pop() != PAIRS[c]:
+                return False
+    return not stack
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == 'END':
+        break
+    print('Yes' if is_balanced(s) else 'No')",0,True,"([]{})
+([)]
+END","Yes
+No"
+CPE042,CPE,Balanced Brackets,"給定一段只含 ()[]{} 六種符號的字串，判斷括號是否完全成對且正確巢狀匹配。
+
+輸入說明：每行一個字串 (可能為空字串)，以單獨一行 END 結束 (不處理)。
+輸出說明：每行輸出 Yes 或 No。",2,Active,Python,"import sys
+
+PAIRS = {')': '(', ']': '[', '}': '{'}
+OPENERS = set(PAIRS.values())
+
+def is_balanced(s):
+    stack = []
+    for c in s:
+        if c in OPENERS:
+            stack.append(c)
+        elif c in PAIRS:
+            if not stack or stack.pop() != PAIRS[c]:
+                return False
+    return not stack
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == 'END':
+        break
+    print('Yes' if is_balanced(s) else 'No')",1,False,"
+{[()()]}
+((()
+END","Yes
+Yes
+No"
+CPE043,CPE,Longest Common Prefix,"給定 n 個字串，求它們的最長共同前綴。
+
+輸入說明：每組第一行為 n；接著 n 行字串。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長共同前綴；若無共同前綴 (含空字串)，輸出 No common prefix.",1,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx])
+        idx += 1
+    prefix = words[0]
+    for w in words[1:]:
+        while not w.startswith(prefix):
+            prefix = prefix[:-1]
+            if prefix == '':
+                break
+        if prefix == '':
+            break
+    if prefix == '':
+        out.append(""No common prefix."")
+    else:
+        out.append(prefix)
+print('\n'.join(out))",0,True,"3
+flower
+flow
+flight
+0",fl
+CPE043,CPE,Longest Common Prefix,"給定 n 個字串，求它們的最長共同前綴。
+
+輸入說明：每組第一行為 n；接著 n 行字串。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長共同前綴；若無共同前綴 (含空字串)，輸出 No common prefix.",1,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx])
+        idx += 1
+    prefix = words[0]
+    for w in words[1:]:
+        while not w.startswith(prefix):
+            prefix = prefix[:-1]
+            if prefix == '':
+                break
+        if prefix == '':
+            break
+    if prefix == '':
+        out.append(""No common prefix."")
+    else:
+        out.append(prefix)
+print('\n'.join(out))",1,False,"2
+dog
+cat
+0",No common prefix.
+CPE044,CPE,Postfix Evaluation,"給定一個以空白分隔的後綴 (逆波蘭) 表達式，內容為整數與四則運算子 + - * /，除法採無條件向零取整 (例如 -7/2=-3)。求其運算結果。
+
+輸入說明：每行一個後綴表達式，處理到檔案結尾 (輸入保證合法且不會除以零)。
+輸出說明：每行輸出計算結果。",2,Active,Python,"import sys
+
+def trunc_div(a, b):
+    q = abs(a) // abs(b)
+    if (a < 0) != (b < 0):
+        q = -q
+    return q
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    tokens = line.split()
+    stack = []
+    for t in tokens:
+        if t in ('+', '-', '*', '/'):
+            b = stack.pop()
+            a = stack.pop()
+            if t == '+':
+                stack.append(a + b)
+            elif t == '-':
+                stack.append(a - b)
+            elif t == '*':
+                stack.append(a * b)
+            else:
+                stack.append(trunc_div(a, b))
+        else:
+            stack.append(int(t))
+    print(stack[-1])",0,True,"3 4 +
+5 1 2 + 4 * + 3 -","7
+14"
+CPE044,CPE,Postfix Evaluation,"給定一個以空白分隔的後綴 (逆波蘭) 表達式，內容為整數與四則運算子 + - * /，除法採無條件向零取整 (例如 -7/2=-3)。求其運算結果。
+
+輸入說明：每行一個後綴表達式，處理到檔案結尾 (輸入保證合法且不會除以零)。
+輸出說明：每行輸出計算結果。",2,Active,Python,"import sys
+
+def trunc_div(a, b):
+    q = abs(a) // abs(b)
+    if (a < 0) != (b < 0):
+        q = -q
+    return q
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    tokens = line.split()
+    stack = []
+    for t in tokens:
+        if t in ('+', '-', '*', '/'):
+            b = stack.pop()
+            a = stack.pop()
+            if t == '+':
+                stack.append(a + b)
+            elif t == '-':
+                stack.append(a - b)
+            elif t == '*':
+                stack.append(a * b)
+            else:
+                stack.append(trunc_div(a, b))
+        else:
+            stack.append(int(t))
+    print(stack[-1])",1,False,"7 2 /
+-7 2 /","3
+-3"
+CPE045,CPE,Twin Primes,"若 p 與 p+2 皆為質數，稱 (p, p+2) 為孿生質數對。給定區間 [a,b]，求滿足 a<=p 且 p+2<=b 的孿生質數對個數。
+
+輸入說明：每行兩個整數 a 與 b (2<=a<=b<=1000000)，處理到檔案結尾。
+輸出說明：每行輸出組數。",2,Active,Python,"import sys
+
+MAXN = 1000000
+sieve = bytearray([1]) * (MAXN + 3)
+sieve[0] = sieve[1] = 0
+i = 2
+while i * i <= MAXN + 2:
+    if sieve[i]:
+        for j in range(i * i, MAXN + 3, i):
+            sieve[j] = 0
+    i += 1
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    count = 0
+    for p in range(a, b - 1):
+        if sieve[p] and sieve[p + 2]:
+            count += 1
+    print(count)",0,True,"2 20
+1 10","4
+2"
+CPE045,CPE,Twin Primes,"若 p 與 p+2 皆為質數，稱 (p, p+2) 為孿生質數對。給定區間 [a,b]，求滿足 a<=p 且 p+2<=b 的孿生質數對個數。
+
+輸入說明：每行兩個整數 a 與 b (2<=a<=b<=1000000)，處理到檔案結尾。
+輸出說明：每行輸出組數。",2,Active,Python,"import sys
+
+MAXN = 1000000
+sieve = bytearray([1]) * (MAXN + 3)
+sieve[0] = sieve[1] = 0
+i = 2
+while i * i <= MAXN + 2:
+    if sieve[i]:
+        for j in range(i * i, MAXN + 3, i):
+            sieve[j] = 0
+    i += 1
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    count = 0
+    for p in range(a, b - 1):
+        if sieve[p] and sieve[p + 2]:
+            count += 1
+    print(count)",1,False,"100 200
+2 2","7
+0"
+CPE046,CPE,Perfect Number,"若一個正整數等於其所有真因數 (不含自身) 之和，稱為完全數 (Perfect Number)。例如 6=1+2+3。
+
+輸入說明：每行一個正整數 n，以 0 結束 (不處理)。
+輸出說明：是完全數輸出 N is a perfect number.，否則輸出 N is not a perfect number.",1,Active,Python,"import sys
+
+def divisor_sum(n):
+    total = 0
+    i = 1
+    while i * i <= n:
+        if n % i == 0:
+            if i != n:
+                total += i
+            j = n // i
+            if j != i and j != n:
+                total += j
+        i += 1
+    return total
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    if divisor_sum(n) == n:
+        print(f""{n} is a perfect number."")
+    else:
+        print(f""{n} is not a perfect number."")",0,True,"6
+28
+10
+0","6 is a perfect number.
+28 is a perfect number.
+10 is not a perfect number."
+CPE046,CPE,Perfect Number,"若一個正整數等於其所有真因數 (不含自身) 之和，稱為完全數 (Perfect Number)。例如 6=1+2+3。
+
+輸入說明：每行一個正整數 n，以 0 結束 (不處理)。
+輸出說明：是完全數輸出 N is a perfect number.，否則輸出 N is not a perfect number.",1,Active,Python,"import sys
+
+def divisor_sum(n):
+    total = 0
+    i = 1
+    while i * i <= n:
+        if n % i == 0:
+            if i != n:
+                total += i
+            j = n // i
+            if j != i and j != n:
+                total += j
+        i += 1
+    return total
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    if divisor_sum(n) == n:
+        print(f""{n} is a perfect number."")
+    else:
+        print(f""{n} is not a perfect number."")",1,False,"496
+8128
+100
+0","496 is a perfect number.
+8128 is a perfect number.
+100 is not a perfect number."
+CPE047,CPE,Narcissistic Numbers,"水仙花數 (Narcissistic Number / Armstrong Number)：一個 d 位數，其每位數字的 d 次方和等於原數字本身。求區間 [a,b] 內水仙花數的個數。
+
+輸入說明：每行兩個整數 a 與 b (1<=a<=b<=1000000)，處理到檔案結尾。
+輸出說明：每行輸出個數。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    count = 0
+    for n in range(a, b + 1):
+        digits = str(n)
+        d = len(digits)
+        if sum(int(c) ** d for c in digits) == n:
+            count += 1
+    print(count)",0,True,"1 10
+1 1000","9
+13"
+CPE047,CPE,Narcissistic Numbers,"水仙花數 (Narcissistic Number / Armstrong Number)：一個 d 位數，其每位數字的 d 次方和等於原數字本身。求區間 [a,b] 內水仙花數的個數。
+
+輸入說明：每行兩個整數 a 與 b (1<=a<=b<=1000000)，處理到檔案結尾。
+輸出說明：每行輸出個數。",1,Active,Python,"import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    count = 0
+    for n in range(a, b + 1):
+        digits = str(n)
+        d = len(digits)
+        if sum(int(c) ** d for c in digits) == n:
+            count += 1
+    print(count)",1,False,"100 10000
+9 9","7
+1"
+CPE048,CPE,Matrix Rotation,"給定一個 n x n 矩陣，將其順時針旋轉 90 度後輸出。
+
+輸入說明：每組第一行為 n；接著 n 行，每行 n 個以空白分隔的整數。以 n=0 結束 (不處理)。
+輸出說明：每組輸出旋轉後的矩陣 (n 行，每行 n 個整數，以空白分隔)；各組之間以一個空行分隔。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+blocks = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    mat = []
+    for _ in range(n):
+        mat.append(list(map(int, data[idx].split())))
+        idx += 1
+    rotated = [[mat[n - 1 - c][r] for c in range(n)] for r in range(n)]
+    blocks.append('\n'.join(' '.join(map(str, row)) for row in rotated))
+print('\n\n'.join(blocks))",0,True,"3
+1 2 3
+4 5 6
+7 8 9
+0","7 4 1
+8 5 2
+9 6 3"
+CPE048,CPE,Matrix Rotation,"給定一個 n x n 矩陣，將其順時針旋轉 90 度後輸出。
+
+輸入說明：每組第一行為 n；接著 n 行，每行 n 個以空白分隔的整數。以 n=0 結束 (不處理)。
+輸出說明：每組輸出旋轉後的矩陣 (n 行，每行 n 個整數，以空白分隔)；各組之間以一個空行分隔。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+blocks = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    mat = []
+    for _ in range(n):
+        mat.append(list(map(int, data[idx].split())))
+        idx += 1
+    rotated = [[mat[n - 1 - c][r] for c in range(n)] for r in range(n)]
+    blocks.append('\n'.join(' '.join(map(str, row)) for row in rotated))
+print('\n\n'.join(blocks))",1,False,"2
+1 2
+3 4
+1
+5
+0","3 1
+4 2
+
+5"
+CPE049,CPE,Longest Increasing Subsequence,"給定一個整數序列，求其「嚴格遞增」最長子序列的長度 (子序列不要求連續)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長遞增子序列的長度。",3,Active,Python,"import sys
+import bisect
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    nums = list(map(int, data[idx].split()))
+    idx += 1
+    tails = []
+    for x in nums:
+        pos = bisect.bisect_left(tails, x)
+        if pos == len(tails):
+            tails.append(x)
+        else:
+            tails[pos] = x
+    out.append(str(len(tails)))
+print('\n'.join(out))",0,True,"8
+10 9 2 5 3 7 101 18
+0",4
+CPE049,CPE,Longest Increasing Subsequence,"給定一個整數序列，求其「嚴格遞增」最長子序列的長度 (子序列不要求連續)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長遞增子序列的長度。",3,Active,Python,"import sys
+import bisect
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    nums = list(map(int, data[idx].split()))
+    idx += 1
+    tails = []
+    for x in nums:
+        pos = bisect.bisect_left(tails, x)
+        if pos == len(tails):
+            tails.append(x)
+        else:
+            tails[pos] = x
+    out.append(str(len(tails)))
+print('\n'.join(out))",1,False,"6
+5 4 3 2 1 0
+5
+1 2 3 4 5
+0","1
+5"
+CPE049,CPE,Longest Increasing Subsequence,"給定一個整數序列，求其「嚴格遞增」最長子序列的長度 (子序列不要求連續)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長遞增子序列的長度。",3,Active,Python,"import sys
+import bisect
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    nums = list(map(int, data[idx].split()))
+    idx += 1
+    tails = []
+    for x in nums:
+        pos = bisect.bisect_left(tails, x)
+        if pos == len(tails):
+            tails.append(x)
+        else:
+            tails[pos] = x
+    out.append(str(len(tails)))
+print('\n'.join(out))",2,False,"1
+42
+0",1
+CPE050,CPE,0/1 Knapsack,"有 n 件物品，第 i 件重量為 w_i、價值為 v_i。背包容量為 C，每件物品最多選一次。求在總重量不超過 C 的情況下，可獲得的最大總價值。
+
+輸入說明：每組第一行為 n 與 C；接著 n 行，每行為 w_i 與 v_i。以 n=0 且 C=0 結束 (不處理)。
+輸出說明：每組輸出最大總價值。",3,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n, cap = map(int, line.split())
+    if n == 0 and cap == 0:
+        break
+    items = []
+    for _ in range(n):
+        w, v = map(int, data[idx].split())
+        items.append((w, v))
+        idx += 1
+    dp = [0] * (cap + 1)
+    for w, v in items:
+        for c in range(cap, w - 1, -1):
+            if dp[c - w] + v > dp[c]:
+                dp[c] = dp[c - w] + v
+    out.append(str(dp[cap]))
+print('\n'.join(out))",0,True,"4 5
+2 3
+3 4
+4 5
+5 6
+0 0",7
+CPE050,CPE,0/1 Knapsack,"有 n 件物品，第 i 件重量為 w_i、價值為 v_i。背包容量為 C，每件物品最多選一次。求在總重量不超過 C 的情況下，可獲得的最大總價值。
+
+輸入說明：每組第一行為 n 與 C；接著 n 行，每行為 w_i 與 v_i。以 n=0 且 C=0 結束 (不處理)。
+輸出說明：每組輸出最大總價值。",3,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n, cap = map(int, line.split())
+    if n == 0 and cap == 0:
+        break
+    items = []
+    for _ in range(n):
+        w, v = map(int, data[idx].split())
+        items.append((w, v))
+        idx += 1
+    dp = [0] * (cap + 1)
+    for w, v in items:
+        for c in range(cap, w - 1, -1):
+            if dp[c - w] + v > dp[c]:
+                dp[c] = dp[c - w] + v
+    out.append(str(dp[cap]))
+print('\n'.join(out))",1,False,"3 10
+2 3
+5 8
+7 9
+0 0",12
+CPE050,CPE,0/1 Knapsack,"有 n 件物品，第 i 件重量為 w_i、價值為 v_i。背包容量為 C，每件物品最多選一次。求在總重量不超過 C 的情況下，可獲得的最大總價值。
+
+輸入說明：每組第一行為 n 與 C；接著 n 行，每行為 w_i 與 v_i。以 n=0 且 C=0 結束 (不處理)。
+輸出說明：每組輸出最大總價值。",3,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n, cap = map(int, line.split())
+    if n == 0 and cap == 0:
+        break
+    items = []
+    for _ in range(n):
+        w, v = map(int, data[idx].split())
+        items.append((w, v))
+        idx += 1
+    dp = [0] * (cap + 1)
+    for w, v in items:
+        for c in range(cap, w - 1, -1):
+            if dp[c - w] + v > dp[c]:
+                dp[c] = dp[c - w] + v
+    out.append(str(dp[cap]))
+print('\n'.join(out))",2,False,"1 0
+5 3
+0 0",0
+CPE051,CPE,Coin Change,"給定 k 種硬幣面額 (硬幣可重複使用不限次數) 與目標金額 amount，求湊出該金額所需的最少硬幣數；若無法湊出，輸出 -1。
+
+輸入說明：每組第一行為 k 與 amount；第二行為 k 個正整數面額。以 k=0 結束 (不處理)。
+輸出說明：每組輸出最少硬幣數，若無解輸出 -1。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    k, amount = map(int, line.split())
+    if k == 0:
+        break
+    coins = list(map(int, data[idx].split()))
+    idx += 1
+    INF = float('inf')
+    dp = [0] + [INF] * amount
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c <= a and dp[a - c] + 1 < dp[a]:
+                dp[a] = dp[a - c] + 1
+    out.append(str(dp[amount] if dp[amount] != INF else -1))
+print('\n'.join(out))",0,True,"3 11
+1 2 5
+2 3
+2","3
+-1"
+CPE051,CPE,Coin Change,"給定 k 種硬幣面額 (硬幣可重複使用不限次數) 與目標金額 amount，求湊出該金額所需的最少硬幣數；若無法湊出，輸出 -1。
+
+輸入說明：每組第一行為 k 與 amount；第二行為 k 個正整數面額。以 k=0 結束 (不處理)。
+輸出說明：每組輸出最少硬幣數，若無解輸出 -1。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    k, amount = map(int, line.split())
+    if k == 0:
+        break
+    coins = list(map(int, data[idx].split()))
+    idx += 1
+    INF = float('inf')
+    dp = [0] + [INF] * amount
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c <= a and dp[a - c] + 1 < dp[a]:
+                dp[a] = dp[a - c] + 1
+    out.append(str(dp[amount] if dp[amount] != INF else -1))
+print('\n'.join(out))",1,False,"1 7
+3
+3 0
+1 5 10","-1
+0"
+CPE052,CPE,Activity Selection,"給定 n 個活動的開始時間與結束時間，同一時間只能參加一個活動 (若某活動的結束時間等於另一活動的開始時間，兩者不衝突，可以銜接參加)。求最多能參加幾個活動。
+
+輸入說明：每組第一行為 n；接著 n 行，每行為活動的開始時間與結束時間 (整數)。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最多能參加的活動數。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    acts = []
+    for _ in range(n):
+        s, e = map(int, data[idx].split())
+        acts.append((s, e))
+        idx += 1
+    acts.sort(key=lambda x: x[1])
+    count = 0
+    last_end = -float('inf')
+    for s, e in acts:
+        if s >= last_end:
+            count += 1
+            last_end = e
+    out.append(str(count))
+print('\n'.join(out))",0,True,"4
+1 3
+2 5
+4 7
+6 9
+0",2
+CPE052,CPE,Activity Selection,"給定 n 個活動的開始時間與結束時間，同一時間只能參加一個活動 (若某活動的結束時間等於另一活動的開始時間，兩者不衝突，可以銜接參加)。求最多能參加幾個活動。
+
+輸入說明：每組第一行為 n；接著 n 行，每行為活動的開始時間與結束時間 (整數)。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最多能參加的活動數。",2,Active,Python,"import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    acts = []
+    for _ in range(n):
+        s, e = map(int, data[idx].split())
+        acts.append((s, e))
+        idx += 1
+    acts.sort(key=lambda x: x[1])
+    count = 0
+    last_end = -float('inf')
+    for s, e in acts:
+        if s >= last_end:
+            count += 1
+            last_end = e
+    out.append(str(count))
+print('\n'.join(out))",1,False,"3
+1 2
+2 3
+3 4
+0",3
+CPE053,CPE,Longest Palindromic Substring,"給定一個字串，求其最長迴文子字串的長度。
+
+輸入說明：每行一個字串 (僅含小寫英文字母，長度介於 1 到 1000)，處理到檔案結尾。
+輸出說明：每行輸出最長迴文子字串的長度。",3,Active,Python,"import sys
+
+def longest_palindrome_len(s):
+    n = len(s)
+    if n == 0:
+        return 0
+    best = 1
+    for center in range(n):
+        # odd length
+        l, r = center, center
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+        # even length
+        l, r = center, center + 1
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+    return best
+
+for line in sys.stdin:
+    s = line.strip()
+    if not s:
+        continue
+    print(longest_palindrome_len(s))",0,True,"babad
+cbbd","3
+2"
+CPE053,CPE,Longest Palindromic Substring,"給定一個字串，求其最長迴文子字串的長度。
+
+輸入說明：每行一個字串 (僅含小寫英文字母，長度介於 1 到 1000)，處理到檔案結尾。
+輸出說明：每行輸出最長迴文子字串的長度。",3,Active,Python,"import sys
+
+def longest_palindrome_len(s):
+    n = len(s)
+    if n == 0:
+        return 0
+    best = 1
+    for center in range(n):
+        # odd length
+        l, r = center, center
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+        # even length
+        l, r = center, center + 1
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+    return best
+
+for line in sys.stdin:
+    s = line.strip()
+    if not s:
+        continue
+    print(longest_palindrome_len(s))",1,False,"a
+racecar
+abcde","1
+7
+1"
+CPE053,CPE,Longest Palindromic Substring,"給定一個字串，求其最長迴文子字串的長度。
+
+輸入說明：每行一個字串 (僅含小寫英文字母，長度介於 1 到 1000)，處理到檔案結尾。
+輸出說明：每行輸出最長迴文子字串的長度。",3,Active,Python,"import sys
+
+def longest_palindrome_len(s):
+    n = len(s)
+    if n == 0:
+        return 0
+    best = 1
+    for center in range(n):
+        # odd length
+        l, r = center, center
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+        # even length
+        l, r = center, center + 1
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+    return best
+
+for line in sys.stdin:
+    s = line.strip()
+    if not s:
+        continue
+    print(longest_palindrome_len(s))",2,False,"aaaaaaaaaa
+abababab","10
+7"

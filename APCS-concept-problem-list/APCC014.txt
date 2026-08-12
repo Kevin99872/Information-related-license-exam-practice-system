@@ -1,0 +1,24 @@
+APCS 觀念題 APCC014 字串反轉迴圈追蹤
+
+難度：中等
+主題：字串處理
+
+== 題目 ==
+下列程式執行後，result 的內容為何？
+
+    s = "HELLO"
+    result = ""
+    for ch in s:
+        result = ch + result
+    print(result)
+
+(A) HELLO
+(B) OLLEH
+(C) HLELO
+(D) OLEHL
+
+== 正解 ==
+B
+
+== 解析 ==
+每次都把新字元加到 result 最前面，等於把字串反過來組合，最終得到 "OLLEH"。

@@ -1,0 +1,40 @@
+APCS 實作題 APCP049 遞迴快速冪
+
+難度：困難
+主題：遞迴/數學
+
+== 題目 ==
+給定三個整數 base、exp、mod，請使用遞迴實作的快速冪演算法，計算 (base ^ exp) mod mod 的值。
+
+輸入說明：一行三個整數 base exp mod (0<=base<=10^9, 0<=exp<=10^9, 1<=mod<=10^9)。
+輸出說明：一行，輸出 (base ^ exp) mod mod 的值。
+
+== 參考解法 (Python) ==
+import sys
+sys.setrecursionlimit(10000)
+def power(b, e, m):
+    if e == 0:
+        return 1 % m
+    half = power(b, e // 2, m)
+    half = (half * half) % m
+    if e % 2 == 1:
+        half = (half * b) % m
+    return half
+
+b, e, m = map(int, input().split())
+print(power(b, e, m))
+
+== 範例 1 輸入 ==
+2 10 1000
+== 範例 1 輸出 ==
+24
+
+== 範例 2 輸入 ==
+7 0 5
+== 範例 2 輸出 ==
+1
+
+== 範例 3 輸入 ==
+3 13 7
+== 範例 3 輸出 ==
+3

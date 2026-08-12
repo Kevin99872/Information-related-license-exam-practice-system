@@ -1,0 +1,40 @@
+TQC+ 程式語言Java JAD202  三數最大值
+
+難度：簡單
+主題：控制流程
+
+== 題目 ==
+輸入三個整數，輸出其中的最大值。
+
+輸入說明：一行，三個整數，以空白分隔。
+輸出說明：一行，三數中的最大值。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int max = a;
+        if (b > max) {
+            max = b;
+        }
+        if (c > max) {
+            max = c;
+        }
+        System.out.println(max);
+    }
+}
+
+== 範例 1 輸入 ==
+3 9 5
+== 範例 1 輸出 ==
+9
+
+== 範例 2 輸入 ==
+-2 -8 -1
+== 範例 2 輸出 ==
+-1

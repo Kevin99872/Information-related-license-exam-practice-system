@@ -1,0 +1,50 @@
+CPE Balanced Brackets
+
+難度：中等
+來源：原創（堆疊 / 括號匹配基礎題型）
+
+== 題目 ==
+給定一段只含 ()[]{} 六種符號的字串，判斷括號是否完全成對且正確巢狀匹配。
+
+輸入說明：每行一個字串 (可能為空字串)，以單獨一行 END 結束 (不處理)。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+PAIRS = {')': '(', ']': '[', '}': '{'}
+OPENERS = set(PAIRS.values())
+
+def is_balanced(s):
+    stack = []
+    for c in s:
+        if c in OPENERS:
+            stack.append(c)
+        elif c in PAIRS:
+            if not stack or stack.pop() != PAIRS[c]:
+                return False
+    return not stack
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == 'END':
+        break
+    print('Yes' if is_balanced(s) else 'No')
+
+== 範例 1 輸入 ==
+([]{})
+([)]
+END
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+
+{[()()]}
+((()
+END
+== 範例 2 輸出 ==
+Yes
+Yes
+No

@@ -1358,20 +1358,62 @@ TQC+ 程式語言Python 308 迴圈位數加總
 輸出說明
 將測試資料的每位數全部加總
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 1
+範例輸入1
 1
 98765
+範例輸出1
 Sum of all digits of 98765 is 35
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 2
+範例輸入2
 3
 32412
-Sum of all digits of 32412 is 12
 0
-Sum of all digits of 0 is 0
 769
+範例輸出2
+Sum of all digits of 32412 is 12
+Sum of all digits of 0 is 0
 Sum of all digits of 769 is 22
-'''",2,Active,Python,,0,True,,
+'''",2,Active,Python,,0,True,"1
+98765",Sum of all digits of 98765 is 35
+PYD308,TQC,迴圈位數加總,"'''
+TQC+ 程式語言Python 308 迴圈位數加總
+
+1. 題目說明:
+請開啟PYD308.py檔案，依下列題意進行作答，將輸入值之每位數全部加總，使輸出值符合題意要求。作答完成請另存新檔為PYA308.py再進行評分。
+
+2. 設計說明：
+請使用迴圈敘述撰寫一程式，要求使用者輸入一個數字，此數字代表後面測試資料的數量。每一筆測試資料是一個正整數（由使用者輸入），將此正整數的每位數全部加總起來。
+
+3. 輸入輸出：
+輸入說明
+先輸入一個正整數代表後面測試資料的數量
+依測試資料的數量，再輸入正整數的測試資料
+
+輸出說明
+將測試資料的每位數全部加總
+
+範例輸入1
+1
+98765
+範例輸出1
+Sum of all digits of 98765 is 35
+
+範例輸入2
+3
+32412
+0
+769
+範例輸出2
+Sum of all digits of 32412 is 12
+Sum of all digits of 0 is 0
+Sum of all digits of 769 is 22
+'''",2,Active,Python,,1,True,"3
+32412
+0
+769","Sum of all digits of 32412 is 12
+Sum of all digits of 0 is 0
+Sum of all digits of 769 is 22
+'''"
 PYD309,TQC,存款總額,"'''
 TQC+ 程式語言Python 309 存款總額
 
@@ -1713,19 +1755,30 @@ TQC+ 程式語言Python 405 不定數迴圈-分數等級
 輸出說明
 依輸入值，輸出對應的GPA
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
 75
-C
 39
-E
 100
-A
 85
-B
 65
-D
 -9999
-'''",3,Active,Python,,0,True,,
+範例輸出
+C
+E
+A
+B
+D
+'''",3,Active,Python,,0,True,"75
+39
+100
+85
+65
+-9999","C
+E
+A
+B
+D
+'''"
 PYD406,TQC,不定數迴圈-BMI計算,"'''
 TQC+ 程式語言Python 406 不定數迴圈-BMI計算
 
@@ -1752,11 +1805,23 @@ BMI = 體重 (kg) / 身高**2 (m)，輸出浮點數到小數點後第二位。 �
 輸出BMI值
 BMI值代表意義
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
 176
 80
+170
+100
+-9999
+範例輸出
 BMI: 25.83
-State: over weig",3,Active,Python,,0,True,,
+State: over wei",3,Active,Python,,0,True,"176
+80
+170
+100
+-9999","BMI: 25.83
+State: over weight
+BMI: 34.60
+State: fat
+'''"
 PYD407,TQC,不定數迴圈-閏年判斷,"'''
 TQC+ 程式語言Python 407 不定數迴圈-閏年判斷
 
@@ -1774,19 +1839,30 @@ TQC+ 程式語言Python 407 不定數迴圈-閏年判斷
 輸出說明
 判斷是否為閏年或平年
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
 2017
-2017 is not a leap year.
 2000
-2000 is a leap year.
 2016
-2016 is a leap year.
 2009
-2009 is not a leap year.
 2018
-2018 is not a leap year.
 -9999
-'''",3,Active,Python,,0,True,,
+範例輸出
+2017 is not a leap year.
+2000 is a leap year.
+2016 is a leap year.
+2009 is not a leap year.
+2018 is not a leap year.
+'''",3,Active,Python,,0,True,"2017
+2000
+2016
+2009
+2018
+-9999","2017 is not a leap year.
+2000 is a leap year.
+2016 is a leap year.
+2009 is not a leap year.
+2018 is not a leap year.
+'''"
 PYD408,TQC,奇偶數個數計算,"'''
 TQC+ 程式語言Python 408 奇偶數個數計算
 
@@ -1848,13 +1924,37 @@ TQC+ 程式語言Python 409 得票數計算
 每次投完後需印出目前每位候選人的得票數
 五張選票投票完成，最後印出最高票者為當選人
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
 2
+1
+8
+2
+2
+範例輸出
 Total votes of No.1: Nami =  0
 Total votes of No.2: Chopper =  1
 Total null votes =  0
+Total vo",3,Active,Python,,0,True,"2
 1
-T",3,Active,Python,,0,True,,
+8
+2
+2","Total votes of No.1: Nami =  0
+Total votes of No.2: Chopper =  1
+Total null votes =  0
+Total votes of No.1: Nami =  1
+Total votes of No.2: Chopper =  1
+Total null votes =  0
+Total votes of No.1: Nami =  1
+Total votes of No.2: Chopper =  1
+Total null votes =  1
+Total votes of No.1: Nami =  1
+Total votes of No.2: Chopper =  2
+Total null votes =  1
+Total votes of No.1: Nami =  1
+Total votes of No.2: Chopper =  3
+Total null votes =  1
+=> No.2 Chopper won the election.
+'''"
 PYD410,TQC,繪製等腰三角形,"'''
 TQC+ 程式語言Python 410 繪製等腰三角形
 
@@ -2885,25 +2985,26 @@ TQC+ 程式語言Python 607 成績計算
 輸出說明
 格式化輸出每位學生的總分及平均分數
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-The 1st student:
+範例輸入
 78
 89
 88
 70
 60
-The 2nd student:
 90
 78
 66
 68
 78
-The 3rd student:
 69
 97
 70
 89
 90
+範例輸出
+The 1st student:
+The 2nd student:
+The 3rd student:
 Student 1
 #Sum 385
 #Average 77.00
@@ -2913,7 +3014,33 @@ Student 2
 Student 3
 #Sum 415
 #Average 83.00
-'''",3,Active,Python,,0,True,,
+'''",3,Active,Python,,0,True,"78
+89
+88
+70
+60
+90
+78
+66
+68
+78
+69
+97
+70
+89
+90","The 1st student:
+The 2nd student:
+The 3rd student:
+Student 1
+#Sum 385
+#Average 77.00
+Student 2
+#Sum 380
+#Average 76.00
+Student 3
+#Sum 415
+#Average 83.00
+'''"
 PYD608,TQC,最大最小值索引,"'''
 TQC+ 程式語言Python 608 最大最小值索引
 
@@ -2973,17 +3100,18 @@ TQC+ 程式語言Python 609 矩陣相加
 矩陣2的內容
 矩陣1及矩陣2相加的結果
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
+3
+5
+7
+5
+6
+9
+8
+3
+範例輸出
 Enter matrix 1:
-[1, 1]: 3
-[1, 2]: 5
-[2, 1]: 7
-[2, 2]: 5
 Enter matrix 2:
-[1, 1]: 6
-[1, 2]: 9
-[2, 1]: 8
-[2, 2]: 3
 Matrix 1:
 3 5
 7 5
@@ -2993,7 +3121,25 @@ Matrix 2:
 Sum of 2 matrices:
 9 14
 15 8
-'''",3,Active,Python,,0,True,,
+'''",3,Active,Python,,0,True,"3
+5
+7
+5
+6
+9
+8
+3","Enter matrix 1:
+Enter matrix 2:
+Matrix 1:
+3 5
+7 5
+Matrix 2:
+6 9
+8 3
+Sum of 2 matrices:
+9 14
+15 8
+'''"
 PYD610,TQC,平均溫度,"'''
 TQC+ 程式語言Python 610 平均溫度
 
@@ -3015,10 +3161,22 @@ TQC+ 程式語言Python 610 平均溫度
 最高溫度
 最低溫度
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-下圖中的 粉紅色點 為 空格
-
-'''",3,Active,Python,,0,True,,
+範例輸入
+28 30.5 27
+31 29 26.5
+33 32.2 30
+25 26 24.8
+範例輸出
+28.58
+33
+24.8
+'''",3,Active,Python,,0,True,"28 30.5 27
+31 29 26.5
+33 32.2 30
+25 26 24.8","28.58
+33
+24.8
+'''"
 PYD701,TQC,串列數組轉換,"'''
 TQC+ 程式語言Python 701 串列數組轉換
 
@@ -3084,15 +3242,13 @@ TQC+ 程式語言Python 702 數組合併排序
 排序前的數組
 排序後的串列
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Create tuple1:
+範例輸入
 9
 0
 -1
 3
 8
 -9999
-Create tuple2:
 28
 16
 39
@@ -3100,9 +3256,28 @@ Create tuple2:
 78
 88
 -9999
+範例輸出
+Create tuple1:
+Create tuple2:
 Combined tuple before sorting: (9, 0, -1, 3, 8, 28, 16, 39, 56, 78, 88)
 Combined list after sorting: [-1, 0, 3, 8, 9, 16, 28, 39, 56, 78, 88]
-'''",3,Active,Python,,0,True,,
+'''",3,Active,Python,,0,True,"9
+0
+-1
+3
+8
+-9999
+28
+16
+39
+56
+78
+88
+-9999","Create tuple1:
+Create tuple2:
+Combined tuple before sorting: (9, 0, -1, 3, 8, 28, 16, 39, 56, 78, 88)
+Combined list after sorting: [-1, 0, 3, 8, 9, 16, 28, 39, 56, 78, 88]
+'''"
 PYD703,TQC,數組條件判斷,"'''
 TQC+ 程式語言Python 703 數組條件判斷
 
@@ -3204,18 +3379,15 @@ TQC+ 程式語言Python 705 子集合與超集合
 set2是否為set1的子集合（subset）？
 set3是否為set1的超集合（superset）？
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Input to set1:
+範例輸入
 3
 28
 -2
 7
 39
-Input to set2:
 2
 77
 0
-Input to set3:
 3
 28
 12
@@ -3225,8 +3397,34 @@ Input to set3:
 -1
 -2
 65
+範例輸出
+Input to set1:
+Input to set2:
+Input to set3:
 set2 is subset of set1: False
-set3 is superset of s",3,Active,Python,,0,True,,
+set3 is superset of set1: True
+'''",3,Active,Python,,0,True,"3
+28
+-2
+7
+39
+2
+77
+0
+3
+28
+12
+99
+39
+7
+-1
+-2
+65","Input to set1:
+Input to set2:
+Input to set3:
+set2 is subset of set1: False
+set3 is superset of set1: True
+'''"
 PYD706,TQC,全字母句,"'''
 TQC+ 程式語言Python 706 全字母句
 
@@ -3245,16 +3443,59 @@ TQC+ 程式語言Python 706 全字母句
 輸出說明
 輸入的資料是否為全字母句
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 第1組
+範例輸入1
 3
 The quick brown fox jumps over the lazy dog
-True
 Learning Python is funny
-False
 Pack my box with five dozen liquor jugs
+範例輸出1
+True
+False
 True
 
-輸入與輸出會交雜如下，輸出的部份",3,Active,Python,,0,True,,
+範例輸入2
+2
+Quick fox jumps nightly",3,Active,Python,,0,True,"3
+The quick brown fox jumps over the lazy dog
+Learning Python is funny
+Pack my box with five dozen liquor jugs","True
+False
+True"
+PYD706,TQC,全字母句,"'''
+TQC+ 程式語言Python 706 全字母句
+
+1. 題目說明:
+請開啟PYD706.py檔案，依下列題意進行作答，進行全字母句之判斷，使輸出值符合題意要求。作答完成請另存新檔為PYA706.py再進行評分。
+
+2. 設計說明：
+全字母句（Pangram）是英文字母表所有的字母都出現至少一次（最好只出現一次）的句子。請撰寫一程式，要求使用者輸入一正整數k（代表有k筆測試資料），每一筆測試資料為一句子，程式判斷該句子是否為Pangram，並印出對應結果True（若是）或False（若不是）。
+
+提示：不區分大小寫字母
+
+3. 輸入輸出：
+輸入說明
+先輸入一個正整數表示測試資料筆數，再輸入測試資料
+
+輸出說明
+輸入的資料是否為全字母句
+
+範例輸入1
+3
+The quick brown fox jumps over the lazy dog
+Learning Python is funny
+Pack my box with five dozen liquor jugs
+範例輸出1
+True
+False
+True
+
+範例輸入2
+2
+Quick fox jumps nightly",3,Active,Python,,1,True,"2
+Quick fox jumps nightly above wizard
+These can be weapons of terror","True
+False
+'''"
 PYD707,TQC,共同科目,"'''
 TQC+ 程式語言Python 707 共同科目
 
@@ -3276,15 +3517,36 @@ X組和Y組的共同科目
 Y組有但X組沒有的科目
 X組和Y組彼此沒有的科目（不包含相同科目）
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Enter group X's subjects:
+範例輸入
 Math
 Literature
 English
 History
 Geography
 end
-En",3,Active,Python,,0,True,,
+Math
+Literature
+Chinese
+Physical
+Chemistry
+end",3,Active,Python,,0,True,"Math
+Literature
+English
+History
+Geography
+end
+Math
+Literature
+Chinese
+Physical
+Chemistry
+end","Enter group X's subjects:
+Enter group Y's subjects:
+['Chemistry', 'Chinese', 'English', 'Geography', 'History', 'Literature', 'Math', 'Physical']
+['Literature', 'Math']
+['Chemistry', 'Chinese', 'Physical']
+['Chemistry', 'Chinese', 'English', 'Geography', 'History', 'Physical']
+'''"
 PYD708,TQC,詞典合併,"'''
 TQC+ 程式語言Python 708 詞典合併
 
@@ -3301,23 +3563,46 @@ TQC+ 程式語言Python 708 詞典合併
 輸出說明
 合併兩詞典，並根據key值字母由小到大排序輸出，如有重複key值，後輸入的key值將覆蓋前一key值
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
+a
+apple
+b
+banana
+d
+durian
+end
+c
+cat
+e
+elephant
+end
+範例輸出
 Create dict1:
-Key: a
-Value: apple
-Key: b
-Value: banana
-Key: d
-Value: durian
-Key: end
 Create dict2:
-Key: c
-Value: cat
-Key: e
-Value: elephant
-Key: end
 a: apple
-b: ba",3,Active,Python,,0,True,,
+b: banana
+c: cat
+d: durian
+e: elephant
+'''",3,Active,Python,,0,True,"a
+apple
+b
+banana
+d
+durian
+end
+c
+cat
+e
+elephant
+end","Create dict1:
+Create dict2:
+a: apple
+b: banana
+c: cat
+d: durian
+e: elephant
+'''"
 PYD709,TQC,詞典排序,"'''
 TQC+ 程式語言Python 709 詞典排序
 
@@ -3334,24 +3619,52 @@ TQC+ 程式語言Python 709 詞典排序
 輸出說明
 根據key值字母由小到大排序輸出
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Key: Green Yellow
-Value: #ADFF2F
-Key: Snow
-Value: #FFFAFA
-Key: Gold
-Value: #FFD700
-Key: Red
-Value: #FF0000
-Key: White
-Value: #FFFFFF
-Key: Green
-Value: #008000
-Key: Black
-Value: #000000
-Key: end
+範例輸入
+Green Yellow
+#ADFF2F
+Snow
+#FFFAFA
+Gold
+#FFD700
+Red
+#FF0000
+White
+#FFFFFF
+Green
+#008000
+Black
+#000000
+end
+範例輸出
 Black: #000000
-Gold: #",3,Active,Python,,0,True,,
+Gold: #FFD700
+Green: #008000
+Green Yellow: #ADFF2F
+Red: #FF0000
+Snow: #FFFAFA
+White: #FFFFFF
+'''",3,Active,Python,,0,True,"Green Yellow
+#ADFF2F
+Snow
+#FFFAFA
+Gold
+#FFD700
+Red
+#FF0000
+White
+#FFFFFF
+Green
+#008000
+Black
+#000000
+end","Black: #000000
+Gold: #FFD700
+Green: #008000
+Green Yellow: #ADFF2F
+Red: #FF0000
+Snow: #FFFAFA
+White: #FFFFFF
+'''"
 PYD710,TQC,詞典搜尋,"'''
 TQC+ 程式語言Python 710 詞典搜尋
 
@@ -3368,17 +3681,26 @@ TQC+ 程式語言Python 710 詞典搜尋
 輸出說明
 鍵值是否存在詞典中
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-Key: 123-4567-89
-Value: Jennifer
-Key: 987-6543-21
-Value: Tommy
-Key: 246-8246-82
-Value: Kay
-Key: end
-Search key: 246-8246-82
+範例輸入
+123-4567-89
+Jennifer
+987-6543-21
+Tommy
+246-8246-82
+Kay
+end
+246-8246-82
+範例輸出
 True
-'''",3,Active,Python,,0,True,,
+'''",3,Active,Python,,0,True,"123-4567-89
+Jennifer
+987-6543-21
+Tommy
+246-8246-82
+Kay
+end
+246-8246-82","True
+'''"
 PYD801,TQC,字串索引,"'''
 TQC+ 程式語言Python 801 字串索引
 
@@ -3706,17 +4028,26 @@ TQC+ 程式語言Python 810 最大值與最小值之差
 輸出說明
 每個串列數字中，最大值和最小值之間的差
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
 4
 94 52.9 3.14 77 46
-90.86
 -2 0 1000.34 -14.4 89 50
-1014.74
 87.78 33333 29.3
-33303.70
 9998 9996 9999
+範例輸出
+90.86
+1014.74
+33303.70
 3.00
-'''",3,Active,Python,,0,True,,
+'''",3,Active,Python,,0,True,"4
+94 52.9 3.14 77 46
+-2 0 1000.34 -14.4 89 50
+87.78 33333 29.3
+9998 9996 9999","90.86
+1014.74
+33303.70
+3.00
+'''"
 PYD901,TQC,成績資料,"'''
 TQC+ 程式語言Python 901 成績資料
 
@@ -3726,14 +4057,14 @@ TQC+ 程式語言Python 901 成績資料
 請注意：程式碼中所提供的檔案路徑，不可進行變動，write.txt檔案需為UTF-8編碼格式。
 
 2. 設計說明：
-請撰寫一程式，將使用者輸入的五筆資料寫入到write.txt（若不存在，則讓程式建立它），每一筆資料為一行，包含學生名字和期末總分，以空白隔開。檔案寫入完成後要關閉。
+請撰寫一程式，將使用者輸入的五筆資料寫入到write.txt（若不存在，則讓程式建立它），每一筆資料為一行，包含學生名字和期末總分，以空白隔開。檔案寫入完成後要關閉。為便於自動評分，寫入檔案的同時，也請將這五筆資料依序輸出於畫面。
 
 3. 輸入輸出：
 輸入說明
 五筆資料（每一筆資料為一行，包含學生名字和分數，以空白隔開）
 
 輸出說明
-將輸入的五筆資料寫入檔案中，不另外輸出於頁面
+將輸入的五筆資料寫入檔案中，並依序輸出於畫面
 
 範例輸入
 Leon 87
@@ -3741,7 +4072,22 @@ Ben 90
 Sam 77
 Karen 92
 Kelena 92
-'''",3,Active,Python,,0,True,,
+範例輸出
+Leon 87
+Ben 90
+Sam 77
+Karen 92
+Kelena 92
+'''",3,Active,Python,,0,True,"Leon 87
+Ben 90
+Sam 77
+Karen 92
+Kelena 92","Leon 87
+Ben 90
+Sam 77
+Karen 92
+Kelena 92
+'''"
 PYD902,TQC,資料加總,"'''
 TQC+ 程式語言Python 902 資料加總
 

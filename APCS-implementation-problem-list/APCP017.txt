@@ -1,0 +1,50 @@
+APCS 實作題 APCP017 二分搜尋
+
+難度：中等
+主題：搜尋
+
+== 題目 ==
+給定一個已由小到大排序的整數陣列，以及 q 個查詢值，請對每個查詢值使用二分搜尋法找出其在陣列中的索引（從 0 開始）；若不存在則輸出 -1。
+
+輸入說明：第一行一個正整數 n (1<=n<=100000)；第二行 n 個嚴格遞增的整數；第三行一個正整數 q (1<=q<=1000)；第四行 q 個查詢值。
+輸出說明：共 q 行，依序輸出每個查詢值的索引，若不存在輸出 -1。
+
+== 參考解法 (Python) ==
+n = int(input())
+arr = list(map(int, input().split()))
+q = int(input())
+queries = list(map(int, input().split()))
+out = []
+for x in queries:
+    lo, hi = 0, n - 1
+    ans = -1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == x:
+            ans = mid
+            break
+        elif arr[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    out.append(str(ans))
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+5
+1 3 5 7 9
+3
+5 2 9
+== 範例 1 輸出 ==
+2
+-1
+4
+
+== 範例 2 輸入 ==
+1
+10
+2
+10 5
+== 範例 2 輸出 ==
+0
+-1

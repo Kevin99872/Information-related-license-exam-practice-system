@@ -1,0 +1,41 @@
+TQC+ 程式語言C# CSD608  LINQ 條件聚合統計
+
+難度：困難
+主題：集合與LINQ
+
+== 題目 ==
+輸入 n 個整數成績，使用 LINQ 的聚合方法計算：及格（>=60）人數、及格總分、及格平均分數（保留小數點後 1 位）、最高分。若無人及格，平均輸出 0.0，最高分輸出 0。
+
+輸入說明：一行，n 個以空白分隔的整數（0~100）。
+輸出說明：一行，格式為「及格人數:X 總分:Y 平均:Z 最高分:W」，平均保留小數點後 1 位。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        int[] scores = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        var passed = scores.Where(s => s >= 60).ToArray();
+        int count = passed.Length;
+        int total = passed.Sum();
+        double avg = count > 0 ? passed.Average() : 0.0;
+        int max = count > 0 ? passed.Max() : 0;
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            "及格人數:{0} 總分:{1} 平均:{2:F1} 最高分:{3}", count, total, avg, max));
+    }
+}
+
+== 範例 1 輸入 ==
+55 60 72 88 40 91
+== 範例 1 輸出 ==
+及格人數:4 總分:311 平均:77.8 最高分:91
+
+== 範例 2 輸入 ==
+30 45 50
+== 範例 2 輸出 ==
+及格人數:0 總分:0 平均:0.0 最高分:0

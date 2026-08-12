@@ -1,0 +1,55 @@
+TQC+ 程式語言C# CSD308  字串清單排序
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入 n 個字串，使用 List&lt;string&gt; 儲存後依字典順序排序並輸出。
+
+輸入說明：第一行為整數 n；接著 n 行，每行一個字串（不含空白）。
+輸出說明：n 行，依字典順序（由小到大）排序後的字串，每行一個。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        List<string> words = new List<string>();
+        for (int i = 0; i < n; i++)
+        {
+            words.Add(Console.ReadLine() ?? "");
+        }
+        List<string> sorted = words.OrderBy(w => w, StringComparer.Ordinal).ToList();
+        foreach (string w in sorted)
+        {
+            Console.WriteLine(w);
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+3
+banana
+apple
+cherry
+== 範例 1 輸出 ==
+apple
+banana
+cherry
+
+== 範例 2 輸入 ==
+4
+dog
+cat
+bird
+ant
+== 範例 2 輸出 ==
+ant
+bird
+cat
+dog

@@ -1,0 +1,73 @@
+TQC+ 程式語言Java JAD507  多層繼承鏈
+
+難度：困難
+主題：物件導向
+
+== 題目 ==
+建立三層繼承關係：Vehicle -> Car -> SportsCar。Vehicle 的 describe() 回傳「這是一台車」；Car 新增欄位 brand、model，並覆寫 describe()，先呼叫 super.describe() 再附加「品牌: xxx 型號: yyy」；SportsCar 新增欄位 horsepower，覆寫 describe()，先呼叫 super.describe() 再附加「馬力: zzz」。
+
+輸入說明：一行，品牌、型號、馬力，以空白分隔（品牌、型號不含空白）。
+輸出說明：三行，依序為 Vehicle、Car、SportsCar 三層附加後的完整描述。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static class Vehicle {
+        String describe() {
+            return "這是一台車";
+        }
+    }
+
+    static class Car extends Vehicle {
+        String brand;
+        String model;
+
+        Car(String brand, String model) {
+            this.brand = brand;
+            this.model = model;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + "\n品牌: " + brand + " 型號: " + model;
+        }
+    }
+
+    static class SportsCar extends Car {
+        int horsepower;
+
+        SportsCar(String brand, String model, int horsepower) {
+            super(brand, model);
+            this.horsepower = horsepower;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + "\n馬力: " + horsepower;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String brand = sc.next();
+        String model = sc.next();
+        int horsepower = sc.nextInt();
+        SportsCar car = new SportsCar(brand, model, horsepower);
+        System.out.println(car.describe());
+    }
+}
+
+== 範例 1 輸入 ==
+Toyota Corolla 140
+== 範例 1 輸出 ==
+這是一台車
+品牌: Toyota 型號: Corolla
+馬力: 140
+
+== 範例 2 輸入 ==
+Ferrari F8 720
+== 範例 2 輸出 ==
+這是一台車
+品牌: Ferrari 型號: F8
+馬力: 720

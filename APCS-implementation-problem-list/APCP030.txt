@@ -1,0 +1,47 @@
+APCS 實作題 APCP030 螺旋矩陣輸出
+
+難度：中等
+主題：二維陣列
+
+== 題目 ==
+給定一個 r 列 c 行的整數矩陣，請依照「由左上角開始，順時針方向、由外而內」的順序，將所有元素輸出成一行。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：一行，依螺旋順序輸出所有元素，以空白分隔。
+
+== 參考解法 (Python) ==
+r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+top, bottom, left, right = 0, r - 1, 0, c - 1
+res = []
+while top <= bottom and left <= right:
+    for j in range(left, right + 1):
+        res.append(mat[top][j])
+    top += 1
+    for i in range(top, bottom + 1):
+        res.append(mat[i][right])
+    right -= 1
+    if top <= bottom:
+        for j in range(right, left - 1, -1):
+            res.append(mat[bottom][j])
+        bottom -= 1
+    if left <= right:
+        for i in range(bottom, top - 1, -1):
+            res.append(mat[i][left])
+        left += 1
+print(' '.join(map(str, res)))
+
+== 範例 1 輸入 ==
+3 3
+1 2 3
+4 5 6
+7 8 9
+== 範例 1 輸出 ==
+1 2 3 6 9 8 7 4 5
+
+== 範例 2 輸入 ==
+2 2
+1 2
+3 4
+== 範例 2 輸出 ==
+1 2 4 3

@@ -1,0 +1,40 @@
+TQC+ 程式語言C# CSD201  奇偶數判斷與計數
+
+難度：簡單
+主題：控制流程
+
+== 題目 ==
+輸入 n 個整數（同一行，以空白分隔），統計其中奇數與偶數的個數。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「奇數:X 偶數:Y」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int odd = 0, even = 0;
+        foreach (int x in nums)
+        {
+            if (x % 2 == 0) even++;
+            else odd++;
+        }
+        Console.WriteLine($"奇數:{odd} 偶數:{even}");
+    }
+}
+
+== 範例 1 輸入 ==
+1 2 3 4 5
+== 範例 1 輸出 ==
+奇數:3 偶數:2
+
+== 範例 2 輸入 ==
+2 4 6 8
+== 範例 2 輸出 ==
+奇數:0 偶數:4

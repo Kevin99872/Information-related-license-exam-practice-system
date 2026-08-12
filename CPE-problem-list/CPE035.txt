@@ -1,0 +1,36 @@
+CPE Breaking Chocolate
+
+難度：簡單
+來源：原創（巧克力分割基礎題型）
+
+== 題目 ==
+一塊 n x m 的巧克力，每次只能沿一條直線把一塊巧克力掰成兩塊。求要把整塊巧克力掰成 n*m 塊 1x1 小塊，最少需要幾次 (答案恆為 n*m-1，與掰法順序無關)。
+
+輸入說明：每行兩個正整數 n 與 m，處理到檔案結尾。
+輸出說明：每行輸出最少次數。
+
+== 參考解法 (Python) ==
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, m = map(int, line.split())
+    print(n * m - 1)
+
+== 範例 1 輸入 ==
+2 3
+1 1
+5 5
+== 範例 1 輸出 ==
+5
+0
+24
+
+== 範例 2 輸入 ==
+10 10
+1 100
+== 範例 2 輸出 ==
+99
+99

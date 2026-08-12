@@ -1,0 +1,41 @@
+TQC+ 程式語言Java JAD408  遞迴計算最大公因數與最小公倍數
+
+難度：困難
+主題：方法
+
+== 題目 ==
+撰寫遞迴方法計算兩個正整數的最大公因數（GCD），並利用 GCD 計算最小公倍數（LCM = a * b / GCD）。
+
+輸入說明：一行，兩個正整數 a、b，以空白分隔。
+輸出說明：一行，格式為「GCD: x LCM: y」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int g = gcd(a, b);
+        long lcm = (long) a * b / g;
+        System.out.println("GCD: " + g + " LCM: " + lcm);
+    }
+}
+
+== 範例 1 輸入 ==
+12 18
+== 範例 1 輸出 ==
+GCD: 6 LCM: 36
+
+== 範例 2 輸入 ==
+7 13
+== 範例 2 輸出 ==
+GCD: 1 LCM: 91

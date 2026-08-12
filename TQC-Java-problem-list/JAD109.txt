@@ -1,0 +1,39 @@
+TQC+ 程式語言Java JAD109  秒數轉換為時分秒
+
+難度：中等
+主題：格式化輸出
+
+== 題目 ==
+輸入一個非負整數秒數 s，將其轉換為「時:分:秒」格式，時、分、秒皆以兩位數呈現，不足補零。
+
+輸入說明：一行一個整數 s (0<=s<=359999)。
+輸出說明：一行，格式為「hh:mm:ss」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        int h = s / 3600;
+        int m = (s % 3600) / 60;
+        int sec = s % 60;
+        System.out.printf("%02d:%02d:%02d%n", h, m, sec);
+    }
+}
+
+== 範例 1 輸入 ==
+3661
+== 範例 1 輸出 ==
+01:01:01
+
+== 範例 2 輸入 ==
+59
+== 範例 2 輸出 ==
+00:00:59
+
+== 範例 3 輸入 ==
+7325
+== 範例 3 輸出 ==
+02:02:05

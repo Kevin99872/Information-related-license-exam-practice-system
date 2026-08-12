@@ -1,0 +1,72 @@
+TQC+ 程式語言Java JAD409  多個物件排序
+
+難度：困難
+主題：物件導向
+
+== 題目 ==
+定義類別 Student，含欄位 name（String）與 score（int）。輸入 n 筆學生資料，依分數由高到低排序後輸出；若分數相同，則依姓名字典序（由小到大）排列。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為姓名與分數，以空白分隔。
+輸出說明：n 行，排序後的「姓名 分數」。
+
+== 參考解法 (Java) ==
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String name = sc.next();
+            int score = sc.nextInt();
+            students.add(new Student(name, score));
+        }
+
+        students.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student a, Student b) {
+                if (a.score != b.score) {
+                    return b.score - a.score;
+                }
+                return a.name.compareTo(b.name);
+            }
+        });
+
+        for (Student s : students) {
+            System.out.println(s.name + " " + s.score);
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+3
+Amy 88
+Bob 92
+Cathy 92
+== 範例 1 輸出 ==
+Bob 92
+Cathy 92
+Amy 88
+
+== 範例 2 輸入 ==
+2
+Tom 60
+Jerry 75
+== 範例 2 輸出 ==
+Jerry 75
+Tom 60

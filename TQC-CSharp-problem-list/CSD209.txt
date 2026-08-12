@@ -1,0 +1,44 @@
+TQC+ 程式語言C# CSD209  星期幾判斷
+
+難度：中等
+主題：控制流程
+
+== 題目 ==
+輸入一個 1~7 的整數代表星期幾（1 為星期一，7 為星期日），使用 switch 陳述式輸出對應的星期名稱，並標示是否為假日（星期六、日為假日，其餘為平日）。
+
+輸入說明：一行整數 d（1 <= d <= 7）。
+輸出說明：一行，格式為「星期X：假日」或「星期X：平日」，其中星期日以「星期日」表示。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int d = int.Parse(Console.ReadLine() ?? "1");
+        string name;
+        switch (d)
+        {
+            case 1: name = "星期一"; break;
+            case 2: name = "星期二"; break;
+            case 3: name = "星期三"; break;
+            case 4: name = "星期四"; break;
+            case 5: name = "星期五"; break;
+            case 6: name = "星期六"; break;
+            default: name = "星期日"; break;
+        }
+        string kind = (d == 6 || d == 7) ? "假日" : "平日";
+        Console.WriteLine($"{name}：{kind}");
+    }
+}
+
+== 範例 1 輸入 ==
+6
+== 範例 1 輸出 ==
+星期六：假日
+
+== 範例 2 輸入 ==
+3
+== 範例 2 輸出 ==
+星期三：平日

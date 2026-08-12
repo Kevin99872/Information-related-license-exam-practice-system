@@ -1,0 +1,53 @@
+TQC+ 程式語言Java JAD604  自訂例外：年齡驗證
+
+難度：中等
+主題：例外處理
+
+== 題目 ==
+定義自訂例外類別 InvalidAgeException（繼承 Exception）。撰寫方法檢查年齡是否介於 0 到 150 之間，若超出範圍則拋出 InvalidAgeException；於 main 中呼叫並捕捉例外。
+
+輸入說明：一行一個整數，代表年齡。
+輸出說明：一行，若年齡合法輸出「年齡合法: n」，否則輸出「年齡不合法: n」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static class InvalidAgeException extends Exception {
+        InvalidAgeException(String message) {
+            super(message);
+        }
+    }
+
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 150) {
+            throw new InvalidAgeException("年齡不合法: " + age);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = sc.nextInt();
+        try {
+            checkAge(age);
+            System.out.println("年齡合法: " + age);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+25
+== 範例 1 輸出 ==
+年齡合法: 25
+
+== 範例 2 輸入 ==
+200
+== 範例 2 輸出 ==
+年齡不合法: 200
+
+== 範例 3 輸入 ==
+-5
+== 範例 3 輸出 ==
+年齡不合法: -5

@@ -1,0 +1,58 @@
+TQC+ 程式語言C# CSD602  自訂例外餘額不足
+
+難度：中等
+主題：例外處理
+
+== 題目 ==
+定義自訂例外類別 InsufficientBalanceException（繼承 Exception）。撰寫方法 Withdraw(balance, amount)，若 amount 大於 balance 則拋出 InsufficientBalanceException 並附上訊息「餘額不足」，否則回傳提款後的餘額。使用 try-catch 呼叫此方法並輸出結果。
+
+輸入說明：一行，兩個以空白分隔的整數 balance amount。
+輸出說明：一行，若可提款成功輸出「餘額:X」，否則輸出例外訊息「餘額不足」。
+
+== 參考解法 (C#) ==
+using System;
+
+class InsufficientBalanceException : Exception
+{
+    public InsufficientBalanceException(string message) : base(message)
+    {
+    }
+}
+
+class Program
+{
+    static int Withdraw(int balance, int amount)
+    {
+        if (amount > balance)
+        {
+            throw new InsufficientBalanceException("餘額不足");
+        }
+        return balance - amount;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? "").Split(' ');
+        int balance = int.Parse(parts[0]);
+        int amount = int.Parse(parts[1]);
+        try
+        {
+            int result = Withdraw(balance, amount);
+            Console.WriteLine($"餘額:{result}");
+        }
+        catch (InsufficientBalanceException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+1000 300
+== 範例 1 輸出 ==
+餘額:700
+
+== 範例 2 輸入 ==
+100 500
+== 範例 2 輸出 ==
+餘額不足

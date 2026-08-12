@@ -1,0 +1,38 @@
+TQC+ 程式語言Java JAD103  圓面積與周長
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入一個圓的半徑 r（浮點數），以 π=3.14159 計算圓面積與周長，結果四捨五入至小數點後兩位輸出。
+
+輸入說明：一行一個浮點數 r (0 < r < 1000)。
+輸出說明：兩行，格式為「面積 = xx.xx」與「周長 = xx.xx」。
+
+== 參考解法 (Java) ==
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double r = sc.nextDouble();
+        double pi = 3.14159;
+        double area = pi * r * r;
+        double perimeter = 2 * pi * r;
+        System.out.printf(Locale.US, "面積 = %.2f%n", area);
+        System.out.printf(Locale.US, "周長 = %.2f%n", perimeter);
+    }
+}
+
+== 範例 1 輸入 ==
+1
+== 範例 1 輸出 ==
+面積 = 3.14
+周長 = 6.28
+
+== 範例 2 輸入 ==
+3
+== 範例 2 輸出 ==
+面積 = 28.27
+周長 = 18.85

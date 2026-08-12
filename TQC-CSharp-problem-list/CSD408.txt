@@ -1,0 +1,40 @@
+TQC+ 程式語言C# CSD408  方法回傳篩選後陣列
+
+難度：中等
+主題：方法
+
+== 題目 ==
+撰寫方法 FilterEven，接受一個整數陣列，回傳只包含偶數的新陣列（保持原順序）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，篩選出的偶數，以空白分隔；若無偶數則輸出空行。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static int[] FilterEven(int[] arr)
+    {
+        return arr.Where(x => x % 2 == 0).ToArray();
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int[] result = FilterEven(nums);
+        Console.WriteLine(string.Join(" ", result));
+    }
+}
+
+== 範例 1 輸入 ==
+1 2 3 4 5 6
+== 範例 1 輸出 ==
+2 4 6
+
+== 範例 2 輸入 ==
+7 9 11 4
+== 範例 2 輸出 ==
+4

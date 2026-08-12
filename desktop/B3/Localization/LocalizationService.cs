@@ -167,6 +167,8 @@ public class LocalizationService : INotifyPropertyChanged
         ["StartPractice"] = ("開始練習", "Start Practice"),
         ["HotBanks"] = ("熱門考照題庫", "Popular Exam Banks"),
         ["HotBanksDesc"] = ("熱門題庫卡片即時顯示進度，支援每日自我練習", "Popular bank cards show live progress and support daily practice"),
+        ["NoBanksTitle"] = ("尚無題庫", "No banks yet"),
+        ["NoBanksDesc"] = ("匯入第一份題庫 CSV / XLS / XLSX，即可在這裡看到練習卡片。", "Import your first CSV / XLS / XLSX bank to see practice cards here."),
 
         // 題庫頁
         ["SearchBankName"] = ("搜尋題庫名稱...", "Search bank name..."),

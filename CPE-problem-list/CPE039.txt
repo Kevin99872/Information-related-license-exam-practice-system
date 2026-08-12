@@ -1,0 +1,61 @@
+CPE Anagram Groups
+
+難度：中等
+來源：原創（字母重組 / Anagram 分組基礎題型）
+
+== 題目 ==
+給定 n 個單字，將由相同字母組成 (不分大小寫、不計順序) 的單字視為同一組。
+
+輸入說明：第一行為 n；接著 n 行，每行一個單字。處理到檔案結尾直到 n=0。
+輸出說明：每組測資輸出若干行，每行代表一組，該行列出屬於同一組的所有單字 (依原始輸入出現順序，以空白分隔)；各組依「該組第一個出現的單字在輸入中的順序」輸出。
+
+== 參考解法 (Python) ==
+import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+blocks = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx].strip())
+        idx += 1
+    groups = {}
+    order = []
+    for w in words:
+        key = ''.join(sorted(w.lower()))
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        groups[key].append(w)
+    lines = [' '.join(groups[k]) for k in order]
+    blocks.append('\n'.join(lines))
+print('\n'.join(blocks))
+
+== 範例 1 輸入 ==
+5
+listen
+silent
+cat
+act
+dog
+== 範例 1 輸出 ==
+listen silent
+cat act
+dog
+
+== 範例 2 輸入 ==
+3
+abc
+ABC
+xyz
+== 範例 2 輸出 ==
+abc ABC
+xyz

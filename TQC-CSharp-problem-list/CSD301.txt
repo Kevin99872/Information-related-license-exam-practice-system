@@ -1,0 +1,35 @@
+TQC+ 程式語言C# CSD301  字串反轉
+
+難度：簡單
+主題：字串
+
+== 題目 ==
+輸入一個字串，將其反轉後輸出。
+
+輸入說明：一行字串 s（不含空白，長度 1~100）。
+輸出說明：一行，s 反轉後的結果。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? "";
+        char[] arr = s.ToCharArray();
+        Array.Reverse(arr);
+        Console.WriteLine(new string(arr));
+    }
+}
+
+== 範例 1 輸入 ==
+hello
+== 範例 1 輸出 ==
+olleh
+
+== 範例 2 輸入 ==
+ABCDE
+== 範例 2 輸出 ==
+EDCBA

@@ -1,0 +1,3348 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+JAD101,TQC,整數欄寬輸出,"輸入一個整數 n，請以總欄寬 6 個字元、右對齊的格式輸出（不足的位數以空白補齊）。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，右對齊、欄寬為 6 的 n。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.printf(""%6d%n"", n);
+    }
+}",0,True,42,    42
+JAD101,TQC,整數欄寬輸出,"輸入一個整數 n，請以總欄寬 6 個字元、右對齊的格式輸出（不足的位數以空白補齊）。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，右對齊、欄寬為 6 的 n。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.printf(""%6d%n"", n);
+    }
+}",1,True,-7,    -7
+JAD102,TQC,四則運算格式化輸出,"輸入兩個整數 a 與 b（b 不為 0），依序輸出 a+b、a-b、a*b、a/b（整數除法）與 a%b 的結果，每個結果各占一行。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：五行，格式依序為「a + b = 結果」「a - b = 結果」「a * b = 結果」「a / b = 結果」「a % b = 結果」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + "" + "" + b + "" = "" + (a + b));
+        System.out.println(a + "" - "" + b + "" = "" + (a - b));
+        System.out.println(a + "" * "" + b + "" = "" + (a * b));
+        System.out.println(a + "" / "" + b + "" = "" + (a / b));
+        System.out.println(a + "" % "" + b + "" = "" + (a % b));
+    }
+}",0,True,7 2,"7 + 2 = 9
+7 - 2 = 5
+7 * 2 = 14
+7 / 2 = 3
+7 % 2 = 1"
+JAD102,TQC,四則運算格式化輸出,"輸入兩個整數 a 與 b（b 不為 0），依序輸出 a+b、a-b、a*b、a/b（整數除法）與 a%b 的結果，每個結果各占一行。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：五行，格式依序為「a + b = 結果」「a - b = 結果」「a * b = 結果」「a / b = 結果」「a % b = 結果」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + "" + "" + b + "" = "" + (a + b));
+        System.out.println(a + "" - "" + b + "" = "" + (a - b));
+        System.out.println(a + "" * "" + b + "" = "" + (a * b));
+        System.out.println(a + "" / "" + b + "" = "" + (a / b));
+        System.out.println(a + "" % "" + b + "" = "" + (a % b));
+    }
+}",1,True,-9 4,"-9 + 4 = -5
+-9 - 4 = -13
+-9 * 4 = -36
+-9 / 4 = -2
+-9 % 4 = -1"
+JAD103,TQC,圓面積與周長,"輸入一個圓的半徑 r（浮點數），以 π=3.14159 計算圓面積與周長，結果四捨五入至小數點後兩位輸出。
+
+輸入說明：一行一個浮點數 r (0 < r < 1000)。
+輸出說明：兩行，格式為「面積 = xx.xx」與「周長 = xx.xx」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double r = sc.nextDouble();
+        double pi = 3.14159;
+        double area = pi * r * r;
+        double perimeter = 2 * pi * r;
+        System.out.printf(Locale.US, ""面積 = %.2f%n"", area);
+        System.out.printf(Locale.US, ""周長 = %.2f%n"", perimeter);
+    }
+}",0,True,1,"面積 = 3.14
+周長 = 6.28"
+JAD103,TQC,圓面積與周長,"輸入一個圓的半徑 r（浮點數），以 π=3.14159 計算圓面積與周長，結果四捨五入至小數點後兩位輸出。
+
+輸入說明：一行一個浮點數 r (0 < r < 1000)。
+輸出說明：兩行，格式為「面積 = xx.xx」與「周長 = xx.xx」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double r = sc.nextDouble();
+        double pi = 3.14159;
+        double area = pi * r * r;
+        double perimeter = 2 * pi * r;
+        System.out.printf(Locale.US, ""面積 = %.2f%n"", area);
+        System.out.printf(Locale.US, ""周長 = %.2f%n"", perimeter);
+    }
+}",1,True,3,"面積 = 28.27
+周長 = 18.85"
+JAD104,TQC,個人資料輸出,"輸入姓名與年齡，輸出一句自我介紹。
+
+輸入說明：一行，姓名與年齡以空白分隔（姓名不含空白）。
+輸出說明：一行，格式為「我是 姓名，今年 年齡 歲。」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int age = sc.nextInt();
+        System.out.println(""我是 "" + name + ""，今年 "" + age + "" 歲。"");
+    }
+}",0,True,小明 20,我是 小明，今年 20 歲。
+JAD104,TQC,個人資料輸出,"輸入姓名與年齡，輸出一句自我介紹。
+
+輸入說明：一行，姓名與年齡以空白分隔（姓名不含空白）。
+輸出說明：一行，格式為「我是 姓名，今年 年齡 歲。」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int age = sc.nextInt();
+        System.out.println(""我是 "" + name + ""，今年 "" + age + "" 歲。"");
+    }
+}",1,True,Amy 17,我是 Amy，今年 17 歲。
+JAD105,TQC,三科成績平均,"輸入三科成績（整數），計算平均分數，四捨五入至小數點後兩位輸出。
+
+輸入說明：一行，三個整數，以空白分隔。
+輸出說明：一行，格式為「平均 = xx.xx」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        double avg = (a + b + c) / 3.0;
+        System.out.printf(Locale.US, ""平均 = %.2f%n"", avg);
+    }
+}",0,True,80 90 100,平均 = 90.00
+JAD105,TQC,三科成績平均,"輸入三科成績（整數），計算平均分數，四捨五入至小數點後兩位輸出。
+
+輸入說明：一行，三個整數，以空白分隔。
+輸出說明：一行，格式為「平均 = xx.xx」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        double avg = (a + b + c) / 3.0;
+        System.out.printf(Locale.US, ""平均 = %.2f%n"", avg);
+    }
+}",1,True,70 85 77,平均 = 77.33
+JAD106,TQC,九九乘法表單列,"輸入一個整數 n (1<=n<=9)，輸出 n 的乘法表，從 n*1 到 n*9。
+
+輸入說明：一行一個整數 n。
+輸出說明：九行，每行格式為「n * i = 結果」，i 由 1 到 9。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for (int i = 1; i <= 9; i++) {
+            System.out.println(n + "" * "" + i + "" = "" + (n * i));
+        }
+    }
+}",0,True,3,"3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+3 * 4 = 12
+3 * 5 = 15
+3 * 6 = 18
+3 * 7 = 21
+3 * 8 = 24
+3 * 9 = 27"
+JAD106,TQC,九九乘法表單列,"輸入一個整數 n (1<=n<=9)，輸出 n 的乘法表，從 n*1 到 n*9。
+
+輸入說明：一行一個整數 n。
+輸出說明：九行，每行格式為「n * i = 結果」，i 由 1 到 9。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for (int i = 1; i <= 9; i++) {
+            System.out.println(n + "" * "" + i + "" = "" + (n * i));
+        }
+    }
+}",1,True,9,"9 * 1 = 9
+9 * 2 = 18
+9 * 3 = 27
+9 * 4 = 36
+9 * 5 = 45
+9 * 6 = 54
+9 * 7 = 63
+9 * 8 = 72
+9 * 9 = 81"
+JAD107,TQC,消費金額千分位輸出,"輸入購買數量與單價，計算總金額，並以千分位符號、小數點後兩位的格式輸出。
+
+輸入說明：一行，數量（整數）與單價（浮點數），以空白分隔。
+輸出說明：一行，格式為「總金額: $x,xxx.xx」。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int qty = sc.nextInt();
+        double price = sc.nextDouble();
+        double total = qty * price;
+        System.out.printf(Locale.US, ""總金額: $%,.2f%n"", total);
+    }
+}",0,True,3 199.5,總金額: $598.50
+JAD107,TQC,消費金額千分位輸出,"輸入購買數量與單價，計算總金額，並以千分位符號、小數點後兩位的格式輸出。
+
+輸入說明：一行，數量（整數）與單價（浮點數），以空白分隔。
+輸出說明：一行，格式為「總金額: $x,xxx.xx」。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int qty = sc.nextInt();
+        double price = sc.nextDouble();
+        double total = qty * price;
+        System.out.printf(Locale.US, ""總金額: $%,.2f%n"", total);
+    }
+}",1,True,1000 12.5,"總金額: $12,500.00"
+JAD108,TQC,攝氏轉華氏,"輸入攝氏溫度（浮點數），依公式 F = C * 9 / 5 + 32 轉換為華氏溫度，輸出至小數點後一位。
+
+輸入說明：一行一個浮點數，代表攝氏溫度。
+輸出說明：一行，格式為「華氏溫度: xx.x」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double c = sc.nextDouble();
+        double f = c * 9 / 5 + 32;
+        System.out.printf(Locale.US, ""華氏溫度: %.1f%n"", f);
+    }
+}",0,True,0,華氏溫度: 32.0
+JAD108,TQC,攝氏轉華氏,"輸入攝氏溫度（浮點數），依公式 F = C * 9 / 5 + 32 轉換為華氏溫度，輸出至小數點後一位。
+
+輸入說明：一行一個浮點數，代表攝氏溫度。
+輸出說明：一行，格式為「華氏溫度: xx.x」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double c = sc.nextDouble();
+        double f = c * 9 / 5 + 32;
+        System.out.printf(Locale.US, ""華氏溫度: %.1f%n"", f);
+    }
+}",1,True,100,華氏溫度: 212.0
+JAD108,TQC,攝氏轉華氏,"輸入攝氏溫度（浮點數），依公式 F = C * 9 / 5 + 32 轉換為華氏溫度，輸出至小數點後一位。
+
+輸入說明：一行一個浮點數，代表攝氏溫度。
+輸出說明：一行，格式為「華氏溫度: xx.x」。",1,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double c = sc.nextDouble();
+        double f = c * 9 / 5 + 32;
+        System.out.printf(Locale.US, ""華氏溫度: %.1f%n"", f);
+    }
+}",2,True,37.5,華氏溫度: 99.5
+JAD109,TQC,秒數轉換為時分秒,"輸入一個非負整數秒數 s，將其轉換為「時:分:秒」格式，時、分、秒皆以兩位數呈現，不足補零。
+
+輸入說明：一行一個整數 s (0<=s<=359999)。
+輸出說明：一行，格式為「hh:mm:ss」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        int h = s / 3600;
+        int m = (s % 3600) / 60;
+        int sec = s % 60;
+        System.out.printf(""%02d:%02d:%02d%n"", h, m, sec);
+    }
+}",0,True,3661,01:01:01
+JAD109,TQC,秒數轉換為時分秒,"輸入一個非負整數秒數 s，將其轉換為「時:分:秒」格式，時、分、秒皆以兩位數呈現，不足補零。
+
+輸入說明：一行一個整數 s (0<=s<=359999)。
+輸出說明：一行，格式為「hh:mm:ss」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        int h = s / 3600;
+        int m = (s % 3600) / 60;
+        int sec = s % 60;
+        System.out.printf(""%02d:%02d:%02d%n"", h, m, sec);
+    }
+}",1,True,59,00:00:59
+JAD109,TQC,秒數轉換為時分秒,"輸入一個非負整數秒數 s，將其轉換為「時:分:秒」格式，時、分、秒皆以兩位數呈現，不足補零。
+
+輸入說明：一行一個整數 s (0<=s<=359999)。
+輸出說明：一行，格式為「hh:mm:ss」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        int h = s / 3600;
+        int m = (s % 3600) / 60;
+        int sec = s % 60;
+        System.out.printf(""%02d:%02d:%02d%n"", h, m, sec);
+    }
+}",2,True,7325,02:02:05
+JAD201,TQC,奇偶數判斷,"輸入一個整數，判斷它是奇數還是偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，若為偶數輸出「偶數」，否則輸出「奇數」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if (n % 2 == 0) {
+            System.out.println(""偶數"");
+        } else {
+            System.out.println(""奇數"");
+        }
+    }
+}",0,True,7,奇數
+JAD201,TQC,奇偶數判斷,"輸入一個整數，判斷它是奇數還是偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，若為偶數輸出「偶數」，否則輸出「奇數」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if (n % 2 == 0) {
+            System.out.println(""偶數"");
+        } else {
+            System.out.println(""奇數"");
+        }
+    }
+}",1,True,10,偶數
+JAD202,TQC,三數最大值,"輸入三個整數，輸出其中的最大值。
+
+輸入說明：一行，三個整數，以空白分隔。
+輸出說明：一行，三數中的最大值。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int max = a;
+        if (b > max) {
+            max = b;
+        }
+        if (c > max) {
+            max = c;
+        }
+        System.out.println(max);
+    }
+}",0,True,3 9 5,9
+JAD202,TQC,三數最大值,"輸入三個整數，輸出其中的最大值。
+
+輸入說明：一行，三個整數，以空白分隔。
+輸出說明：一行，三數中的最大值。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int max = a;
+        if (b > max) {
+            max = b;
+        }
+        if (c > max) {
+            max = c;
+        }
+        System.out.println(max);
+    }
+}",1,True,-2 -8 -1,-1
+JAD203,TQC,成績等級判定,"輸入一個整數分數（0~100），依照範圍判定等級：90 分以上為 A，80~89 為 B，70~79 為 C，60~69 為 D，60 分以下為 E。
+
+輸入說明：一行一個整數 score (0<=score<=100)。
+輸出說明：一行，對應的等級字母。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int score = sc.nextInt();
+        String grade;
+        if (score >= 90) {
+            grade = ""A"";
+        } else if (score >= 80) {
+            grade = ""B"";
+        } else if (score >= 70) {
+            grade = ""C"";
+        } else if (score >= 60) {
+            grade = ""D"";
+        } else {
+            grade = ""E"";
+        }
+        System.out.println(grade);
+    }
+}",0,True,95,A
+JAD203,TQC,成績等級判定,"輸入一個整數分數（0~100），依照範圍判定等級：90 分以上為 A，80~89 為 B，70~79 為 C，60~69 為 D，60 分以下為 E。
+
+輸入說明：一行一個整數 score (0<=score<=100)。
+輸出說明：一行，對應的等級字母。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int score = sc.nextInt();
+        String grade;
+        if (score >= 90) {
+            grade = ""A"";
+        } else if (score >= 80) {
+            grade = ""B"";
+        } else if (score >= 70) {
+            grade = ""C"";
+        } else if (score >= 60) {
+            grade = ""D"";
+        } else {
+            grade = ""E"";
+        }
+        System.out.println(grade);
+    }
+}",1,True,82,B
+JAD203,TQC,成績等級判定,"輸入一個整數分數（0~100），依照範圍判定等級：90 分以上為 A，80~89 為 B，70~79 為 C，60~69 為 D，60 分以下為 E。
+
+輸入說明：一行一個整數 score (0<=score<=100)。
+輸出說明：一行，對應的等級字母。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int score = sc.nextInt();
+        String grade;
+        if (score >= 90) {
+            grade = ""A"";
+        } else if (score >= 80) {
+            grade = ""B"";
+        } else if (score >= 70) {
+            grade = ""C"";
+        } else if (score >= 60) {
+            grade = ""D"";
+        } else {
+            grade = ""E"";
+        }
+        System.out.println(grade);
+    }
+}",2,True,55,E
+JAD204,TQC,陣列最大值與最小值,"輸入 n 個整數，輸出其中的最大值與最小值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「最大值: x 最小值: y」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int max = arr[0];
+        int min = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        System.out.println(""最大值: "" + max + "" 最小值: "" + min);
+    }
+}",0,True,"5
+3 7 2 9 4",最大值: 9 最小值: 2
+JAD204,TQC,陣列最大值與最小值,"輸入 n 個整數，輸出其中的最大值與最小值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「最大值: x 最小值: y」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int max = arr[0];
+        int min = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        System.out.println(""最大值: "" + max + "" 最小值: "" + min);
+    }
+}",1,True,"4
+-3 -7 -2 -9",最大值: -2 最小值: -9
+JAD205,TQC,陣列反轉輸出,"輸入 n 個整數，將陣列反轉後，於同一行以空白分隔輸出。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，反轉後的 n 個整數，以空白分隔。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = n - 1; i >= 0; i--) {
+            sb.append(arr[i]);
+            if (i > 0) {
+                sb.append(' ');
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}",0,True,"5
+1 2 3 4 5",5 4 3 2 1
+JAD205,TQC,陣列反轉輸出,"輸入 n 個整數，將陣列反轉後，於同一行以空白分隔輸出。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，反轉後的 n 個整數，以空白分隔。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = n - 1; i >= 0; i--) {
+            sb.append(arr[i]);
+            if (i > 0) {
+                sb.append(' ');
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}",1,True,"3
+10 20 30",30 20 10
+JAD206,TQC,質數判斷,"輸入一個大於 1 的整數，判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=100000)。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        boolean isPrime = true;
+        if (n < 2) {
+            isPrime = false;
+        }
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        System.out.println(isPrime ? ""是質數"" : ""不是質數"");
+    }
+}",0,True,7,是質數
+JAD206,TQC,質數判斷,"輸入一個大於 1 的整數，判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=100000)。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        boolean isPrime = true;
+        if (n < 2) {
+            isPrime = false;
+        }
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        System.out.println(isPrime ? ""是質數"" : ""不是質數"");
+    }
+}",1,True,15,不是質數
+JAD206,TQC,質數判斷,"輸入一個大於 1 的整數，判斷它是否為質數。
+
+輸入說明：一行一個整數 n (2<=n<=100000)。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        boolean isPrime = true;
+        if (n < 2) {
+            isPrime = false;
+        }
+        for (int i = 2; (long) i * i <= n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        System.out.println(isPrime ? ""是質數"" : ""不是質數"");
+    }
+}",2,True,97,是質數
+JAD207,TQC,陣列去重計數,"輸入 n 個整數，計算其中不重複的元素個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「不重複元素個數: x」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            boolean seenBefore = false;
+            for (int j = 0; j < i; j++) {
+                if (arr[j] == arr[i]) {
+                    seenBefore = true;
+                    break;
+                }
+            }
+            if (!seenBefore) {
+                count++;
+            }
+        }
+        System.out.println(""不重複元素個數: "" + count);
+    }
+}",0,True,"6
+1 2 2 3 3 3",不重複元素個數: 3
+JAD207,TQC,陣列去重計數,"輸入 n 個整數，計算其中不重複的元素個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「不重複元素個數: x」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            boolean seenBefore = false;
+            for (int j = 0; j < i; j++) {
+                if (arr[j] == arr[i]) {
+                    seenBefore = true;
+                    break;
+                }
+            }
+            if (!seenBefore) {
+                count++;
+            }
+        }
+        System.out.println(""不重複元素個數: "" + count);
+    }
+}",1,True,"5
+4 4 4 4 4",不重複元素個數: 1
+JAD208,TQC,陣列排序後找中位數,"輸入 n 個整數，排序後輸出中位數。若 n 為奇數，中位數為排序後正中間的元素；若 n 為偶數，中位數為排序後正中間兩個元素的平均值。結果一律輸出到小數點後一位。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，中位數，格式到小數點後一位。",3,Active,Java,"import java.util.Arrays;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        Arrays.sort(arr);
+        double median;
+        if (n % 2 == 1) {
+            median = arr[n / 2];
+        } else {
+            median = (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+        }
+        System.out.printf(Locale.US, ""%.1f%n"", median);
+    }
+}",0,True,"5
+5 3 1 4 2",3.0
+JAD208,TQC,陣列排序後找中位數,"輸入 n 個整數，排序後輸出中位數。若 n 為奇數，中位數為排序後正中間的元素；若 n 為偶數，中位數為排序後正中間兩個元素的平均值。結果一律輸出到小數點後一位。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，中位數，格式到小數點後一位。",3,Active,Java,"import java.util.Arrays;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        Arrays.sort(arr);
+        double median;
+        if (n % 2 == 1) {
+            median = arr[n / 2];
+        } else {
+            median = (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+        }
+        System.out.printf(Locale.US, ""%.1f%n"", median);
+    }
+}",1,True,"4
+4 3 2 1",2.5
+JAD209,TQC,二維陣列鞍點,"給定一個 m x n 的整數矩陣，找出其中的鞍點：該元素必須同時是所在列（row）的最大值，且是所在行（column）的最小值。保證矩陣中最多只有一個鞍點。
+
+輸入說明：第一行兩個整數 m n；接下來 m 行，每行 n 個整數，代表矩陣內容。
+輸出說明：一行，若存在鞍點則輸出其值，否則輸出「無鞍點」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        Integer saddle = null;
+        for (int i = 0; i < m && saddle == null; i++) {
+            int rowMax = matrix[i][0];
+            int rowMaxCol = 0;
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] > rowMax) {
+                    rowMax = matrix[i][j];
+                    rowMaxCol = j;
+                }
+            }
+            int colMin = matrix[0][rowMaxCol];
+            for (int k = 1; k < m; k++) {
+                if (matrix[k][rowMaxCol] < colMin) {
+                    colMin = matrix[k][rowMaxCol];
+                }
+            }
+            if (rowMax == colMin) {
+                saddle = rowMax;
+            }
+        }
+
+        System.out.println(saddle == null ? ""無鞍點"" : String.valueOf(saddle));
+    }
+}",0,True,"3 3
+1 2 3
+4 5 6
+7 8 9",3
+JAD209,TQC,二維陣列鞍點,"給定一個 m x n 的整數矩陣，找出其中的鞍點：該元素必須同時是所在列（row）的最大值，且是所在行（column）的最小值。保證矩陣中最多只有一個鞍點。
+
+輸入說明：第一行兩個整數 m n；接下來 m 行，每行 n 個整數，代表矩陣內容。
+輸出說明：一行，若存在鞍點則輸出其值，否則輸出「無鞍點」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        Integer saddle = null;
+        for (int i = 0; i < m && saddle == null; i++) {
+            int rowMax = matrix[i][0];
+            int rowMaxCol = 0;
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] > rowMax) {
+                    rowMax = matrix[i][j];
+                    rowMaxCol = j;
+                }
+            }
+            int colMin = matrix[0][rowMaxCol];
+            for (int k = 1; k < m; k++) {
+                if (matrix[k][rowMaxCol] < colMin) {
+                    colMin = matrix[k][rowMaxCol];
+                }
+            }
+            if (rowMax == colMin) {
+                saddle = rowMax;
+            }
+        }
+
+        System.out.println(saddle == null ? ""無鞍點"" : String.valueOf(saddle));
+    }
+}",1,True,"2 2
+1 2
+2 1",無鞍點
+JAD301,TQC,字串長度與反轉,"輸入一個字串，輸出它的長度以及反轉後的字串。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「長度: n」，第二行為「反轉: xxx」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(""長度: "" + s.length());
+        System.out.println(""反轉: "" + reversed);
+    }
+}",0,True,hello,"長度: 5
+反轉: olleh"
+JAD301,TQC,字串長度與反轉,"輸入一個字串，輸出它的長度以及反轉後的字串。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「長度: n」，第二行為「反轉: xxx」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(""長度: "" + s.length());
+        System.out.println(""反轉: "" + reversed);
+    }
+}",1,True,Java,"長度: 4
+反轉: avaJ"
+JAD302,TQC,大小寫轉換,"輸入一個字串，分別輸出它的全部大寫版本與全部小寫版本。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「大寫: XXX」，第二行為「小寫: xxx」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println(""大寫: "" + s.toUpperCase());
+        System.out.println(""小寫: "" + s.toLowerCase());
+    }
+}",0,True,HeLLo123,"大寫: HELLO123
+小寫: hello123"
+JAD302,TQC,大小寫轉換,"輸入一個字串，分別輸出它的全部大寫版本與全部小寫版本。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：兩行，第一行為「大寫: XXX」，第二行為「小寫: xxx」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println(""大寫: "" + s.toUpperCase());
+        System.out.println(""小寫: "" + s.toLowerCase());
+    }
+}",1,True,JavaTQC,"大寫: JAVATQC
+小寫: javatqc"
+JAD303,TQC,字元出現次數統計,"輸入一個字串與一個字元，計算該字元在字串中出現的次數。
+
+輸入說明：第一行一個字串（不含空白）；第二行一個字元。
+輸出說明：一行，格式為「出現次數: n」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        char target = sc.next().charAt(0);
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == target) {
+                count++;
+            }
+        }
+        System.out.println(""出現次數: "" + count);
+    }
+}",0,True,"banana
+a",出現次數: 3
+JAD303,TQC,字元出現次數統計,"輸入一個字串與一個字元，計算該字元在字串中出現的次數。
+
+輸入說明：第一行一個字串（不含空白）；第二行一個字元。
+輸出說明：一行，格式為「出現次數: n」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        char target = sc.next().charAt(0);
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == target) {
+                count++;
+            }
+        }
+        System.out.println(""出現次數: "" + count);
+    }
+}",1,True,"mississippi
+s",出現次數: 4
+JAD304,TQC,單字反轉但順序不變,"輸入一個以空白分隔多個單字的句子，將每個單字內部反轉，但單字的先後順序保持不變。
+
+輸入說明：一行句子，單字之間以一個空白分隔。
+輸出說明：一行，處理後的句子。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            sb.append(new StringBuilder(words[i]).reverse());
+            if (i < words.length - 1) {
+                sb.append(' ');
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}",0,True,I love Java,I evol avaJ
+JAD304,TQC,單字反轉但順序不變,"輸入一個以空白分隔多個單字的句子，將每個單字內部反轉，但單字的先後順序保持不變。
+
+輸入說明：一行句子，單字之間以一個空白分隔。
+輸出說明：一行，處理後的句子。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            sb.append(new StringBuilder(words[i]).reverse());
+            if (i < words.length - 1) {
+                sb.append(' ');
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}",1,True,hello world,olleh dlrow
+JAD305,TQC,字串分割與合併,"輸入一行以逗號分隔的整數字串，計算所有數字的總和，並將這些數字以「-」重新組合輸出。
+
+輸入說明：一行，數字以英文逗號「,」分隔，逗號前後無空白。
+輸出說明：兩行，第一行為「總和: x」，第二行為「組合: a-b-c...」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] parts = line.split("","");
+        int sum = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            sum += Integer.parseInt(parts[i]);
+            sb.append(parts[i]);
+            if (i < parts.length - 1) {
+                sb.append('-');
+            }
+        }
+        System.out.println(""總和: "" + sum);
+        System.out.println(""組合: "" + sb.toString());
+    }
+}",0,True,"3,5,2,8","總和: 18
+組合: 3-5-2-8"
+JAD305,TQC,字串分割與合併,"輸入一行以逗號分隔的整數字串，計算所有數字的總和，並將這些數字以「-」重新組合輸出。
+
+輸入說明：一行，數字以英文逗號「,」分隔，逗號前後無空白。
+輸出說明：兩行，第一行為「總和: x」，第二行為「組合: a-b-c...」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] parts = line.split("","");
+        int sum = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            sum += Integer.parseInt(parts[i]);
+            sb.append(parts[i]);
+            if (i < parts.length - 1) {
+                sb.append('-');
+            }
+        }
+        System.out.println(""總和: "" + sum);
+        System.out.println(""組合: "" + sb.toString());
+    }
+}",1,True,"10,20,30","總和: 60
+組合: 10-20-30"
+JAD306,TQC,判斷回文（忽略大小寫）,"輸入一個字串，忽略英文字母的大小寫差異，判斷它是否為回文（正讀反讀相同）。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若為回文輸出「是回文」，否則輸出「不是回文」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next().toLowerCase();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(s.equals(reversed) ? ""是回文"" : ""不是回文"");
+    }
+}",0,True,Level,是回文
+JAD306,TQC,判斷回文（忽略大小寫）,"輸入一個字串，忽略英文字母的大小寫差異，判斷它是否為回文（正讀反讀相同）。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若為回文輸出「是回文」，否則輸出「不是回文」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next().toLowerCase();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(s.equals(reversed) ? ""是回文"" : ""不是回文"");
+    }
+}",1,True,Hello,不是回文
+JAD306,TQC,判斷回文（忽略大小寫）,"輸入一個字串，忽略英文字母的大小寫差異，判斷它是否為回文（正讀反讀相同）。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若為回文輸出「是回文」，否則輸出「不是回文」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next().toLowerCase();
+        String reversed = new StringBuilder(s).reverse().toString();
+        System.out.println(s.equals(reversed) ? ""是回文"" : ""不是回文"");
+    }
+}",2,True,RaceCar,是回文
+JAD307,TQC,字串取代,"輸入一個字串，以及要被取代的目標子字串與替換後的字串，將原字串中所有出現的目標子字串取代掉並輸出結果。
+
+輸入說明：共三行，第一行為原字串（可能包含空白）；第二行為要被取代的子字串；第三行為替換後的字串。
+輸出說明：一行，取代後的結果字串。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String original = sc.nextLine();
+        String target = sc.nextLine();
+        String replacement = sc.nextLine();
+        System.out.println(original.replace(target, replacement));
+    }
+}",0,True,"I like cats and cats
+cats
+dogs",I like dogs and dogs
+JAD307,TQC,字串取代,"輸入一個字串，以及要被取代的目標子字串與替換後的字串，將原字串中所有出現的目標子字串取代掉並輸出結果。
+
+輸入說明：共三行，第一行為原字串（可能包含空白）；第二行為要被取代的子字串；第三行為替換後的字串。
+輸出說明：一行，取代後的結果字串。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String original = sc.nextLine();
+        String target = sc.nextLine();
+        String replacement = sc.nextLine();
+        System.out.println(original.replace(target, replacement));
+    }
+}",1,True,"banana split
+an
+AN",bANANa split
+JAD308,TQC,最長不重複子字串長度,"輸入一個只包含英文小寫字母的字串，找出其中最長「不含重複字元」的連續子字串，輸出其長度。
+
+輸入說明：一行一個字串（不含空白，僅由小寫英文字母組成）。
+輸出說明：一行，最長不重複子字串的長度。",3,Active,Java,"import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        Map<Character, Integer> lastSeen = new HashMap<>();
+        int maxLen = 0;
+        int start = 0;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (lastSeen.containsKey(c) && lastSeen.get(c) >= start) {
+                start = lastSeen.get(c) + 1;
+            }
+            lastSeen.put(c, end);
+            int currentLen = end - start + 1;
+            if (currentLen > maxLen) {
+                maxLen = currentLen;
+            }
+        }
+        System.out.println(maxLen);
+    }
+}",0,True,abcabcbb,3
+JAD308,TQC,最長不重複子字串長度,"輸入一個只包含英文小寫字母的字串，找出其中最長「不含重複字元」的連續子字串，輸出其長度。
+
+輸入說明：一行一個字串（不含空白，僅由小寫英文字母組成）。
+輸出說明：一行，最長不重複子字串的長度。",3,Active,Java,"import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        Map<Character, Integer> lastSeen = new HashMap<>();
+        int maxLen = 0;
+        int start = 0;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (lastSeen.containsKey(c) && lastSeen.get(c) >= start) {
+                start = lastSeen.get(c) + 1;
+            }
+            lastSeen.put(c, end);
+            int currentLen = end - start + 1;
+            if (currentLen > maxLen) {
+                maxLen = currentLen;
+            }
+        }
+        System.out.println(maxLen);
+    }
+}",1,True,bbbbb,1
+JAD308,TQC,最長不重複子字串長度,"輸入一個只包含英文小寫字母的字串，找出其中最長「不含重複字元」的連續子字串，輸出其長度。
+
+輸入說明：一行一個字串（不含空白，僅由小寫英文字母組成）。
+輸出說明：一行，最長不重複子字串的長度。",3,Active,Java,"import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        Map<Character, Integer> lastSeen = new HashMap<>();
+        int maxLen = 0;
+        int start = 0;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (lastSeen.containsKey(c) && lastSeen.get(c) >= start) {
+                start = lastSeen.get(c) + 1;
+            }
+            lastSeen.put(c, end);
+            int currentLen = end - start + 1;
+            if (currentLen > maxLen) {
+                maxLen = currentLen;
+            }
+        }
+        System.out.println(maxLen);
+    }
+}",2,True,pwwkew,3
+JAD309,TQC,字串壓縮（行程編碼）,"輸入一個只含大寫英文字母的字串，將連續重複出現的字元壓縮為「字元+出現次數」，若某字元只連續出現一次則只輸出該字元（不輸出 1）。若壓縮後的字串長度沒有比原字串短，則輸出原字串。
+
+輸入說明：一行一個字串（僅由大寫英文字母組成）。
+輸出說明：一行，壓縮後的字串，或原字串（當壓縮無法縮短長度時）。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            int count = 0;
+            while (i < s.length() && s.charAt(i) == c) {
+                count++;
+                i++;
+            }
+            sb.append(c);
+            if (count > 1) {
+                sb.append(count);
+            }
+        }
+        String compressed = sb.toString();
+        System.out.println(compressed.length() < s.length() ? compressed : s);
+    }
+}",0,True,AAABCCCC,A3BC4
+JAD309,TQC,字串壓縮（行程編碼）,"輸入一個只含大寫英文字母的字串，將連續重複出現的字元壓縮為「字元+出現次數」，若某字元只連續出現一次則只輸出該字元（不輸出 1）。若壓縮後的字串長度沒有比原字串短，則輸出原字串。
+
+輸入說明：一行一個字串（僅由大寫英文字母組成）。
+輸出說明：一行，壓縮後的字串，或原字串（當壓縮無法縮短長度時）。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            int count = 0;
+            while (i < s.length() && s.charAt(i) == c) {
+                count++;
+                i++;
+            }
+            sb.append(c);
+            if (count > 1) {
+                sb.append(count);
+            }
+        }
+        String compressed = sb.toString();
+        System.out.println(compressed.length() < s.length() ? compressed : s);
+    }
+}",1,True,ABCD,ABCD
+JAD309,TQC,字串壓縮（行程編碼）,"輸入一個只含大寫英文字母的字串，將連續重複出現的字元壓縮為「字元+出現次數」，若某字元只連續出現一次則只輸出該字元（不輸出 1）。若壓縮後的字串長度沒有比原字串短，則輸出原字串。
+
+輸入說明：一行一個字串（僅由大寫英文字母組成）。
+輸出說明：一行，壓縮後的字串，或原字串（當壓縮無法縮短長度時）。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            int count = 0;
+            while (i < s.length() && s.charAt(i) == c) {
+                count++;
+                i++;
+            }
+            sb.append(c);
+            if (count > 1) {
+                sb.append(count);
+            }
+        }
+        String compressed = sb.toString();
+        System.out.println(compressed.length() < s.length() ? compressed : s);
+    }
+}",2,True,AABBBCC,A2B3C2
+JAD401,TQC,靜態方法計算階乘,"撰寫一個方法計算 n 的階乘（n!），並於 main 方法中呼叫它輸出結果。
+
+輸入說明：一行一個整數 n (0<=n<=12)。
+輸出說明：一行，n 的階乘。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static long factorial(int n) {
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(factorial(n));
+    }
+}",0,True,5,120
+JAD401,TQC,靜態方法計算階乘,"撰寫一個方法計算 n 的階乘（n!），並於 main 方法中呼叫它輸出結果。
+
+輸入說明：一行一個整數 n (0<=n<=12)。
+輸出說明：一行，n 的階乘。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static long factorial(int n) {
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(factorial(n));
+    }
+}",1,True,0,1
+JAD402,TQC,方法多載計算面積,"撰寫兩個同名方法 area：一個接受一個參數（正方形邊長）回傳正方形面積，另一個接受兩個參數（矩形的長與寬）回傳矩形面積，利用方法多載（Overload）實作。
+
+輸入說明：第一行一個整數 k（1 或 2，代表接下來參數的個數）；第二行 k 個整數，以空白分隔。當 k=1 時為正方形邊長；當 k=2 時為矩形的長與寬。
+輸出說明：一行，計算出的面積。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static int area(int side) {
+        return side * side;
+    }
+
+    static int area(int length, int width) {
+        return length * width;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        if (k == 1) {
+            int side = sc.nextInt();
+            System.out.println(area(side));
+        } else {
+            int length = sc.nextInt();
+            int width = sc.nextInt();
+            System.out.println(area(length, width));
+        }
+    }
+}",0,True,"1
+5",25
+JAD402,TQC,方法多載計算面積,"撰寫兩個同名方法 area：一個接受一個參數（正方形邊長）回傳正方形面積，另一個接受兩個參數（矩形的長與寬）回傳矩形面積，利用方法多載（Overload）實作。
+
+輸入說明：第一行一個整數 k（1 或 2，代表接下來參數的個數）；第二行 k 個整數，以空白分隔。當 k=1 時為正方形邊長；當 k=2 時為矩形的長與寬。
+輸出說明：一行，計算出的面積。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static int area(int side) {
+        return side * side;
+    }
+
+    static int area(int length, int width) {
+        return length * width;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        if (k == 1) {
+            int side = sc.nextInt();
+            System.out.println(area(side));
+        } else {
+            int length = sc.nextInt();
+            int width = sc.nextInt();
+            System.out.println(area(length, width));
+        }
+    }
+}",1,True,"2
+4 6",24
+JAD403,TQC,判斷閏年方法,"撰寫一個方法 isLeapYear(int year)，判斷該年份是否為閏年（能被 4 整除但不能被 100 整除，或能被 400 整除）。
+
+輸入說明：一行一個整數，代表年份。
+輸出說明：一行，若為閏年輸出「閏年」，否則輸出「平年」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        System.out.println(isLeapYear(year) ? ""閏年"" : ""平年"");
+    }
+}",0,True,2024,閏年
+JAD403,TQC,判斷閏年方法,"撰寫一個方法 isLeapYear(int year)，判斷該年份是否為閏年（能被 4 整除但不能被 100 整除，或能被 400 整除）。
+
+輸入說明：一行一個整數，代表年份。
+輸出說明：一行，若為閏年輸出「閏年」，否則輸出「平年」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        System.out.println(isLeapYear(year) ? ""閏年"" : ""平年"");
+    }
+}",1,True,1900,平年
+JAD403,TQC,判斷閏年方法,"撰寫一個方法 isLeapYear(int year)，判斷該年份是否為閏年（能被 4 整除但不能被 100 整除，或能被 400 整除）。
+
+輸入說明：一行一個整數，代表年份。
+輸出說明：一行，若為閏年輸出「閏年」，否則輸出「平年」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        System.out.println(isLeapYear(year) ? ""閏年"" : ""平年"");
+    }
+}",2,True,2000,閏年
+JAD404,TQC,遞迴計算費氏數,"撰寫一個遞迴方法計算費氏數列的第 n 項（F1=1, F2=1, Fn=Fn-1+Fn-2）。
+
+輸入說明：一行一個整數 n (1<=n<=30)。
+輸出說明：一行，第 n 個費氏數。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static long fib(int n) {
+        if (n <= 2) {
+            return 1;
+        }
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(fib(n));
+    }
+}",0,True,6,8
+JAD404,TQC,遞迴計算費氏數,"撰寫一個遞迴方法計算費氏數列的第 n 項（F1=1, F2=1, Fn=Fn-1+Fn-2）。
+
+輸入說明：一行一個整數 n (1<=n<=30)。
+輸出說明：一行，第 n 個費氏數。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static long fib(int n) {
+        if (n <= 2) {
+            return 1;
+        }
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(fib(n));
+    }
+}",1,True,1,1
+JAD404,TQC,遞迴計算費氏數,"撰寫一個遞迴方法計算費氏數列的第 n 項（F1=1, F2=1, Fn=Fn-1+Fn-2）。
+
+輸入說明：一行一個整數 n (1<=n<=30)。
+輸出說明：一行，第 n 個費氏數。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static long fib(int n) {
+        if (n <= 2) {
+            return 1;
+        }
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(fib(n));
+    }
+}",2,True,10,55
+JAD405,TQC,簡單類別與建構子,"定義類別 Student，含欄位 name（String）與 score（int），並提供建構子初始化這兩個欄位；另撰寫方法 getGrade()，回傳等級：score >= 90 為 ""A""，score >= 60 為 ""B""，其餘為 ""C""。
+
+輸入說明：一行，姓名與分數，以空白分隔。
+輸出說明：一行，格式為「姓名: 等級」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        String getGrade() {
+            if (score >= 90) {
+                return ""A"";
+            } else if (score >= 60) {
+                return ""B"";
+            } else {
+                return ""C"";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int score = sc.nextInt();
+        Student student = new Student(name, score);
+        System.out.println(student.name + "": "" + student.getGrade());
+    }
+}",0,True,小明 95,小明: A
+JAD405,TQC,簡單類別與建構子,"定義類別 Student，含欄位 name（String）與 score（int），並提供建構子初始化這兩個欄位；另撰寫方法 getGrade()，回傳等級：score >= 90 為 ""A""，score >= 60 為 ""B""，其餘為 ""C""。
+
+輸入說明：一行，姓名與分數，以空白分隔。
+輸出說明：一行，格式為「姓名: 等級」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        String getGrade() {
+            if (score >= 90) {
+                return ""A"";
+            } else if (score >= 60) {
+                return ""B"";
+            } else {
+                return ""C"";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int score = sc.nextInt();
+        Student student = new Student(name, score);
+        System.out.println(student.name + "": "" + student.getGrade());
+    }
+}",1,True,小華 70,小華: B
+JAD405,TQC,簡單類別與建構子,"定義類別 Student，含欄位 name（String）與 score（int），並提供建構子初始化這兩個欄位；另撰寫方法 getGrade()，回傳等級：score >= 90 為 ""A""，score >= 60 為 ""B""，其餘為 ""C""。
+
+輸入說明：一行，姓名與分數，以空白分隔。
+輸出說明：一行，格式為「姓名: 等級」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        String getGrade() {
+            if (score >= 90) {
+                return ""A"";
+            } else if (score >= 60) {
+                return ""B"";
+            } else {
+                return ""C"";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        int score = sc.nextInt();
+        Student student = new Student(name, score);
+        System.out.println(student.name + "": "" + student.getGrade());
+    }
+}",2,True,小美 40,小美: C
+JAD406,TQC,類別方法：矩形類別,"定義類別 Rectangle，含欄位 width 與 height，並提供建構子；另撰寫方法 getArea() 回傳面積、getPerimeter() 回傳周長。
+
+輸入說明：一行，寬與高（皆為整數），以空白分隔。
+輸出說明：一行，格式為「面積: x 周長: y」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Rectangle {
+        int width;
+        int height;
+
+        Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        int getArea() {
+            return width * height;
+        }
+
+        int getPerimeter() {
+            return 2 * (width + height);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int w = sc.nextInt();
+        int h = sc.nextInt();
+        Rectangle rect = new Rectangle(w, h);
+        System.out.println(""面積: "" + rect.getArea() + "" 周長: "" + rect.getPerimeter());
+    }
+}",0,True,3 4,面積: 12 周長: 14
+JAD406,TQC,類別方法：矩形類別,"定義類別 Rectangle，含欄位 width 與 height，並提供建構子；另撰寫方法 getArea() 回傳面積、getPerimeter() 回傳周長。
+
+輸入說明：一行，寬與高（皆為整數），以空白分隔。
+輸出說明：一行，格式為「面積: x 周長: y」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Rectangle {
+        int width;
+        int height;
+
+        Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        int getArea() {
+            return width * height;
+        }
+
+        int getPerimeter() {
+            return 2 * (width + height);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int w = sc.nextInt();
+        int h = sc.nextInt();
+        Rectangle rect = new Rectangle(w, h);
+        System.out.println(""面積: "" + rect.getArea() + "" 周長: "" + rect.getPerimeter());
+    }
+}",1,True,5 5,面積: 25 周長: 20
+JAD407,TQC,陣列傳遞與方法,"撰寫方法 sum(int[] arr) 回傳陣列總和，以及方法 average(int[] arr) 回傳陣列平均值，於 main 中呼叫並輸出結果。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「總和: x 平均: y.yy」（平均值取小數點後兩位）。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    static int sum(int[] arr) {
+        int total = 0;
+        for (int v : arr) {
+            total += v;
+        }
+        return total;
+    }
+
+    static double average(int[] arr) {
+        return sum(arr) / (double) arr.length;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        System.out.printf(Locale.US, ""總和: %d 平均: %.2f%n"", sum(arr), average(arr));
+    }
+}",0,True,"5
+1 2 3 4 5",總和: 15 平均: 3.00
+JAD407,TQC,陣列傳遞與方法,"撰寫方法 sum(int[] arr) 回傳陣列總和，以及方法 average(int[] arr) 回傳陣列平均值，於 main 中呼叫並輸出結果。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「總和: x 平均: y.yy」（平均值取小數點後兩位）。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    static int sum(int[] arr) {
+        int total = 0;
+        for (int v : arr) {
+            total += v;
+        }
+        return total;
+    }
+
+    static double average(int[] arr) {
+        return sum(arr) / (double) arr.length;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        System.out.printf(Locale.US, ""總和: %d 平均: %.2f%n"", sum(arr), average(arr));
+    }
+}",1,True,"3
+2 3 5",總和: 10 平均: 3.33
+JAD408,TQC,遞迴計算最大公因數與最小公倍數,"撰寫遞迴方法計算兩個正整數的最大公因數（GCD），並利用 GCD 計算最小公倍數（LCM = a * b / GCD）。
+
+輸入說明：一行，兩個正整數 a、b，以空白分隔。
+輸出說明：一行，格式為「GCD: x LCM: y」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int g = gcd(a, b);
+        long lcm = (long) a * b / g;
+        System.out.println(""GCD: "" + g + "" LCM: "" + lcm);
+    }
+}",0,True,12 18,GCD: 6 LCM: 36
+JAD408,TQC,遞迴計算最大公因數與最小公倍數,"撰寫遞迴方法計算兩個正整數的最大公因數（GCD），並利用 GCD 計算最小公倍數（LCM = a * b / GCD）。
+
+輸入說明：一行，兩個正整數 a、b，以空白分隔。
+輸出說明：一行，格式為「GCD: x LCM: y」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int g = gcd(a, b);
+        long lcm = (long) a * b / g;
+        System.out.println(""GCD: "" + g + "" LCM: "" + lcm);
+    }
+}",1,True,7 13,GCD: 1 LCM: 91
+JAD409,TQC,多個物件排序,"定義類別 Student，含欄位 name（String）與 score（int）。輸入 n 筆學生資料，依分數由高到低排序後輸出；若分數相同，則依姓名字典序（由小到大）排列。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為姓名與分數，以空白分隔。
+輸出說明：n 行，排序後的「姓名 分數」。",3,Active,Java,"import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String name = sc.next();
+            int score = sc.nextInt();
+            students.add(new Student(name, score));
+        }
+
+        students.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student a, Student b) {
+                if (a.score != b.score) {
+                    return b.score - a.score;
+                }
+                return a.name.compareTo(b.name);
+            }
+        });
+
+        for (Student s : students) {
+            System.out.println(s.name + "" "" + s.score);
+        }
+    }
+}",0,True,"3
+Amy 88
+Bob 92
+Cathy 92","Bob 92
+Cathy 92
+Amy 88"
+JAD409,TQC,多個物件排序,"定義類別 Student，含欄位 name（String）與 score（int）。輸入 n 筆學生資料，依分數由高到低排序後輸出；若分數相同，則依姓名字典序（由小到大）排列。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為姓名與分數，以空白分隔。
+輸出說明：n 行，排序後的「姓名 分數」。",3,Active,Java,"import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class Student {
+        String name;
+        int score;
+
+        Student(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String name = sc.next();
+            int score = sc.nextInt();
+            students.add(new Student(name, score));
+        }
+
+        students.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student a, Student b) {
+                if (a.score != b.score) {
+                    return b.score - a.score;
+                }
+                return a.name.compareTo(b.name);
+            }
+        });
+
+        for (Student s : students) {
+            System.out.println(s.name + "" "" + s.score);
+        }
+    }
+}",1,True,"2
+Tom 60
+Jerry 75","Jerry 75
+Tom 60"
+JAD501,TQC,繼承基礎：動物類別,"定義父類別 Animal，含欄位 name 與方法 speak()（回傳字串 ""...""）；子類別 Dog 覆寫 speak() 回傳 ""汪汪""，子類別 Cat 覆寫 speak() 回傳 ""喵喵""。依輸入的種類建立對應物件並輸出結果。
+
+輸入說明：一行，動物種類（dog 或 cat）與名字，以空白分隔。
+輸出說明：一行，格式為「名字: 叫聲」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Animal {
+        String name;
+
+        Animal(String name) {
+            this.name = name;
+        }
+
+        String speak() {
+            return ""..."";
+        }
+    }
+
+    static class Dog extends Animal {
+        Dog(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return ""汪汪"";
+        }
+    }
+
+    static class Cat extends Animal {
+        Cat(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return ""喵喵"";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        Animal animal;
+        if (kind.equals(""dog"")) {
+            animal = new Dog(name);
+        } else {
+            animal = new Cat(name);
+        }
+        System.out.println(animal.name + "": "" + animal.speak());
+    }
+}",0,True,dog Rex,Rex: 汪汪
+JAD501,TQC,繼承基礎：動物類別,"定義父類別 Animal，含欄位 name 與方法 speak()（回傳字串 ""...""）；子類別 Dog 覆寫 speak() 回傳 ""汪汪""，子類別 Cat 覆寫 speak() 回傳 ""喵喵""。依輸入的種類建立對應物件並輸出結果。
+
+輸入說明：一行，動物種類（dog 或 cat）與名字，以空白分隔。
+輸出說明：一行，格式為「名字: 叫聲」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Animal {
+        String name;
+
+        Animal(String name) {
+            this.name = name;
+        }
+
+        String speak() {
+            return ""..."";
+        }
+    }
+
+    static class Dog extends Animal {
+        Dog(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return ""汪汪"";
+        }
+    }
+
+    static class Cat extends Animal {
+        Cat(String name) {
+            super(name);
+        }
+
+        @Override
+        String speak() {
+            return ""喵喵"";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        Animal animal;
+        if (kind.equals(""dog"")) {
+            animal = new Dog(name);
+        } else {
+            animal = new Cat(name);
+        }
+        System.out.println(animal.name + "": "" + animal.speak());
+    }
+}",1,True,cat Kitty,Kitty: 喵喵
+JAD502,TQC,多型：圖形面積計算,"定義抽象類別 Shape，含抽象方法 getArea()；子類別 Circle（欄位 radius）與 Square（欄位 side）分別實作 getArea()。圓周率一律使用 3.14159。依輸入建立對應物件並輸出面積（取小數點後兩位）。
+
+輸入說明：一行，形狀種類（circle 或 square）與對應的參數（浮點數），以空白分隔。
+輸出說明：一行，格式為「面積: xx.xx」。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Shape {
+        abstract double getArea();
+    }
+
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        double getArea() {
+            return 3.14159 * radius * radius;
+        }
+    }
+
+    static class Square extends Shape {
+        double side;
+
+        Square(double side) {
+            this.side = side;
+        }
+
+        @Override
+        double getArea() {
+            return side * side;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        double value = sc.nextDouble();
+        Shape shape;
+        if (kind.equals(""circle"")) {
+            shape = new Circle(value);
+        } else {
+            shape = new Square(value);
+        }
+        System.out.printf(Locale.US, ""面積: %.2f%n"", shape.getArea());
+    }
+}",0,True,circle 2,面積: 12.57
+JAD502,TQC,多型：圖形面積計算,"定義抽象類別 Shape，含抽象方法 getArea()；子類別 Circle（欄位 radius）與 Square（欄位 side）分別實作 getArea()。圓周率一律使用 3.14159。依輸入建立對應物件並輸出面積（取小數點後兩位）。
+
+輸入說明：一行，形狀種類（circle 或 square）與對應的參數（浮點數），以空白分隔。
+輸出說明：一行，格式為「面積: xx.xx」。",2,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Shape {
+        abstract double getArea();
+    }
+
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        double getArea() {
+            return 3.14159 * radius * radius;
+        }
+    }
+
+    static class Square extends Shape {
+        double side;
+
+        Square(double side) {
+            this.side = side;
+        }
+
+        @Override
+        double getArea() {
+            return side * side;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        double value = sc.nextDouble();
+        Shape shape;
+        if (kind.equals(""circle"")) {
+            shape = new Circle(value);
+        } else {
+            shape = new Square(value);
+        }
+        System.out.printf(Locale.US, ""面積: %.2f%n"", shape.getArea());
+    }
+}",1,True,square 5,面積: 25.00
+JAD503,TQC,介面實作：可比較的箱子,"定義類別 Box，含欄位 length、width、height，並實作 Comparable&lt;Box&gt; 介面，依體積（長 x 寬 x 高）由小到大比較大小。輸入 n 個 Box 的長寬高，排序後依序輸出各箱子的體積。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行三個整數，代表長、寬、高。
+輸出說明：n 行，排序後（體積由小到大）各箱子的體積。",2,Active,Java,"import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class Box implements Comparable<Box> {
+        int length, width, height;
+
+        Box(int length, int width, int height) {
+            this.length = length;
+            this.width = width;
+            this.height = height;
+        }
+
+        int volume() {
+            return length * width * height;
+        }
+
+        @Override
+        public int compareTo(Box other) {
+            return this.volume() - other.volume();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Box> boxes = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int l = sc.nextInt();
+            int w = sc.nextInt();
+            int h = sc.nextInt();
+            boxes.add(new Box(l, w, h));
+        }
+        Collections.sort(boxes);
+        for (Box b : boxes) {
+            System.out.println(b.volume());
+        }
+    }
+}",0,True,"3
+2 2 2
+1 1 1
+3 3 3","1
+8
+27"
+JAD503,TQC,介面實作：可比較的箱子,"定義類別 Box，含欄位 length、width、height，並實作 Comparable&lt;Box&gt; 介面，依體積（長 x 寬 x 高）由小到大比較大小。輸入 n 個 Box 的長寬高，排序後依序輸出各箱子的體積。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行三個整數，代表長、寬、高。
+輸出說明：n 行，排序後（體積由小到大）各箱子的體積。",2,Active,Java,"import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class Box implements Comparable<Box> {
+        int length, width, height;
+
+        Box(int length, int width, int height) {
+            this.length = length;
+            this.width = width;
+            this.height = height;
+        }
+
+        int volume() {
+            return length * width * height;
+        }
+
+        @Override
+        public int compareTo(Box other) {
+            return this.volume() - other.volume();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Box> boxes = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int l = sc.nextInt();
+            int w = sc.nextInt();
+            int h = sc.nextInt();
+            boxes.add(new Box(l, w, h));
+        }
+        Collections.sort(boxes);
+        for (Box b : boxes) {
+            System.out.println(b.volume());
+        }
+    }
+}",1,True,"2
+1 2 3
+2 2 2","6
+8"
+JAD504,TQC,抽象類別與範本方法,"定義抽象類別 Employee，含欄位 name、baseSalary，抽象方法 calculateBonus() 回傳紅利，以及具體方法 totalSalary()（回傳 baseSalary + calculateBonus()）。子類別 Manager 的紅利為底薪的 20%，子類別 Engineer 的紅利為底薪的 10%。輸出總薪資（四捨五入為整數）。
+
+輸入說明：一行，職位（manager 或 engineer）、姓名、底薪（整數），以空白分隔。
+輸出說明：一行，格式為「姓名: 總薪資」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    abstract static class Employee {
+        String name;
+        double baseSalary;
+
+        Employee(String name, double baseSalary) {
+            this.name = name;
+            this.baseSalary = baseSalary;
+        }
+
+        abstract double calculateBonus();
+
+        double totalSalary() {
+            return baseSalary + calculateBonus();
+        }
+    }
+
+    static class Manager extends Employee {
+        Manager(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.2;
+        }
+    }
+
+    static class Engineer extends Employee {
+        Engineer(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.1;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        double baseSalary = sc.nextDouble();
+        Employee employee;
+        if (kind.equals(""manager"")) {
+            employee = new Manager(name, baseSalary);
+        } else {
+            employee = new Engineer(name, baseSalary);
+        }
+        long total = Math.round(employee.totalSalary());
+        System.out.println(name + "": "" + total);
+    }
+}",0,True,manager 小明 50000,小明: 60000
+JAD504,TQC,抽象類別與範本方法,"定義抽象類別 Employee，含欄位 name、baseSalary，抽象方法 calculateBonus() 回傳紅利，以及具體方法 totalSalary()（回傳 baseSalary + calculateBonus()）。子類別 Manager 的紅利為底薪的 20%，子類別 Engineer 的紅利為底薪的 10%。輸出總薪資（四捨五入為整數）。
+
+輸入說明：一行，職位（manager 或 engineer）、姓名、底薪（整數），以空白分隔。
+輸出說明：一行，格式為「姓名: 總薪資」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    abstract static class Employee {
+        String name;
+        double baseSalary;
+
+        Employee(String name, double baseSalary) {
+            this.name = name;
+            this.baseSalary = baseSalary;
+        }
+
+        abstract double calculateBonus();
+
+        double totalSalary() {
+            return baseSalary + calculateBonus();
+        }
+    }
+
+    static class Manager extends Employee {
+        Manager(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.2;
+        }
+    }
+
+    static class Engineer extends Employee {
+        Engineer(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.1;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        double baseSalary = sc.nextDouble();
+        Employee employee;
+        if (kind.equals(""manager"")) {
+            employee = new Manager(name, baseSalary);
+        } else {
+            employee = new Engineer(name, baseSalary);
+        }
+        long total = Math.round(employee.totalSalary());
+        System.out.println(name + "": "" + total);
+    }
+}",1,True,engineer 小華 40000,小華: 44000
+JAD505,TQC,介面多重實作：飛行與游泳,"定義介面 Flyable，含方法 fly()；介面 Swimmable，含方法 swim()。類別 Duck 同時實作 Flyable 與 Swimmable 兩個介面。輸入名字，依序輸出該物件的飛行與游泳描述。
+
+輸入說明：一行一個字串，代表名字（不含空白）。
+輸出說明：兩行，第一行為「名字 會飛」，第二行為「名字 會游泳」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    interface Flyable {
+        String fly();
+    }
+
+    interface Swimmable {
+        String swim();
+    }
+
+    static class Duck implements Flyable, Swimmable {
+        String name;
+
+        Duck(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String fly() {
+            return name + "" 會飛"";
+        }
+
+        @Override
+        public String swim() {
+            return name + "" 會游泳"";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        Duck duck = new Duck(name);
+        System.out.println(duck.fly());
+        System.out.println(duck.swim());
+    }
+}",0,True,唐老鴨,"唐老鴨 會飛
+唐老鴨 會游泳"
+JAD505,TQC,介面多重實作：飛行與游泳,"定義介面 Flyable，含方法 fly()；介面 Swimmable，含方法 swim()。類別 Duck 同時實作 Flyable 與 Swimmable 兩個介面。輸入名字，依序輸出該物件的飛行與游泳描述。
+
+輸入說明：一行一個字串，代表名字（不含空白）。
+輸出說明：兩行，第一行為「名字 會飛」，第二行為「名字 會游泳」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    interface Flyable {
+        String fly();
+    }
+
+    interface Swimmable {
+        String swim();
+    }
+
+    static class Duck implements Flyable, Swimmable {
+        String name;
+
+        Duck(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String fly() {
+            return name + "" 會飛"";
+        }
+
+        @Override
+        public String swim() {
+            return name + "" 會游泳"";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        Duck duck = new Duck(name);
+        System.out.println(duck.fly());
+        System.out.println(duck.swim());
+    }
+}",1,True,Donald,"Donald 會飛
+Donald 會游泳"
+JAD506,TQC,多型陣列與面積總計,"沿用抽象類別 Shape（含抽象方法 getArea()）與子類別 Circle、Square。輸入 n 筆圖形資料（可能混合圓形與正方形），計算所有圖形的面積總和（圓周率使用 3.14159，取小數點後兩位）。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為「circle 半徑」或「square 邊長」。
+輸出說明：一行，格式為「總面積: xx.xx」。",3,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Shape {
+        abstract double getArea();
+    }
+
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        double getArea() {
+            return 3.14159 * radius * radius;
+        }
+    }
+
+    static class Square extends Shape {
+        double side;
+
+        Square(double side) {
+            this.side = side;
+        }
+
+        @Override
+        double getArea() {
+            return side * side;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Shape[] shapes = new Shape[n];
+        for (int i = 0; i < n; i++) {
+            String kind = sc.next();
+            double value = sc.nextDouble();
+            if (kind.equals(""circle"")) {
+                shapes[i] = new Circle(value);
+            } else {
+                shapes[i] = new Square(value);
+            }
+        }
+        double total = 0;
+        for (Shape s : shapes) {
+            total += s.getArea();
+        }
+        System.out.printf(Locale.US, ""總面積: %.2f%n"", total);
+    }
+}",0,True,"2
+circle 1
+square 2",總面積: 7.14
+JAD506,TQC,多型陣列與面積總計,"沿用抽象類別 Shape（含抽象方法 getArea()）與子類別 Circle、Square。輸入 n 筆圖形資料（可能混合圓形與正方形），計算所有圖形的面積總和（圓周率使用 3.14159，取小數點後兩位）。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為「circle 半徑」或「square 邊長」。
+輸出說明：一行，格式為「總面積: xx.xx」。",3,Active,Java,"import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Shape {
+        abstract double getArea();
+    }
+
+    static class Circle extends Shape {
+        double radius;
+
+        Circle(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        double getArea() {
+            return 3.14159 * radius * radius;
+        }
+    }
+
+    static class Square extends Shape {
+        double side;
+
+        Square(double side) {
+            this.side = side;
+        }
+
+        @Override
+        double getArea() {
+            return side * side;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Shape[] shapes = new Shape[n];
+        for (int i = 0; i < n; i++) {
+            String kind = sc.next();
+            double value = sc.nextDouble();
+            if (kind.equals(""circle"")) {
+                shapes[i] = new Circle(value);
+            } else {
+                shapes[i] = new Square(value);
+            }
+        }
+        double total = 0;
+        for (Shape s : shapes) {
+            total += s.getArea();
+        }
+        System.out.printf(Locale.US, ""總面積: %.2f%n"", total);
+    }
+}",1,True,"3
+square 1
+square 2
+circle 2",總面積: 17.57
+JAD507,TQC,多層繼承鏈,"建立三層繼承關係：Vehicle -> Car -> SportsCar。Vehicle 的 describe() 回傳「這是一台車」；Car 新增欄位 brand、model，並覆寫 describe()，先呼叫 super.describe() 再附加「品牌: xxx 型號: yyy」；SportsCar 新增欄位 horsepower，覆寫 describe()，先呼叫 super.describe() 再附加「馬力: zzz」。
+
+輸入說明：一行，品牌、型號、馬力，以空白分隔（品牌、型號不含空白）。
+輸出說明：三行，依序為 Vehicle、Car、SportsCar 三層附加後的完整描述。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Vehicle {
+        String describe() {
+            return ""這是一台車"";
+        }
+    }
+
+    static class Car extends Vehicle {
+        String brand;
+        String model;
+
+        Car(String brand, String model) {
+            this.brand = brand;
+            this.model = model;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + ""\n品牌: "" + brand + "" 型號: "" + model;
+        }
+    }
+
+    static class SportsCar extends Car {
+        int horsepower;
+
+        SportsCar(String brand, String model, int horsepower) {
+            super(brand, model);
+            this.horsepower = horsepower;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + ""\n馬力: "" + horsepower;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String brand = sc.next();
+        String model = sc.next();
+        int horsepower = sc.nextInt();
+        SportsCar car = new SportsCar(brand, model, horsepower);
+        System.out.println(car.describe());
+    }
+}",0,True,Toyota Corolla 140,"這是一台車
+品牌: Toyota 型號: Corolla
+馬力: 140"
+JAD507,TQC,多層繼承鏈,"建立三層繼承關係：Vehicle -> Car -> SportsCar。Vehicle 的 describe() 回傳「這是一台車」；Car 新增欄位 brand、model，並覆寫 describe()，先呼叫 super.describe() 再附加「品牌: xxx 型號: yyy」；SportsCar 新增欄位 horsepower，覆寫 describe()，先呼叫 super.describe() 再附加「馬力: zzz」。
+
+輸入說明：一行，品牌、型號、馬力，以空白分隔（品牌、型號不含空白）。
+輸出說明：三行，依序為 Vehicle、Car、SportsCar 三層附加後的完整描述。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class Vehicle {
+        String describe() {
+            return ""這是一台車"";
+        }
+    }
+
+    static class Car extends Vehicle {
+        String brand;
+        String model;
+
+        Car(String brand, String model) {
+            this.brand = brand;
+            this.model = model;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + ""\n品牌: "" + brand + "" 型號: "" + model;
+        }
+    }
+
+    static class SportsCar extends Car {
+        int horsepower;
+
+        SportsCar(String brand, String model, int horsepower) {
+            super(brand, model);
+            this.horsepower = horsepower;
+        }
+
+        @Override
+        String describe() {
+            return super.describe() + ""\n馬力: "" + horsepower;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String brand = sc.next();
+        String model = sc.next();
+        int horsepower = sc.nextInt();
+        SportsCar car = new SportsCar(brand, model, horsepower);
+        System.out.println(car.describe());
+    }
+}",1,True,Ferrari F8 720,"這是一台車
+品牌: Ferrari 型號: F8
+馬力: 720"
+JAD508,TQC,介面與多型集合排序,"定義介面 Priced，含方法 getPrice()；類別 Book 與 Toy 皆實作 Priced，各自含欄位 name 與 price。輸入 n 筆商品資料（種類、名稱、價格），依價格由低到高排序後輸出「名稱 價格」。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為「種類（book 或 toy） 名稱 價格」，以空白分隔。
+輸出說明：n 行，依價格由低到高排序後的「名稱 價格」。",3,Active,Java,"import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    interface Priced {
+        int getPrice();
+
+        String getName();
+    }
+
+    static class Book implements Priced {
+        String name;
+        int price;
+
+        Book(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    static class Toy implements Priced {
+        String name;
+        int price;
+
+        Toy(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Priced> items = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String kind = sc.next();
+            String name = sc.next();
+            int price = sc.nextInt();
+            if (kind.equals(""book"")) {
+                items.add(new Book(name, price));
+            } else {
+                items.add(new Toy(name, price));
+            }
+        }
+        items.sort(Comparator.comparingInt(Priced::getPrice));
+        for (Priced item : items) {
+            System.out.println(item.getName() + "" "" + item.getPrice());
+        }
+    }
+}",0,True,"3
+book HarryPotter 350
+toy LegoSet 899
+book Math 220","Math 220
+HarryPotter 350
+LegoSet 899"
+JAD508,TQC,介面與多型集合排序,"定義介面 Priced，含方法 getPrice()；類別 Book 與 Toy 皆實作 Priced，各自含欄位 name 與 price。輸入 n 筆商品資料（種類、名稱、價格），依價格由低到高排序後輸出「名稱 價格」。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為「種類（book 或 toy） 名稱 價格」，以空白分隔。
+輸出說明：n 行，依價格由低到高排序後的「名稱 價格」。",3,Active,Java,"import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    interface Priced {
+        int getPrice();
+
+        String getName();
+    }
+
+    static class Book implements Priced {
+        String name;
+        int price;
+
+        Book(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    static class Toy implements Priced {
+        String name;
+        int price;
+
+        Toy(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Priced> items = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String kind = sc.next();
+            String name = sc.next();
+            int price = sc.nextInt();
+            if (kind.equals(""book"")) {
+                items.add(new Book(name, price));
+            } else {
+                items.add(new Toy(name, price));
+            }
+        }
+        items.sort(Comparator.comparingInt(Priced::getPrice));
+        for (Priced item : items) {
+            System.out.println(item.getName() + "" "" + item.getPrice());
+        }
+    }
+}",1,True,"2
+toy Yoyo 99
+book Atlas 480","Yoyo 99
+Atlas 480"
+JAD509,TQC,泛型堆疊類別,"自行實作一個簡單的泛型堆疊類別 MyStack&lt;T&gt;（可用 ArrayList 實作），支援 push(T)、pop()、isEmpty() 等操作。依序執行輸入的操作，每次 pop 時輸出彈出的值；若堆疊已空則輸出「empty」。
+
+輸入說明：第一行一個整數 m，代表操作數量；接下來 m 行，每行為「push x」（x 為整數）或「pop」。
+輸出說明：對於每個 pop 操作輸出一行結果（彈出的值，或 empty）。",3,Active,Java,"import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class MyStack<T> {
+        private final List<T> data = new ArrayList<>();
+
+        void push(T value) {
+            data.add(value);
+        }
+
+        T pop() {
+            if (isEmpty()) {
+                return null;
+            }
+            return data.remove(data.size() - 1);
+        }
+
+        boolean isEmpty() {
+            return data.isEmpty();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        MyStack<Integer> stack = new MyStack<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < m; i++) {
+            String op = sc.next();
+            if (op.equals(""push"")) {
+                int x = sc.nextInt();
+                stack.push(x);
+            } else {
+                if (stack.isEmpty()) {
+                    sb.append(""empty"").append('\n');
+                } else {
+                    sb.append(stack.pop()).append('\n');
+                }
+            }
+        }
+        System.out.print(sb.toString());
+    }
+}",0,True,"5
+push 1
+push 2
+pop
+push 3
+pop","2
+3"
+JAD509,TQC,泛型堆疊類別,"自行實作一個簡單的泛型堆疊類別 MyStack&lt;T&gt;（可用 ArrayList 實作），支援 push(T)、pop()、isEmpty() 等操作。依序執行輸入的操作，每次 pop 時輸出彈出的值；若堆疊已空則輸出「empty」。
+
+輸入說明：第一行一個整數 m，代表操作數量；接下來 m 行，每行為「push x」（x 為整數）或「pop」。
+輸出說明：對於每個 pop 操作輸出一行結果（彈出的值，或 empty）。",3,Active,Java,"import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    static class MyStack<T> {
+        private final List<T> data = new ArrayList<>();
+
+        void push(T value) {
+            data.add(value);
+        }
+
+        T pop() {
+            if (isEmpty()) {
+                return null;
+            }
+            return data.remove(data.size() - 1);
+        }
+
+        boolean isEmpty() {
+            return data.isEmpty();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        MyStack<Integer> stack = new MyStack<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < m; i++) {
+            String op = sc.next();
+            if (op.equals(""push"")) {
+                int x = sc.nextInt();
+                stack.push(x);
+            } else {
+                if (stack.isEmpty()) {
+                    sb.append(""empty"").append('\n');
+                } else {
+                    sb.append(stack.pop()).append('\n');
+                }
+            }
+        }
+        System.out.print(sb.toString());
+    }
+}",1,True,"3
+pop
+push 5
+pop","empty
+5"
+JAD601,TQC,例外處理基礎：除以零,"輸入兩個整數 a 與 b，嘗試計算 a / b。若 b 為 0，會拋出 ArithmeticException，請捕捉此例外並輸出提示訊息；否則輸出計算結果。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：一行，若 b 為 0 輸出「除數不可為0」，否則輸出「結果: x」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        try {
+            int result = a / b;
+            System.out.println(""結果: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""除數不可為0"");
+        }
+    }
+}",0,True,10 2,結果: 5
+JAD601,TQC,例外處理基礎：除以零,"輸入兩個整數 a 與 b，嘗試計算 a / b。若 b 為 0，會拋出 ArithmeticException，請捕捉此例外並輸出提示訊息；否則輸出計算結果。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：一行，若 b 為 0 輸出「除數不可為0」，否則輸出「結果: x」。",1,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        try {
+            int result = a / b;
+            System.out.println(""結果: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""除數不可為0"");
+        }
+    }
+}",1,True,10 0,除數不可為0
+JAD602,TQC,陣列索引例外處理,"輸入一個陣列與一個索引，嘗試存取該索引對應的元素。若索引超出範圍，會拋出 ArrayIndexOutOfBoundsException，請捕捉此例外並輸出提示訊息；否則輸出該元素值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數，代表要存取的索引。
+輸出說明：一行，若索引合法輸出「元素值: x」，否則輸出「索引超出範圍」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int index = sc.nextInt();
+        try {
+            System.out.println(""元素值: "" + arr[index]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""索引超出範圍"");
+        }
+    }
+}",0,True,"3
+10 20 30
+1",元素值: 20
+JAD602,TQC,陣列索引例外處理,"輸入一個陣列與一個索引，嘗試存取該索引對應的元素。若索引超出範圍，會拋出 ArrayIndexOutOfBoundsException，請捕捉此例外並輸出提示訊息；否則輸出該元素值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數，代表要存取的索引。
+輸出說明：一行，若索引合法輸出「元素值: x」，否則輸出「索引超出範圍」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int index = sc.nextInt();
+        try {
+            System.out.println(""元素值: "" + arr[index]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""索引超出範圍"");
+        }
+    }
+}",1,True,"3
+10 20 30
+5",索引超出範圍
+JAD603,TQC,數字格式例外處理,"輸入一個字串，嘗試將其轉換為整數。若轉換失敗會拋出 NumberFormatException，請捕捉此例外並輸出提示訊息；否則輸出轉換後的整數。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若可轉換為整數輸出「轉換成功: n」，否則輸出「格式錯誤」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        try {
+            int n = Integer.parseInt(s);
+            System.out.println(""轉換成功: "" + n);
+        } catch (NumberFormatException e) {
+            System.out.println(""格式錯誤"");
+        }
+    }
+}",0,True,123,轉換成功: 123
+JAD603,TQC,數字格式例外處理,"輸入一個字串，嘗試將其轉換為整數。若轉換失敗會拋出 NumberFormatException，請捕捉此例外並輸出提示訊息；否則輸出轉換後的整數。
+
+輸入說明：一行一個字串（不含空白）。
+輸出說明：一行，若可轉換為整數輸出「轉換成功: n」，否則輸出「格式錯誤」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        try {
+            int n = Integer.parseInt(s);
+            System.out.println(""轉換成功: "" + n);
+        } catch (NumberFormatException e) {
+            System.out.println(""格式錯誤"");
+        }
+    }
+}",1,True,12a3,格式錯誤
+JAD604,TQC,自訂例外：年齡驗證,"定義自訂例外類別 InvalidAgeException（繼承 Exception）。撰寫方法檢查年齡是否介於 0 到 150 之間，若超出範圍則拋出 InvalidAgeException；於 main 中呼叫並捕捉例外。
+
+輸入說明：一行一個整數，代表年齡。
+輸出說明：一行，若年齡合法輸出「年齡合法: n」，否則輸出「年齡不合法: n」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class InvalidAgeException extends Exception {
+        InvalidAgeException(String message) {
+            super(message);
+        }
+    }
+
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 150) {
+            throw new InvalidAgeException(""年齡不合法: "" + age);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = sc.nextInt();
+        try {
+            checkAge(age);
+            System.out.println(""年齡合法: "" + age);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}",0,True,25,年齡合法: 25
+JAD604,TQC,自訂例外：年齡驗證,"定義自訂例外類別 InvalidAgeException（繼承 Exception）。撰寫方法檢查年齡是否介於 0 到 150 之間，若超出範圍則拋出 InvalidAgeException；於 main 中呼叫並捕捉例外。
+
+輸入說明：一行一個整數，代表年齡。
+輸出說明：一行，若年齡合法輸出「年齡合法: n」，否則輸出「年齡不合法: n」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class InvalidAgeException extends Exception {
+        InvalidAgeException(String message) {
+            super(message);
+        }
+    }
+
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 150) {
+            throw new InvalidAgeException(""年齡不合法: "" + age);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = sc.nextInt();
+        try {
+            checkAge(age);
+            System.out.println(""年齡合法: "" + age);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}",1,True,200,年齡不合法: 200
+JAD604,TQC,自訂例外：年齡驗證,"定義自訂例外類別 InvalidAgeException（繼承 Exception）。撰寫方法檢查年齡是否介於 0 到 150 之間，若超出範圍則拋出 InvalidAgeException；於 main 中呼叫並捕捉例外。
+
+輸入說明：一行一個整數，代表年齡。
+輸出說明：一行，若年齡合法輸出「年齡合法: n」，否則輸出「年齡不合法: n」。",2,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    static class InvalidAgeException extends Exception {
+        InvalidAgeException(String message) {
+            super(message);
+        }
+    }
+
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 150) {
+            throw new InvalidAgeException(""年齡不合法: "" + age);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = sc.nextInt();
+        try {
+            checkAge(age);
+            System.out.println(""年齡合法: "" + age);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}",2,True,-5,年齡不合法: -5
+JAD605,TQC,ArrayList基本操作,"輸入 n 個整數，依序加入 ArrayList&lt;Integer&gt;，計算並輸出這些元素的總和與最大值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「總和: x 最大值: y」。",2,Active,Java,"import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(sc.nextInt());
+        }
+        int sum = 0;
+        int max = list.get(0);
+        for (int v : list) {
+            sum += v;
+            if (v > max) {
+                max = v;
+            }
+        }
+        System.out.println(""總和: "" + sum + "" 最大值: "" + max);
+    }
+}",0,True,"4
+3 7 1 9",總和: 20 最大值: 9
+JAD605,TQC,ArrayList基本操作,"輸入 n 個整數，依序加入 ArrayList&lt;Integer&gt;，計算並輸出這些元素的總和與最大值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，格式為「總和: x 最大值: y」。",2,Active,Java,"import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(sc.nextInt());
+        }
+        int sum = 0;
+        int max = list.get(0);
+        for (int v : list) {
+            sum += v;
+            if (v > max) {
+                max = v;
+            }
+        }
+        System.out.println(""總和: "" + sum + "" 最大值: "" + max);
+    }
+}",1,True,"3
+-1 -5 -2",總和: -8 最大值: -1
+JAD606,TQC,HashMap詞頻統計,"輸入一行以空白分隔的多個單字，使用 Map 統計每個單字出現的次數，依照單字「第一次出現」的順序輸出每個單字與其出現次數。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依單字第一次出現的順序排列。",2,Active,Java,"import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        Map<String, Integer> freq = new LinkedHashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> entry : freq.entrySet()) {
+            System.out.println(entry.getKey() + "": "" + entry.getValue());
+        }
+    }
+}",0,True,a b a c b a,"a: 3
+b: 2
+c: 1"
+JAD606,TQC,HashMap詞頻統計,"輸入一行以空白分隔的多個單字，使用 Map 統計每個單字出現的次數，依照單字「第一次出現」的順序輸出每個單字與其出現次數。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依單字第一次出現的順序排列。",2,Active,Java,"import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        Map<String, Integer> freq = new LinkedHashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> entry : freq.entrySet()) {
+            System.out.println(entry.getKey() + "": "" + entry.getValue());
+        }
+    }
+}",1,True,apple banana apple,"apple: 2
+banana: 1"
+JAD607,TQC,詞頻統計並依次數排序,"輸入一行以空白分隔的多個單字，統計每個單字出現的次數。輸出時依出現次數由高到低排序，次數相同時依字典序（由小到大）排列。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依上述規則排序。",3,Active,Java,"import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(freq.entrySet());
+        entries.sort((a, b) -> {
+            if (!a.getValue().equals(b.getValue())) {
+                return b.getValue() - a.getValue();
+            }
+            return a.getKey().compareTo(b.getKey());
+        });
+        for (Map.Entry<String, Integer> entry : entries) {
+            System.out.println(entry.getKey() + "": "" + entry.getValue());
+        }
+    }
+}",0,True,the quick brown fox the lazy the quick,"the: 3
+quick: 2
+brown: 1
+fox: 1
+lazy: 1"
+JAD607,TQC,詞頻統計並依次數排序,"輸入一行以空白分隔的多個單字，統計每個單字出現的次數。輸出時依出現次數由高到低排序，次數相同時依字典序（由小到大）排列。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依上述規則排序。",3,Active,Java,"import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split("" "");
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(freq.entrySet());
+        entries.sort((a, b) -> {
+            if (!a.getValue().equals(b.getValue())) {
+                return b.getValue() - a.getValue();
+            }
+            return a.getKey().compareTo(b.getKey());
+        });
+        for (Map.Entry<String, Integer> entry : entries) {
+            System.out.println(entry.getKey() + "": "" + entry.getValue());
+        }
+    }
+}",1,True,a a b b c,"a: 2
+b: 2
+c: 1"
+JAD608,TQC,多重catch與finally,"輸入一個陣列大小 n、n 個整數、一個索引 idx、以及一個除數 d，嘗試計算 arr[idx] / d。程式需依序處理可能發生的 ArrayIndexOutOfBoundsException（索引超出範圍）與 ArithmeticException（除以零），並在 finally 區塊輸出「執行結束」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數 idx；第四行一個整數 d。
+輸出說明：兩行。第一行依情況輸出「結果: value」「錯誤: 索引超出範圍」或「錯誤: 除數為零」；第二行固定輸出「執行結束」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int idx = sc.nextInt();
+        int d = sc.nextInt();
+        try {
+            int value = arr[idx] / d;
+            System.out.println(""結果: "" + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""錯誤: 索引超出範圍"");
+        } catch (ArithmeticException e) {
+            System.out.println(""錯誤: 除數為零"");
+        } finally {
+            System.out.println(""執行結束"");
+        }
+    }
+}",0,True,"3
+1 2 3
+1
+0","錯誤: 除數為零
+執行結束"
+JAD608,TQC,多重catch與finally,"輸入一個陣列大小 n、n 個整數、一個索引 idx、以及一個除數 d，嘗試計算 arr[idx] / d。程式需依序處理可能發生的 ArrayIndexOutOfBoundsException（索引超出範圍）與 ArithmeticException（除以零），並在 finally 區塊輸出「執行結束」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數 idx；第四行一個整數 d。
+輸出說明：兩行。第一行依情況輸出「結果: value」「錯誤: 索引超出範圍」或「錯誤: 除數為零」；第二行固定輸出「執行結束」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int idx = sc.nextInt();
+        int d = sc.nextInt();
+        try {
+            int value = arr[idx] / d;
+            System.out.println(""結果: "" + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""錯誤: 索引超出範圍"");
+        } catch (ArithmeticException e) {
+            System.out.println(""錯誤: 除數為零"");
+        } finally {
+            System.out.println(""執行結束"");
+        }
+    }
+}",1,True,"3
+1 2 3
+5
+2","錯誤: 索引超出範圍
+執行結束"
+JAD608,TQC,多重catch與finally,"輸入一個陣列大小 n、n 個整數、一個索引 idx、以及一個除數 d，嘗試計算 arr[idx] / d。程式需依序處理可能發生的 ArrayIndexOutOfBoundsException（索引超出範圍）與 ArithmeticException（除以零），並在 finally 區塊輸出「執行結束」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔；第三行一個整數 idx；第四行一個整數 d。
+輸出說明：兩行。第一行依情況輸出「結果: value」「錯誤: 索引超出範圍」或「錯誤: 除數為零」；第二行固定輸出「執行結束」。",3,Active,Java,"import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int idx = sc.nextInt();
+        int d = sc.nextInt();
+        try {
+            int value = arr[idx] / d;
+            System.out.println(""結果: "" + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""錯誤: 索引超出範圍"");
+        } catch (ArithmeticException e) {
+            System.out.println(""錯誤: 除數為零"");
+        } finally {
+            System.out.println(""執行結束"");
+        }
+    }
+}",2,True,"3
+6 9 12
+2
+3","結果: 4
+執行結束"
+JAD609,TQC,Stream與Lambda：篩選與統計,"輸入 n 個整數，使用 Stream API 篩選出所有偶數，計算偶數的個數與總和，並輸出由大到小排序後的偶數清單（以空白分隔）；若沒有偶數，清單輸出「無」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：三行，依序為「偶數個數: x」「偶數總和: y」「偶數清單: a b c ...」（或「偶數清單: 無」）。",3,Active,Java,"import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Integer[] nums = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        List<Integer> evens = java.util.Arrays.stream(nums)
+                .filter(x -> x % 2 == 0)
+                .sorted((a, b) -> b - a)
+                .collect(Collectors.toList());
+
+        int count = evens.size();
+        int sum = evens.stream().mapToInt(Integer::intValue).sum();
+        String listStr = evens.isEmpty()
+                ? ""無""
+                : evens.stream().map(String::valueOf).collect(Collectors.joining("" ""));
+
+        System.out.println(""偶數個數: "" + count);
+        System.out.println(""偶數總和: "" + sum);
+        System.out.println(""偶數清單: "" + listStr);
+    }
+}",0,True,"6
+3 8 5 2 10 7","偶數個數: 3
+偶數總和: 20
+偶數清單: 10 8 2"
+JAD609,TQC,Stream與Lambda：篩選與統計,"輸入 n 個整數，使用 Stream API 篩選出所有偶數，計算偶數的個數與總和，並輸出由大到小排序後的偶數清單（以空白分隔）；若沒有偶數，清單輸出「無」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：三行，依序為「偶數個數: x」「偶數總和: y」「偶數清單: a b c ...」（或「偶數清單: 無」）。",3,Active,Java,"import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Integer[] nums = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        List<Integer> evens = java.util.Arrays.stream(nums)
+                .filter(x -> x % 2 == 0)
+                .sorted((a, b) -> b - a)
+                .collect(Collectors.toList());
+
+        int count = evens.size();
+        int sum = evens.stream().mapToInt(Integer::intValue).sum();
+        String listStr = evens.isEmpty()
+                ? ""無""
+                : evens.stream().map(String::valueOf).collect(Collectors.joining("" ""));
+
+        System.out.println(""偶數個數: "" + count);
+        System.out.println(""偶數總和: "" + sum);
+        System.out.println(""偶數清單: "" + listStr);
+    }
+}",1,True,"3
+1 3 5","偶數個數: 0
+偶數總和: 0
+偶數清單: 無"

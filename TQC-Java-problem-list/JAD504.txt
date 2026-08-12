@@ -1,0 +1,78 @@
+TQC+ 程式語言Java JAD504  抽象類別與範本方法
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義抽象類別 Employee，含欄位 name、baseSalary，抽象方法 calculateBonus() 回傳紅利，以及具體方法 totalSalary()（回傳 baseSalary + calculateBonus()）。子類別 Manager 的紅利為底薪的 20%，子類別 Engineer 的紅利為底薪的 10%。輸出總薪資（四捨五入為整數）。
+
+輸入說明：一行，職位（manager 或 engineer）、姓名、底薪（整數），以空白分隔。
+輸出說明：一行，格式為「姓名: 總薪資」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    abstract static class Employee {
+        String name;
+        double baseSalary;
+
+        Employee(String name, double baseSalary) {
+            this.name = name;
+            this.baseSalary = baseSalary;
+        }
+
+        abstract double calculateBonus();
+
+        double totalSalary() {
+            return baseSalary + calculateBonus();
+        }
+    }
+
+    static class Manager extends Employee {
+        Manager(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.2;
+        }
+    }
+
+    static class Engineer extends Employee {
+        Engineer(String name, double baseSalary) {
+            super(name, baseSalary);
+        }
+
+        @Override
+        double calculateBonus() {
+            return baseSalary * 0.1;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String kind = sc.next();
+        String name = sc.next();
+        double baseSalary = sc.nextDouble();
+        Employee employee;
+        if (kind.equals("manager")) {
+            employee = new Manager(name, baseSalary);
+        } else {
+            employee = new Engineer(name, baseSalary);
+        }
+        long total = Math.round(employee.totalSalary());
+        System.out.println(name + ": " + total);
+    }
+}
+
+== 範例 1 輸入 ==
+manager 小明 50000
+== 範例 1 輸出 ==
+小明: 60000
+
+== 範例 2 輸入 ==
+engineer 小華 40000
+== 範例 2 輸出 ==
+小華: 44000

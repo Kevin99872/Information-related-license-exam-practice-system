@@ -1,0 +1,65 @@
+CPE 10920 Spiral Tap
+
+難度：中等
+來源：改編自 UVa Online Judge #10920 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+在一個由 1 開始編號的方格螺旋中，1 位於原點 (0,0)，之後依序往「右」走 1 格 (2)、往「上」走 1 格 (3)、往「左」走 2 格 (4,5)、往「下」走 2 格 (6,7)、往「右」走 3 格 (8,9,10)、往「上」走 3 格...，方向依 右→上→左→下 循環，且每完成兩個方向就將步數加 1。給定 n，求編號 n 所在的座標 (x,y)。
+
+輸入說明：每行一個正整數 n (1<=n<=100000)，處理到檔案結尾。
+輸出說明：每行輸出 x 與 y (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def spiral_xy(n):
+    x, y = 0, 0
+    if n == 1:
+        return x, y
+    label = 1
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    dir_idx = 0
+    step_len = 1
+    dirs_done = 0
+    while True:
+        for _ in range(step_len):
+            x += directions[dir_idx][0]
+            y += directions[dir_idx][1]
+            label += 1
+            if label == n:
+                return x, y
+        dir_idx = (dir_idx + 1) % 4
+        dirs_done += 1
+        if dirs_done == 2:
+            step_len += 1
+            dirs_done = 0
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    x, y = spiral_xy(n)
+    print(x, y)
+
+== 範例 1 輸入 ==
+1
+2
+3
+4
+5
+== 範例 1 輸出 ==
+0 0
+1 0
+1 1
+0 1
+-1 1
+
+== 範例 2 輸入 ==
+10
+13
+50
+== 範例 2 輸出 ==
+2 -1
+2 2
+4 -3

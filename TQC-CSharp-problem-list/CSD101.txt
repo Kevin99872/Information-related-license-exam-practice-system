@@ -1,0 +1,35 @@
+TQC+ 程式語言C# CSD101  個人資料格式化輸出
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入姓名與年齡，輸出一句自我介紹。
+
+輸入說明：第一行為姓名（字串）；第二行為年齡（整數）。
+輸出說明：輸出一行「我是 <姓名>，今年 <年齡> 歲。」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? "";
+        int age = int.Parse(Console.ReadLine() ?? "0");
+        Console.WriteLine($"我是 {name}，今年 {age} 歲。");
+    }
+}
+
+== 範例 1 輸入 ==
+小明
+18
+== 範例 1 輸出 ==
+我是 小明，今年 18 歲。
+
+== 範例 2 輸入 ==
+Alice
+25
+== 範例 2 輸出 ==
+我是 Alice，今年 25 歲。

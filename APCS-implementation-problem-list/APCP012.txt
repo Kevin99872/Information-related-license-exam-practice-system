@@ -1,0 +1,26 @@
+APCS 實作題 APCP012 字元大小寫轉換計數
+
+難度：簡單
+主題：字串
+
+== 題目 ==
+給定一行字串 s，請計算其中大寫英文字母與小寫英文字母各出現幾次（其他字元不計）。
+
+輸入說明：一行字串 s（長度 1<=len(s)<=200，可能包含空白、數字或標點）。
+輸出說明：一行，依序輸出大寫字母個數與小寫字母個數，以空白分隔。
+
+== 參考解法 (Python) ==
+s = input()
+upper = sum(1 for ch in s if ch.isupper())
+lower = sum(1 for ch in s if ch.islower())
+print(upper, lower)
+
+== 範例 1 輸入 ==
+Hello World
+== 範例 1 輸出 ==
+2 8
+
+== 範例 2 輸入 ==
+APCS 2026
+== 範例 2 輸出 ==
+4 0

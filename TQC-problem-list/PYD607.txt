@@ -17,25 +17,26 @@ TQC+ 程式語言Python 607 成績計算
 輸出說明
 格式化輸出每位學生的總分及平均分數
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
-The 1st student:
+範例輸入
 78
 89
 88
 70
 60
-The 2nd student:
 90
 78
 66
 68
 78
-The 3rd student:
 69
 97
 70
 89
 90
+範例輸出
+The 1st student:
+The 2nd student:
+The 3rd student:
 Student 1
 #Sum 385
 #Average 77.00

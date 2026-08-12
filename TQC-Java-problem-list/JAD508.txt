@@ -1,0 +1,102 @@
+TQC+ 程式語言Java JAD508  介面與多型集合排序
+
+難度：困難
+主題：物件導向
+
+== 題目 ==
+定義介面 Priced，含方法 getPrice()；類別 Book 與 Toy 皆實作 Priced，各自含欄位 name 與 price。輸入 n 筆商品資料（種類、名稱、價格），依價格由低到高排序後輸出「名稱 價格」。
+
+輸入說明：第一行一個整數 n；接下來 n 行，每行為「種類（book 或 toy） 名稱 價格」，以空白分隔。
+輸出說明：n 行，依價格由低到高排序後的「名稱 價格」。
+
+== 參考解法 (Java) ==
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    interface Priced {
+        int getPrice();
+
+        String getName();
+    }
+
+    static class Book implements Priced {
+        String name;
+        int price;
+
+        Book(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    static class Toy implements Priced {
+        String name;
+        int price;
+
+        Toy(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        @Override
+        public int getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Priced> items = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            String kind = sc.next();
+            String name = sc.next();
+            int price = sc.nextInt();
+            if (kind.equals("book")) {
+                items.add(new Book(name, price));
+            } else {
+                items.add(new Toy(name, price));
+            }
+        }
+        items.sort(Comparator.comparingInt(Priced::getPrice));
+        for (Priced item : items) {
+            System.out.println(item.getName() + " " + item.getPrice());
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+3
+book HarryPotter 350
+toy LegoSet 899
+book Math 220
+== 範例 1 輸出 ==
+Math 220
+HarryPotter 350
+LegoSet 899
+
+== 範例 2 輸入 ==
+2
+toy Yoyo 99
+book Atlas 480
+== 範例 2 輸出 ==
+Yoyo 99
+Atlas 480

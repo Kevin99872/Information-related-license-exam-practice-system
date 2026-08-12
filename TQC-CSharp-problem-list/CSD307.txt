@@ -1,0 +1,34 @@
+TQC+ 程式語言C# CSD307  手機號碼遮罩
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一組 10 碼手機號碼（皆為數字），使用 Substring 將中間 4 碼（第 4~7 碼）替換為 "****" 後輸出，其餘碼保留原樣。
+
+輸入說明：一行 10 碼數字字串。
+輸出說明：一行，遮罩後的手機號碼。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string phone = Console.ReadLine() ?? "";
+        string prefix = phone.Substring(0, 3);
+        string suffix = phone.Substring(7);
+        Console.WriteLine(prefix + "****" + suffix);
+    }
+}
+
+== 範例 1 輸入 ==
+0912345678
+== 範例 1 輸出 ==
+091****678
+
+== 範例 2 輸入 ==
+0987654321
+== 範例 2 輸出 ==
+098****321

@@ -14,21 +14,22 @@ TQC+ 程式語言Python 708 詞典合併
 輸出說明
 合併兩詞典，並根據key值字母由小到大排序輸出，如有重複key值，後輸入的key值將覆蓋前一key值
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示
+範例輸入
+a
+apple
+b
+banana
+d
+durian
+end
+c
+cat
+e
+elephant
+end
+範例輸出
 Create dict1:
-Key: a
-Value: apple
-Key: b
-Value: banana
-Key: d
-Value: durian
-Key: end
 Create dict2:
-Key: c
-Value: cat
-Key: e
-Value: elephant
-Key: end
 a: apple
 b: banana
 c: cat

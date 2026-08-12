@@ -1,0 +1,61 @@
+TQC+ 程式語言Java JAD505  介面多重實作：飛行與游泳
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義介面 Flyable，含方法 fly()；介面 Swimmable，含方法 swim()。類別 Duck 同時實作 Flyable 與 Swimmable 兩個介面。輸入名字，依序輸出該物件的飛行與游泳描述。
+
+輸入說明：一行一個字串，代表名字（不含空白）。
+輸出說明：兩行，第一行為「名字 會飛」，第二行為「名字 會游泳」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    interface Flyable {
+        String fly();
+    }
+
+    interface Swimmable {
+        String swim();
+    }
+
+    static class Duck implements Flyable, Swimmable {
+        String name;
+
+        Duck(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String fly() {
+            return name + " 會飛";
+        }
+
+        @Override
+        public String swim() {
+            return name + " 會游泳";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        Duck duck = new Duck(name);
+        System.out.println(duck.fly());
+        System.out.println(duck.swim());
+    }
+}
+
+== 範例 1 輸入 ==
+唐老鴨
+== 範例 1 輸出 ==
+唐老鴨 會飛
+唐老鴨 會游泳
+
+== 範例 2 輸入 ==
+Donald
+== 範例 2 輸出 ==
+Donald 會飛
+Donald 會游泳

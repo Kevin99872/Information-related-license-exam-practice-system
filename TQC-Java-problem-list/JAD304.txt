@@ -1,0 +1,39 @@
+TQC+ 程式語言Java JAD304  單字反轉但順序不變
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一個以空白分隔多個單字的句子，將每個單字內部反轉，但單字的先後順序保持不變。
+
+輸入說明：一行句子，單字之間以一個空白分隔。
+輸出說明：一行，處理後的句子。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            sb.append(new StringBuilder(words[i]).reverse());
+            if (i < words.length - 1) {
+                sb.append(' ');
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}
+
+== 範例 1 輸入 ==
+I love Java
+== 範例 1 輸出 ==
+I evol avaJ
+
+== 範例 2 輸入 ==
+hello world
+== 範例 2 輸出 ==
+olleh dlrow

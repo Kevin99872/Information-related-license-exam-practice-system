@@ -1,0 +1,28 @@
+APCS 實作題 APCP018 出現最多次的字元
+
+難度：中等
+主題：字串
+
+== 題目 ==
+給定一行僅由小寫英文字母組成的字串 s，請找出出現次數最多的字元；若有多個字元並列最多次，輸出字母序最小的那一個。
+
+輸入說明：一行字串 s（僅含小寫英文字母，長度 1<=len(s)<=1000）。
+輸出說明：一行，輸出出現次數最多的字元。
+
+== 參考解法 (Python) ==
+from collections import Counter
+s = input()
+c = Counter(s)
+mx = max(c.values())
+candidates = [ch for ch, v in c.items() if v == mx]
+print(min(candidates))
+
+== 範例 1 輸入 ==
+banana
+== 範例 1 輸出 ==
+a
+
+== 範例 2 輸入 ==
+abcabc
+== 範例 2 輸出 ==
+a

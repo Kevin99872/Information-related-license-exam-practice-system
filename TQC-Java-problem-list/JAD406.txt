@@ -1,0 +1,51 @@
+TQC+ 程式語言Java JAD406  類別方法：矩形類別
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義類別 Rectangle，含欄位 width 與 height，並提供建構子；另撰寫方法 getArea() 回傳面積、getPerimeter() 回傳周長。
+
+輸入說明：一行，寬與高（皆為整數），以空白分隔。
+輸出說明：一行，格式為「面積: x 周長: y」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static class Rectangle {
+        int width;
+        int height;
+
+        Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        int getArea() {
+            return width * height;
+        }
+
+        int getPerimeter() {
+            return 2 * (width + height);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int w = sc.nextInt();
+        int h = sc.nextInt();
+        Rectangle rect = new Rectangle(w, h);
+        System.out.println("面積: " + rect.getArea() + " 周長: " + rect.getPerimeter());
+    }
+}
+
+== 範例 1 輸入 ==
+3 4
+== 範例 1 輸出 ==
+面積: 12 周長: 14
+
+== 範例 2 輸入 ==
+5 5
+== 範例 2 輸出 ==
+面積: 25 周長: 20

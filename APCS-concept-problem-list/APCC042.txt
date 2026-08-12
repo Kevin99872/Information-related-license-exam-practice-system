@@ -1,0 +1,20 @@
+APCS 觀念題 APCC042 布林邏輯運算追蹤
+
+難度：簡單
+主題：布林邏輯
+
+== 題目 ==
+下列邏輯運算式的結果為何？
+
+    (True and False) or (not False)
+
+(A) True
+(B) False
+(C) None
+(D) 運算式有誤，無法求值
+
+== 正解 ==
+A
+
+== 解析 ==
+True and False 結果為 False；not False 結果為 True；False or True 結果為 True。

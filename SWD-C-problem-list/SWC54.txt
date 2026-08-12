@@ -1,0 +1,27 @@
+電腦軟體設計丙級 練習題 SWC54  統計字串中大小寫、數字與其他字元的個數
+
+難度：中等
+
+== 題目 ==
+輸入一行文字，分別統計其中大寫字母、小寫字母、數字字元，以及其他字元 (例如空白、標點符號) 的個數。
+
+輸入說明：一行文字。
+輸出說明：一行，依序輸出 大寫個數 小寫個數 數字個數 其他個數，以空白分隔。
+
+== 參考解法 (Python) ==
+s = input()
+upper = sum(1 for c in s if c.isupper())
+lower = sum(1 for c in s if c.islower())
+digit = sum(1 for c in s if c.isdigit())
+other = len(s) - upper - lower - digit
+print(upper, lower, digit, other)
+
+== 範例 1 輸入 ==
+Hello World 123!
+== 範例 1 輸出 ==
+2 8 3 3
+
+== 範例 2 輸入 ==
+ABCabc
+== 範例 2 輸出 ==
+3 3 0 0

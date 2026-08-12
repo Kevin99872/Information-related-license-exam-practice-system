@@ -1,0 +1,73 @@
+TQC+ 程式語言C# CSD502  方法覆寫多型行為
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義基底類別 Shape，含虛擬方法 Describe() 回傳「圖形」。定義子類別 Circle 覆寫 Describe() 回傳「圓形」，子類別 Square 覆寫 Describe() 回傳「正方形」。輸入 n 個代碼（1=Shape, 2=Circle, 3=Square），依序建立物件並以基底類別參考呼叫 Describe()，逐行輸出結果。
+
+輸入說明：第一行為整數 n；第二行為 n 個以空白分隔的代碼（1、2 或 3）。
+輸出說明：n 行，依序為每個物件呼叫 Describe() 的結果。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Shape
+{
+    public virtual string Describe()
+    {
+        return "圖形";
+    }
+}
+
+class Circle : Shape
+{
+    public override string Describe()
+    {
+        return "圓形";
+    }
+}
+
+class Square : Shape
+{
+    public override string Describe()
+    {
+        return "正方形";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        int[] codes = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        for (int i = 0; i < n; i++)
+        {
+            Shape s = codes[i] switch
+            {
+                2 => new Circle(),
+                3 => new Square(),
+                _ => new Shape(),
+            };
+            Console.WriteLine(s.Describe());
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+3
+1 2 3
+== 範例 1 輸出 ==
+圖形
+圓形
+正方形
+
+== 範例 2 輸入 ==
+2
+2 2
+== 範例 2 輸出 ==
+圓形
+圓形

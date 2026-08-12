@@ -1,0 +1,39 @@
+APCS 實作題 APCP045 遞迴生成全排列
+
+難度：困難
+主題：遞迴/回溯法
+
+== 題目 ==
+給定一個由不重複的小寫英文字母組成的字串 s，請使用遞迴（回溯法）產生 s 所有字母的排列，並依字典序由小到大輸出。
+
+輸入說明：一行字串 s（僅含相異的小寫英文字母，長度 1<=len(s)<=6）。
+輸出說明：共 len(s)! 行，依字典序輸出每一種排列。
+
+== 參考解法 (Python) ==
+def perm(path, remaining, out):
+    if not remaining:
+        out.append(''.join(path))
+        return
+    for i in range(len(remaining)):
+        perm(path + [remaining[i]], remaining[:i] + remaining[i + 1:], out)
+
+s = sorted(input().strip())
+out = []
+perm([], s, out)
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+ba
+== 範例 1 輸出 ==
+ab
+ba
+
+== 範例 2 輸入 ==
+cab
+== 範例 2 輸出 ==
+abc
+acb
+bac
+bca
+cab
+cba

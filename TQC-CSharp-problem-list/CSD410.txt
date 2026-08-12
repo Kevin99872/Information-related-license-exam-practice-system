@@ -1,0 +1,47 @@
+TQC+ 程式語言C# CSD410  凱薩加密方法
+
+難度：困難
+主題：方法
+
+== 題目 ==
+撰寫方法 CaesarEncrypt，接受一個只含大寫英文字母的字串與位移量 shift，回傳將每個字母往後位移 shift 個字母（超過 Z 則循環回 A）後的加密字串。
+
+輸入說明：第一行為大寫英文字母字串 s（長度 1~100）；第二行為位移量 shift（整數，0 <= shift <= 25）。
+輸出說明：一行，加密後的字串。
+
+== 參考解法 (C#) ==
+using System;
+using System.Text;
+
+class Program
+{
+    static string CaesarEncrypt(string s, int shift)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in s)
+        {
+            int offset = (c - 'A' + shift) % 26;
+            sb.Append((char)('A' + offset));
+        }
+        return sb.ToString();
+    }
+
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? "";
+        int shift = int.Parse(Console.ReadLine() ?? "0");
+        Console.WriteLine(CaesarEncrypt(s, shift));
+    }
+}
+
+== 範例 1 輸入 ==
+HELLO
+3
+== 範例 1 輸出 ==
+KHOOR
+
+== 範例 2 輸入 ==
+XYZ
+2
+== 範例 2 輸出 ==
+ZAB

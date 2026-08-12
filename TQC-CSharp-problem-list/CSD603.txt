@@ -1,0 +1,52 @@
+TQC+ 程式語言C# CSD603  Dictionary 單字計數
+
+難度：中等
+主題：集合與LINQ
+
+== 題目 ==
+輸入一行以空白分隔的英文單字，使用 Dictionary&lt;string,int&gt; 統計每個單字出現的次數，依單字字典順序輸出「單字 次數」。
+
+輸入說明：一行，以空白分隔的英文單字（皆為小寫）。
+輸出說明：多行，依單字字典順序排序輸出「單字 次數」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string[] words = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, int> counts = new Dictionary<string, int>();
+        foreach (string w in words)
+        {
+            if (counts.ContainsKey(w))
+            {
+                counts[w]++;
+            }
+            else
+            {
+                counts[w] = 1;
+            }
+        }
+        foreach (string key in counts.Keys.OrderBy(k => k, StringComparer.Ordinal))
+        {
+            Console.WriteLine($"{key} {counts[key]}");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+apple banana apple cherry banana apple
+== 範例 1 輸出 ==
+apple 3
+banana 2
+cherry 1
+
+== 範例 2 輸入 ==
+dog cat dog
+== 範例 2 輸出 ==
+cat 1
+dog 2

@@ -1,0 +1,41 @@
+TQC+ 程式語言C# CSD206  陣列反轉輸出
+
+難度：中等
+主題：陣列
+
+== 題目 ==
+輸入 n 個整數，將陣列反轉後輸出（不使用內建 Reverse 方法，自行以迴圈實作）。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，反轉後的整數，以空白分隔。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        int n = nums.Length;
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i] = nums[n - 1 - i];
+        }
+        Console.WriteLine(string.Join(" ", result));
+    }
+}
+
+== 範例 1 輸入 ==
+1 2 3 4 5
+== 範例 1 輸出 ==
+5 4 3 2 1
+
+== 範例 2 輸入 ==
+10 20 30
+== 範例 2 輸出 ==
+30 20 10

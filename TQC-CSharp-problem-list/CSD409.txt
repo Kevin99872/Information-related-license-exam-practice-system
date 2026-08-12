@@ -1,0 +1,45 @@
+TQC+ 程式語言C# CSD409  遞迴計算費氏數列
+
+難度：困難
+主題：方法
+
+== 題目 ==
+撰寫遞迴方法 Fib，計算費氏數列第 n 項（F1=1, F2=1, F(n)=F(n-1)+F(n-2)），並輸出第 1 項到第 n 項。
+
+輸入說明：一行正整數 n（1 <= n <= 25）。
+輸出說明：一行，費氏數列前 n 項，以空白分隔。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static long Fib(int n)
+    {
+        if (n <= 2) return 1;
+        return Fib(n - 1) + Fib(n - 2);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "1");
+        List<long> result = new List<long>();
+        for (int i = 1; i <= n; i++)
+        {
+            result.Add(Fib(i));
+        }
+        Console.WriteLine(string.Join(" ", result));
+    }
+}
+
+== 範例 1 輸入 ==
+8
+== 範例 1 輸出 ==
+1 1 2 3 5 8 13 21
+
+== 範例 2 輸入 ==
+1
+== 範例 2 輸出 ==
+1

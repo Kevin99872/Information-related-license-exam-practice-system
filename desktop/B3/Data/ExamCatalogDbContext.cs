@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using B3.Models;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace B3.Data;
 
@@ -36,7 +35,7 @@ public class ExamCatalogDbContext : DbContext
         });
     }
 
-    /// <summary>初始化目錄資料庫，第一次執行時建立結構並寫入預設考試種類</summary>
+    /// <summary>初始化目錄資料庫，第一次執行時建立結構 (不寫入任何預設考試種類)</summary>
     public static void Initialize()
     {
         var dbDir = Path.GetDirectoryName(DbPath);
@@ -47,25 +46,6 @@ public class ExamCatalogDbContext : DbContext
 
         using var context = new ExamCatalogDbContext();
         context.Database.EnsureCreated();
-        SeedDefaults(context);
-    }
-
-    /// <summary>若目錄為空，寫入預設考試種類資料</summary>
-    private static void SeedDefaults(ExamCatalogDbContext context)
-    {
-        if (context.ExamCategories.Any())
-        {
-            return;
-        }
-
-        context.ExamCategories.AddRange(
-            new ExamCategory { ExamType = "TQC", Title = "TQC+ Python3", Tag = "熱門", IsHot = true, SortOrder = 0, DurationMinutes = 180, Description = "TQC+ Python 考驗對於 Python 的基礎程式邏輯與演算法能力。" },
-            new ExamCategory { ExamType = "CPE", Title = "CPE", Tag = "新增", IsHot = true, SortOrder = 1, DurationMinutes = 150, Description = "大學程式設計先修檢測，考驗 C/C++ 程式邏輯與演算法能力。共 1-5 級題目。" },
-            new ExamCategory { ExamType = "APCS", Title = "APCS", Tag = "熱門", IsHot = true, SortOrder = 2, DurationMinutes = 120, Description = "APCS 程式設計先修檢測，涵蓋各級程度的演算法與資料結構題庫。" },
-            new ExamCategory { ExamType = "Software", Title = "電腦軟體設計 丙級技術士", Tag = "", IsHot = false, SortOrder = 3, DurationMinutes = 100, Description = "技術士技能檢定丙級，涵蓋各類軟體工程師基本演算法題庫。" }
-        );
-
-        context.SaveChanges();
     }
 
     /// <summary>取得目錄資料庫路徑 (與 exam.db 同目錄)</summary>

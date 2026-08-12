@@ -1,0 +1,46 @@
+TQC+ 程式語言Java JAD208  陣列排序後找中位數
+
+難度：困難
+主題：陣列
+
+== 題目 ==
+輸入 n 個整數，排序後輸出中位數。若 n 為奇數，中位數為排序後正中間的元素；若 n 為偶數，中位數為排序後正中間兩個元素的平均值。結果一律輸出到小數點後一位。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：一行，中位數，格式到小數點後一位。
+
+== 參考解法 (Java) ==
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        Arrays.sort(arr);
+        double median;
+        if (n % 2 == 1) {
+            median = arr[n / 2];
+        } else {
+            median = (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+        }
+        System.out.printf(Locale.US, "%.1f%n", median);
+    }
+}
+
+== 範例 1 輸入 ==
+5
+5 3 1 4 2
+== 範例 1 輸出 ==
+3.0
+
+== 範例 2 輸入 ==
+4
+4 3 2 1
+== 範例 2 輸出 ==
+2.5

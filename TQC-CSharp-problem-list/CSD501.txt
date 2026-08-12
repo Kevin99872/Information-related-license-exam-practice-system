@@ -1,0 +1,63 @@
+TQC+ 程式語言C# CSD501  動物類別繼承
+
+難度：簡單
+主題：物件導向
+
+== 題目 ==
+定義基底類別 Animal，含屬性 Name 與方法 Speak()（回傳「(名字) 發出聲音」）。定義子類別 Dog 繼承 Animal，並覆寫 Speak() 回傳「(名字) 汪汪叫」。輸入名字與種類（1 為一般動物、2 為狗），建立對應物件並輸出 Speak() 的結果。
+
+輸入說明：第一行為名字；第二行為整數 kind（1 或 2）。
+輸出說明：一行，Speak() 方法回傳的字串。
+
+== 參考解法 (C#) ==
+using System;
+
+class Animal
+{
+    public string Name { get; set; }
+
+    public Animal(string name)
+    {
+        Name = name;
+    }
+
+    public virtual string Speak()
+    {
+        return $"{Name} 發出聲音";
+    }
+}
+
+class Dog : Animal
+{
+    public Dog(string name) : base(name)
+    {
+    }
+
+    public override string Speak()
+    {
+        return $"{Name} 汪汪叫";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? "";
+        int kind = int.Parse(Console.ReadLine() ?? "1");
+        Animal a = (kind == 2) ? new Dog(name) : new Animal(name);
+        Console.WriteLine(a.Speak());
+    }
+}
+
+== 範例 1 輸入 ==
+小白
+2
+== 範例 1 輸出 ==
+小白 汪汪叫
+
+== 範例 2 輸入 ==
+神秘生物
+1
+== 範例 2 輸出 ==
+神秘生物 發出聲音

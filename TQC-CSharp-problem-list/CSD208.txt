@@ -1,0 +1,61 @@
+TQC+ 程式語言C# CSD208  矩陣列與欄總和
+
+難度：中等
+主題：陣列
+
+== 題目 ==
+輸入一個 r 列 c 欄的整數矩陣，輸出每一列的總和，再輸出每一欄的總和。
+
+輸入說明：第一行為兩個整數 r c；接著 r 行，每行 c 個以空白分隔的整數。
+輸出說明：第一行為 r 個以空白分隔的列總和；第二行為 c 個以空白分隔的欄總和。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string[] first = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int r = int.Parse(first[0]);
+        int c = int.Parse(first[1]);
+        int[][] mat = new int[r][];
+        for (int i = 0; i < r; i++)
+        {
+            mat[i] = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+        }
+
+        int[] rowSum = new int[r];
+        int[] colSum = new int[c];
+        for (int i = 0; i < r; i++)
+        {
+            for (int j = 0; j < c; j++)
+            {
+                rowSum[i] += mat[i][j];
+                colSum[j] += mat[i][j];
+            }
+        }
+        Console.WriteLine(string.Join(" ", rowSum));
+        Console.WriteLine(string.Join(" ", colSum));
+    }
+}
+
+== 範例 1 輸入 ==
+2 3
+1 2 3
+4 5 6
+== 範例 1 輸出 ==
+6 15
+5 7 9
+
+== 範例 2 輸入 ==
+3 2
+1 1
+2 2
+3 3
+== 範例 2 輸出 ==
+2 4 6
+6 6

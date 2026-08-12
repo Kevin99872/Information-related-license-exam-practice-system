@@ -1,0 +1,44 @@
+TQC+ 程式語言C# CSD304  忽略大小寫的迴文判斷
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一個字串，判斷忽略英文字母大小寫後是否為迴文（正讀反讀相同）。
+
+輸入說明：一行字串 s（僅含英文字母，長度 1~200）。
+輸出說明：一行，若為迴文輸出「是迴文」，否則輸出「不是迴文」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = (Console.ReadLine() ?? "").ToLower();
+        int i = 0, j = s.Length - 1;
+        bool ok = true;
+        while (i < j)
+        {
+            if (s[i] != s[j])
+            {
+                ok = false;
+                break;
+            }
+            i++;
+            j--;
+        }
+        Console.WriteLine(ok ? "是迴文" : "不是迴文");
+    }
+}
+
+== 範例 1 輸入 ==
+Level
+== 範例 1 輸出 ==
+是迴文
+
+== 範例 2 輸入 ==
+Hello
+== 範例 2 輸出 ==
+不是迴文

@@ -1,0 +1,59 @@
+CPE Longest Common Prefix
+
+難度：簡單
+來源：原創（字串前綴基礎題型）
+
+== 題目 ==
+給定 n 個字串，求它們的最長共同前綴。
+
+輸入說明：每組第一行為 n；接著 n 行字串。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最長共同前綴；若無共同前綴 (含空字串)，輸出 No common prefix.
+
+== 參考解法 (Python) ==
+import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    words = []
+    for _ in range(n):
+        words.append(data[idx])
+        idx += 1
+    prefix = words[0]
+    for w in words[1:]:
+        while not w.startswith(prefix):
+            prefix = prefix[:-1]
+            if prefix == '':
+                break
+        if prefix == '':
+            break
+    if prefix == '':
+        out.append("No common prefix.")
+    else:
+        out.append(prefix)
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+3
+flower
+flow
+flight
+0
+== 範例 1 輸出 ==
+fl
+
+== 範例 2 輸入 ==
+2
+dog
+cat
+0
+== 範例 2 輸出 ==
+No common prefix.

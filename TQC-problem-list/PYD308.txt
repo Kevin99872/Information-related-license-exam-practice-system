@@ -15,18 +15,19 @@ TQC+ 程式語言Python 308 迴圈位數加總
 輸出說明
 將測試資料的每位數全部加總
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 1
+範例輸入1
 1
 98765
+範例輸出1
 Sum of all digits of 98765 is 35
 
-
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 2
+範例輸入2
 3
 32412
-Sum of all digits of 32412 is 12
 0
-Sum of all digits of 0 is 0
 769
+範例輸出2
+Sum of all digits of 32412 is 12
+Sum of all digits of 0 is 0
 Sum of all digits of 769 is 22
 '''

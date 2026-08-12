@@ -1,0 +1,40 @@
+TQC+ 程式語言Java JAD403  判斷閏年方法
+
+難度：簡單
+主題：方法
+
+== 題目 ==
+撰寫一個方法 isLeapYear(int year)，判斷該年份是否為閏年（能被 4 整除但不能被 100 整除，或能被 400 整除）。
+
+輸入說明：一行一個整數，代表年份。
+輸出說明：一行，若為閏年輸出「閏年」，否則輸出「平年」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        System.out.println(isLeapYear(year) ? "閏年" : "平年");
+    }
+}
+
+== 範例 1 輸入 ==
+2024
+== 範例 1 輸出 ==
+閏年
+
+== 範例 2 輸入 ==
+1900
+== 範例 2 輸出 ==
+平年
+
+== 範例 3 輸入 ==
+2000
+== 範例 3 輸出 ==
+閏年

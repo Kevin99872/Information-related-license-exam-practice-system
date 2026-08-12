@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net10.0": {
       "Avalonia/12.0.2": {
@@ -4102,37 +4102,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kevinkai\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/home/kevinkai/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
+      "projectUniqueName": "/home/kevinkai/專案/Information-related-license-exam-practice-system/desktop/B3/B3.csproj",
       "projectName": "B3",
-      "projectPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\B3.csproj",
-      "packagesPath": "C:\\Users\\kevinkai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kevinkai\\Documents\\GitHub\\Information-related-license-exam-practice-system\\desktop\\B3\\obj\\",
+      "projectPath": "/home/kevinkai/專案/Information-related-license-exam-practice-system/desktop/B3/B3.csproj",
+      "packagesPath": "/home/kevinkai/.nuget/packages/",
+      "outputPath": "/home/kevinkai/專案/Information-related-license-exam-practice-system/desktop/B3/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\kevinkai\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/kevinkai/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -4147,11 +4138,10 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Avalonia": {
@@ -4210,12 +4200,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[10.0.10, 10.0.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.110/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -4508,7 +4504,67 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-23rf-6693-g89p。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
       "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-37gx-xxp4-5rgx。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-6588-8gv4-xfgh。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-8q5v-6pqq-x66h。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-cvvh-rhrc-wg4q。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-g8r8-53c2-pm3f。",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Security.Cryptography.Xml' 8.0.2 具有已知的 高 嚴重性弱點，https://github.com/advisories/GHSA-mmjf-rqrv-855v。",
       "libraryId": "System.Security.Cryptography.Xml",
       "targetGraphs": [
         "net10.0"

@@ -1,0 +1,527 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+APCC001,APCS,迴圈加總追蹤,"下列程式執行後，會輸出什麼？
+
+    total = 0
+    for i in range(1, 6):
+        total += i
+    print(total)
+
+(A) 10
+(B) 14
+(C) 21
+(D) 15",1,Active,Python,"print(""D"")",0,False,-,D
+APCC002,APCS,巢狀迴圈計數追蹤,"下列程式執行後，count 的值為何？
+
+    count = 0
+    for i in range(3):
+        for j in range(3):
+            count += 1
+    print(count)
+
+(A) 9
+(B) 6
+(C) 3
+(D) 12",1,Active,Python,"print(""A"")",0,False,-,A
+APCC003,APCS,while 迴圈與 break 追蹤,"下列程式執行後，n 的最終值為何？
+
+    n = 1
+    while True:
+        n = n * 2
+        if n > 50:
+            break
+    print(n)
+
+(A) 32
+(B) 50
+(C) 64
+(D) 128",2,Active,Python,"print(""C"")",0,False,-,C
+APCC004,APCS,陣列單趟比較交換追蹤,"下列程式對陣列做「單一趟」相鄰比較交換（只執行一次由左到右的掃描），執行後 a 的內容為何？
+
+    a = [3, 7, 1, 9, 4]
+    for i in range(len(a) - 1):
+        if a[i] > a[i + 1]:
+            a[i], a[i + 1] = a[i + 1], a[i]
+    print(a)
+
+(A) [1, 3, 4, 7, 9]
+(B) [9, 7, 4, 3, 1]
+(C) [3, 7, 1, 9, 4]
+(D) [3, 1, 7, 4, 9]",2,Active,Python,"print(""D"")",0,False,-,D
+APCC005,APCS,字串切片與索引追蹤,"下列程式執行後，會輸出什麼？（字串索引由 0 開始）
+
+    s = ""APCS2026""
+    print(s[0], s[-1], s[2:5])
+
+(A) A 6 CS2
+(B) A 6 S20
+(C) P 6 CS2
+(D) A 2026 APC",1,Active,Python,"print(""A"")",0,False,-,A
+APCC006,APCS,遞迴階乘追蹤,"下列遞迴函式執行 f(5) 後，回傳值為何？
+
+    def f(n):
+        if n <= 1:
+            return 1
+        return n * f(n - 1)
+
+    print(f(5))
+
+(A) 24
+(B) 60
+(C) 125
+(D) 120",1,Active,Python,"print(""D"")",0,False,-,D
+APCC007,APCS,遞迴費氏數列追蹤,"下列遞迴函式執行 fib(6) 後，回傳值為何？
+
+    def fib(n):
+        if n <= 1:
+            return n
+        return fib(n - 1) + fib(n - 2)
+
+    print(fib(6))
+
+(A) 8
+(B) 6
+(C) 5
+(D) 13",2,Active,Python,"print(""A"")",0,False,-,A
+APCC008,APCS,遞迴呼叫順序與輸出追蹤,"下列程式執行 f(3) 後，依序會印出哪些數字？（每個數字之間以空白分隔）
+
+    def f(n):
+        if n == 0:
+            return
+        print(n, end=' ')
+        f(n - 1)
+        print(-n, end=' ')
+
+    f(3)
+
+(A) 3 2 1 -1 -2 -3
+(B) 3 2 1 -3 -2 -1
+(C) -1 -2 -3 1 2 3
+(D) 1 2 3 -1 -2 -3",3,Active,Python,"print(""A"")",0,False,-,A
+APCC009,APCS,continue 略過特定項目追蹤,"下列程式執行後，total 的值為何？
+
+    total = 0
+    for i in range(1, 10):
+        if i % 3 == 0:
+            continue
+        total += i
+    print(total)
+
+(A) 27
+(B) 30
+(C) 42
+(D) 45",2,Active,Python,"print(""A"")",0,False,-,A
+APCC010,APCS,巢狀迴圈圖形字元數追蹤,"下列程式總共會印出幾個 '*' 字元？
+
+    for i in range(1, 5):
+        for j in range(i):
+            print(""*"", end="""")
+        print()
+
+(A) 6
+(B) 8
+(C) 10
+(D) 16",2,Active,Python,"print(""C"")",0,False,-,C
+APCC011,APCS,陣列找最大值索引追蹤（重複值）,"下列程式執行後，max_idx 的值為何？
+
+    a = [4, 9, 2, 9, 5]
+    max_val = a[0]
+    max_idx = 0
+    for i in range(1, len(a)):
+        if a[i] > max_val:
+            max_val = a[i]
+            max_idx = i
+    print(max_idx)
+
+(A) 0
+(B) 4
+(C) 3
+(D) 1",1,Active,Python,"print(""D"")",0,False,-,D
+APCC012,APCS,雙指標反轉陣列追蹤,"下列程式使用雙指標交換法，執行後 a 的內容為何？
+
+    a = [1, 2, 3, 4, 5]
+    left, right = 0, len(a) - 1
+    while left < right:
+        a[left], a[right] = a[right], a[left]
+        left += 1
+        right -= 1
+    print(a)
+
+(A) [5, 4, 3, 2, 1]
+(B) [1, 2, 3, 4, 5]
+(C) [5, 1, 3, 4, 2]
+(D) [2, 1, 3, 5, 4]",2,Active,Python,"print(""A"")",0,False,-,A
+APCC013,APCS,模數運算計數追蹤,"下列程式執行後，count 的值為何？
+
+    count = 0
+    for i in range(1, 21):
+        if i % 2 == 0:
+            count += 1
+    print(count)
+
+(A) 9
+(B) 20
+(C) 11
+(D) 10",1,Active,Python,"print(""D"")",0,False,-,D
+APCC014,APCS,字串反轉迴圈追蹤,"下列程式執行後，result 的內容為何？
+
+    s = ""HELLO""
+    result = """"
+    for ch in s:
+        result = ch + result
+    print(result)
+
+(A) HELLO
+(B) OLLEH
+(C) HLELO
+(D) OLEHL",2,Active,Python,"print(""B"")",0,False,-,B
+APCC015,APCS,遞迴計算最大公因數追蹤,"下列輾轉相除法（歐幾里得演算法）的遞迴函式，執行 gcd(48, 18) 後回傳值為何？
+
+    def gcd(a, b):
+        if b == 0:
+            return a
+        return gcd(b, a % b)
+
+    print(gcd(48, 18))
+
+(A) 3
+(B) 6
+(C) 9
+(D) 18",3,Active,Python,"print(""B"")",0,False,-,B
+APCC016,APCS,遞迴呼叫次數計算,"下列函式沒有使用備忘（memoization），是最原始的雙重遞迴寫法。執行 f(4) 時，函式 f 總共被呼叫幾次（包含最外層呼叫本身）？
+
+    def f(n):
+        if n <= 1:
+            return 1
+        return f(n - 1) + f(n - 2)
+
+    f(4)
+
+(A) 5
+(B) 7
+(C) 15
+(D) 9",3,Active,Python,"print(""D"")",0,False,-,D
+APCC017,APCS,二維陣列對角線總和追蹤,"下列程式執行後，total 的值為何？
+
+    a = [[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]]
+    total = 0
+    for i in range(3):
+        total += a[i][i]
+    print(total)
+
+(A) 15
+(B) 18
+(C) 21
+(D) 45",2,Active,Python,"print(""A"")",0,False,-,A
+APCC018,APCS,二維陣列條件式累加追蹤,"下列程式執行後，s 的值為何？
+
+    a = [[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]]
+    s = 0
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                s += a[i][j]
+    print(s)
+
+(A) 15
+(B) 24
+(C) 30
+(D) 45",3,Active,Python,"print(""C"")",0,False,-,C
+APCC019,APCS,排序與切片組合追蹤,"下列程式執行後，會輸出什麼？
+
+    a = [3, 1, 4, 1, 5, 9, 2, 6]
+    b = sorted(a, reverse=True)[:3]
+    print(b)
+
+(A) [9, 6, 5]
+(B) [1, 1, 2]
+(C) [3, 1, 4]
+(D) [9, 5, 6]",2,Active,Python,"print(""A"")",0,False,-,A
+APCC020,APCS,字元出現次數統計追蹤,"下列程式使用字典統計字元出現次數，執行後會輸出什麼？
+
+    s = ""banana""
+    freq = {}
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+    print(freq['a'], freq['n'], freq['b'])
+
+(A) 3 2 1
+(B) 2 3 1
+(C) 1 2 3
+(D) 3 1 2",2,Active,Python,"print(""A"")",0,False,-,A
+APCC021,APCS,堆疊實作括號配對追蹤,"下列程式使用堆疊（stack）檢查括號是否成對匹配，執行 is_balanced(""(()())"") 後回傳值為何？
+
+    def is_balanced(s):
+        stack = []
+        for ch in s:
+            if ch == '(':
+                stack.append(ch)
+            elif ch == ')':
+                if not stack:
+                    return False
+                stack.pop()
+        return len(stack) == 0
+
+    print(is_balanced(""(()())""))
+
+(A) True
+(B) False
+(C) None
+(D) 程式會出錯",3,Active,Python,"print(""A"")",0,False,-,A
+APCC022,APCS,佇列運算追蹤,"下列程式模擬佇列（queue，先進先出）操作，list 的 append 為加入尾端、pop(0) 為移除並取出最前端元素。執行後 queue 的內容為何？
+
+    queue = [1, 2, 3]
+    queue.append(4)
+    queue.pop(0)
+    queue.append(5)
+    print(queue)
+
+(A) [1, 2, 3, 4, 5]
+(B) [2, 3, 4]
+(C) [5, 4, 3, 2]
+(D) [2, 3, 4, 5]",1,Active,Python,"print(""D"")",0,False,-,D
+APCC023,APCS,陣列旋轉切片組合追蹤,"下列程式利用切片將陣列向左旋轉 k 個位置，執行後 a 的內容為何？
+
+    a = [1, 2, 3, 4, 5]
+    k = 2
+    a = a[k:] + a[:k]
+    print(a)
+
+(A) [4, 5, 1, 2, 3]
+(B) [3, 4, 5, 1, 2]
+(C) [1, 2, 3, 4, 5]
+(D) [2, 3, 4, 5, 1]",2,Active,Python,"print(""B"")",0,False,-,B
+APCC024,APCS,巢狀迴圈時間複雜度判斷,"下列程式的時間複雜度（以 n 表示輸入規模）為何？
+
+    for i in range(n):
+        for j in range(n):
+            print(i, j)
+
+(A) O(n)
+(B) O(n log n)
+(C) O(n^2)
+(D) O(2^n)",1,Active,Python,"print(""C"")",0,False,-,C
+APCC025,APCS,二分搜尋時間複雜度,"在一個已排序、共 n 個元素的陣列中執行二分搜尋法（binary search），最壞情況下的時間複雜度為何？
+
+(A) O(1)
+(B) O(n log n)
+(C) O(n)
+(D) O(log n)",2,Active,Python,"print(""D"")",0,False,-,D
+APCC026,APCS,成長速度比較,"當 n 趨近無窮大時，下列哪一個時間複雜度成長速度最快？
+
+(A) O(n)
+(B) O(n log n)
+(C) O(n^2)
+(D) O(2^n)",2,Active,Python,"print(""D"")",0,False,-,D
+APCC027,APCS,內層迴圈範圍與複雜度分析,"下列程式的時間複雜度（以 n 表示輸入規模）為何？
+
+    for i in range(n):
+        for j in range(i, n):
+            print(i, j)
+
+(A) O(n)
+(B) O(n log n)
+(C) O(n^2)
+(D) O(n^3)",3,Active,Python,"print(""C"")",0,False,-,C
+APCC028,APCS,線性掃描演算法複雜度,"在一個未排序的陣列中，找出其中最大值需要檢查每一個元素恰好一次（不能利用排序或其他捷徑）。這種演算法的時間複雜度為何？
+
+(A) O(1)
+(B) O(log n)
+(C) O(n)
+(D) O(n^2)",1,Active,Python,"print(""C"")",0,False,-,C
+APCC029,APCS,堆疊 LIFO 特性,"一個空堆疊（stack）依序執行 push(1)、push(2)、push(3)，接著執行一次 pop()，這次 pop() 會回傳的值是多少？
+
+(A) 1
+(B) 2
+(C) 3
+(D) 無法判斷",1,Active,Python,"print(""C"")",0,False,-,C
+APCC030,APCS,佇列 FIFO 特性,"一個空佇列（queue）依序執行 enqueue(1)、enqueue(2)、enqueue(3)，接著執行兩次 dequeue()，佇列中剩下的元素為何？
+
+(A) [1]
+(B) [2]
+(C) [3]
+(D) [1, 2]",1,Active,Python,"print(""C"")",0,False,-,C
+APCC031,APCS,單向鏈結串列插入複雜度,"已知一個單向鏈結串列（singly linked list）的頭指標（head），若要在串列「最前端」插入一個新節點，其時間複雜度為何？
+
+(A) O(1)
+(B) O(log n)
+(C) O(n)
+(D) O(n^2)",2,Active,Python,"print(""A"")",0,False,-,A
+APCC032,APCS,二元搜尋樹最小值位置,"在一棵二元搜尋樹（Binary Search Tree, BST）中，若要找出整棵樹中鍵值最小的節點，應該從根節點開始如何走訪？
+
+(A) 一直往右子節點走，直到沒有右子節點為止
+(B) 一直往左子節點走，直到沒有左子節點為止
+(C) 先做中序走訪，取走訪結果的最後一個節點
+(D) 隨機選擇左右子節點，直到葉節點為止",2,Active,Python,"print(""B"")",0,False,-,B
+APCC033,APCS,二元樹中序走訪追蹤,"有一棵二元樹結構如下：根節點為 A；A 的左子節點為 B、右子節點為 C；B 的左子節點為 D、右子節點為 E（其餘皆無子節點）。
+對此樹進行「中序走訪」（inorder：左子樹 → 根 → 右子樹），走訪順序為何？
+
+(A) A B D E C
+(B) A B C D E
+(C) D B A E C
+(D) D B E A C",3,Active,Python,"print(""D"")",0,False,-,D
+APCC034,APCS,圖形儲存方式的空間效率,"一個圖形有 V 個頂點、E 條邊，且 E 遠小於 V^2（即為「稀疏圖」）。若要儲存這個圖形，下列敘述何者正確？
+
+(A) 鄰接矩陣（adjacency matrix）通常比鄰接串列（adjacency list）更省空間
+(B) 鄰接串列（adjacency list）通常比鄰接矩陣（adjacency matrix）更省空間
+(C) 兩者所需空間必定相等
+(D) 稀疏圖無法用鄰接矩陣表示",3,Active,Python,"print(""B"")",0,False,-,B
+APCC035,APCS,選擇排序交換次數追蹤,"使用選擇排序法（selection sort，由小到大排序）對陣列 [5, 3, 8, 1, 9, 2] 排序：每一輪找出剩餘範圍中的最小值，若其位置不等於目前應放置的位置才進行交換。請問排序完成總共需要幾次「交換」？
+
+(A) 3
+(B) 4
+(C) 5
+(D) 6",3,Active,Python,"print(""B"")",0,False,-,B
+APCC036,APCS,二分搜尋最壞情況比較次數,"對一個已排序、共 16 個元素的陣列使用二分搜尋法，最壞情況下最多需要比較幾次才能確定目標是否存在？
+
+(A) 2
+(B) 3
+(C) 4
+(D) 16",2,Active,Python,"print(""C"")",0,False,-,C
+APCC037,APCS,二分搜尋前置條件,"下列哪一種搜尋演算法要求「資料必須事先排序好」才能正確運作？
+
+(A) 線性搜尋（linear search）
+(B) 廣度優先搜尋（BFS）
+(C) 深度優先搜尋（DFS）
+(D) 二分搜尋（binary search）",1,Active,Python,"print(""D"")",0,False,-,D
+APCC038,APCS,合併排序遞迴關係式,"合併排序（merge sort）將長度為 n 的陣列分成兩半，分別遞迴排序後再合併，其時間複雜度可用遞迴關係式 T(n) = 2T(n/2) + O(n) 描述。這個遞迴關係式的解（即合併排序的時間複雜度）為何？
+
+(A) O(n)
+(B) O(n log n)
+(C) O(n^2)
+(D) O(2^n)",3,Active,Python,"print(""B"")",0,False,-,B
+APCC039,APCS,排序演算法穩定性,"所謂排序演算法的「穩定性（stability）」，是指鍵值相同的元素在排序後仍維持原本的相對順序。下列排序演算法中，哪一個屬於「穩定排序」？
+
+(A) 選擇排序（selection sort）
+(B) 快速排序（quick sort）
+(C) 合併排序（merge sort）
+(D) 堆積排序（heap sort）",2,Active,Python,"print(""C"")",0,False,-,C
+APCC040,APCS,快速排序最壞情況,"快速排序（quick sort）若每次都選到陣列中最小或最大的元素作為基準值（pivot），且輸入資料恰好是已排序好的陣列，此時快速排序的時間複雜度會退化為何？
+
+(A) O(n)
+(B) O(n log n)
+(C) O(n^2)
+(D) O(log n)",2,Active,Python,"print(""C"")",0,False,-,C
+APCC041,APCS,遞迴終止條件的重要性,"撰寫遞迴函式時，若忘記加入下列哪一項要素，最容易造成「無窮遞迴」而導致程式當機或堆疊溢位（stack overflow）？
+
+(A) 迴圈計數器
+(B) 終止條件（base case）
+(C) 回傳型別宣告
+(D) 區域變數初始值",1,Active,Python,"print(""B"")",0,False,-,B
+APCC042,APCS,布林邏輯運算追蹤,"下列邏輯運算式的結果為何？
+
+    (True and False) or (not False)
+
+(A) True
+(B) False
+(C) None
+(D) 運算式有誤，無法求值",1,Active,Python,"print(""A"")",0,False,-,A
+APCC043,APCS,位元 AND 運算,"12 與 10 做位元 AND（&）運算，結果為何？（12 的二進位為 1100，10 的二進位為 1010）
+
+(A) 2
+(B) 6
+(C) 8
+(D) 14",2,Active,Python,"print(""C"")",0,False,-,C
+APCC044,APCS,位元 XOR 運算,"5 與 3 做位元 XOR（互斥或，^）運算，結果為何？（5 的二進位為 101，3 的二進位為 011）
+
+(A) 2
+(B) 8
+(C) 7
+(D) 6",2,Active,Python,"print(""D"")",0,False,-,D
+APCC045,APCS,位元位移運算組合追蹤,"下列運算式的結果為何？
+
+    (6 >> 1) + (3 << 2)
+
+(A) 9
+(B) 12
+(C) 15
+(D) 18",3,Active,Python,"print(""C"")",0,False,-,C
+APCC046,APCS,笛摩根定律,"根據笛摩根定律（De Morgan's law），下列運算式 not (A and B) 等價於下列何者？
+
+(A) (not A) and (not B)
+(B) (not A) or (not B)
+(C) A or B
+(D) A and B",2,Active,Python,"print(""B"")",0,False,-,B
+APCC047,APCS,二進位轉十進位,"二進位數 101101 轉換成十進位為何？
+
+(A) 43
+(B) 44
+(C) 45
+(D) 53",1,Active,Python,"print(""C"")",0,False,-,C
+APCC048,APCS,十進位轉十六進位,"十進位數 250 轉換成十六進位為何？
+
+(A) E9
+(B) F9
+(C) EA
+(D) FA",2,Active,Python,"print(""D"")",0,False,-,D
+APCC049,APCS,十六進位轉二進位,"十六進位數 0x2C 轉換成二進位（去除前導 0）為何？
+
+(A) 101100
+(B) 100110
+(C) 101010
+(D) 110010",2,Active,Python,"print(""A"")",0,False,-,A
+APCC050,APCS,八位元二補數表示法,"在 8 位元二補數（two's complement）系統中，-5 的二進位表示法為何？
+
+(A) 11111010
+(B) 11111011
+(C) 11111101
+(D) 00000101",3,Active,Python,"print(""B"")",0,False,-,B
+APCC051,APCS,圖形走訪方式的資料結構,"下列關於圖形走訪演算法的敘述，何者正確？
+
+(A) 廣度優先搜尋（BFS）使用堆疊（stack），深度優先搜尋（DFS）使用佇列（queue）
+(B) 廣度優先搜尋（BFS）使用佇列（queue），深度優先搜尋（DFS）使用堆疊（stack）或遞迴
+(C) BFS 與 DFS 都必須使用佇列，差別只在走訪順序
+(D) BFS 與 DFS 都不需要額外的資料結構輔助",1,Active,Python,"print(""B"")",0,False,-,B
+APCC052,APCS,圖形 BFS 走訪順序追蹤,"有一個無向圖，其鄰接串列如下（鄰居已由小到大排序）：
+1: [3, 4]
+2: [4]
+3: [1, 5]
+4: [1, 2, 5]
+5: [3, 4]
+
+從頂點 1 開始執行廣度優先搜尋（BFS），每次擴展時依鄰居編號由小到大的順序加入佇列，且每個頂點只會被加入佇列一次。走訪順序為何？
+
+(A) 1 3 4 5 2
+(B) 1 4 3 2 5
+(C) 1 3 5 4 2
+(D) 1 2 3 4 5",2,Active,Python,"print(""A"")",0,False,-,A
+APCC053,APCS,圖形 DFS 走訪順序追蹤,"沿用上一題相同的圖形（鄰接串列如下，鄰居已由小到大排序）：
+1: [3, 4]
+2: [4]
+3: [1, 5]
+4: [1, 2, 5]
+5: [3, 4]
+
+從頂點 1 開始執行深度優先搜尋（DFS，遞迴版本），每次優先造訪編號較小的鄰居。走訪順序為何？
+
+(A) 1 3 4 5 2
+(B) 1 3 5 2 4
+(C) 1 4 2 5 3
+(D) 1 3 5 4 2",3,Active,Python,"print(""D"")",0,False,-,D
+APCC054,APCS,樹的邊數與頂點數關係,"一個連通、且不含環（cycle）的圖形稱為「樹（tree）」。若一棵樹有 V 個頂點，則它恰好有幾條邊？
+
+(A) V
+(B) V - 1
+(C) V + 1
+(D) 2V",3,Active,Python,"print(""B"")",0,False,-,B
+APCC055,APCS,貪心法在找零問題的限制,"現有面額為 {1, 3, 4} 的硬幣，要湊出總金額 6。若採用「貪心法」，每次都選擇不超過剩餘金額的最大面額，會使用 4+1+1 共 3 枚硬幣；但實際上用 3+3 只需要 2 枚硬幣即可湊足。這個例子說明了什麼？
+
+(A) 貪心法在任何硬幣面額組合下都能得到最少硬幣數的最佳解
+(B) 貪心法在某些硬幣面額組合下，不一定能得到最少硬幣數的最佳解
+(C) 這個例子中貪心法與最佳解一定相同，只是硬幣數量的算法不同
+(D) 貪心法只適用於面額全部是質數的情況",2,Active,Python,"print(""B"")",0,False,-,B
+APCC056,APCS,動態規劃改善遞迴效率,"計算費氏數列 fib(n) 時，若使用最原始的雙重遞迴（如 fib(n)=fib(n-1)+fib(n-2)）會有大量重複計算，時間複雜度為指數等級 O(2^n)。若改用動態規劃（DP），將每個 fib(k) 的計算結果儲存起來，之後直接查表使用，可以將時間複雜度改善為何？
+
+(A) O(1)
+(B) O(n)
+(C) O(n log n)
+(D) O(2^n)，與原本相同，DP 無法改善",3,Active,Python,"print(""B"")",0,False,-,B
+APCC057,APCS,貪心法的基本定義,"下列敘述描述的是哪一種演算法設計策略：「在每一個決策步驟，都選擇當下看起來最有利的選項，並且不會回頭修改先前已做的選擇」？
+
+(A) 貪心法（greedy algorithm）
+(B) 動態規劃（dynamic programming）
+(C) 回溯法（backtracking）
+(D) 分治法（divide and conquer）",1,Active,Python,"print(""A"")",0,False,-,A

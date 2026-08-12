@@ -1,0 +1,38 @@
+TQC+ 程式語言C# CSD204  成績等級判斷
+
+難度：簡單
+主題：控制流程
+
+== 題目 ==
+輸入一個 0~100 的整數分數，依下列標準判斷等第：90 分以上為 A；80~89 為 B；70~79 為 C；60~69 為 D；60 分以下為 E。
+
+輸入說明：一行整數分數 score（0 <= score <= 100）。
+輸出說明：一行，格式為「等第:X」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int score = int.Parse(Console.ReadLine() ?? "0");
+        char grade;
+        if (score >= 90) grade = 'A';
+        else if (score >= 80) grade = 'B';
+        else if (score >= 70) grade = 'C';
+        else if (score >= 60) grade = 'D';
+        else grade = 'E';
+        Console.WriteLine($"等第:{grade}");
+    }
+}
+
+== 範例 1 輸入 ==
+95
+== 範例 1 輸出 ==
+等第:A
+
+== 範例 2 輸入 ==
+55
+== 範例 2 輸出 ==
+等第:E

@@ -1,0 +1,18 @@
+APCS 觀念題 APCC046 笛摩根定律
+
+難度：中等
+主題：布林邏輯
+
+== 題目 ==
+根據笛摩根定律（De Morgan's law），下列運算式 not (A and B) 等價於下列何者？
+
+(A) (not A) and (not B)
+(B) (not A) or (not B)
+(C) A or B
+(D) A and B
+
+== 正解 ==
+B
+
+== 解析 ==
+笛摩根定律指出 not (A and B) 等價於 (not A) or (not B)；同理 not (A or B) 等價於 (not A) and (not B)。

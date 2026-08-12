@@ -1,0 +1,55 @@
+TQC+ 程式語言C# CSD606  GroupBy 分組統計
+
+難度：困難
+主題：集合與LINQ
+
+== 題目 ==
+輸入 n 筆訂單資料（類別、金額），使用 LINQ 的 GroupBy 依類別分組，計算每一類別的金額總和，依類別字典順序輸出「類別 總額」。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「類別 金額」（金額為整數）。
+輸出說明：多行，依類別字典順序排序輸出「類別 總額」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        List<(string Category, int Amount)> orders = new List<(string, int)>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            orders.Add((parts[0], int.Parse(parts[1])));
+        }
+        var grouped = orders
+            .GroupBy(o => o.Category)
+            .Select(g => new { Category = g.Key, Total = g.Sum(o => o.Amount) })
+            .OrderBy(g => g.Category, StringComparer.Ordinal);
+        foreach (var g in grouped)
+        {
+            Console.WriteLine($"{g.Category} {g.Total}");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+4
+食品 100
+服飾 250
+食品 50
+3C 999
+== 範例 1 輸出 ==
+3C 999
+服飾 250
+食品 150
+
+== 範例 2 輸入 ==
+2
+書籍 300
+書籍 200
+== 範例 2 輸出 ==
+書籍 500

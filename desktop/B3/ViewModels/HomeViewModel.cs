@@ -27,18 +27,25 @@ public partial class HomeViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<ExamCard> extraCards = new();
 
+    /// <summary>目前是否完全沒有任何題庫 (用於顯示空狀態畫面)</summary>
+    [ObservableProperty]
+    private bool hasNoBanks;
+
     public HomeViewModel()
     {
-        // 先顯示載入前的後備資料，再非同步從資料庫載入正式卡片
-        LoadFallbackCards();
         _ = LoadCardsAsync();
     }
 
     /// <summary>
-    /// 從 catalog.db 讀取考試種類，並查詢 exam.db 取得各題庫的實際題數後組成卡片
+    /// 從 catalog.db 讀取考試種類，並查詢 exam.db 取得各題庫的實際題數後組成卡片。
+    /// 題庫卡片完全由資料庫動態組成，不再寫死任何預設題庫；
+    /// 一旦沒有任何題庫，HasNoBanks 會變 true 以顯示空狀態畫面。
     /// </summary>
     private async Task LoadCardsAsync()
     {
+        var hot = new ObservableCollection<ExamCard>();
+        var extra = new ObservableCollection<ExamCard>();
+
         try
         {
             List<ExamCategory> categories;
@@ -48,65 +55,56 @@ public partial class HomeViewModel : ViewModelBase
                 categories = await categoryRepo.GetAllOrderedAsync();
             }
 
-            if (categories.Count == 0)
+            if (categories.Count > 0)
             {
-                return;
-            }
-
-            Dictionary<string, int> questionCounts;
-            using (var examContext = new ExamDbContext())
-            {
-                var problemRepo = new ProblemRepository(examContext);
-                questionCounts = await problemRepo.GetActiveCountByExamTypeAsync();
-            }
-
-            var hot = new ObservableCollection<ExamCard>();
-            var extra = new ObservableCollection<ExamCard>();
-
-            foreach (var category in categories)
-            {
-                var questionCount = questionCounts.TryGetValue(category.ExamType, out var count) ? count : 0;
-                var card = new ExamCard(category.Title, category.ExamType, category.Tag,
-                    category.Description, questionCount, category.DurationMinutes, 0);
-
-                if (category.IsHot)
+                Dictionary<string, int> questionCounts;
+                using (var examContext = new ExamDbContext())
                 {
-                    hot.Add(card);
+                    var problemRepo = new ProblemRepository(examContext);
+                    questionCounts = await problemRepo.GetActiveCountByExamTypeAsync();
                 }
-                else
+
+                foreach (var category in categories)
                 {
-                    extra.Add(card);
+                    var questionCount = questionCounts.TryGetValue(category.ExamType, out var count) ? count : 0;
+                    var card = new ExamCard(category.Title, category.ExamType, category.Tag,
+                        category.Description, questionCount, category.DurationMinutes, 0);
+
+                    if (category.IsHot)
+                    {
+                        hot.Add(card);
+                    }
+                    else
+                    {
+                        extra.Add(card);
+                    }
                 }
             }
-
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                HotCards = hot;
-                ExtraCards = extra;
-            });
         }
         catch (Exception ex)
         {
-            LoggerService.LogError("從資料庫載入題庫卡片失敗，沿用後備資料", ex);
+            LoggerService.LogError("從資料庫載入題庫卡片失敗", ex);
         }
-    }
 
-    /// <summary>資料庫尚未載入或載入失敗時的後備卡片</summary>
-    private void LoadFallbackCards()
-    {
-        HotCards = new ObservableCollection<ExamCard>
+        await Dispatcher.UIThread.InvokeAsync(() =>
         {
-            new("TQC+ Python3", "TQC", "熱門", "TQC+ Python 考驗對於Python的基礎程式邏輯與演算法能力。", 0, 180, 0),
-        };
-
-        ExtraCards = new ObservableCollection<ExamCard>
-        {     };
+            HotCards = hot;
+            ExtraCards = extra;
+            HasNoBanks = hot.Count == 0 && extra.Count == 0;
+        });
     }
 
     /// <summary>設定父視窗 ViewModel - 用於導航</summary>
     public void SetMainViewModel(MainWindowViewModel mainVM)
     {
         _mainVM = mainVM;
+    }
+
+    /// <summary>前往匯入題庫頁面 - 由「匯入題庫」按鈕或空狀態畫面呼叫</summary>
+    [RelayCommand]
+    public void GoToImport()
+    {
+        _mainVM?.ShowImport();
     }
 
     /// <summary>啟動考試 - 由卡片按鈕呼叫</summary>

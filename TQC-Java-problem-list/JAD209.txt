@@ -1,0 +1,65 @@
+TQC+ 程式語言Java JAD209  二維陣列鞍點
+
+難度：困難
+主題：陣列
+
+== 題目 ==
+給定一個 m x n 的整數矩陣，找出其中的鞍點：該元素必須同時是所在列（row）的最大值，且是所在行（column）的最小值。保證矩陣中最多只有一個鞍點。
+
+輸入說明：第一行兩個整數 m n；接下來 m 行，每行 n 個整數，代表矩陣內容。
+輸出說明：一行，若存在鞍點則輸出其值，否則輸出「無鞍點」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        Integer saddle = null;
+        for (int i = 0; i < m && saddle == null; i++) {
+            int rowMax = matrix[i][0];
+            int rowMaxCol = 0;
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] > rowMax) {
+                    rowMax = matrix[i][j];
+                    rowMaxCol = j;
+                }
+            }
+            int colMin = matrix[0][rowMaxCol];
+            for (int k = 1; k < m; k++) {
+                if (matrix[k][rowMaxCol] < colMin) {
+                    colMin = matrix[k][rowMaxCol];
+                }
+            }
+            if (rowMax == colMin) {
+                saddle = rowMax;
+            }
+        }
+
+        System.out.println(saddle == null ? "無鞍點" : String.valueOf(saddle));
+    }
+}
+
+== 範例 1 輸入 ==
+3 3
+1 2 3
+4 5 6
+7 8 9
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+2 2
+1 2
+2 1
+== 範例 2 輸出 ==
+無鞍點

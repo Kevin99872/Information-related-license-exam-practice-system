@@ -1,0 +1,50 @@
+CPE 10018 Reverse and Add
+
+難度：簡單
+來源：改編自 UVa Online Judge #10018 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定正整數 n，反覆執行「加上自己反轉後的數」，直到得到迴文數為止；若嘗試 60 次仍未得到迴文數，則視為失敗。
+
+輸入說明：每行一個正整數 n (1<=n<=1000000000)，處理到檔案結尾。
+輸出說明：每行輸出達到迴文所需的次數與最終迴文數 (以空白分隔)；若 60 次內找不到迴文，輸出 Palindrome not found.
+
+== 參考解法 (Python) ==
+import sys
+
+def reverse_num(n):
+    return int(str(n)[::-1])
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    steps = 0
+    found = False
+    while steps <= 60:
+        if str(n) == str(n)[::-1]:
+            found = True
+            break
+        n = n + reverse_num(n)
+        steps += 1
+    if found:
+        print(steps, n)
+    else:
+        print("Palindrome not found.")
+
+== 範例 1 輸入 ==
+1
+195
+1234
+== 範例 1 輸出 ==
+0 1
+4 9339
+1 5555
+
+== 範例 2 輸入 ==
+89
+990
+== 範例 2 輸出 ==
+24 8813200023188
+5 79497

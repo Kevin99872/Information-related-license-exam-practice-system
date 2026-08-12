@@ -1,0 +1,63 @@
+TQC+ 程式語言C# CSD504  介面實作可比較物件
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義介面 IComparableItem，含方法 CompareTo(IComparableItem other) 回傳 int。定義類別 Product（含 Name 與 Price），實作該介面，依 Price 比較大小（回傳負數表示較小、0 表示相等、正數表示較大）。輸入兩個商品資料，輸出價格較低者的名稱；若相等則輸出「相同」。
+
+輸入說明：兩行，每行為「名稱 價格」（價格為整數），以空白分隔。
+輸出說明：一行，價格較低的商品名稱，若相等輸出「相同」。
+
+== 參考解法 (C#) ==
+using System;
+
+interface IComparableItem
+{
+    int CompareTo(IComparableItem other);
+}
+
+class Product : IComparableItem
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+
+    public Product(string name, int price)
+    {
+        Name = name;
+        Price = price;
+    }
+
+    public int CompareTo(IComparableItem other)
+    {
+        Product p = (Product)other;
+        return Price.CompareTo(p.Price);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string[] p1 = (Console.ReadLine() ?? "").Split(' ');
+        string[] p2 = (Console.ReadLine() ?? "").Split(' ');
+        Product a = new Product(p1[0], int.Parse(p1[1]));
+        Product b = new Product(p2[0], int.Parse(p2[1]));
+        int cmp = a.CompareTo(b);
+        if (cmp < 0) Console.WriteLine(a.Name);
+        else if (cmp > 0) Console.WriteLine(b.Name);
+        else Console.WriteLine("相同");
+    }
+}
+
+== 範例 1 輸入 ==
+筆記本 120
+鉛筆 15
+== 範例 1 輸出 ==
+鉛筆
+
+== 範例 2 輸入 ==
+A 50
+B 50
+== 範例 2 輸出 ==
+相同

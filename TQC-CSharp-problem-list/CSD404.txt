@@ -1,0 +1,38 @@
+TQC+ 程式語言C# CSD404  遞迴方法計算階乘
+
+難度：中等
+主題：方法
+
+== 題目 ==
+撰寫遞迴方法 Factorial，計算並輸出 n 的階乘。
+
+輸入說明：一行整數 n（0 <= n <= 15）。
+輸出說明：一行，n! 的計算結果。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static long Factorial(int n)
+    {
+        if (n <= 1) return 1;
+        return n * Factorial(n - 1);
+    }
+
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        Console.WriteLine(Factorial(n));
+    }
+}
+
+== 範例 1 輸入 ==
+6
+== 範例 1 輸出 ==
+720
+
+== 範例 2 輸入 ==
+0
+== 範例 2 輸出 ==
+1

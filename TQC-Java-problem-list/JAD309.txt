@@ -1,0 +1,51 @@
+TQC+ 程式語言Java JAD309  字串壓縮（行程編碼）
+
+難度：困難
+主題：字串
+
+== 題目 ==
+輸入一個只含大寫英文字母的字串，將連續重複出現的字元壓縮為「字元+出現次數」，若某字元只連續出現一次則只輸出該字元（不輸出 1）。若壓縮後的字串長度沒有比原字串短，則輸出原字串。
+
+輸入說明：一行一個字串（僅由大寫英文字母組成）。
+輸出說明：一行，壓縮後的字串，或原字串（當壓縮無法縮短長度時）。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            int count = 0;
+            while (i < s.length() && s.charAt(i) == c) {
+                count++;
+                i++;
+            }
+            sb.append(c);
+            if (count > 1) {
+                sb.append(count);
+            }
+        }
+        String compressed = sb.toString();
+        System.out.println(compressed.length() < s.length() ? compressed : s);
+    }
+}
+
+== 範例 1 輸入 ==
+AAABCCCC
+== 範例 1 輸出 ==
+A3BC4
+
+== 範例 2 輸入 ==
+ABCD
+== 範例 2 輸出 ==
+ABCD
+
+== 範例 3 輸入 ==
+AABBBCC
+== 範例 3 輸出 ==
+A2B3C2

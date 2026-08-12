@@ -1,0 +1,45 @@
+TQC+ 程式語言C# CSD403  ref 參數交換兩數
+
+難度：中等
+主題：方法
+
+== 題目 ==
+撰寫方法 Swap，使用 ref 參數交換兩個整數變數的值，並輸出交換前後的結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：兩行，第一行為交換前的「a=X b=Y」，第二行為交換後的「a=X b=Y」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Swap(ref int x, ref int y)
+    {
+        int temp = x;
+        x = y;
+        y = temp;
+    }
+
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? "").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        Console.WriteLine($"a={a} b={b}");
+        Swap(ref a, ref b);
+        Console.WriteLine($"a={a} b={b}");
+    }
+}
+
+== 範例 1 輸入 ==
+3 8
+== 範例 1 輸出 ==
+a=3 b=8
+a=8 b=3
+
+== 範例 2 輸入 ==
+-1 5
+== 範例 2 輸出 ==
+a=-1 b=5
+a=5 b=-1

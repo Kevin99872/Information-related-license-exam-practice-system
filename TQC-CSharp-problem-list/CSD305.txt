@@ -1,0 +1,36 @@
+TQC+ 程式語言C# CSD305  CSV 欄位解析
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一行以逗號分隔的資料（姓名,科目,分數），將其切割後以「姓名 的 科目 成績為 分數 分」的格式重新輸出。
+
+輸入說明：一行字串，格式為「姓名,科目,分數」，皆不含空白。
+輸出說明：一行，格式為「姓名 的 科目 成績為 分數 分」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string line = Console.ReadLine() ?? "";
+        string[] parts = line.Split(',');
+        string name = parts[0];
+        string subject = parts[1];
+        string score = parts[2];
+        Console.WriteLine($"{name} 的 {subject} 成績為 {score} 分");
+    }
+}
+
+== 範例 1 輸入 ==
+小華,數學,88
+== 範例 1 輸出 ==
+小華 的 數學 成績為 88 分
+
+== 範例 2 輸入 ==
+Tom,English,92
+== 範例 2 輸出 ==
+Tom 的 English 成績為 92 分

@@ -1,0 +1,48 @@
+TQC+ 程式語言C# CSD210  質數判斷
+
+難度：中等
+主題：控制流程
+
+== 題目 ==
+輸入一個大於 1 的整數，判斷該數是否為質數。
+
+輸入說明：一行整數 n（2 <= n <= 1000000）。
+輸出說明：一行，若為質數輸出「是質數」，否則輸出「不是質數」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        long n = long.Parse(Console.ReadLine() ?? "2");
+        bool isPrime = true;
+        if (n < 2)
+        {
+            isPrime = false;
+        }
+        else
+        {
+            for (long i = 2; i * i <= n; i++)
+            {
+                if (n % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+        Console.WriteLine(isPrime ? "是質數" : "不是質數");
+    }
+}
+
+== 範例 1 輸入 ==
+17
+== 範例 1 輸出 ==
+是質數
+
+== 範例 2 輸入 ==
+20
+== 範例 2 輸出 ==
+不是質數

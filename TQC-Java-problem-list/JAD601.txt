@@ -1,0 +1,37 @@
+TQC+ 程式語言Java JAD601  例外處理基礎：除以零
+
+難度：簡單
+主題：例外處理
+
+== 題目 ==
+輸入兩個整數 a 與 b，嘗試計算 a / b。若 b 為 0，會拋出 ArithmeticException，請捕捉此例外並輸出提示訊息；否則輸出計算結果。
+
+輸入說明：一行，兩個整數 a、b，以空白分隔。
+輸出說明：一行，若 b 為 0 輸出「除數不可為0」，否則輸出「結果: x」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        try {
+            int result = a / b;
+            System.out.println("結果: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("除數不可為0");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+10 2
+== 範例 1 輸出 ==
+結果: 5
+
+== 範例 2 輸入 ==
+10 0
+== 範例 2 輸出 ==
+除數不可為0

@@ -1,0 +1,25 @@
+APCS 觀念題 APCC009 continue 略過特定項目追蹤
+
+難度：中等
+主題：迴圈追蹤
+
+== 題目 ==
+下列程式執行後，total 的值為何？
+
+    total = 0
+    for i in range(1, 10):
+        if i % 3 == 0:
+            continue
+        total += i
+    print(total)
+
+(A) 27
+(B) 30
+(C) 42
+(D) 45
+
+== 正解 ==
+A
+
+== 解析 ==
+1 到 9 的總和為 45，continue 會跳過 3、6、9（總和 18）不做累加，因此結果為 45-18=27。

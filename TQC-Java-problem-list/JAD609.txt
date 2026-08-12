@@ -1,0 +1,58 @@
+TQC+ 程式語言Java JAD609  Stream與Lambda：篩選與統計
+
+難度：困難
+主題：集合
+
+== 題目 ==
+輸入 n 個整數，使用 Stream API 篩選出所有偶數，計算偶數的個數與總和，並輸出由大到小排序後的偶數清單（以空白分隔）；若沒有偶數，清單輸出「無」。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：三行，依序為「偶數個數: x」「偶數總和: y」「偶數清單: a b c ...」（或「偶數清單: 無」）。
+
+== 參考解法 (Java) ==
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Integer[] nums = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        List<Integer> evens = java.util.Arrays.stream(nums)
+                .filter(x -> x % 2 == 0)
+                .sorted((a, b) -> b - a)
+                .collect(Collectors.toList());
+
+        int count = evens.size();
+        int sum = evens.stream().mapToInt(Integer::intValue).sum();
+        String listStr = evens.isEmpty()
+                ? "無"
+                : evens.stream().map(String::valueOf).collect(Collectors.joining(" "));
+
+        System.out.println("偶數個數: " + count);
+        System.out.println("偶數總和: " + sum);
+        System.out.println("偶數清單: " + listStr);
+    }
+}
+
+== 範例 1 輸入 ==
+6
+3 8 5 2 10 7
+== 範例 1 輸出 ==
+偶數個數: 3
+偶數總和: 20
+偶數清單: 10 8 2
+
+== 範例 2 輸入 ==
+3
+1 3 5
+== 範例 2 輸出 ==
+偶數個數: 0
+偶數總和: 0
+偶數清單: 無

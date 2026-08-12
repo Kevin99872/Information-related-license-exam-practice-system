@@ -1,0 +1,50 @@
+CPE Base Conversion
+
+難度：中等
+來源：原創（任意進位制轉換基礎題型）
+
+== 題目 ==
+給定一個以來源進制表示的數字字串，將其轉換為目標進制的字串表示。數字以 0-9、A-Z 代表 0 至 35 (字母一律以大寫表示)。
+
+輸入說明：每行三個以空白分隔的值：來源進制 sb (2<=sb<=36)、目標進制 tb (2<=tb<=36)、以及以 sb 進制表示的數字字串 (不含前導 0，除非數值本身為 0)。處理到檔案結尾。
+輸出說明：每行輸出轉換後 tb 進制的字串。
+
+== 參考解法 (Python) ==
+import sys
+
+DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def to_base(num, base):
+    if num == 0:
+        return "0"
+    digits = []
+    while num > 0:
+        digits.append(DIGITS[num % base])
+        num //= base
+    return ''.join(reversed(digits))
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    sb, tb, s = line.split()
+    sb = int(sb)
+    tb = int(tb)
+    num = int(s, sb)
+    print(to_base(num, tb))
+
+== 範例 1 輸入 ==
+10 2 255
+16 10 FF
+2 16 11111111
+== 範例 1 輸出 ==
+11111111
+255
+FF
+
+== 範例 2 輸入 ==
+36 10 Z
+10 36 35
+== 範例 2 輸出 ==
+35
+Z

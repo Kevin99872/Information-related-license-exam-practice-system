@@ -1,0 +1,58 @@
+CPE Activity Selection
+
+難度：中等
+來源：原創（貪心法：活動選擇經典題型）
+
+== 題目 ==
+給定 n 個活動的開始時間與結束時間，同一時間只能參加一個活動 (若某活動的結束時間等於另一活動的開始時間，兩者不衝突，可以銜接參加)。求最多能參加幾個活動。
+
+輸入說明：每組第一行為 n；接著 n 行，每行為活動的開始時間與結束時間 (整數)。以 n=0 結束 (不處理)。
+輸出說明：每組輸出最多能參加的活動數。
+
+== 參考解法 (Python) ==
+import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    acts = []
+    for _ in range(n):
+        s, e = map(int, data[idx].split())
+        acts.append((s, e))
+        idx += 1
+    acts.sort(key=lambda x: x[1])
+    count = 0
+    last_end = -float('inf')
+    for s, e in acts:
+        if s >= last_end:
+            count += 1
+            last_end = e
+    out.append(str(count))
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+4
+1 3
+2 5
+4 7
+6 9
+0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+3
+1 2
+2 3
+3 4
+0
+== 範例 2 輸出 ==
+3

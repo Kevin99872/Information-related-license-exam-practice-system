@@ -1,0 +1,32 @@
+電腦軟體設計丙級 練習題 SWC34  印出空心矩形圖案
+
+難度：困難
+
+== 題目 ==
+輸入兩個整數 rows 與 cols，印出 rows x cols 的空心矩形：外框為 * ，內部為空白。
+
+輸入說明：一行兩個整數 rows 與 cols (3<=rows,cols<=30)。
+輸出說明：rows 行的空心矩形圖案 (每行 cols 個字元)。
+
+== 參考解法 (Python) ==
+rows, cols = map(int, input().split())
+for i in range(rows):
+    if i == 0 or i == rows - 1:
+        print('*' * cols)
+    else:
+        print('*' + ' ' * (cols - 2) + '*')
+
+== 範例 1 輸入 ==
+4 5
+== 範例 1 輸出 ==
+*****
+*   *
+*   *
+*****
+
+== 範例 2 輸入 ==
+3 3
+== 範例 2 輸出 ==
+***
+* *
+***

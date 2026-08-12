@@ -1,0 +1,38 @@
+TQC+ 程式語言Java JAD108  攝氏轉華氏
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入攝氏溫度（浮點數），依公式 F = C * 9 / 5 + 32 轉換為華氏溫度，輸出至小數點後一位。
+
+輸入說明：一行一個浮點數，代表攝氏溫度。
+輸出說明：一行，格式為「華氏溫度: xx.x」。
+
+== 參考解法 (Java) ==
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double c = sc.nextDouble();
+        double f = c * 9 / 5 + 32;
+        System.out.printf(Locale.US, "華氏溫度: %.1f%n", f);
+    }
+}
+
+== 範例 1 輸入 ==
+0
+== 範例 1 輸出 ==
+華氏溫度: 32.0
+
+== 範例 2 輸入 ==
+100
+== 範例 2 輸出 ==
+華氏溫度: 212.0
+
+== 範例 3 輸入 ==
+37.5
+== 範例 3 輸出 ==
+華氏溫度: 99.5

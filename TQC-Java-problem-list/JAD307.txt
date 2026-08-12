@@ -1,0 +1,37 @@
+TQC+ 程式語言Java JAD307  字串取代
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一個字串，以及要被取代的目標子字串與替換後的字串，將原字串中所有出現的目標子字串取代掉並輸出結果。
+
+輸入說明：共三行，第一行為原字串（可能包含空白）；第二行為要被取代的子字串；第三行為替換後的字串。
+輸出說明：一行，取代後的結果字串。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String original = sc.nextLine();
+        String target = sc.nextLine();
+        String replacement = sc.nextLine();
+        System.out.println(original.replace(target, replacement));
+    }
+}
+
+== 範例 1 輸入 ==
+I like cats and cats
+cats
+dogs
+== 範例 1 輸出 ==
+I like dogs and dogs
+
+== 範例 2 輸入 ==
+banana split
+an
+AN
+== 範例 2 輸出 ==
+bANANa split

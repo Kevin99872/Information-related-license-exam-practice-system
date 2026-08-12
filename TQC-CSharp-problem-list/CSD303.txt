@@ -1,0 +1,35 @@
+TQC+ 程式語言C# CSD303  英文字母大小寫轉換
+
+難度：簡單
+主題：字串
+
+== 題目 ==
+輸入一個英文字串，分別輸出其全大寫與全小寫版本。
+
+輸入說明：一行英文字串 s（長度 1~100）。
+輸出說明：兩行，第一行為 s 的全大寫，第二行為 s 的全小寫。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string s = Console.ReadLine() ?? "";
+        Console.WriteLine(s.ToUpper());
+        Console.WriteLine(s.ToLower());
+    }
+}
+
+== 範例 1 輸入 ==
+Hello World
+== 範例 1 輸出 ==
+HELLO WORLD
+hello world
+
+== 範例 2 輸入 ==
+CSharp
+== 範例 2 輸出 ==
+CSHARP
+csharp

@@ -1,0 +1,52 @@
+CPE 10082 WERTYU
+
+難度：簡單
+來源：改編自 UVa Online Judge #10082 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+打字時，因為手指位置多按了一格，每個字元都變成了標準 QWERTY 鍵盤上「同一行、右邊一格」的按鍵。請還原原本要輸入的文字。
+鍵盤排列 (由左至右)：
+第一列：`1234567890-=`
+第二列：`QWERTYUIOP[]`
+第三列：`ASDFGHJKL;'`
+第四列：`ZXCVBNM,./`
+
+輸入說明：一行文字 (可能包含空白，空白字元保持不變；其餘字元皆可在上述鍵盤表中找到)。
+輸出說明：還原後的文字 (每個字元往左移一格)。
+
+== 參考解法 (Python) ==
+import sys
+
+ROWS = [
+    "1234567890-=",
+    "QWERTYUIOP[]",
+    "ASDFGHJKL;'",
+    "ZXCVBNM,./",
+]
+
+def decode_char(ch):
+    if ch == ' ':
+        return ' '
+    for row in ROWS:
+        idx = row.find(ch)
+        if idx > 0:
+            return row[idx - 1]
+    return ch
+
+line = sys.stdin.readline().rstrip('\n')
+print(''.join(decode_char(c) for c in line))
+
+== 範例 1 輸入 ==
+O S, GOMR YPFSU/
+== 範例 1 輸出 ==
+I AM FINE TODAY.
+
+== 範例 2 輸入 ==
+JQOU/
+== 範例 2 輸出 ==
+HQIY.
+
+== 範例 3 輸入 ==
+TOKAY/ GOKPI RSTOKAY
+== 範例 3 輸出 ==
+RIJAT. FIJOU EARIJAT

@@ -1,0 +1,1170 @@
+ProblemCode,ExamType,Title,Description,Difficulty,Status,SolutionLanguage,SolutionCode,OrderIndex,IsExample,TestInput,ExpectedOutput
+SWC01,Software,判斷奇偶數,"輸入一個整數 n，判斷其為奇數或偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：n 為偶數輸出 偶數，否則輸出 奇數。",1,Active,Python,"n = int(input())
+print(""偶數"" if n % 2 == 0 else ""奇數"")",0,True,4,偶數
+SWC01,Software,判斷奇偶數,"輸入一個整數 n，判斷其為奇數或偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：n 為偶數輸出 偶數，否則輸出 奇數。",1,Active,Python,"n = int(input())
+print(""偶數"" if n % 2 == 0 else ""奇數"")",1,True,7,奇數
+SWC01,Software,判斷奇偶數,"輸入一個整數 n，判斷其為奇數或偶數。
+
+輸入說明：一行一個整數 n。
+輸出說明：n 為偶數輸出 偶數，否則輸出 奇數。",1,Active,Python,"n = int(input())
+print(""偶數"" if n % 2 == 0 else ""奇數"")",2,True,-2,偶數
+SWC02,Software,判斷正數、負數或零,"輸入一個整數 n，判斷其為正數、負數或零。
+
+輸入說明：一行一個整數 n。
+輸出說明：正數輸出 正數；負數輸出 負數；為 0 輸出 零。",1,Active,Python,"n = int(input())
+if n > 0:
+    print(""正數"")
+elif n < 0:
+    print(""負數"")
+else:
+    print(""零"")",0,True,5,正數
+SWC02,Software,判斷正數、負數或零,"輸入一個整數 n，判斷其為正數、負數或零。
+
+輸入說明：一行一個整數 n。
+輸出說明：正數輸出 正數；負數輸出 負數；為 0 輸出 零。",1,Active,Python,"n = int(input())
+if n > 0:
+    print(""正數"")
+elif n < 0:
+    print(""負數"")
+else:
+    print(""零"")",1,True,-3,負數
+SWC02,Software,判斷正數、負數或零,"輸入一個整數 n，判斷其為正數、負數或零。
+
+輸入說明：一行一個整數 n。
+輸出說明：正數輸出 正數；負數輸出 負數；為 0 輸出 零。",1,Active,Python,"n = int(input())
+if n > 0:
+    print(""正數"")
+elif n < 0:
+    print(""負數"")
+else:
+    print(""零"")",2,True,0,零
+SWC03,Software,兩數中的較大值,"輸入兩個整數，輸出其中較大者；若相等則輸出該值。
+
+輸入說明：一行兩個整數 a 與 b，以空白分隔。
+輸出說明：a 與 b 中的較大值。",1,Active,Python,"a, b = map(int, input().split())
+print(max(a, b))",0,True,3 7,7
+SWC03,Software,兩數中的較大值,"輸入兩個整數，輸出其中較大者；若相等則輸出該值。
+
+輸入說明：一行兩個整數 a 與 b，以空白分隔。
+輸出說明：a 與 b 中的較大值。",1,Active,Python,"a, b = map(int, input().split())
+print(max(a, b))",1,True,5 5,5
+SWC03,Software,兩數中的較大值,"輸入兩個整數，輸出其中較大者；若相等則輸出該值。
+
+輸入說明：一行兩個整數 a 與 b，以空白分隔。
+輸出說明：a 與 b 中的較大值。",1,Active,Python,"a, b = map(int, input().split())
+print(max(a, b))",2,True,-2 -8,-2
+SWC04,Software,三數中的最大值,"輸入三個整數，輸出其中最大值。
+
+輸入說明：一行三個整數，以空白分隔。
+輸出說明：三數中的最大值。",1,Active,Python,"a, b, c = map(int, input().split())
+print(max(a, b, c))",0,True,3 9 5,9
+SWC04,Software,三數中的最大值,"輸入三個整數，輸出其中最大值。
+
+輸入說明：一行三個整數，以空白分隔。
+輸出說明：三數中的最大值。",1,Active,Python,"a, b, c = map(int, input().split())
+print(max(a, b, c))",1,True,1 1 1,1
+SWC04,Software,三數中的最大值,"輸入三個整數，輸出其中最大值。
+
+輸入說明：一行三個整數，以空白分隔。
+輸出說明：三數中的最大值。",1,Active,Python,"a, b, c = map(int, input().split())
+print(max(a, b, c))",2,True,-5 -1 -9,-1
+SWC05,Software,計算1到n的整數總和,"輸入正整數 n，計算 1+2+...+n 的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 的總和。",1,Active,Python,"n = int(input())
+print(sum(range(1, n + 1)))",0,True,5,15
+SWC05,Software,計算1到n的整數總和,"輸入正整數 n，計算 1+2+...+n 的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 的總和。",1,Active,Python,"n = int(input())
+print(sum(range(1, n + 1)))",1,True,10,55
+SWC05,Software,計算1到n的整數總和,"輸入正整數 n，計算 1+2+...+n 的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 的總和。",1,Active,Python,"n = int(input())
+print(sum(range(1, n + 1)))",2,True,1,1
+SWC06,Software,計算1到n的偶數總和,"輸入正整數 n，計算 1 到 n 之間所有偶數的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 之間偶數的總和。",1,Active,Python,"n = int(input())
+print(sum(i for i in range(1, n + 1) if i % 2 == 0))",0,True,10,30
+SWC06,Software,計算1到n的偶數總和,"輸入正整數 n，計算 1 到 n 之間所有偶數的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 之間偶數的總和。",1,Active,Python,"n = int(input())
+print(sum(i for i in range(1, n + 1) if i % 2 == 0))",1,True,6,12
+SWC06,Software,計算1到n的偶數總和,"輸入正整數 n，計算 1 到 n 之間所有偶數的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=100000)。
+輸出說明：1 到 n 之間偶數的總和。",1,Active,Python,"n = int(input())
+print(sum(i for i in range(1, n + 1) if i % 2 == 0))",2,True,1,0
+SWC07,Software,計算n的階乘,"輸入非負整數 n，計算 n! (n 的階乘)。
+
+輸入說明：一行一個整數 n (0<=n<=15)。
+輸出說明：n 的階乘。",1,Active,Python,"n = int(input())
+r = 1
+for i in range(1, n + 1):
+    r *= i
+print(r)",0,True,5,120
+SWC07,Software,計算n的階乘,"輸入非負整數 n，計算 n! (n 的階乘)。
+
+輸入說明：一行一個整數 n (0<=n<=15)。
+輸出說明：n 的階乘。",1,Active,Python,"n = int(input())
+r = 1
+for i in range(1, n + 1):
+    r *= i
+print(r)",1,True,0,1
+SWC07,Software,計算n的階乘,"輸入非負整數 n，計算 n! (n 的階乘)。
+
+輸入說明：一行一個整數 n (0<=n<=15)。
+輸出說明：n 的階乘。",1,Active,Python,"n = int(input())
+r = 1
+for i in range(1, n + 1):
+    r *= i
+print(r)",2,True,7,5040
+SWC08,Software,單一數字的九九乘法表,"輸入一個整數 k (1<=k<=9)，輸出 k 的九九乘法表 (k*1 到 k*9)。
+
+輸入說明：一行一個整數 k (1<=k<=9)。
+輸出說明：9 行，每行格式為 k x i = 結果 (i 由 1 到 9)。",1,Active,Python,"k = int(input())
+for i in range(1, 10):
+    print(f""{k} x {i} = {k * i}"")",0,True,3,"3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9
+3 x 4 = 12
+3 x 5 = 15
+3 x 6 = 18
+3 x 7 = 21
+3 x 8 = 24
+3 x 9 = 27"
+SWC08,Software,單一數字的九九乘法表,"輸入一個整數 k (1<=k<=9)，輸出 k 的九九乘法表 (k*1 到 k*9)。
+
+輸入說明：一行一個整數 k (1<=k<=9)。
+輸出說明：9 行，每行格式為 k x i = 結果 (i 由 1 到 9)。",1,Active,Python,"k = int(input())
+for i in range(1, 10):
+    print(f""{k} x {i} = {k * i}"")",1,True,9,"9 x 1 = 9
+9 x 2 = 18
+9 x 3 = 27
+9 x 4 = 36
+9 x 5 = 45
+9 x 6 = 54
+9 x 7 = 63
+9 x 8 = 72
+9 x 9 = 81"
+SWC09,Software,完整九九乘法表,"輸入正整數 n (2<=n<=9)，輸出 n x n 的乘法表。
+
+輸入說明：一行一個整數 n。
+輸出說明：n 行，第 i 行依序輸出 i x 1=結果 到 i x n=結果，以空白分隔。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(' '.join(f""{i}x{j}={i * j}"" for j in range(1, n + 1)))",0,True,3,"1x1=1 1x2=2 1x3=3
+2x1=2 2x2=4 2x3=6
+3x1=3 3x2=6 3x3=9"
+SWC09,Software,完整九九乘法表,"輸入正整數 n (2<=n<=9)，輸出 n x n 的乘法表。
+
+輸入說明：一行一個整數 n。
+輸出說明：n 行，第 i 行依序輸出 i x 1=結果 到 i x n=結果，以空白分隔。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(' '.join(f""{i}x{j}={i * j}"" for j in range(1, n + 1)))",1,True,5,"1x1=1 1x2=2 1x3=3 1x4=4 1x5=5
+2x1=2 2x2=4 2x3=6 2x4=8 2x5=10
+3x1=3 3x2=6 3x3=9 3x4=12 3x5=15
+4x1=4 4x2=8 4x3=12 4x4=16 4x5=20
+5x1=5 5x2=10 5x3=15 5x4=20 5x5=25"
+SWC10,Software,計算多位數字的位數和,"輸入一個正整數 n，計算其各位數字的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=10^15)。
+輸出說明：n 每一位數字的總和。",2,Active,Python,"s = input().strip()
+print(sum(int(ch) for ch in s if ch.isdigit()))",0,True,12345,15
+SWC10,Software,計算多位數字的位數和,"輸入一個正整數 n，計算其各位數字的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=10^15)。
+輸出說明：n 每一位數字的總和。",2,Active,Python,"s = input().strip()
+print(sum(int(ch) for ch in s if ch.isdigit()))",1,True,9999,36
+SWC10,Software,計算多位數字的位數和,"輸入一個正整數 n，計算其各位數字的總和。
+
+輸入說明：一行一個正整數 n (1<=n<=10^15)。
+輸出說明：n 每一位數字的總和。",2,Active,Python,"s = input().strip()
+print(sum(int(ch) for ch in s if ch.isdigit()))",2,True,100,1
+SWC11,Software,反轉一個正整數,"輸入一個正整數，將其數字順序反轉後輸出 (反轉後若有前導 0 需自動省略)。
+
+輸入說明：一行一個正整數 n (1<=n<=10^12)。
+輸出說明：反轉後的整數。",2,Active,Python,"s = input().strip()
+print(int(s[::-1]))",0,True,12345,54321
+SWC11,Software,反轉一個正整數,"輸入一個正整數，將其數字順序反轉後輸出 (反轉後若有前導 0 需自動省略)。
+
+輸入說明：一行一個正整數 n (1<=n<=10^12)。
+輸出說明：反轉後的整數。",2,Active,Python,"s = input().strip()
+print(int(s[::-1]))",1,True,120,21
+SWC11,Software,反轉一個正整數,"輸入一個正整數，將其數字順序反轉後輸出 (反轉後若有前導 0 需自動省略)。
+
+輸入說明：一行一個正整數 n (1<=n<=10^12)。
+輸出說明：反轉後的整數。",2,Active,Python,"s = input().strip()
+print(int(s[::-1]))",2,True,7,7
+SWC12,Software,判斷倍數關係,"輸入兩個整數 n 與 m，判斷 n 是否為 m 的倍數。
+
+輸入說明：一行兩個整數 n 與 m (m<>0)。
+輸出說明：n 為 m 的倍數輸出 Yes，否則輸出 No。",1,Active,Python,"n, m = map(int, input().split())
+print(""Yes"" if n % m == 0 else ""No"")",0,True,15 5,Yes
+SWC12,Software,判斷倍數關係,"輸入兩個整數 n 與 m，判斷 n 是否為 m 的倍數。
+
+輸入說明：一行兩個整數 n 與 m (m<>0)。
+輸出說明：n 為 m 的倍數輸出 Yes，否則輸出 No。",1,Active,Python,"n, m = map(int, input().split())
+print(""Yes"" if n % m == 0 else ""No"")",1,True,14 5,No
+SWC12,Software,判斷倍數關係,"輸入兩個整數 n 與 m，判斷 n 是否為 m 的倍數。
+
+輸入說明：一行兩個整數 n 與 m (m<>0)。
+輸出說明：n 為 m 的倍數輸出 Yes，否則輸出 No。",1,Active,Python,"n, m = map(int, input().split())
+print(""Yes"" if n % m == 0 else ""No"")",2,True,0 7,Yes
+SWC13,Software,列出1到n之間3的倍數,"輸入正整數 n，列出 1 到 n 之間所有 3 的倍數。
+
+輸入說明：一行一個正整數 n。
+輸出說明：1 到 n 之間 3 的倍數，由小到大以空白分隔；若無則輸出 none。",1,Active,Python,"n = int(input())
+res = [i for i in range(1, n + 1) if i % 3 == 0]
+print(' '.join(map(str, res)) if res else ""none"")",0,True,10,3 6 9
+SWC13,Software,列出1到n之間3的倍數,"輸入正整數 n，列出 1 到 n 之間所有 3 的倍數。
+
+輸入說明：一行一個正整數 n。
+輸出說明：1 到 n 之間 3 的倍數，由小到大以空白分隔；若無則輸出 none。",1,Active,Python,"n = int(input())
+res = [i for i in range(1, n + 1) if i % 3 == 0]
+print(' '.join(map(str, res)) if res else ""none"")",1,True,2,none
+SWC13,Software,列出1到n之間3的倍數,"輸入正整數 n，列出 1 到 n 之間所有 3 的倍數。
+
+輸入說明：一行一個正整數 n。
+輸出說明：1 到 n 之間 3 的倍數，由小到大以空白分隔；若無則輸出 none。",1,Active,Python,"n = int(input())
+res = [i for i in range(1, n + 1) if i % 3 == 0]
+print(' '.join(map(str, res)) if res else ""none"")",2,True,15,3 6 9 12 15
+SWC14,Software,可被3或5整除的數字總和,"輸入正整數 n，計算 1 到 n 之間可被 3 或 5 整除的所有數字總和。
+
+輸入說明：一行一個正整數 n。
+輸出說明：符合條件的數字總和。",2,Active,Python,"n = int(input())
+print(sum(i for i in range(1, n + 1) if i % 3 == 0 or i % 5 == 0))",0,True,10,33
+SWC14,Software,可被3或5整除的數字總和,"輸入正整數 n，計算 1 到 n 之間可被 3 或 5 整除的所有數字總和。
+
+輸入說明：一行一個正整數 n。
+輸出說明：符合條件的數字總和。",2,Active,Python,"n = int(input())
+print(sum(i for i in range(1, n + 1) if i % 3 == 0 or i % 5 == 0))",1,True,20,98
+SWC15,Software,找出n個整數中的最大值,"輸入 n 個整數，輸出其中的最大值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：n 個整數中的最大值。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(max(a))",0,True,"5
+3 9 1 7 5",9
+SWC15,Software,找出n個整數中的最大值,"輸入 n 個整數，輸出其中的最大值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：n 個整數中的最大值。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(max(a))",1,True,"3
+-2 -8 -1",-1
+SWC16,Software,找出n個整數中的最小值,"輸入 n 個整數，輸出其中的最小值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：n 個整數中的最小值。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(min(a))",0,True,"5
+3 9 1 7 5",1
+SWC16,Software,找出n個整數中的最小值,"輸入 n 個整數，輸出其中的最小值。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數，以空白分隔。
+輸出說明：n 個整數中的最小值。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(min(a))",1,True,"3
+-2 -8 -1",-8
+SWC17,Software,計算n個整數的總和與平均,"輸入 n 個整數，計算其總和與平均值 (平均取到小數點後兩位)。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，依序輸出 總和 平均，以空白分隔。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(f""{sum(a)} {sum(a) / n:.2f}"")",0,True,"4
+1 2 3 4",10 2.50
+SWC17,Software,計算n個整數的總和與平均,"輸入 n 個整數，計算其總和與平均值 (平均取到小數點後兩位)。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，依序輸出 總和 平均，以空白分隔。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(f""{sum(a)} {sum(a) / n:.2f}"")",1,True,"3
+5 5 5",15 5.00
+SWC18,Software,計算陣列中正數、負數與零的個數,"輸入 n 個整數，分別統計其中正數、負數與零的個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，依序輸出 正數個數 負數個數 零的個數，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+pos = sum(1 for x in a if x > 0)
+neg = sum(1 for x in a if x < 0)
+zero = sum(1 for x in a if x == 0)
+print(pos, neg, zero)",0,True,"5
+1 -2 0 3 -4",2 2 1
+SWC18,Software,計算陣列中正數、負數與零的個數,"輸入 n 個整數，分別統計其中正數、負數與零的個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，依序輸出 正數個數 負數個數 零的個數，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+pos = sum(1 for x in a if x > 0)
+neg = sum(1 for x in a if x < 0)
+zero = sum(1 for x in a if x == 0)
+print(pos, neg, zero)",1,True,"4
+0 0 5 -5",1 1 2
+SWC19,Software,計算陣列中偶數的個數,"輸入 n 個整數，統計其中偶數的個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：偶數的個數。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(sum(1 for x in a if x % 2 == 0))",0,True,"6
+1 2 3 4 5 6",3
+SWC19,Software,計算陣列中偶數的個數,"輸入 n 個整數，統計其中偶數的個數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：偶數的個數。",1,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+print(sum(1 for x in a if x % 2 == 0))",1,True,"3
+1 3 5",0
+SWC20,Software,計算字串長度,"輸入一行文字，計算並輸出其長度 (字元個數，含空白)。
+
+輸入說明：一行文字 (可能包含空白，長度不超過 200)。
+輸出說明：字串的長度。",1,Active,Python,"s = input()
+print(len(s))",0,True,Hello World,11
+SWC20,Software,計算字串長度,"輸入一行文字，計算並輸出其長度 (字元個數，含空白)。
+
+輸入說明：一行文字 (可能包含空白，長度不超過 200)。
+輸出說明：字串的長度。",1,Active,Python,"s = input()
+print(len(s))",1,True,abc,3
+SWC20,Software,計算字串長度,"輸入一行文字，計算並輸出其長度 (字元個數，含空白)。
+
+輸入說明：一行文字 (可能包含空白，長度不超過 200)。
+輸出說明：字串的長度。",1,Active,Python,"s = input()
+print(len(s))",2,True,a b c,5
+SWC21,Software,反轉字串,"輸入一行文字，將其反轉後輸出。
+
+輸入說明：一行文字。
+輸出說明：反轉後的字串。",1,Active,Python,"s = input()
+print(s[::-1])",0,True,Hello,olleH
+SWC21,Software,反轉字串,"輸入一行文字，將其反轉後輸出。
+
+輸入說明：一行文字。
+輸出說明：反轉後的字串。",1,Active,Python,"s = input()
+print(s[::-1])",1,True,ABC123,321CBA
+SWC22,Software,字串轉換為全大寫,"輸入一行文字，將其中的英文字母全部轉換為大寫後輸出。
+
+輸入說明：一行文字。
+輸出說明：轉換為大寫後的字串。",1,Active,Python,"s = input()
+print(s.upper())",0,True,Hello World,HELLO WORLD
+SWC22,Software,字串轉換為全大寫,"輸入一行文字，將其中的英文字母全部轉換為大寫後輸出。
+
+輸入說明：一行文字。
+輸出說明：轉換為大寫後的字串。",1,Active,Python,"s = input()
+print(s.upper())",1,True,abcXYZ123,ABCXYZ123
+SWC23,Software,字串轉換為全小寫,"輸入一行文字，將其中的英文字母全部轉換為小寫後輸出。
+
+輸入說明：一行文字。
+輸出說明：轉換為小寫後的字串。",1,Active,Python,"s = input()
+print(s.lower())",0,True,Hello World,hello world
+SWC23,Software,字串轉換為全小寫,"輸入一行文字，將其中的英文字母全部轉換為小寫後輸出。
+
+輸入說明：一行文字。
+輸出說明：轉換為小寫後的字串。",1,Active,Python,"s = input()
+print(s.lower())",1,True,abcXYZ123,abcxyz123
+SWC24,Software,計算字串中母音字母的個數,"輸入一行文字，計算其中母音字母 (a, e, i, o, u，不分大小寫) 的個數。
+
+輸入說明：一行文字。
+輸出說明：母音字母的個數。",1,Active,Python,"s = input()
+print(sum(1 for c in s if c.lower() in ""aeiou""))",0,True,Hello World,3
+SWC24,Software,計算字串中母音字母的個數,"輸入一行文字，計算其中母音字母 (a, e, i, o, u，不分大小寫) 的個數。
+
+輸入說明：一行文字。
+輸出說明：母音字母的個數。",1,Active,Python,"s = input()
+print(sum(1 for c in s if c.lower() in ""aeiou""))",1,True,xyz,0
+SWC24,Software,計算字串中母音字母的個數,"輸入一行文字，計算其中母音字母 (a, e, i, o, u，不分大小寫) 的個數。
+
+輸入說明：一行文字。
+輸出說明：母音字母的個數。",1,Active,Python,"s = input()
+print(sum(1 for c in s if c.lower() in ""aeiou""))",2,True,Programming,3
+SWC25,Software,計算字串中數字字元的個數,"輸入一行文字，計算其中數字字元 (0-9) 的個數。
+
+輸入說明：一行文字。
+輸出說明：數字字元的個數。",1,Active,Python,"s = input()
+print(sum(1 for c in s if c.isdigit()))",0,True,abc123def456,6
+SWC25,Software,計算字串中數字字元的個數,"輸入一行文字，計算其中數字字元 (0-9) 的個數。
+
+輸入說明：一行文字。
+輸出說明：數字字元的個數。",1,Active,Python,"s = input()
+print(sum(1 for c in s if c.isdigit()))",1,True,no digits here,0
+SWC26,Software,判斷字串是否全部由數字組成,"輸入一行文字，判斷其是否全部由數字字元 (0-9) 組成，做為基本輸入格式驗證。
+
+輸入說明：一行文字 (可能為空行)。
+輸出說明：全部由數字組成輸出 Yes，否則 (含空字串) 輸出 No。",2,Active,Python,"s = input()
+print(""Yes"" if s.isdigit() else ""No"")",0,True,12345,Yes
+SWC26,Software,判斷字串是否全部由數字組成,"輸入一行文字，判斷其是否全部由數字字元 (0-9) 組成，做為基本輸入格式驗證。
+
+輸入說明：一行文字 (可能為空行)。
+輸出說明：全部由數字組成輸出 Yes，否則 (含空字串) 輸出 No。",2,Active,Python,"s = input()
+print(""Yes"" if s.isdigit() else ""No"")",1,True,12a45,No
+SWC26,Software,判斷字串是否全部由數字組成,"輸入一行文字，判斷其是否全部由數字字元 (0-9) 組成，做為基本輸入格式驗證。
+
+輸入說明：一行文字 (可能為空行)。
+輸出說明：全部由數字組成輸出 Yes，否則 (含空字串) 輸出 No。",2,Active,Python,"s = input()
+print(""Yes"" if s.isdigit() else ""No"")",2,True,-123,No
+SWC27,Software,計算字串中指定字元出現的次數,"輸入一行文字與一個字元，計算該字元在文字中出現的次數。
+
+輸入說明：第一行為文字；第二行為要計數的單一字元 c。
+輸出說明：字元 c 在文字中出現的次數。",1,Active,Python,"s = input()
+c = input()
+print(s.count(c))",0,True,"banana
+a",3
+SWC27,Software,計算字串中指定字元出現的次數,"輸入一行文字與一個字元，計算該字元在文字中出現的次數。
+
+輸入說明：第一行為文字；第二行為要計數的單一字元 c。
+輸出說明：字元 c 在文字中出現的次數。",1,Active,Python,"s = input()
+c = input()
+print(s.count(c))",1,True,"hello world
+o",2
+SWC28,Software,判斷字串是否全部為大寫字母,"輸入一行文字，判斷其中的英文字母是否全部為大寫 (忽略非英文字母字元；若字串中沒有任何英文字母則視為 No)。
+
+輸入說明：一行文字。
+輸出說明：全部為大寫字母輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+letters = [ch for ch in s if ch.isalpha()]
+print(""Yes"" if letters and all(ch.isupper() for ch in letters) else ""No"")",0,True,HELLO,Yes
+SWC28,Software,判斷字串是否全部為大寫字母,"輸入一行文字，判斷其中的英文字母是否全部為大寫 (忽略非英文字母字元；若字串中沒有任何英文字母則視為 No)。
+
+輸入說明：一行文字。
+輸出說明：全部為大寫字母輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+letters = [ch for ch in s if ch.isalpha()]
+print(""Yes"" if letters and all(ch.isupper() for ch in letters) else ""No"")",1,True,Hello,No
+SWC28,Software,判斷字串是否全部為大寫字母,"輸入一行文字，判斷其中的英文字母是否全部為大寫 (忽略非英文字母字元；若字串中沒有任何英文字母則視為 No)。
+
+輸入說明：一行文字。
+輸出說明：全部為大寫字母輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+letters = [ch for ch in s if ch.isalpha()]
+print(""Yes"" if letters and all(ch.isupper() for ch in letters) else ""No"")",2,True,ABC123,Yes
+SWC28,Software,判斷字串是否全部為大寫字母,"輸入一行文字，判斷其中的英文字母是否全部為大寫 (忽略非英文字母字元；若字串中沒有任何英文字母則視為 No)。
+
+輸入說明：一行文字。
+輸出說明：全部為大寫字母輸出 Yes，否則輸出 No。",1,Active,Python,"s = input()
+letters = [ch for ch in s if ch.isalpha()]
+print(""Yes"" if letters and all(ch.isupper() for ch in letters) else ""No"")",3,True,123,No
+SWC29,Software,簡易密碼強度檢查,"輸入一個密碼字串，依下列 4 項條件評估密碼強度：
+(1) 長度至少 8 個字元；(2) 至少包含一個小寫字母；(3) 至少包含一個大寫字母；(4) 至少包含一個數字。
+符合全部 4 項條件視為「強」；符合 2 或 3 項視為「中」；符合 0 或 1 項視為「弱」。
+
+輸入說明：一行密碼字串 (不含空白)。
+輸出說明：強、中 或 弱。",3,Active,Python,"s = input()
+c1 = len(s) >= 8
+c2 = any(ch.islower() for ch in s)
+c3 = any(ch.isupper() for ch in s)
+c4 = any(ch.isdigit() for ch in s)
+cnt = sum([c1, c2, c3, c4])
+if cnt == 4:
+    print(""強"")
+elif cnt >= 2:
+    print(""中"")
+else:
+    print(""弱"")",0,True,Abc12345,強
+SWC29,Software,簡易密碼強度檢查,"輸入一個密碼字串，依下列 4 項條件評估密碼強度：
+(1) 長度至少 8 個字元；(2) 至少包含一個小寫字母；(3) 至少包含一個大寫字母；(4) 至少包含一個數字。
+符合全部 4 項條件視為「強」；符合 2 或 3 項視為「中」；符合 0 或 1 項視為「弱」。
+
+輸入說明：一行密碼字串 (不含空白)。
+輸出說明：強、中 或 弱。",3,Active,Python,"s = input()
+c1 = len(s) >= 8
+c2 = any(ch.islower() for ch in s)
+c3 = any(ch.isupper() for ch in s)
+c4 = any(ch.isdigit() for ch in s)
+cnt = sum([c1, c2, c3, c4])
+if cnt == 4:
+    print(""強"")
+elif cnt >= 2:
+    print(""中"")
+else:
+    print(""弱"")",1,True,abc123,中
+SWC29,Software,簡易密碼強度檢查,"輸入一個密碼字串，依下列 4 項條件評估密碼強度：
+(1) 長度至少 8 個字元；(2) 至少包含一個小寫字母；(3) 至少包含一個大寫字母；(4) 至少包含一個數字。
+符合全部 4 項條件視為「強」；符合 2 或 3 項視為「中」；符合 0 或 1 項視為「弱」。
+
+輸入說明：一行密碼字串 (不含空白)。
+輸出說明：強、中 或 弱。",3,Active,Python,"s = input()
+c1 = len(s) >= 8
+c2 = any(ch.islower() for ch in s)
+c3 = any(ch.isupper() for ch in s)
+c4 = any(ch.isdigit() for ch in s)
+cnt = sum([c1, c2, c3, c4])
+if cnt == 4:
+    print(""強"")
+elif cnt >= 2:
+    print(""中"")
+else:
+    print(""弱"")",2,True,abcdefg,弱
+SWC30,Software,印出直角三角形星號圖案,"輸入正整數 n，印出由星號組成的直角三角形，第 i 行有 i 個星號 (靠左對齊)。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行星號圖案。",1,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print('*' * i)",0,True,4,"*
+**
+***
+****"
+SWC30,Software,印出直角三角形星號圖案,"輸入正整數 n，印出由星號組成的直角三角形，第 i 行有 i 個星號 (靠左對齊)。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行星號圖案。",1,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print('*' * i)",1,True,2,"*
+**"
+SWC31,Software,印出置中的正三角形星號圖案,"輸入正整數 n，印出置中對齊的正三角形，第 i 行有 (2i-1) 個星號，前方補 (n-i) 個空白。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行置中對齊的星號圖案。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(' ' * (n - i) + '*' * (2 * i - 1))",0,True,3,"  *
+ ***
+*****"
+SWC31,Software,印出置中的正三角形星號圖案,"輸入正整數 n，印出置中對齊的正三角形，第 i 行有 (2i-1) 個星號，前方補 (n-i) 個空白。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行置中對齊的星號圖案。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(' ' * (n - i) + '*' * (2 * i - 1))",1,True,1,*
+SWC32,Software,印出倒直角三角形星號圖案,"輸入正整數 n，印出由星號組成的倒直角三角形，第一行 n 個星號，之後每行遞減 1 個，最後一行 1 個星號。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行星號圖案。",1,Active,Python,"n = int(input())
+for i in range(n, 0, -1):
+    print('*' * i)",0,True,4,"****
+***
+**
+*"
+SWC32,Software,印出倒直角三角形星號圖案,"輸入正整數 n，印出由星號組成的倒直角三角形，第一行 n 個星號，之後每行遞減 1 個，最後一行 1 個星號。
+
+輸入說明：一行一個正整數 n (1<=n<=30)。
+輸出說明：n 行星號圖案。",1,Active,Python,"n = int(input())
+for i in range(n, 0, -1):
+    print('*' * i)",1,True,2,"**
+*"
+SWC33,Software,印出數字堆疊三角形,"輸入正整數 n，第 i 行輸出數字 1 到 i 依序相連 (不含空白)。
+
+輸入說明：一行一個正整數 n (1<=n<=9)。
+輸出說明：n 行數字堆疊圖案。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(''.join(str(d) for d in range(1, i + 1)))",0,True,4,"1
+12
+123
+1234"
+SWC33,Software,印出數字堆疊三角形,"輸入正整數 n，第 i 行輸出數字 1 到 i 依序相連 (不含空白)。
+
+輸入說明：一行一個正整數 n (1<=n<=9)。
+輸出說明：n 行數字堆疊圖案。",2,Active,Python,"n = int(input())
+for i in range(1, n + 1):
+    print(''.join(str(d) for d in range(1, i + 1)))",1,True,1,1
+SWC34,Software,印出空心矩形圖案,"輸入兩個整數 rows 與 cols，印出 rows x cols 的空心矩形：外框為 * ，內部為空白。
+
+輸入說明：一行兩個整數 rows 與 cols (3<=rows,cols<=30)。
+輸出說明：rows 行的空心矩形圖案 (每行 cols 個字元)。",3,Active,Python,"rows, cols = map(int, input().split())
+for i in range(rows):
+    if i == 0 or i == rows - 1:
+        print('*' * cols)
+    else:
+        print('*' + ' ' * (cols - 2) + '*')",0,True,4 5,"*****
+*   *
+*   *
+*****"
+SWC34,Software,印出空心矩形圖案,"輸入兩個整數 rows 與 cols，印出 rows x cols 的空心矩形：外框為 * ，內部為空白。
+
+輸入說明：一行兩個整數 rows 與 cols (3<=rows,cols<=30)。
+輸出說明：rows 行的空心矩形圖案 (每行 cols 個字元)。",3,Active,Python,"rows, cols = map(int, input().split())
+for i in range(rows):
+    if i == 0 or i == rows - 1:
+        print('*' * cols)
+    else:
+        print('*' + ' ' * (cols - 2) + '*')",1,True,3 3,"***
+* *
+***"
+SWC35,Software,BMI計算與分類,"輸入體重 (公斤) 與身高 (公尺)，計算 BMI 值 (BMI = 體重 / 身高^2) 並依下表分類：
+BMI < 18.5 為 過輕；18.5 <= BMI < 24 為 正常；24 <= BMI < 27 為 過重；BMI >= 27 為 肥胖。
+
+輸入說明：一行兩個數字：體重 與 身高，以空白分隔。
+輸出說明：一行，BMI 值 (取到小數點後兩位) 與分類，以空白分隔。",2,Active,Python,"w, h = map(float, input().split())
+bmi = w / (h * h)
+if bmi < 18.5:
+    cat = ""過輕""
+elif bmi < 24:
+    cat = ""正常""
+elif bmi < 27:
+    cat = ""過重""
+else:
+    cat = ""肥胖""
+print(f""{bmi:.2f} {cat}"")",0,True,70 1.75,22.86 正常
+SWC35,Software,BMI計算與分類,"輸入體重 (公斤) 與身高 (公尺)，計算 BMI 值 (BMI = 體重 / 身高^2) 並依下表分類：
+BMI < 18.5 為 過輕；18.5 <= BMI < 24 為 正常；24 <= BMI < 27 為 過重；BMI >= 27 為 肥胖。
+
+輸入說明：一行兩個數字：體重 與 身高，以空白分隔。
+輸出說明：一行，BMI 值 (取到小數點後兩位) 與分類，以空白分隔。",2,Active,Python,"w, h = map(float, input().split())
+bmi = w / (h * h)
+if bmi < 18.5:
+    cat = ""過輕""
+elif bmi < 24:
+    cat = ""正常""
+elif bmi < 27:
+    cat = ""過重""
+else:
+    cat = ""肥胖""
+print(f""{bmi:.2f} {cat}"")",1,True,45 1.7,15.57 過輕
+SWC35,Software,BMI計算與分類,"輸入體重 (公斤) 與身高 (公尺)，計算 BMI 值 (BMI = 體重 / 身高^2) 並依下表分類：
+BMI < 18.5 為 過輕；18.5 <= BMI < 24 為 正常；24 <= BMI < 27 為 過重；BMI >= 27 為 肥胖。
+
+輸入說明：一行兩個數字：體重 與 身高，以空白分隔。
+輸出說明：一行，BMI 值 (取到小數點後兩位) 與分類，以空白分隔。",2,Active,Python,"w, h = map(float, input().split())
+bmi = w / (h * h)
+if bmi < 18.5:
+    cat = ""過輕""
+elif bmi < 24:
+    cat = ""正常""
+elif bmi < 27:
+    cat = ""過重""
+else:
+    cat = ""肥胖""
+print(f""{bmi:.2f} {cat}"")",2,True,85 1.7,29.41 肥胖
+SWC36,Software,攝氏轉華氏溫度,"輸入攝氏溫度，轉換為華氏溫度 (F = C * 9/5 + 32)。
+
+輸入說明：一行一個數字，攝氏溫度 C。
+輸出說明：華氏溫度，取到小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",0,True,0,32.0
+SWC36,Software,攝氏轉華氏溫度,"輸入攝氏溫度，轉換為華氏溫度 (F = C * 9/5 + 32)。
+
+輸入說明：一行一個數字，攝氏溫度 C。
+輸出說明：華氏溫度，取到小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",1,True,100,212.0
+SWC36,Software,攝氏轉華氏溫度,"輸入攝氏溫度，轉換為華氏溫度 (F = C * 9/5 + 32)。
+
+輸入說明：一行一個數字，攝氏溫度 C。
+輸出說明：華氏溫度，取到小數點後一位。",1,Active,Python,"c = float(input())
+f = c * 9 / 5 + 32
+print(f""{f:.1f}"")",2,True,37,98.6
+SWC37,Software,計算圓面積與周長,"輸入圓的半徑 r，計算圓的面積與周長 (圓周率取 3.14159)。
+
+輸入說明：一行一個數字，半徑 r。
+輸出說明：一行，面積與周長，皆取到小數點後兩位，以空白分隔。",1,Active,Python,"r = float(input())
+pi = 3.14159
+area = pi * r * r
+circ = 2 * pi * r
+print(f""{area:.2f} {circ:.2f}"")",0,True,5,78.54 31.42
+SWC37,Software,計算圓面積與周長,"輸入圓的半徑 r，計算圓的面積與周長 (圓周率取 3.14159)。
+
+輸入說明：一行一個數字，半徑 r。
+輸出說明：一行，面積與周長，皆取到小數點後兩位，以空白分隔。",1,Active,Python,"r = float(input())
+pi = 3.14159
+area = pi * r * r
+circ = 2 * pi * r
+print(f""{area:.2f} {circ:.2f}"")",1,True,1,3.14 6.28
+SWC38,Software,依年齡輸出所屬階段,"輸入年齡，依下列規則輸出所屬階段：未滿 13 歲為 兒童；13 歲以上未滿 18 歲為 青少年；18 歲以上未滿 65 歲為 成人；65 歲以上為 老年。
+
+輸入說明：一行一個整數，年齡 a (0<=a<=120)。
+輸出說明：兒童、青少年、成人 或 老年。",2,Active,Python,"a = int(input())
+if a < 13:
+    print(""兒童"")
+elif a < 18:
+    print(""青少年"")
+elif a < 65:
+    print(""成人"")
+else:
+    print(""老年"")",0,True,10,兒童
+SWC38,Software,依年齡輸出所屬階段,"輸入年齡，依下列規則輸出所屬階段：未滿 13 歲為 兒童；13 歲以上未滿 18 歲為 青少年；18 歲以上未滿 65 歲為 成人；65 歲以上為 老年。
+
+輸入說明：一行一個整數，年齡 a (0<=a<=120)。
+輸出說明：兒童、青少年、成人 或 老年。",2,Active,Python,"a = int(input())
+if a < 13:
+    print(""兒童"")
+elif a < 18:
+    print(""青少年"")
+elif a < 65:
+    print(""成人"")
+else:
+    print(""老年"")",1,True,15,青少年
+SWC38,Software,依年齡輸出所屬階段,"輸入年齡，依下列規則輸出所屬階段：未滿 13 歲為 兒童；13 歲以上未滿 18 歲為 青少年；18 歲以上未滿 65 歲為 成人；65 歲以上為 老年。
+
+輸入說明：一行一個整數，年齡 a (0<=a<=120)。
+輸出說明：兒童、青少年、成人 或 老年。",2,Active,Python,"a = int(input())
+if a < 13:
+    print(""兒童"")
+elif a < 18:
+    print(""青少年"")
+elif a < 65:
+    print(""成人"")
+else:
+    print(""老年"")",2,True,30,成人
+SWC38,Software,依年齡輸出所屬階段,"輸入年齡，依下列規則輸出所屬階段：未滿 13 歲為 兒童；13 歲以上未滿 18 歲為 青少年；18 歲以上未滿 65 歲為 成人；65 歲以上為 老年。
+
+輸入說明：一行一個整數，年齡 a (0<=a<=120)。
+輸出說明：兒童、青少年、成人 或 老年。",2,Active,Python,"a = int(input())
+if a < 13:
+    print(""兒童"")
+elif a < 18:
+    print(""青少年"")
+elif a < 65:
+    print(""成人"")
+else:
+    print(""老年"")",3,True,70,老年
+SWC39,Software,判斷三邊長是否可以構成三角形,"輸入三個正整數作為三角形的三邊長，判斷是否能構成三角形 (任兩邊之和必須大於第三邊)。
+
+輸入說明：一行三個正整數 a、b、c。
+輸出說明：能構成三角形輸出 Yes，否則輸出 No。",2,Active,Python,"a, b, c = map(int, input().split())
+print(""Yes"" if a + b > c and a + c > b and b + c > a else ""No"")",0,True,3 4 5,Yes
+SWC39,Software,判斷三邊長是否可以構成三角形,"輸入三個正整數作為三角形的三邊長，判斷是否能構成三角形 (任兩邊之和必須大於第三邊)。
+
+輸入說明：一行三個正整數 a、b、c。
+輸出說明：能構成三角形輸出 Yes，否則輸出 No。",2,Active,Python,"a, b, c = map(int, input().split())
+print(""Yes"" if a + b > c and a + c > b and b + c > a else ""No"")",1,True,1 2 3,No
+SWC39,Software,判斷三邊長是否可以構成三角形,"輸入三個正整數作為三角形的三邊長，判斷是否能構成三角形 (任兩邊之和必須大於第三邊)。
+
+輸入說明：一行三個正整數 a、b、c。
+輸出說明：能構成三角形輸出 Yes，否則輸出 No。",2,Active,Python,"a, b, c = map(int, input().split())
+print(""Yes"" if a + b > c and a + c > b and b + c > a else ""No"")",2,True,5 5 5,Yes
+SWC40,Software,計算平面上兩點的距離,"輸入平面上兩點座標 (x1,y1) 與 (x2,y2)，計算兩點之間的距離。
+
+輸入說明：一行四個數字 x1 y1 x2 y2，以空白分隔。
+輸出說明：兩點距離，取到小數點後兩位。",2,Active,Python,"x1, y1, x2, y2 = map(float, input().split())
+d = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+print(f""{d:.2f}"")",0,True,0 0 3 4,5.00
+SWC40,Software,計算平面上兩點的距離,"輸入平面上兩點座標 (x1,y1) 與 (x2,y2)，計算兩點之間的距離。
+
+輸入說明：一行四個數字 x1 y1 x2 y2，以空白分隔。
+輸出說明：兩點距離，取到小數點後兩位。",2,Active,Python,"x1, y1, x2, y2 = map(float, input().split())
+d = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+print(f""{d:.2f}"")",1,True,0 0 1 1,1.41
+SWC41,Software,列出1到n之間所有質數,"輸入正整數 n，列出 1 到 n 之間所有的質數 (以試除法判斷)。
+
+輸入說明：一行一個正整數 n (2<=n<=1000)。
+輸出說明：1 到 n 之間所有質數，由小到大以空白分隔。",3,Active,Python,"n = int(input())
+res = []
+for i in range(2, n + 1):
+    is_p = True
+    for j in range(2, int(i ** 0.5) + 1):
+        if i % j == 0:
+            is_p = False
+            break
+    if is_p:
+        res.append(i)
+print(' '.join(map(str, res)))",0,True,20,2 3 5 7 11 13 17 19
+SWC41,Software,列出1到n之間所有質數,"輸入正整數 n，列出 1 到 n 之間所有的質數 (以試除法判斷)。
+
+輸入說明：一行一個正整數 n (2<=n<=1000)。
+輸出說明：1 到 n 之間所有質數，由小到大以空白分隔。",3,Active,Python,"n = int(input())
+res = []
+for i in range(2, n + 1):
+    is_p = True
+    for j in range(2, int(i ** 0.5) + 1):
+        if i % j == 0:
+            is_p = False
+            break
+    if is_p:
+        res.append(i)
+print(' '.join(map(str, res)))",1,True,2,2
+SWC42,Software,統計陣列中最大值出現的次數,"輸入 n 個整數，輸出其中的最大值，以及該最大值出現的次數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，最大值 與 出現次數，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+m = max(a)
+print(m, a.count(m))",0,True,"5
+3 9 9 2 9",9 3
+SWC42,Software,統計陣列中最大值出現的次數,"輸入 n 個整數，輸出其中的最大值，以及該最大值出現的次數。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：一行，最大值 與 出現次數，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+m = max(a)
+print(m, a.count(m))",1,True,"4
+1 2 3 4",4 1
+SWC43,Software,找出陣列中第二大的數,"輸入 n 個整數 (可能重複)，找出其中第二大的相異數值；若不存在 (所有數字都相同) 則輸出 none。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：第二大的相異數值，或 none。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+uniq = sorted(set(a), reverse=True)
+print(uniq[1] if len(uniq) >= 2 else ""none"")",0,True,"5
+3 9 9 2 7",7
+SWC43,Software,找出陣列中第二大的數,"輸入 n 個整數 (可能重複)，找出其中第二大的相異數值；若不存在 (所有數字都相同) 則輸出 none。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：第二大的相異數值，或 none。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+uniq = sorted(set(a), reverse=True)
+print(uniq[1] if len(uniq) >= 2 else ""none"")",1,True,"3
+5 5 5",none
+SWC44,Software,計算平均成績並轉換為等第,"輸入 n 個學生的成績 (0-100 的整數)，計算平均分數 (四捨五入取整數) 並轉換為等第：
+90 分以上為 A；80~89 為 B；70~79 為 C；60~69 為 D；60 分以下為 F。
+
+輸入說明：第一行一個整數 n；第二行 n 個成績。
+輸出說明：一行，平均分數 與 等第，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+avg = round(sum(a) / n)
+if avg >= 90:
+    g = ""A""
+elif avg >= 80:
+    g = ""B""
+elif avg >= 70:
+    g = ""C""
+elif avg >= 60:
+    g = ""D""
+else:
+    g = ""F""
+print(avg, g)",0,True,"3
+90 80 70",80 B
+SWC44,Software,計算平均成績並轉換為等第,"輸入 n 個學生的成績 (0-100 的整數)，計算平均分數 (四捨五入取整數) 並轉換為等第：
+90 分以上為 A；80~89 為 B；70~79 為 C；60~69 為 D；60 分以下為 F。
+
+輸入說明：第一行一個整數 n；第二行 n 個成績。
+輸出說明：一行，平均分數 與 等第，以空白分隔。",2,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+avg = round(sum(a) / n)
+if avg >= 90:
+    g = ""A""
+elif avg >= 80:
+    g = ""B""
+elif avg >= 70:
+    g = ""C""
+elif avg >= 60:
+    g = ""D""
+else:
+    g = ""F""
+print(avg, g)",1,True,"4
+100 100 50 50",75 C
+SWC45,Software,猜數字大小判斷,"輸入正確答案與猜測的數字，判斷猜測結果。
+
+輸入說明：一行兩個整數 answer 與 guess，以空白分隔。
+輸出說明：guess 大於 answer 輸出 太大；guess 小於 answer 輸出 太小；相等輸出 正確。",1,Active,Python,"answer, guess = map(int, input().split())
+if guess > answer:
+    print(""太大"")
+elif guess < answer:
+    print(""太小"")
+else:
+    print(""正確"")",0,True,50 70,太大
+SWC45,Software,猜數字大小判斷,"輸入正確答案與猜測的數字，判斷猜測結果。
+
+輸入說明：一行兩個整數 answer 與 guess，以空白分隔。
+輸出說明：guess 大於 answer 輸出 太大；guess 小於 answer 輸出 太小；相等輸出 正確。",1,Active,Python,"answer, guess = map(int, input().split())
+if guess > answer:
+    print(""太大"")
+elif guess < answer:
+    print(""太小"")
+else:
+    print(""正確"")",1,True,50 30,太小
+SWC45,Software,猜數字大小判斷,"輸入正確答案與猜測的數字，判斷猜測結果。
+
+輸入說明：一行兩個整數 answer 與 guess，以空白分隔。
+輸出說明：guess 大於 answer 輸出 太大；guess 小於 answer 輸出 太小；相等輸出 正確。",1,Active,Python,"answer, guess = map(int, input().split())
+if guess > answer:
+    print(""太大"")
+elif guess < answer:
+    print(""太小"")
+else:
+    print(""正確"")",2,True,50 50,正確
+SWC46,Software,購物滿額折扣計算,"輸入消費金額，依下列規則計算實際應付金額：金額達 2000 元 (含) 打 8 折；達 1000 元 (含) 但未滿 2000 元打 9 折；未滿 1000 元不打折。
+
+輸入說明：一行一個整數，消費金額 amount。
+輸出說明：實際應付金額 (無條件捨去小數，取整數)。",2,Active,Python,"amount = int(input())
+if amount >= 2000:
+    pay = amount * 0.8
+elif amount >= 1000:
+    pay = amount * 0.9
+else:
+    pay = amount
+print(int(pay))",0,True,2500,2000
+SWC46,Software,購物滿額折扣計算,"輸入消費金額，依下列規則計算實際應付金額：金額達 2000 元 (含) 打 8 折；達 1000 元 (含) 但未滿 2000 元打 9 折；未滿 1000 元不打折。
+
+輸入說明：一行一個整數，消費金額 amount。
+輸出說明：實際應付金額 (無條件捨去小數，取整數)。",2,Active,Python,"amount = int(input())
+if amount >= 2000:
+    pay = amount * 0.8
+elif amount >= 1000:
+    pay = amount * 0.9
+else:
+    pay = amount
+print(int(pay))",1,True,1500,1350
+SWC46,Software,購物滿額折扣計算,"輸入消費金額，依下列規則計算實際應付金額：金額達 2000 元 (含) 打 8 折；達 1000 元 (含) 但未滿 2000 元打 9 折；未滿 1000 元不打折。
+
+輸入說明：一行一個整數，消費金額 amount。
+輸出說明：實際應付金額 (無條件捨去小數，取整數)。",2,Active,Python,"amount = int(input())
+if amount >= 2000:
+    pay = amount * 0.8
+elif amount >= 1000:
+    pay = amount * 0.9
+else:
+    pay = amount
+print(int(pay))",2,True,500,500
+SWC47,Software,ATM提款判斷,"輸入帳戶餘額、提款金額與手續費，判斷是否能成功提款 (餘額須大於等於「提款金額+手續費」)。
+
+輸入說明：一行三個整數 balance、amount 與 fee。
+輸出說明：可成功提款則輸出「交易成功」與提款後的餘額 (以空白分隔)；否則輸出「餘額不足」。",2,Active,Python,"balance, amount, fee = map(int, input().split())
+if balance >= amount + fee:
+    print(f""交易成功 {balance - amount - fee}"")
+else:
+    print(""餘額不足"")",0,True,1000 500 10,交易成功 490
+SWC47,Software,ATM提款判斷,"輸入帳戶餘額、提款金額與手續費，判斷是否能成功提款 (餘額須大於等於「提款金額+手續費」)。
+
+輸入說明：一行三個整數 balance、amount 與 fee。
+輸出說明：可成功提款則輸出「交易成功」與提款後的餘額 (以空白分隔)；否則輸出「餘額不足」。",2,Active,Python,"balance, amount, fee = map(int, input().split())
+if balance >= amount + fee:
+    print(f""交易成功 {balance - amount - fee}"")
+else:
+    print(""餘額不足"")",1,True,1000 990 20,餘額不足
+SWC48,Software,小數轉換為百分比格式輸出,"輸入一個 0 到 1 之間的小數，將其轉換為百分比格式輸出。
+
+輸入說明：一行一個小數 x (0<=x<=1)。
+輸出說明：百分比字串，取到小數點後一位，並在結尾加上 % 符號。",1,Active,Python,"x = float(input())
+print(f""{x * 100:.1f}%"")",0,True,0.5,50.0%
+SWC48,Software,小數轉換為百分比格式輸出,"輸入一個 0 到 1 之間的小數，將其轉換為百分比格式輸出。
+
+輸入說明：一行一個小數 x (0<=x<=1)。
+輸出說明：百分比字串，取到小數點後一位，並在結尾加上 % 符號。",1,Active,Python,"x = float(input())
+print(f""{x * 100:.1f}%"")",1,True,0.256,25.6%
+SWC48,Software,小數轉換為百分比格式輸出,"輸入一個 0 到 1 之間的小數，將其轉換為百分比格式輸出。
+
+輸入說明：一行一個小數 x (0<=x<=1)。
+輸出說明：百分比字串，取到小數點後一位，並在結尾加上 % 符號。",1,Active,Python,"x = float(input())
+print(f""{x * 100:.1f}%"")",2,True,1,100.0%
+SWC49,Software,總秒數轉換為時分秒格式,"輸入一個非負整數代表總秒數，將其轉換為「時:分:秒」格式 (分與秒需補零至兩位數，時不補零)。
+
+輸入說明：一行一個非負整數 s (0<=s<=359999)。
+輸出說明：格式為 H:MM:SS 的時間字串。",2,Active,Python,"s = int(input())
+h = s // 3600
+m = (s % 3600) // 60
+sec = s % 60
+print(f""{h}:{m:02d}:{sec:02d}"")",0,True,3661,1:01:01
+SWC49,Software,總秒數轉換為時分秒格式,"輸入一個非負整數代表總秒數，將其轉換為「時:分:秒」格式 (分與秒需補零至兩位數，時不補零)。
+
+輸入說明：一行一個非負整數 s (0<=s<=359999)。
+輸出說明：格式為 H:MM:SS 的時間字串。",2,Active,Python,"s = int(input())
+h = s // 3600
+m = (s % 3600) // 60
+sec = s % 60
+print(f""{h}:{m:02d}:{sec:02d}"")",1,True,59,0:00:59
+SWC49,Software,總秒數轉換為時分秒格式,"輸入一個非負整數代表總秒數，將其轉換為「時:分:秒」格式 (分與秒需補零至兩位數，時不補零)。
+
+輸入說明：一行一個非負整數 s (0<=s<=359999)。
+輸出說明：格式為 H:MM:SS 的時間字串。",2,Active,Python,"s = int(input())
+h = s // 3600
+m = (s % 3600) // 60
+sec = s % 60
+print(f""{h}:{m:02d}:{sec:02d}"")",2,True,7325,2:02:05
+SWC50,Software,輸入月份輸出對應天數,"輸入月份 (1-12)，輸出該月份的天數 (2 月固定以 28 天計算，不考慮閏年)。
+
+輸入說明：一行一個整數，月份 m (1<=m<=12)。
+輸出說明：該月份的天數。",2,Active,Python,"m = int(input())
+days = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+        7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+print(days[m])",0,True,2,28
+SWC50,Software,輸入月份輸出對應天數,"輸入月份 (1-12)，輸出該月份的天數 (2 月固定以 28 天計算，不考慮閏年)。
+
+輸入說明：一行一個整數，月份 m (1<=m<=12)。
+輸出說明：該月份的天數。",2,Active,Python,"m = int(input())
+days = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+        7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+print(days[m])",1,True,4,30
+SWC50,Software,輸入月份輸出對應天數,"輸入月份 (1-12)，輸出該月份的天數 (2 月固定以 28 天計算，不考慮閏年)。
+
+輸入說明：一行一個整數，月份 m (1<=m<=12)。
+輸出說明：該月份的天數。",2,Active,Python,"m = int(input())
+days = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+        7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+print(days[m])",2,True,1,31
+SWC51,Software,簡易四則運算計算機,"輸入兩個整數與一個運算符號 (+ - * /)，計算並輸出結果。加、減、乘直接輸出整數結果；除法結果取到小數點後兩位；若為除法且除數為 0，輸出「除數不可為0」。
+
+輸入說明：一行，格式為 a op b，以空白分隔 (op 為 + - * / 其中之一)。
+輸出說明：運算結果，或錯誤訊息。",2,Active,Python,"parts = input().split()
+a, op, b = int(parts[0]), parts[1], int(parts[2])
+if op == '+':
+    print(a + b)
+elif op == '-':
+    print(a - b)
+elif op == '*':
+    print(a * b)
+elif op == '/':
+    if b == 0:
+        print(""除數不可為0"")
+    else:
+        print(f""{a / b:.2f}"")",0,True,3 + 5,8
+SWC51,Software,簡易四則運算計算機,"輸入兩個整數與一個運算符號 (+ - * /)，計算並輸出結果。加、減、乘直接輸出整數結果；除法結果取到小數點後兩位；若為除法且除數為 0，輸出「除數不可為0」。
+
+輸入說明：一行，格式為 a op b，以空白分隔 (op 為 + - * / 其中之一)。
+輸出說明：運算結果，或錯誤訊息。",2,Active,Python,"parts = input().split()
+a, op, b = int(parts[0]), parts[1], int(parts[2])
+if op == '+':
+    print(a + b)
+elif op == '-':
+    print(a - b)
+elif op == '*':
+    print(a * b)
+elif op == '/':
+    if b == 0:
+        print(""除數不可為0"")
+    else:
+        print(f""{a / b:.2f}"")",1,True,10 / 0,除數不可為0
+SWC51,Software,簡易四則運算計算機,"輸入兩個整數與一個運算符號 (+ - * /)，計算並輸出結果。加、減、乘直接輸出整數結果；除法結果取到小數點後兩位；若為除法且除數為 0，輸出「除數不可為0」。
+
+輸入說明：一行，格式為 a op b，以空白分隔 (op 為 + - * / 其中之一)。
+輸出說明：運算結果，或錯誤訊息。",2,Active,Python,"parts = input().split()
+a, op, b = int(parts[0]), parts[1], int(parts[2])
+if op == '+':
+    print(a + b)
+elif op == '-':
+    print(a - b)
+elif op == '*':
+    print(a * b)
+elif op == '/':
+    if b == 0:
+        print(""除數不可為0"")
+    else:
+        print(f""{a / b:.2f}"")",2,True,7 / 2,3.50
+SWC52,Software,找出陣列中出現次數最多的數字,"輸入 n 個整數，找出出現次數最多的數字 (眾數)。若有多個數字出現次數相同且並列最多，輸出數值最小的那一個。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：出現次數最多的數字。",3,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+freq = {}
+for x in a:
+    freq[x] = freq.get(x, 0) + 1
+best, best_count = None, -1
+for x in sorted(freq):
+    if freq[x] > best_count:
+        best, best_count = x, freq[x]
+print(best)",0,True,"6
+1 2 2 3 3 3",3
+SWC52,Software,找出陣列中出現次數最多的數字,"輸入 n 個整數，找出出現次數最多的數字 (眾數)。若有多個數字出現次數相同且並列最多，輸出數值最小的那一個。
+
+輸入說明：第一行一個整數 n；第二行 n 個整數。
+輸出說明：出現次數最多的數字。",3,Active,Python,"n = int(input())
+a = list(map(int, input().split()))
+freq = {}
+for x in a:
+    freq[x] = freq.get(x, 0) + 1
+best, best_count = None, -1
+for x in sorted(freq):
+    if freq[x] > best_count:
+        best, best_count = x, freq[x]
+print(best)",1,True,"5
+4 4 5 5 1",4
+SWC53,Software,凱撒密碼位移加密,"輸入一個只由小寫英文字母組成的字串，以及位移量 k，將字串中每個字母往後位移 k 個字母 (超過 z 則從 a 重新算起)，輸出加密後的字串。
+
+輸入說明：第一行為只含小寫英文字母的字串；第二行為整數 k (0<=k<=25)。
+輸出說明：加密後的字串。",3,Active,Python,"s = input().strip()
+k = int(input())
+res = []
+for ch in s:
+    res.append(chr((ord(ch) - ord('a') + k) % 26 + ord('a')))
+print(''.join(res))",0,True,"abc
+3",def
+SWC53,Software,凱撒密碼位移加密,"輸入一個只由小寫英文字母組成的字串，以及位移量 k，將字串中每個字母往後位移 k 個字母 (超過 z 則從 a 重新算起)，輸出加密後的字串。
+
+輸入說明：第一行為只含小寫英文字母的字串；第二行為整數 k (0<=k<=25)。
+輸出說明：加密後的字串。",3,Active,Python,"s = input().strip()
+k = int(input())
+res = []
+for ch in s:
+    res.append(chr((ord(ch) - ord('a') + k) % 26 + ord('a')))
+print(''.join(res))",1,True,"xyz
+3",abc
+SWC53,Software,凱撒密碼位移加密,"輸入一個只由小寫英文字母組成的字串，以及位移量 k，將字串中每個字母往後位移 k 個字母 (超過 z 則從 a 重新算起)，輸出加密後的字串。
+
+輸入說明：第一行為只含小寫英文字母的字串；第二行為整數 k (0<=k<=25)。
+輸出說明：加密後的字串。",3,Active,Python,"s = input().strip()
+k = int(input())
+res = []
+for ch in s:
+    res.append(chr((ord(ch) - ord('a') + k) % 26 + ord('a')))
+print(''.join(res))",2,True,"hello
+5",mjqqt
+SWC54,Software,統計字串中大小寫、數字與其他字元的個數,"輸入一行文字，分別統計其中大寫字母、小寫字母、數字字元，以及其他字元 (例如空白、標點符號) 的個數。
+
+輸入說明：一行文字。
+輸出說明：一行，依序輸出 大寫個數 小寫個數 數字個數 其他個數，以空白分隔。",2,Active,Python,"s = input()
+upper = sum(1 for c in s if c.isupper())
+lower = sum(1 for c in s if c.islower())
+digit = sum(1 for c in s if c.isdigit())
+other = len(s) - upper - lower - digit
+print(upper, lower, digit, other)",0,True,Hello World 123!,2 8 3 3
+SWC54,Software,統計字串中大小寫、數字與其他字元的個數,"輸入一行文字，分別統計其中大寫字母、小寫字母、數字字元，以及其他字元 (例如空白、標點符號) 的個數。
+
+輸入說明：一行文字。
+輸出說明：一行，依序輸出 大寫個數 小寫個數 數字個數 其他個數，以空白分隔。",2,Active,Python,"s = input()
+upper = sum(1 for c in s if c.isupper())
+lower = sum(1 for c in s if c.islower())
+digit = sum(1 for c in s if c.isdigit())
+other = len(s) - upper - lower - digit
+print(upper, lower, digit, other)",1,True,ABCabc,3 3 0 0
+SWC55,Software,座標點所在象限判斷,"輸入平面座標 (x, y)，判斷該點所在的象限；若座標軸上，需分別判斷是否為原點、x 軸上或 y 軸上。
+
+輸入說明：一行兩個整數 x 與 y。
+輸出說明：象限一、象限二、象限三、象限四、原點、x軸上 或 y軸上。",2,Active,Python,"x, y = map(int, input().split())
+if x == 0 and y == 0:
+    print(""原點"")
+elif x == 0:
+    print(""y軸上"")
+elif y == 0:
+    print(""x軸上"")
+elif x > 0 and y > 0:
+    print(""象限一"")
+elif x < 0 and y > 0:
+    print(""象限二"")
+elif x < 0 and y < 0:
+    print(""象限三"")
+else:
+    print(""象限四"")",0,True,3 5,象限一
+SWC55,Software,座標點所在象限判斷,"輸入平面座標 (x, y)，判斷該點所在的象限；若座標軸上，需分別判斷是否為原點、x 軸上或 y 軸上。
+
+輸入說明：一行兩個整數 x 與 y。
+輸出說明：象限一、象限二、象限三、象限四、原點、x軸上 或 y軸上。",2,Active,Python,"x, y = map(int, input().split())
+if x == 0 and y == 0:
+    print(""原點"")
+elif x == 0:
+    print(""y軸上"")
+elif y == 0:
+    print(""x軸上"")
+elif x > 0 and y > 0:
+    print(""象限一"")
+elif x < 0 and y > 0:
+    print(""象限二"")
+elif x < 0 and y < 0:
+    print(""象限三"")
+else:
+    print(""象限四"")",1,True,-2 4,象限二
+SWC55,Software,座標點所在象限判斷,"輸入平面座標 (x, y)，判斷該點所在的象限；若座標軸上，需分別判斷是否為原點、x 軸上或 y 軸上。
+
+輸入說明：一行兩個整數 x 與 y。
+輸出說明：象限一、象限二、象限三、象限四、原點、x軸上 或 y軸上。",2,Active,Python,"x, y = map(int, input().split())
+if x == 0 and y == 0:
+    print(""原點"")
+elif x == 0:
+    print(""y軸上"")
+elif y == 0:
+    print(""x軸上"")
+elif x > 0 and y > 0:
+    print(""象限一"")
+elif x < 0 and y > 0:
+    print(""象限二"")
+elif x < 0 and y < 0:
+    print(""象限三"")
+else:
+    print(""象限四"")",2,True,0 0,原點
+SWC55,Software,座標點所在象限判斷,"輸入平面座標 (x, y)，判斷該點所在的象限；若座標軸上，需分別判斷是否為原點、x 軸上或 y 軸上。
+
+輸入說明：一行兩個整數 x 與 y。
+輸出說明：象限一、象限二、象限三、象限四、原點、x軸上 或 y軸上。",2,Active,Python,"x, y = map(int, input().split())
+if x == 0 and y == 0:
+    print(""原點"")
+elif x == 0:
+    print(""y軸上"")
+elif y == 0:
+    print(""x軸上"")
+elif x > 0 and y > 0:
+    print(""象限一"")
+elif x < 0 and y > 0:
+    print(""象限二"")
+elif x < 0 and y < 0:
+    print(""象限三"")
+else:
+    print(""象限四"")",3,True,5 0,x軸上

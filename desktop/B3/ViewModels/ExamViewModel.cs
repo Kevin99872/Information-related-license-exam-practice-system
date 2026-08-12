@@ -531,47 +531,60 @@ public partial class ExamViewModel : ViewModelBase
             // 取得所有測試案例(含隱藏)
             var testCases = await _testCaseRepo.GetByProblemIdAsync(CurrentProblem.ProblemId);
 
-            bool isCorrect = true;
-            string? firstFailureDetail = null;
+            bool isCorrect;
             var output = new System.Text.StringBuilder();
-            var failedIndex = 0;
-            var caseIndex = 0;
 
-            foreach (var testCase in testCases)
+            if (testCases.Count == 0)
             {
-                caseIndex++;
-                var actual = await _judgeService.ExecuteAsync(SelectedLanguage, UserCode, testCase.Input);
-                var passed = _judgeService.CompareOutput(actual, testCase.ExpectedOutput);
-                if (!passed)
+                // 題目沒有任何測試資料時，無從驗證程式碼是否正確，
+                // 不可視為「通過」，避免無測資的題目被誤判為正確。
+                isCorrect = false;
+                LastSubmissionStatusText = "判題結果：無法判題";
+                LastSubmissionDetailText = $"{CurrentProblem.ProblemCode} 沒有任何測試資料，無法自動判題。請聯絡題庫維護者補上測試資料。";
+                output.AppendLine(LastSubmissionStatusText);
+                output.AppendLine(LastSubmissionDetailText);
+            }
+            else
+            {
+                string? firstFailureDetail = null;
+                var caseIndex = 0;
+                isCorrect = true;
+
+                foreach (var testCase in testCases)
                 {
-                    isCorrect = false;
-                    if (firstFailureDetail == null)
+                    caseIndex++;
+                    var actual = await _judgeService.ExecuteAsync(SelectedLanguage, UserCode, testCase.Input);
+                    var passed = _judgeService.CompareOutput(actual, testCase.ExpectedOutput);
+                    if (!passed)
                     {
-                        failedIndex = caseIndex;
-                        firstFailureDetail = $"第 {caseIndex} 筆測資失敗\nInput: {testCase.Input}\nExpected: {testCase.ExpectedOutput}\nActual: {actual}";
+                        isCorrect = false;
+                        if (firstFailureDetail == null)
+                        {
+                            firstFailureDetail = $"第 {caseIndex} 筆測資失敗\nInput: {testCase.Input}\nExpected: {testCase.ExpectedOutput}\nActual: {actual}";
+                        }
+                    }
+
+                    if (testCase.IsExample)
+                    {
+                        output.AppendLine($"Input: {testCase.Input}");
+                        output.AppendLine($"Expected: {testCase.ExpectedOutput}");
+                        output.AppendLine($"Actual: {actual}");
+                        output.AppendLine(passed ? "Result: OK" : "Result: WA");
+                        output.AppendLine("---");
                     }
                 }
 
-                if (testCase.IsExample)
+                LastSubmissionStatusText = isCorrect ? "判題結果：正確" : "判題結果：錯誤";
+                LastSubmissionDetailText = isCorrect
+                    ? $"{CurrentProblem.ProblemCode} 已通過全部測資，共 {testCases.Count} 筆。"
+                    : firstFailureDetail ?? $"{CurrentProblem.ProblemCode} 判定失敗，但未取得具體錯誤細節。";
+
+                output.Insert(0, $"{LastSubmissionStatusText}\n");
+                if (!isCorrect)
                 {
-                    output.AppendLine($"Input: {testCase.Input}");
-                    output.AppendLine($"Expected: {testCase.ExpectedOutput}");
-                    output.AppendLine($"Actual: {actual}");
-                    output.AppendLine(passed ? "Result: OK" : "Result: WA");
-                    output.AppendLine("---");
+                    output.AppendLine();
+                    output.AppendLine(LastSubmissionDetailText);
                 }
-            }
-
-            LastSubmissionStatusText = isCorrect ? "判題結果：正確" : "判題結果：錯誤";
-            LastSubmissionDetailText = isCorrect
-                ? $"{CurrentProblem.ProblemCode} 已通過全部測資，共 {testCases.Count} 筆。"
-                : firstFailureDetail ?? $"{CurrentProblem.ProblemCode} 判定失敗，但未取得具體錯誤細節。";
-
-            output.Insert(0, $"{LastSubmissionStatusText}\n");
-            if (!isCorrect)
-            {
-                output.AppendLine();
-                output.AppendLine(LastSubmissionDetailText);
             }
 
             OutputResult = output.ToString().Trim();

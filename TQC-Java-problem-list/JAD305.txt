@@ -1,0 +1,44 @@
+TQC+ 程式語言Java JAD305  字串分割與合併
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一行以逗號分隔的整數字串，計算所有數字的總和，並將這些數字以「-」重新組合輸出。
+
+輸入說明：一行，數字以英文逗號「,」分隔，逗號前後無空白。
+輸出說明：兩行，第一行為「總和: x」，第二行為「組合: a-b-c...」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] parts = line.split(",");
+        int sum = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            sum += Integer.parseInt(parts[i]);
+            sb.append(parts[i]);
+            if (i < parts.length - 1) {
+                sb.append('-');
+            }
+        }
+        System.out.println("總和: " + sum);
+        System.out.println("組合: " + sb.toString());
+    }
+}
+
+== 範例 1 輸入 ==
+3,5,2,8
+== 範例 1 輸出 ==
+總和: 18
+組合: 3-5-2-8
+
+== 範例 2 輸入 ==
+10,20,30
+== 範例 2 輸出 ==
+總和: 60
+組合: 10-20-30

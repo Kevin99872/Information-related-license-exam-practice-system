@@ -1,0 +1,45 @@
+TQC+ 程式語言C# CSD107  表格欄位對齊輸出
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入三筆商品資料（名稱與價格），以固定欄寬對齊的方式輸出成表格，名稱靠左對齊佔 10 格、價格靠右對齊佔 6 格。
+
+輸入說明：三行，每行為「名稱 價格」，以空白分隔，價格為整數。
+輸出說明：三行，每行為對齊後的「名稱價格」字串（名稱 PadRight(10)，價格 PadLeft(6)）。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            string name = parts[0];
+            string price = parts[1];
+            Console.WriteLine(name.PadRight(10) + price.PadLeft(6));
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+筆記本 45
+鉛筆 8
+橡皮擦 15
+== 範例 1 輸出 ==
+筆記本           45
+鉛筆             8
+橡皮擦           15
+
+== 範例 2 輸入 ==
+A 1
+BB 22
+CCC 333
+== 範例 2 輸出 ==
+A              1
+BB            22
+CCC          333

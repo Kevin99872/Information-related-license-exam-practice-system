@@ -1,0 +1,51 @@
+CPE 10924 Prime Words
+
+難度：簡單
+來源：改編自 UVa Online Judge #10924 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+將一個單字視為由字母組成，計算所有字母的英文字母序值總和 (a/A=1, b/B=2, ..., z/Z=26)。若總和為質數，稱為 Prime Word。
+
+輸入說明：每行一個單字 (僅含英文字母)，處理到檔案結尾。
+輸出說明：是質數輸出 It is a prime word.，否則輸出 It is not a prime word.
+
+== 參考解法 (Python) ==
+import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    word = line.strip()
+    if not word:
+        continue
+    total = sum(ord(c.lower()) - ord('a') + 1 for c in word)
+    if is_prime(total):
+        print("It is a prime word.")
+    else:
+        print("It is not a prime word.")
+
+== 範例 1 輸入 ==
+synapse
+hi
+== 範例 1 輸出 ==
+It is not a prime word.
+It is a prime word.
+
+== 範例 2 輸入 ==
+abc
+Programming
+== 範例 2 輸出 ==
+It is not a prime word.
+It is a prime word.

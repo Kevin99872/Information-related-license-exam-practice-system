@@ -1,0 +1,50 @@
+CPE 591 Box of Bricks
+
+難度：簡單
+來源：改編自 UVa Online Judge #591 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 n 疊積木的高度，欲搬移積木使所有疊高度相同 (等於平均高度，保證整除)，每次搬移可將 1 塊積木從某疊移到另一疊。求最少搬移次數 (即所有高度超過平均值的疊，其超出部分的總和)。
+
+輸入說明：每組第一行為 n；第二行為 n 個整數高度。以 n=0 結束 (不處理)。
+輸出說明：每組輸出一行 Set #k: X moves.，k 為組別 (由 1 起算)，X 為最少搬移次數。
+
+== 參考解法 (Python) ==
+import sys
+
+data = sys.stdin.read().split('\n')
+idx = 0
+case = 1
+out = []
+while idx < len(data):
+    line = data[idx].strip()
+    idx += 1
+    if line == '':
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    heights = list(map(int, data[idx].split()))
+    idx += 1
+    avg = sum(heights) // n
+    moves = sum(h - avg for h in heights if h > avg)
+    out.append(f"Set #{case}: {moves} moves.")
+    case += 1
+print('\n'.join(out))
+
+== 範例 1 輸入 ==
+6
+5 2 4 1 7 5
+0
+== 範例 1 輸出 ==
+Set #1: 5 moves.
+
+== 範例 2 輸入 ==
+5
+1 2 3 4 5
+4
+2 2 2 2
+0
+== 範例 2 輸出 ==
+Set #1: 3 moves.
+Set #2: 0 moves.

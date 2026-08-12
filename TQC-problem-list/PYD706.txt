@@ -17,19 +17,21 @@ TQC+ 程式語言Python 706 全字母句
 輸出說明
 輸入的資料是否為全字母句
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 第1組
+範例輸入1
 3
 The quick brown fox jumps over the lazy dog
-True
 Learning Python is funny
-False
 Pack my box with five dozen liquor jugs
+範例輸出1
+True
+False
 True
 
-輸入與輸出會交雜如下，輸出的部份以粗體字表示 第2組
+範例輸入2
 2
 Quick fox jumps nightly above wizard
-True
 These can be weapons of terror
+範例輸出2
+True
 False
 '''

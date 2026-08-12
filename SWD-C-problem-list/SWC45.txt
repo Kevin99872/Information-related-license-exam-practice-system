@@ -1,0 +1,33 @@
+電腦軟體設計丙級 練習題 SWC45  猜數字大小判斷
+
+難度：簡單
+
+== 題目 ==
+輸入正確答案與猜測的數字，判斷猜測結果。
+
+輸入說明：一行兩個整數 answer 與 guess，以空白分隔。
+輸出說明：guess 大於 answer 輸出 太大；guess 小於 answer 輸出 太小；相等輸出 正確。
+
+== 參考解法 (Python) ==
+answer, guess = map(int, input().split())
+if guess > answer:
+    print("太大")
+elif guess < answer:
+    print("太小")
+else:
+    print("正確")
+
+== 範例 1 輸入 ==
+50 70
+== 範例 1 輸出 ==
+太大
+
+== 範例 2 輸入 ==
+50 30
+== 範例 2 輸出 ==
+太小
+
+== 範例 3 輸入 ==
+50 50
+== 範例 3 輸出 ==
+正確

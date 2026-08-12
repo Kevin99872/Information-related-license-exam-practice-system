@@ -1,0 +1,50 @@
+APCS 實作題 APCP037 二維陣列鞍點
+
+難度：中等
+主題：二維陣列
+
+== 題目 ==
+給定一個 r 列 c 行的整數矩陣，鞍點定義為「該元素是其所在列中的最大值，同時也是其所在行中的最小值」。請由上到下、由左到右尋找第一個鞍點並輸出其值與位置（1-indexed）；若不存在鞍點，輸出 "None"。
+
+輸入說明：第一行兩個正整數 r c (1<=r,c<=100)；接下來 r 行，每行 c 個整數。
+輸出說明：若存在鞍點，輸出一行「值 列 行」；否則輸出 "None"。
+
+== 參考解法 (Python) ==
+r, c = map(int, input().split())
+mat = [list(map(int, input().split())) for _ in range(r)]
+found = False
+for i in range(r):
+    row_max = max(mat[i])
+    for j in range(c):
+        if mat[i][j] == row_max:
+            col_min = min(mat[k][j] for k in range(r))
+            if mat[i][j] == col_min:
+                print(mat[i][j], i + 1, j + 1)
+                found = True
+                break
+    if found:
+        break
+if not found:
+    print("None")
+
+== 範例 1 輸入 ==
+3 3
+1 2 3
+4 5 6
+7 8 9
+== 範例 1 輸出 ==
+3 1 3
+
+== 範例 2 輸入 ==
+2 2
+1 2
+3 4
+== 範例 2 輸出 ==
+2 1 2
+
+== 範例 3 輸入 ==
+2 2
+3 1
+1 3
+== 範例 3 輸出 ==
+None

@@ -1,0 +1,42 @@
+CPE Simplifying Fractions
+
+難度：簡單
+來源：原創（分數化簡基礎題型）
+
+== 題目 ==
+給定分數 a/b (a、b 為正整數)，請將其化簡為最簡分數。
+
+輸入說明：每行兩個正整數 a 與 b，處理到檔案結尾。
+輸出說明：每行輸出化簡後的分數，格式為 a/b；若化簡後分母為 1，僅輸出分子。
+
+== 參考解法 (Python) ==
+import sys, math
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    a, b = map(int, line.split())
+    g = math.gcd(a, b)
+    a //= g
+    b //= g
+    if b == 1:
+        print(a)
+    else:
+        print(f"{a}/{b}")
+
+== 範例 1 輸入 ==
+4 8
+6 3
+7 5
+== 範例 1 輸出 ==
+1/2
+2
+7/5
+
+== 範例 2 輸入 ==
+100 1000
+17 17
+== 範例 2 輸出 ==
+1/10
+1

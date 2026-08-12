@@ -1,0 +1,40 @@
+TQC+ 程式語言Java JAD303  字元出現次數統計
+
+難度：中等
+主題：字串
+
+== 題目 ==
+輸入一個字串與一個字元，計算該字元在字串中出現的次數。
+
+輸入說明：第一行一個字串（不含空白）；第二行一個字元。
+輸出說明：一行，格式為「出現次數: n」。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        char target = sc.next().charAt(0);
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == target) {
+                count++;
+            }
+        }
+        System.out.println("出現次數: " + count);
+    }
+}
+
+== 範例 1 輸入 ==
+banana
+a
+== 範例 1 輸出 ==
+出現次數: 3
+
+== 範例 2 輸入 ==
+mississippi
+s
+== 範例 2 輸出 ==
+出現次數: 4

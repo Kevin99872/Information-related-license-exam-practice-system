@@ -46,6 +46,7 @@ public class ProblemImportService
     private readonly ProblemRepository _problemRepo;
     private readonly TestCaseRepository _testCaseRepo;
     private readonly ExamDbContext _dbContext = new();
+    private readonly ExamCategoryRepository _categoryRepo = new(new ExamCatalogDbContext());
 
     public ProblemImportService()
     {
@@ -274,6 +275,8 @@ public class ProblemImportService
             }
 
             var testCases = ParseTestCases(content, existing?.ProblemId ?? 0);
+            await _categoryRepo.EnsureExistsAsync(problem.ExamType);
+
             if (existing == null)
             {
                 var savedProblem = await _problemRepo.AddAsync(problem);
@@ -675,6 +678,7 @@ public class ProblemImportService
     {
         var existing = await _problemRepo.GetByCodeAsync(form.ProblemCode);
         var testCaseCount = form.TestCases?.Count ?? 0;
+        await _categoryRepo.EnsureExistsAsync(form.ExamType);
 
         if (existing == null)
         {

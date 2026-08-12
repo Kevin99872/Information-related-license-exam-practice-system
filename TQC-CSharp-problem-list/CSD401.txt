@@ -1,0 +1,56 @@
+TQC+ 程式語言C# CSD401  方法多載計算面積
+
+難度：簡單
+主題：方法
+
+== 題目 ==
+撰寫方法多載 Area，分別接受一個參數（圓形半徑，回傳圓面積，取 3.14 為 π 且四捨五入至小數點後 2 位）與兩個參數（矩形長寬，回傳矩形面積）。依輸入資料判斷呼叫哪一種多載。
+
+輸入說明：第一行為整數 type（1 表示圓形、2 表示矩形）；若 type 為 1，第二行為半徑（浮點數）；若 type 為 2，第二行為長與寬（浮點數，以空白分隔）。
+輸出說明：一行，面積計算結果，圓形保留小數點後 2 位，矩形保留小數點後 1 位。
+
+== 參考解法 (C#) ==
+using System;
+using System.Globalization;
+
+class Program
+{
+    static double Area(double radius)
+    {
+        return 3.14 * radius * radius;
+    }
+
+    static double Area(double width, double height)
+    {
+        return width * height;
+    }
+
+    static void Main()
+    {
+        int type = int.Parse(Console.ReadLine() ?? "1");
+        if (type == 1)
+        {
+            double r = double.Parse(Console.ReadLine() ?? "0", CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(r).ToString("F2", CultureInfo.InvariantCulture));
+        }
+        else
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            double w = double.Parse(parts[0], CultureInfo.InvariantCulture);
+            double h = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            Console.WriteLine(Area(w, h).ToString("F1", CultureInfo.InvariantCulture));
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+1
+5
+== 範例 1 輸出 ==
+78.50
+
+== 範例 2 輸入 ==
+2
+4 6
+== 範例 2 輸出 ==
+24.0

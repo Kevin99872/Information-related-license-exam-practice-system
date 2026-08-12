@@ -1,0 +1,43 @@
+TQC+ 程式語言Java JAD606  HashMap詞頻統計
+
+難度：中等
+主題：集合
+
+== 題目 ==
+輸入一行以空白分隔的多個單字，使用 Map 統計每個單字出現的次數，依照單字「第一次出現」的順序輸出每個單字與其出現次數。
+
+輸入說明：一行，多個單字以空白分隔。
+輸出說明：多行，每行格式為「單字: 次數」，依單字第一次出現的順序排列。
+
+== 參考解法 (Java) ==
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        String[] words = line.split(" ");
+        Map<String, Integer> freq = new LinkedHashMap<>();
+        for (String w : words) {
+            freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> entry : freq.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+a b a c b a
+== 範例 1 輸出 ==
+a: 3
+b: 2
+c: 1
+
+== 範例 2 輸入 ==
+apple banana apple
+== 範例 2 輸出 ==
+apple: 2
+banana: 1

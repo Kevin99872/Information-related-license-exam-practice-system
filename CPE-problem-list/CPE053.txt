@@ -1,0 +1,62 @@
+CPE Longest Palindromic Substring
+
+難度：困難
+來源：原創（動態規劃 / 中心擴散：最長迴文子字串經典題型）
+
+== 題目 ==
+給定一個字串，求其最長迴文子字串的長度。
+
+輸入說明：每行一個字串 (僅含小寫英文字母，長度介於 1 到 1000)，處理到檔案結尾。
+輸出說明：每行輸出最長迴文子字串的長度。
+
+== 參考解法 (Python) ==
+import sys
+
+def longest_palindrome_len(s):
+    n = len(s)
+    if n == 0:
+        return 0
+    best = 1
+    for center in range(n):
+        # odd length
+        l, r = center, center
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+        # even length
+        l, r = center, center + 1
+        while l >= 0 and r < n and s[l] == s[r]:
+            best = max(best, r - l + 1)
+            l -= 1
+            r += 1
+    return best
+
+for line in sys.stdin:
+    s = line.strip()
+    if not s:
+        continue
+    print(longest_palindrome_len(s))
+
+== 範例 1 輸入 ==
+babad
+cbbd
+== 範例 1 輸出 ==
+3
+2
+
+== 範例 2 輸入 ==
+a
+racecar
+abcde
+== 範例 2 輸出 ==
+1
+7
+1
+
+== 範例 3 輸入 ==
+aaaaaaaaaa
+abababab
+== 範例 3 輸出 ==
+10
+7

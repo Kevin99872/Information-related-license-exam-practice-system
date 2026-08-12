@@ -1,0 +1,38 @@
+CPE Josephus Problem
+
+難度：中等
+來源：原創（Josephus Problem 經典模擬題型）
+
+== 題目 ==
+n 個人圍成一圈，依序編號 1 到 n。從編號 1 的人開始報數，每數到第 k 個人就讓該人出列 (出列後圈子縮小，從下一個人重新報數 1)，直到所有人都出列為止。求出列的順序。
+
+輸入說明：每行兩個整數 n 與 k (1<=n<=1000, 1<=k<=1000)，處理到檔案結尾。
+輸出說明：每行輸出出列順序 (依序列出所有人的編號，以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n, k = map(int, line.split())
+    people = list(range(1, n + 1))
+    order = []
+    pos = 0
+    while people:
+        pos = (pos + k - 1) % len(people)
+        order.append(people.pop(pos))
+    print(' '.join(map(str, order)))
+
+== 範例 1 輸入 ==
+7 3
+== 範例 1 輸出 ==
+3 6 2 7 5 1 4
+
+== 範例 2 輸入 ==
+5 1
+6 2
+== 範例 2 輸出 ==
+1 2 3 4 5
+2 4 6 3 1 5

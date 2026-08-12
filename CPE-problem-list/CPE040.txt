@@ -1,0 +1,41 @@
+CPE Run-Length Encoding
+
+難度：簡單
+來源：原創（行程長度編碼基礎題型）
+
+== 題目 ==
+將字串進行行程長度編碼 (RLE)：把連續重複出現的字元表示成「字元+出現次數」，即使某字元只連續出現 1 次，也要輸出數字 1。
+
+輸入說明：每行一個非空字串 (僅含大小寫英文字母，大小寫視為不同字元)，處理到檔案結尾。
+輸出說明：每行輸出編碼後的字串。
+
+== 參考解法 (Python) ==
+import sys
+
+for line in sys.stdin:
+    s = line.rstrip('\n')
+    if s == '':
+        continue
+    result = []
+    i = 0
+    while i < len(s):
+        j = i
+        while j < len(s) and s[j] == s[i]:
+            j += 1
+        result.append(s[i] + str(j - i))
+        i = j
+    print(''.join(result))
+
+== 範例 1 輸入 ==
+aaabbc
+abcd
+== 範例 1 輸出 ==
+a3b2c1
+a1b1c1d1
+
+== 範例 2 輸入 ==
+aaaaaaaaaa
+AaAaAa
+== 範例 2 輸出 ==
+a10
+A1a1A1a1A1a1

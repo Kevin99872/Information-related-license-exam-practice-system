@@ -1,0 +1,83 @@
+TQC+ 程式語言C# CSD505  銀行帳戶封裝驗證
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義 BankAccount 類別，含私有欄位餘額，屬性 Balance 只可讀取。提供方法 Deposit(amount) 存款（amount 必須大於 0，否則不變動）與 Withdraw(amount) 提款（amount 必須大於 0 且不可超過餘額，否則不變動）。依序輸入起始餘額與 n 筆操作，輸出每筆操作後的餘額。
+
+輸入說明：第一行為起始餘額（整數）；第二行為整數 n；接著 n 行，每行為「D 金額」（存款）或「W 金額」（提款）。
+輸出說明：n 行，每筆操作後的餘額。
+
+== 參考解法 (C#) ==
+using System;
+
+class BankAccount
+{
+    public int Balance { get; private set; }
+
+    public BankAccount(int initial)
+    {
+        Balance = initial;
+    }
+
+    public void Deposit(int amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+        }
+    }
+
+    public void Withdraw(int amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        int initial = int.Parse(Console.ReadLine() ?? "0");
+        BankAccount account = new BankAccount(initial);
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            int amount = int.Parse(parts[1]);
+            if (parts[0] == "D")
+            {
+                account.Deposit(amount);
+            }
+            else
+            {
+                account.Withdraw(amount);
+            }
+            Console.WriteLine(account.Balance);
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+1000
+3
+D 500
+W 200
+W 2000
+== 範例 1 輸出 ==
+1500
+1300
+1300
+
+== 範例 2 輸入 ==
+0
+2
+D 100
+W 50
+== 範例 2 輸出 ==
+100
+50

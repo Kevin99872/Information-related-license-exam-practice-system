@@ -1,0 +1,42 @@
+TQC+ 程式語言C# CSD601  除法例外處理
+
+難度：中等
+主題：例外處理
+
+== 題目 ==
+輸入兩個整數 a、b，計算 a / b，若 b 為 0 則會拋出 DivideByZeroException，請使用 try-catch 攔截並輸出「除數不可為 0」；否則輸出相除結果。
+
+輸入說明：一行，兩個以空白分隔的整數 a b。
+輸出說明：一行，若 b 不為 0 輸出「結果:X」（X 為整數除法結果），若 b 為 0 輸出「除數不可為 0」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        string[] parts = (Console.ReadLine() ?? "").Split(' ');
+        int a = int.Parse(parts[0]);
+        int b = int.Parse(parts[1]);
+        try
+        {
+            int result = a / b;
+            Console.WriteLine($"結果:{result}");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("除數不可為 0");
+        }
+    }
+}
+
+== 範例 1 輸入 ==
+10 2
+== 範例 1 輸出 ==
+結果:5
+
+== 範例 2 輸入 ==
+5 0
+== 範例 2 輸出 ==
+除數不可為 0

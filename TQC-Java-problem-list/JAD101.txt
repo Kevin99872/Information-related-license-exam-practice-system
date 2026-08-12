@@ -1,0 +1,31 @@
+TQC+ 程式語言Java JAD101  整數欄寬輸出
+
+難度：簡單
+主題：格式化輸出
+
+== 題目 ==
+輸入一個整數 n，請以總欄寬 6 個字元、右對齊的格式輸出（不足的位數以空白補齊）。
+
+輸入說明：一行一個整數 n。
+輸出說明：一行，右對齊、欄寬為 6 的 n。
+
+== 參考解法 (Java) ==
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.printf("%6d%n", n);
+    }
+}
+
+== 範例 1 輸入 ==
+42
+== 範例 1 輸出 ==
+    42
+
+== 範例 2 輸入 ==
+-7
+== 範例 2 輸出 ==
+    -7

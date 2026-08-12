@@ -1,0 +1,56 @@
+CPE 543 Goldbach's Conjecture
+
+難度：中等
+來源：改編自 UVa Online Judge #543 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+每個大於等於 4 的偶數，都可以表示成兩個質數之和 (Goldbach 猜想)。給定偶數 n，找出質數 p 與 q，使 p+q=n 且 p<=q，並使 q-p 最小 (即兩質數盡量接近)。
+
+輸入說明：每行一個偶數 n (4<=n<=1000000)，以 0 結束 (不處理)。
+輸出說明：每行輸出 p 與 q (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x < 4:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i * i <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
+    n = int(line)
+    if n == 0:
+        break
+    p = n // 2
+    while p >= 2:
+        q = n - p
+        if is_prime(p) and is_prime(q):
+            print(p, q)
+            break
+        p -= 1
+
+== 範例 1 輸入 ==
+4
+0
+== 範例 1 輸出 ==
+2 2
+
+== 範例 2 輸入 ==
+26
+100
+0
+== 範例 2 輸出 ==
+13 13
+47 53

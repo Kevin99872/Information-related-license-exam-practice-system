@@ -1,0 +1,43 @@
+TQC+ 程式語言C# CSD110  BMI 計算與等級判斷
+
+難度：中等
+主題：格式化輸出
+
+== 題目 ==
+輸入身高（公分）與體重（公斤），計算 BMI 值（BMI = 體重 / (身高公尺)^2），輸出保留小數點後 1 位的 BMI 值，並依下列標準判斷等級：BMI < 18.5 為「過輕」；18.5 <= BMI < 24 為「正常」；24 <= BMI < 27 為「過重」；BMI >= 27 為「肥胖」。
+
+輸入說明：第一行為身高 height（公分，浮點數）；第二行為體重 weight（公斤，浮點數）。
+輸出說明：一行，格式為「BMI: XX.X 等級: 等級名稱」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        double height = double.Parse(Console.ReadLine() ?? "0", CultureInfo.InvariantCulture);
+        double weight = double.Parse(Console.ReadLine() ?? "0", CultureInfo.InvariantCulture);
+        double m = height / 100.0;
+        double bmi = weight / (m * m);
+        string level;
+        if (bmi < 18.5) level = "過輕";
+        else if (bmi < 24) level = "正常";
+        else if (bmi < 27) level = "過重";
+        else level = "肥胖";
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "BMI: {0:F1} 等級: {1}", bmi, level));
+    }
+}
+
+== 範例 1 輸入 ==
+170
+65
+== 範例 1 輸出 ==
+BMI: 22.5 等級: 正常
+
+== 範例 2 輸入 ==
+160
+80
+== 範例 2 輸出 ==
+BMI: 31.2 等級: 肥胖

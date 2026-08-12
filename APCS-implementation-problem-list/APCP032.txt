@@ -1,0 +1,39 @@
+APCS 實作題 APCP032 選擇排序與交換次數
+
+難度：中等
+主題：排序
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請使用選擇排序（由小到大）將其排序，並統計排序過程中實際發生的「交換」次數（若該輪最小值本來就在正確位置，不計為一次交換）。
+
+輸入說明：第一行一個正整數 n (1<=n<=1000)；第二行 n 個整數。
+輸出說明：共兩行：第一行輸出排序後的陣列（由小到大），以空白分隔；第二行輸出總交換次數。
+
+== 參考解法 (Python) ==
+n = int(input())
+arr = list(map(int, input().split()))
+swaps = 0
+for i in range(n):
+    min_idx = i
+    for j in range(i + 1, n):
+        if arr[j] < arr[min_idx]:
+            min_idx = j
+    if min_idx != i:
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        swaps += 1
+print(' '.join(map(str, arr)))
+print(swaps)
+
+== 範例 1 輸入 ==
+5
+5 2 4 1 3
+== 範例 1 輸出 ==
+1 2 3 4 5
+3
+
+== 範例 2 輸入 ==
+3
+1 2 3
+== 範例 2 輸出 ==
+1 2 3
+0

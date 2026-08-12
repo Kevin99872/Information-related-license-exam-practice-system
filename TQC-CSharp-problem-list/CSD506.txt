@@ -1,0 +1,77 @@
+TQC+ 程式語言C# CSD506  多型集合計算總面積
+
+難度：困難
+主題：物件導向
+
+== 題目 ==
+定義抽象類別 Shape 含抽象方法 GetArea()。定義子類別 Circle（半徑）與 Square（邊長），皆實作 GetArea()（Circle 面積 = 3.14 * r * r；Square 面積 = 邊長 * 邊長）。輸入 n 筆圖形資料，存入 List&lt;Shape&gt;，計算並輸出所有圖形面積的總和（保留小數點後 2 位）。
+
+輸入說明：第一行為整數 n；接著 n 行，每行為「C 半徑」（圓形）或「S 邊長」（正方形），數值皆為整數。
+輸出說明：一行，格式為「總面積:X」，保留小數點後 2 位。
+
+== 參考解法 (C#) ==
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+    public Circle(double radius) { this.radius = radius; }
+    public override double GetArea() => 3.14 * radius * radius;
+}
+
+class Square : Shape
+{
+    private double side;
+    public Square(double side) { this.side = side; }
+    public override double GetArea() => side * side;
+}
+
+class Program
+{
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine() ?? "0");
+        List<Shape> shapes = new List<Shape>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] parts = (Console.ReadLine() ?? "").Split(' ');
+            double value = double.Parse(parts[1], CultureInfo.InvariantCulture);
+            if (parts[0] == "C")
+            {
+                shapes.Add(new Circle(value));
+            }
+            else
+            {
+                shapes.Add(new Square(value));
+            }
+        }
+        double total = 0;
+        foreach (Shape s in shapes)
+        {
+            total += s.GetArea();
+        }
+        Console.WriteLine($"總面積:{total.ToString("F2", CultureInfo.InvariantCulture)}");
+    }
+}
+
+== 範例 1 輸入 ==
+2
+C 10
+S 4
+== 範例 1 輸出 ==
+總面積:330.00
+
+== 範例 2 輸入 ==
+3
+S 2
+S 3
+C 1
+== 範例 2 輸出 ==
+總面積:16.14

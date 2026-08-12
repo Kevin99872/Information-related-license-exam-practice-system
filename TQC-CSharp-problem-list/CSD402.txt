@@ -1,0 +1,46 @@
+TQC+ 程式語言C# CSD402  out 參數求最大最小值
+
+難度：簡單
+主題：方法
+
+== 題目 ==
+撰寫方法 FindMinMax，使用 out 參數同時回傳陣列中的最大值與最小值。
+
+輸入說明：一行，n 個以空白分隔的整數。
+輸出說明：一行，格式為「Max=X Min=Y」。
+
+== 參考解法 (C#) ==
+using System;
+using System.Linq;
+
+class Program
+{
+    static void FindMinMax(int[] arr, out int max, out int min)
+    {
+        max = arr[0];
+        min = arr[0];
+        foreach (int x in arr)
+        {
+            if (x > max) max = x;
+            if (x < min) min = x;
+        }
+    }
+
+    static void Main()
+    {
+        int[] nums = (Console.ReadLine() ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).ToArray();
+        FindMinMax(nums, out int max, out int min);
+        Console.WriteLine($"Max={max} Min={min}");
+    }
+}
+
+== 範例 1 輸入 ==
+3 7 1 9 4
+== 範例 1 輸出 ==
+Max=9 Min=1
+
+== 範例 2 輸入 ==
+-2 -8 -1 -5
+== 範例 2 輸出 ==
+Max=-1 Min=-8

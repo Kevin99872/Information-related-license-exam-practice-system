@@ -1,0 +1,41 @@
+APCS 實作題 APCP023 括號匹配檢查
+
+難度：中等
+主題：堆疊/字串
+
+== 題目 ==
+給定一行僅由 ( ) [ ] { } 六種符號組成的字串（可能為空字串），請判斷括號是否完全匹配（每個左括號都有對應同種類的右括號，且順序正確）。
+
+輸入說明：一行字串 s（僅含括號符號，長度 0<=len(s)<=1000，字串可能為空）。
+輸出說明：若完全匹配輸出 "Valid"，否則輸出 "Invalid"。
+
+== 參考解法 (Python) ==
+s = input()
+pairs = {')': '(', ']': '[', '}': '{'}
+stack = []
+valid = True
+for ch in s:
+    if ch in '([{':
+        stack.append(ch)
+    elif ch in ')]}':
+        if not stack or stack.pop() != pairs[ch]:
+            valid = False
+            break
+if stack:
+    valid = False
+print("Valid" if valid else "Invalid")
+
+== 範例 1 輸入 ==
+([{}])
+== 範例 1 輸出 ==
+Valid
+
+== 範例 2 輸入 ==
+([)]
+== 範例 2 輸出 ==
+Invalid
+
+== 範例 3 輸入 ==
+(((
+== 範例 3 輸出 ==
+Invalid

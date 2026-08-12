@@ -18,7 +18,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                        <Button Content="{loc:Loc ImportBank}" Classes="ghost"/>
+                        <Button Content="{loc:Loc ImportBank}" Classes="ghost" Command="{Binding GoToImportCommand}"/>
                         <Button Content="{loc:Loc StartPractice}" Classes="primary"/>
                     </StackPanel>
                 </Grid>
@@ -29,7 +29,16 @@
                 <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc HotBanks}"/>
                 <TextBlock Classes="muted" Text="{loc:Loc HotBanksDesc}"/>
 
-            <ItemsControl ItemsSource="{Binding HotCards}" HorizontalAlignment="Stretch">
+            <Border Classes="card" IsVisible="{Binding HasNoBanks}" Padding="40" MinHeight="240" HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16" MaxWidth="360">
+                    <Border Width="56" Height="56" Background="{DynamicResource IconBgBrush}" CornerRadius="28" HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Text="{loc:Loc NoBanksTitle}"/>
+                    <TextBlock Classes="muted" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{loc:Loc NoBanksDesc}"/>
+                    <Button Classes="primary" HorizontalAlignment="Center" Content="{loc:Loc ImportBank}" Command="{Binding GoToImportCommand}"/>
+                </StackPanel>
+            </Border>
+
+            <ItemsControl IsVisible="{Binding !HasNoBanks}" ItemsSource="{Binding HotCards}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Spacing="12"/>
@@ -72,7 +81,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <ItemsControl ItemsSource="{Binding ExtraCards}" HorizontalAlignment="Stretch">
+            <ItemsControl IsVisible="{Binding !HasNoBanks}" ItemsSource="{Binding ExtraCards}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Spacing="12"/>

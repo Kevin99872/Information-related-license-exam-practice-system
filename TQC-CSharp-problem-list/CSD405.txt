@@ -1,0 +1,56 @@
+TQC+ 程式語言C# CSD405  學生成績類別
+
+難度：中等
+主題：物件導向
+
+== 題目 ==
+定義 Student 類別，包含屬性 Name（字串）與 Score（整數），以及方法 GetLevel() 依 Score 回傳等第（>=90 為 A，>=80 為 B，>=70 為 C，其餘為 D）。輸入姓名與分數建立物件並輸出結果。
+
+輸入說明：第一行為姓名；第二行為分數（整數）。
+輸出說明：一行，格式為「姓名: 分數分 (等第)」。
+
+== 參考解法 (C#) ==
+using System;
+
+class Student
+{
+    public string Name { get; set; }
+    public int Score { get; set; }
+
+    public Student(string name, int score)
+    {
+        Name = name;
+        Score = score;
+    }
+
+    public string GetLevel()
+    {
+        if (Score >= 90) return "A";
+        if (Score >= 80) return "B";
+        if (Score >= 70) return "C";
+        return "D";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        string name = Console.ReadLine() ?? "";
+        int score = int.Parse(Console.ReadLine() ?? "0");
+        Student s = new Student(name, score);
+        Console.WriteLine($"{s.Name}: {s.Score}分 ({s.GetLevel()})");
+    }
+}
+
+== 範例 1 輸入 ==
+小美
+92
+== 範例 1 輸出 ==
+小美: 92分 (A)
+
+== 範例 2 輸入 ==
+Tom
+65
+== 範例 2 輸出 ==
+Tom: 65分 (D)
