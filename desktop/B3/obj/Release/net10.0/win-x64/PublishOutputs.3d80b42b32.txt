@@ -186,7 +186,7 @@ C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-sys
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\hostfxr.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\hostpolicy.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\mscordaccore.dll
-C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\mscordaccore_amd64_amd64_10.0.926.27113.dll
+C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\mscordaccore_amd64_amd64_10.0.1026.32716.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\mscordbi.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\mscorrc.dll
 C:\Users\kevinkai\Documents\GitHub\Information-related-license-exam-practice-system\desktop\B3\bin\Release\win-x64\msquic.dll

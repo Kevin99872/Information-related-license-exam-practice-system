@@ -51,7 +51,7 @@
                         <Image Source="avares://B3/Assets/app-icon.png" Width="24" Height="24" VerticalAlignment="Center"/>
                         <TextBlock Text="{loc:Loc AppName}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <TextBlock Text="Bata Ver v0.0.2" Classes="muted sidebar-fade" FontSize="12" IsVisible="{Binding IsSidebarExpanded}"/>
+                    <TextBlock Text="Ver v1.2.0" Classes="muted sidebar-fade" FontSize="12" IsVisible="{Binding IsSidebarExpanded}"/>
                     <Button Content="menu" HorizontalAlignment="Left"  Command="{Binding ToggleSidebarCommand}"/>
                 </StackPanel>
 
