@@ -1,0 +1,61 @@
+CPE Line Segment Intersection Check
+
+難度：中等
+來源：原創（計算幾何：線段相交判斷）
+
+== 題目 ==
+給定兩條線段 (各由兩端點座標表示)，判斷它們是否相交 (含端點接觸、共線重疊的情況)。
+
+輸入說明：每行 8 個整數，依序為線段一的兩端點座標、線段二的兩端點座標，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def cross(o, a, b):
+    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+def on_segment(p, q, r):
+    return min(p[0], r[0]) <= q[0] <= max(p[0], r[0]) and min(p[1], r[1]) <= q[1] <= max(p[1], r[1])
+
+def segments_intersect(p1, p2, p3, p4):
+    d1 = cross(p3, p4, p1)
+    d2 = cross(p3, p4, p2)
+    d3 = cross(p1, p2, p3)
+    d4 = cross(p1, p2, p4)
+    if ((d1 > 0 and d2 < 0) or (d1 < 0 and d2 > 0)) and ((d3 > 0 and d4 < 0) or (d3 < 0 and d4 > 0)):
+        return True
+    if d1 == 0 and on_segment(p3, p1, p4):
+        return True
+    if d2 == 0 and on_segment(p3, p2, p4):
+        return True
+    if d3 == 0 and on_segment(p1, p3, p2):
+        return True
+    if d4 == 0 and on_segment(p1, p4, p2):
+        return True
+    return False
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        v = list(map(int, line.split()))
+        p1, p2, p3, p4 = (v[0], v[1]), (v[2], v[3]), (v[4], v[5]), (v[6], v[7])
+        out.append('Yes' if segments_intersect(p1, p2, p3, p4) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+0 0 4 4 0 4 4 0
+0 0 1 1 2 2 3 3
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+0 0 1 0 0 1 1 1
+== 範例 2 輸出 ==
+No

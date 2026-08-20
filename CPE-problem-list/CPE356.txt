@@ -1,0 +1,87 @@
+CPE 10870 Recurrences
+
+難度：困難
+來源：改編自 UVa Online Judge #10870 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 d 階線性遞迴 f(n) = a1*f(n-1) + a2*f(n-2) + ... + ad*f(n-d) (n>d)，以及係數 a1..ad 與初始值 f(1)..f(d)，求 f(n) mod m (使用矩陣快速冪求解)。
+
+輸入說明：每組第一行 d n m，接著一行 d 個係數 a1..ad，再一行 d 個初始值 f(1)..f(d)。"0 0 0" 表示輸入結束。
+輸出說明：每組輸出 f(n) mod m。
+
+== 參考解法 (Python) ==
+import sys
+
+def mat_mult(a, b, mod):
+    n = len(a); k = len(b); m = len(b[0])
+    res = [[0] * m for _ in range(n)]
+    for i in range(n):
+        for x in range(k):
+            if a[i][x]:
+                for j in range(m):
+                    res[i][j] = (res[i][j] + a[i][x] * b[x][j]) % mod
+    return res
+
+def mat_pow(mat, p, mod):
+    n = len(mat)
+    result = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+    while p > 0:
+        if p & 1:
+            result = mat_mult(result, mat, mod)
+        mat = mat_mult(mat, mat, mod)
+        p >>= 1
+    return result
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        d = int(data[idx]); n = int(data[idx + 1]); m = int(data[idx + 2]); idx += 3
+        if d == 0 and n == 0 and m == 0:
+            break
+        a = [int(data[idx + i]) for i in range(d)]
+        idx += d
+        f = [int(data[idx + i]) for i in range(d)]
+        idx += d
+        if n <= d:
+            out.append(str(f[n - 1] % m))
+            continue
+        trans = [[0] * d for _ in range(d)]
+        for j in range(d):
+            trans[0][j] = a[j] % m
+        for i in range(1, d):
+            trans[i][i - 1] = 1
+        mp = mat_pow(trans, n - d, m)
+        base = list(reversed(f))
+        res = 0
+        for j in range(d):
+            res = (res + mp[0][j] * base[j]) % m
+        out.append(str(res % m))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 1 100
+2
+1
+2 10 100
+1 1
+1 1
+3 2147483647 12345
+12345678 0 12345
+1 2 3
+0 0 0
+== 範例 1 輸出 ==
+1
+55
+423
+
+== 範例 2 輸入 ==
+2 5 1000
+1 1
+0 1
+0 0 0
+== 範例 2 輸出 ==
+3

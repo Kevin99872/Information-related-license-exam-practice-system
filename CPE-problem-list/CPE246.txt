@@ -1,0 +1,75 @@
+CPE Trie Prefix Count
+
+難度：中等
+來源：原創（字典樹 (Trie)：前綴計數查詢）
+
+== 題目 ==
+給定 n 個單字建立字典樹，接著回答 q 個查詢：某個前綴字串在這 n 個單字中，有幾個單字以此為開頭 (前綴)。
+
+輸入說明：每組第一行為 n，接著 n 行each 一個單字；再一行為查詢數 q，接著 q 行each 一個前綴字串。
+輸出說明：每個查詢輸出對應的前綴計數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        words = []
+        for _ in range(n):
+            words.append(data[idx].strip()); idx += 1
+        q = int(data[idx].strip()); idx += 1
+        trie = {}
+        for w in words:
+            node = trie
+            for c in w:
+                node = node.setdefault(c, {'#': 0})
+                node['#'] += 1
+        for _ in range(q):
+            prefix = data[idx].strip(); idx += 1
+            node = trie
+            cnt = 0
+            ok = True
+            for c in prefix:
+                if c not in node:
+                    ok = False
+                    break
+                node = node[c]
+            if ok:
+                cnt = node['#']
+            out.append(str(cnt))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+apple
+app
+apply
+banana
+3
+app
+appl
+ban
+== 範例 1 輸出 ==
+3
+2
+1
+
+== 範例 2 輸入 ==
+2
+cat
+car
+2
+ca
+cat
+== 範例 2 輸出 ==
+2
+1

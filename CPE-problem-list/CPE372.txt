@@ -1,0 +1,45 @@
+CPE Paint Fence
+
+難度：中等
+來源：原創（動態規劃：柵欄上色方案數 (相鄰至多兩根同色)）
+
+== 題目 ==
+有 n 根柵欄柱，可用 k 種顏色上色，規則是「不能有超過兩根相鄰柱子顏色相同」，求共有幾種上色方案。
+
+輸入說明：每行兩個整數 n k，"0 0" 表示輸入結束。
+輸出說明：每行輸出上色方案總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n, k = map(int, line.split())
+        if n == 0 and k == 0:
+            break
+        if n == 1:
+            out.append(str(k))
+            continue
+        same, diff = k, k * (k - 1)
+        for _ in range(3, n + 1):
+            same, diff = diff, (same + diff) * (k - 1)
+        out.append(str(same + diff))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 2
+0 0
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+2 3
+0 0
+== 範例 2 輸出 ==
+9

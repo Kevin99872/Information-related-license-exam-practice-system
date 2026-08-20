@@ -1,0 +1,46 @@
+CPE Integer Square Root
+
+難度：簡單
+來源：原創（二分搜尋求整數平方根）
+
+== 題目 ==
+給定非負整數 n，求不超過 sqrt(n) 的最大整數 (即 floor(sqrt(n)))，使用二分搜尋法求解。
+
+輸入說明：每行一個整數 n (0<=n<=10^18)，讀到檔案結尾。
+輸出說明：每行輸出 floor(sqrt(n))。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        lo, hi = 0, n
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if mid * mid <= n:
+                lo = mid
+            else:
+                hi = mid - 1
+        out.append(str(lo))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10
+16
+== 範例 1 輸出 ==
+3
+4
+
+== 範例 2 輸入 ==
+0
+99999999999999
+== 範例 2 輸出 ==
+0
+9999999

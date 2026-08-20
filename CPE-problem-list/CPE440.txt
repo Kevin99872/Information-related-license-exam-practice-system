@@ -1,0 +1,46 @@
+CPE Group Shifted Strings
+
+難度：中等
+來源：原創（字串分組：位移相同模式的字串）
+
+== 題目 ==
+給定 n 個小寫字母字串，若字串 A 中每個字母都能「循環位移相同的量」變成字串 B (例如 "abc" 移1變成"bcd")，則稱兩字串為同一組。將所有字串分組，同組內依原輸入順序輸出。
+
+輸入說明：每行為 n 個以空白分隔的字串，讀到檔案結尾。
+輸出說明：每行輸入先輸出分組數，接著每行輸出一組 (組內以空白分隔，組與組之間依「該組第一個出現的字串在原輸入中的順序」排列)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import defaultdict
+
+def main():
+    out = []
+    for line in sys.stdin:
+        words = line.split()
+        if not words:
+            continue
+        groups = defaultdict(list)
+        for w in words:
+            key = tuple((ord(c) - ord(w[0])) % 26 for c in w)
+            groups[key].append(w)
+        out.append(str(len(groups)))
+        for key in sorted(groups, key=lambda k: words.index(groups[k][0])):
+            out.append(' '.join(groups[key]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+abc bcd acef xyz az ba a z
+== 範例 1 輸出 ==
+4
+abc bcd xyz
+acef
+az ba
+a z
+
+== 範例 2 輸入 ==
+az ba
+== 範例 2 輸出 ==
+1
+az ba

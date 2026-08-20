@@ -1,0 +1,34 @@
+CPE Reverse Words in a String
+
+難度：簡單
+來源：原創（反轉字串中單字的順序）
+
+== 題目 ==
+給定一行文字，將其中「單字的順序」反轉 (單字內部字母順序不變，多餘空白需去除)。
+
+輸入說明：每行一段文字，讀到檔案結尾。
+輸出說明：每行輸出單字順序反轉後的結果 (單字間以一個空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        words = line.split()
+        out.append(' '.join(reversed(words)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+the sky is blue
+  hello world  
+== 範例 1 輸出 ==
+blue is sky the
+world hello
+
+== 範例 2 輸入 ==
+a good   example
+== 範例 2 輸出 ==
+example good a

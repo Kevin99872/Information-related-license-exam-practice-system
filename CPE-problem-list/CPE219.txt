@@ -1,0 +1,55 @@
+CPE N-Queens Count
+
+難度：困難
+來源：原創（回溯法：N 皇后解的數量）
+
+== 題目 ==
+給定 n，求在 n*n 棋盤上擺放 n 個皇后、使任兩個皇后都不能互相攻擊 (不同列、不同行、不同對角線) 的擺法總數。
+
+輸入說明：每行一個整數 n (1<=n<=10)，讀到檔案結尾。
+輸出說明：每行輸出擺法總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def count_queens(n):
+    cols = set(); diag1 = set(); diag2 = set()
+    count = 0
+    def backtrack(row):
+        nonlocal count
+        if row == n:
+            count += 1
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col); diag1.add(row - col); diag2.add(row + col)
+            backtrack(row + 1)
+            cols.remove(col); diag1.remove(row - col); diag2.remove(row + col)
+    backtrack(0)
+    return count
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        out.append(str(count_queens(int(line))))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1
+== 範例 1 輸出 ==
+2
+1
+
+== 範例 2 輸入 ==
+6
+8
+== 範例 2 輸出 ==
+4
+92

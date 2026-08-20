@@ -1,0 +1,46 @@
+CPE 11827 Maximum GCD
+
+難度：簡單
+來源：改編自 UVa Online Judge #11827 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 M 個正整數，求所有相異數對中「最大」的最大公因數。
+
+輸入說明：第一行為測試個數 N；接著 N 行each 為一組正整數 (以空白分隔)。
+輸出說明：每組輸出最大的兩兩 GCD。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    t = int(data[idx].strip()); idx += 1
+    out = []
+    for _ in range(t):
+        nums = list(map(int, data[idx].split())); idx += 1
+        best = 0
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                best = max(best, math.gcd(nums[i], nums[j]))
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+10 20 30 40
+7 5 12
+125 15 25
+== 範例 1 輸出 ==
+20
+1
+25
+
+== 範例 2 輸入 ==
+1
+6 9 15
+== 範例 2 輸出 ==
+3

@@ -1,0 +1,58 @@
+CPE Subsets II (With Duplicates)
+
+難度：中等
+來源：原創（回溯法：含重複元素的所有子集合）
+
+== 題目 ==
+給定 n 個整數 (可能重複)，列出所有相異的子集合 (含空集合)。
+
+輸入說明：每行為 n 個以空白分隔的整數，讀到檔案結尾。
+輸出說明：每行輸入先輸出相異子集合總數，接著每行輸出一個子集合 (格式 "{a,b}"，元素由小到大排列)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        nums = sorted(map(int, line.split()))
+        n = len(nums)
+        results = []
+
+        def backtrack(start, path):
+            results.append(list(path))
+            for i in range(start, n):
+                if i > start and nums[i] == nums[i - 1]:
+                    continue
+                path.append(nums[i])
+                backtrack(i + 1, path)
+                path.pop()
+
+        backtrack(0, [])
+        out.append(str(len(results)))
+        for r in results:
+            out.append('{' + ','.join(map(str, r)) + '}')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 2 2
+== 範例 1 輸出 ==
+6
+{}
+{1}
+{1,2}
+{1,2,2}
+{2}
+{2,2}
+
+== 範例 2 輸入 ==
+0
+== 範例 2 輸出 ==
+2
+{}
+{0}

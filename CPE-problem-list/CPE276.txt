@@ -1,0 +1,71 @@
+CPE Matrix Power
+
+難度：中等
+來源：原創（矩陣快速冪 (通用矩陣指數運算)）
+
+== 題目 ==
+給定 n*n 矩陣 M、指數 p 與模數 mod，求 M^p mod mod (每個元素取模)。
+
+輸入說明：每組第一行 n p mod，接著 n 行each n 個整數。n=0 且 p=0 且 mod=0 表示輸入結束。
+輸出說明：每組輸出 M^p mod mod 的結果 (n 行each n 個整數)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def mat_mult(a, b, mod):
+    n = len(a); m = len(b[0]); k = len(b)
+    result = [[0] * m for _ in range(n)]
+    for i in range(n):
+        for x in range(k):
+            if a[i][x] == 0:
+                continue
+            for j in range(m):
+                result[i][j] = (result[i][j] + a[i][x] * b[x][j]) % mod
+    return result
+
+def mat_pow(mat, p, mod):
+    n = len(mat)
+    result = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+    base = mat
+    while p > 0:
+        if p & 1:
+            result = mat_mult(result, base, mod)
+        base = mat_mult(base, base, mod)
+        p >>= 1
+    return result
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); p = int(data[idx + 1]); mod = int(data[idx + 2]); idx += 3
+        if n == 0:
+            break
+        mat = []
+        for i in range(n):
+            mat.append([int(data[idx + j]) for j in range(n)])
+            idx += n
+        result = mat_pow(mat, p, mod)
+        out.append('\n'.join(' '.join(map(str, row)) for row in result))
+    print('\n\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 5 1000
+1 1
+1 0
+0 0 0
+== 範例 1 輸出 ==
+8 5
+5 3
+
+== 範例 2 輸入 ==
+2 2 100
+2 0
+0 2
+0 0 0
+== 範例 2 輸出 ==
+4 0
+0 4

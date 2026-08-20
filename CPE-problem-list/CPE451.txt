@@ -1,0 +1,54 @@
+CPE Word Pattern Matching
+
+難度：簡單
+來源：原創（樣式與單字序列的一對一對應判斷）
+
+== 題目 ==
+給定一個樣式字串 (由字母組成) 與一串以空白分隔的單字，判斷兩者是否符合「一對一」對應 (樣式中每個字母對應唯一一個單字，且每個單字也只對應唯一一個字母)。
+
+輸入說明：每行為 "樣式 單字1 單字2 ..."，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        parts = line.split()
+        pattern = parts[0]
+        words = parts[1:]
+        if len(pattern) != len(words):
+            out.append('No')
+            continue
+        p2w = {}
+        w2p = {}
+        ok = True
+        for c, w in zip(pattern, words):
+            if c in p2w and p2w[c] != w:
+                ok = False
+                break
+            if w in w2p and w2p[w] != c:
+                ok = False
+                break
+            p2w[c] = w
+            w2p[w] = c
+        out.append('Yes' if ok else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+abba dog cat cat dog
+abba dog cat cat fish
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+aaaa dog cat cat dog
+== 範例 2 輸出 ==
+No

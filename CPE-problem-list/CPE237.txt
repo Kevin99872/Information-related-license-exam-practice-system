@@ -1,0 +1,61 @@
+CPE Maximum Sum Rectangle in 2D Matrix
+
+難度：困難
+來源：原創（Kadane 演算法擴展：二維矩陣最大和子矩形）
+
+== 題目 ==
+給定 R*C 的整數矩陣 (可能含負數)，求任意子矩形 (連續列、連續行區塊) 元素總和的最大值。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個整數。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出最大子矩形總和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        r = int(data[idx]); c = int(data[idx + 1]); idx += 2
+        if r == 0 and c == 0:
+            break
+        grid = []
+        for i in range(r):
+            grid.append([int(data[idx + j]) for j in range(c)])
+            idx += c
+        best = None
+        for top in range(r):
+            colsum = [0] * c
+            for bottom in range(top, r):
+                for j in range(c):
+                    colsum[j] += grid[bottom][j]
+                cur = colsum[0]
+                mx = colsum[0]
+                for j in range(1, c):
+                    cur = max(colsum[j], cur + colsum[j])
+                    mx = max(mx, cur)
+                if best is None or mx > best:
+                    best = mx
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 4
+0 -2 -7 0
+9 2 -6 2
+-4 1 -4 1
+-1 8 0 -2
+0 0
+== 範例 1 輸出 ==
+15
+
+== 範例 2 輸入 ==
+2 2
+1 2
+3 4
+0 0
+== 範例 2 輸出 ==
+10

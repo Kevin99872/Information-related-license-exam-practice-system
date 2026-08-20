@@ -1,0 +1,60 @@
+CPE Longest Increasing Path in a Matrix
+
+難度：中等
+來源：原創（記憶化搜尋：矩陣中最長遞增路徑）
+
+== 題目 ==
+給定 R*C 矩陣，求矩陣中最長「嚴格遞增」路徑的長度 (每步只能往上下左右移動到數值更大的相鄰格)。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個整數。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出最長遞增路徑長度。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        r = int(data[idx]); c = int(data[idx + 1]); idx += 2
+        if r == 0 and c == 0:
+            break
+        grid = []
+        for i in range(r):
+            grid.append([int(data[idx + j]) for j in range(c)])
+            idx += c
+        memo = [[0] * c for _ in range(r)]
+
+        def dfs(i, j):
+            if memo[i][j]:
+                return memo[i][j]
+            best = 1
+            for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ni, nj = i + di, j + dj
+                if 0 <= ni < r and 0 <= nj < c and grid[ni][nj] > grid[i][j]:
+                    best = max(best, 1 + dfs(ni, nj))
+            memo[i][j] = best
+            return best
+
+        out.append(str(max(dfs(i, j) for i in range(r) for j in range(c))))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 3
+9 9 4
+6 6 8
+2 1 1
+0 0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+2 2
+1 2
+3 4
+0 0
+== 範例 2 輸出 ==
+3

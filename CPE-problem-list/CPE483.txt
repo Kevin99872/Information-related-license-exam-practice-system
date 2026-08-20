@@ -1,0 +1,52 @@
+CPE 乘積小於 K 的子陣列
+
+難度：中等
+來源：原創（滑動視窗）
+
+== 題目 ==
+給定一個長度為 n 的正整數陣列與整數 k，請計算有多少個連續子陣列，
+其所有元素的乘積嚴格小於 k。
+
+輸入格式：第一行為 n k（n=0 且 k=0 代表輸入結束）；第二行為 n 個正整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        if k <= 1:
+            out.append('0')
+            continue
+        prod = 1
+        left = 0
+        count = 0
+        for right in range(n):
+            prod *= a[right]
+            while prod >= k:
+                prod //= a[left]
+                left += 1
+            count += right - left + 1
+        out.append(str(count))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 100
+10 5 2 6 1
+== 範例 1 輸出 ==
+12
+
+== 範例 2 輸入 ==
+3 0
+1 2 3
+== 範例 2 輸出 ==
+0

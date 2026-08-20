@@ -1,0 +1,38 @@
+CPE B 進位數字和
+
+難度：簡單
+來源：原創（進位轉換基礎題）
+
+== 題目 ==
+給定十進位整數 n 與進位基底 b（2 <= b <= 16），請將 n 轉換為 b 進位後，
+求出其所有位數字之和（以十進位表示）。
+
+輸入每行兩個整數 n b，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n, b = map(int, line.split())
+        s = 0
+        while n > 0:
+            s += n % b
+            n //= b
+        out.append(str(s))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+255 16
+100 2
+1000 10
+== 範例 1 輸出 ==
+30
+3
+1

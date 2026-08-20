@@ -1,0 +1,49 @@
+CPE Boats to Save People
+
+難度：簡單
+來源：原創（貪心：救生艇載人問題）
+
+== 題目 ==
+給定 n 個人的體重，每艘救生艇最多載 2 人，且總重量不能超過 limit，求最少需要幾艘救生艇載完所有人。
+
+輸入說明：每組第一行 n limit，第二行 n 個正整數 (體重)。n=0 且 limit=0 表示輸入結束。
+輸出說明：每組輸出最少所需救生艇數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); limit = int(data[idx + 1]); idx += 2
+        if n == 0 and limit == 0:
+            break
+        people = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        i, j = 0, n - 1
+        boats = 0
+        while i <= j:
+            if people[i] + people[j] <= limit:
+                i += 1
+            j -= 1
+            boats += 1
+        out.append(str(boats))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 3
+3 2 2 1
+0 0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+3 5
+3 5 3
+0 0
+== 範例 2 輸出 ==
+3

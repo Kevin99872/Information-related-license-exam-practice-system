@@ -1,0 +1,40 @@
+CPE [UVa10079] 切披薩
+
+難度：簡單
+來源：改編自 UVa Online Judge #10079 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+在一塊圓形披薩上畫 n 條直線（每條直線都貫穿整個圓，且任兩條線不平行、任三條線不共點），
+請問最多可以把披薩切成幾塊？
+
+已知公式：pieces(n) = 1 + n(n+1)/2。
+
+輸入為一系列整數 n（每行一個），直到讀到負數為止（負數不必輸出）。
+對每個非負整數 n，輸出對應的最大切塊數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n < 0:
+            break
+        out.append(str((n * n + n + 2) // 2))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+10
+0
+-1
+== 範例 1 輸出 ==
+16
+56
+1

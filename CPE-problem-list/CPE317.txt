@@ -1,0 +1,42 @@
+CPE Count Distinct Substrings
+
+難度：簡單
+來源：原創（集合暴力法：相異子字串計數）
+
+== 題目 ==
+給定一個字串，求其相異子字串的總數 (包含長度 1 到全長)。
+
+輸入說明：每行一個字串 (長度<=200)，讀到檔案結尾。
+輸出說明：每行輸出相異子字串的個數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            out.append('0')
+            continue
+        subs = set()
+        n = len(s)
+        for i in range(n):
+            for j in range(i + 1, n + 1):
+                subs.add(s[i:j])
+        out.append(str(len(subs)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+abc
+aaa
+== 範例 1 輸出 ==
+6
+3
+
+== 範例 2 輸入 ==
+abab
+== 範例 2 輸出 ==
+7

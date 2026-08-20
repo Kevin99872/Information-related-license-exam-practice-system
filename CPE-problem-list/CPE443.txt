@@ -1,0 +1,66 @@
+CPE Maximum Width of Binary Tree
+
+難度：中等
+來源：原創（BFS：二元樹最大寬度 (含空隙)）
+
+== 題目 ==
+給定一棵二元樹 (陣列表示，節點 0 為根，left[i]/right[i] 為左右子節點索引，-1 表示不存在)，將節點依完全二元樹的方式編號 (根為 1，節點 i 的左子為 2i、右子為 2i+1)，求「每一層最左與最右節點編號差加 1」的最大值 (即最大寬度，中間即使沒有實際節點也計入)。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 (節點 0~n-1 依序的 left、right)。n=0 表示輸入結束。
+輸出說明：每組輸出最大寬度。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        left, right = [], []
+        for _ in range(n):
+            left.append(int(data[idx])); right.append(int(data[idx + 1])); idx += 2
+        best = 1
+        q = deque([(0, 0)])
+        while q:
+            size = len(q)
+            first_pos = q[0][1]
+            last_pos = first_pos
+            for _ in range(size):
+                u, pos = q.popleft()
+                last_pos = pos
+                if left[u] != -1:
+                    q.append((left[u], 2 * pos))
+                if right[u] != -1:
+                    q.append((right[u], 2 * pos + 1))
+            best = max(best, last_pos - first_pos + 1)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+1 2
+3 4
+5 6
+-1 -1
+-1 -1
+-1 -1
+-1 -1
+0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+3
+1 2
+-1 -1
+-1 -1
+0
+== 範例 2 輸出 ==
+2

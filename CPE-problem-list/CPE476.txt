@@ -1,0 +1,45 @@
+CPE 擺動排序
+
+難度：簡單
+來源：原創（貪心交換）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請重新排列使其滿足擺動性質：
+a[0] <= a[1] >= a[2] <= a[3] >= a[4] ...（偶數索引處為波谷或相等，奇數索引處為波峰或相等）。
+
+請使用以下貪心策略：由左至右掃描，若當前位置不滿足性質，則與下一個元素交換。
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+輸出重新排列後的陣列。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        for i in range(n - 1):
+            if (i % 2 == 0 and a[i] > a[i + 1]) or (i % 2 == 1 and a[i] < a[i + 1]):
+                a[i], a[i + 1] = a[i + 1], a[i]
+        out.append(' '.join(map(str, a)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+3 5 2 1 6
+== 範例 1 輸出 ==
+3 5 1 6 2
+
+== 範例 2 輸入 ==
+6
+1 1 1 1 1 1
+== 範例 2 輸出 ==
+1 1 1 1 1 1

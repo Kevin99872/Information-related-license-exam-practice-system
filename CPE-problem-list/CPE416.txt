@@ -1,0 +1,44 @@
+CPE Tiling a 2xN Board with Dominoes
+
+難度：簡單
+來源：原創（動態規劃：2xN 骨牌鋪磚方法數）
+
+== 題目 ==
+求用 1x2 骨牌 (可橫放或直放) 完全鋪滿 2*n 棋盤的方法數。
+
+輸入說明：每行一個整數 n (0<=n<=80)，讀到檔案結尾。
+輸出說明：每行輸出鋪法總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        a, b = 1, 1
+        for _ in range(n):
+            a, b = b, a + b
+        out.append(str(a))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+0
+1
+2
+3
+== 範例 1 輸出 ==
+1
+1
+2
+3
+
+== 範例 2 輸入 ==
+8
+== 範例 2 輸出 ==
+34

@@ -1,0 +1,48 @@
+CPE 陣列的樞紐索引
+
+難度：簡單
+來源：原創（前綴和基礎題）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請找出最小的樞紐索引 i，使得索引 i 左側所有元素之和
+等於索引 i 右側所有元素之和（不包含索引 i 本身）。若不存在，輸出 -1。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        total = sum(a)
+        left = 0
+        ans = -1
+        for i in range(n):
+            if left == total - left - a[i]:
+                ans = i
+                break
+            left += a[i]
+        out.append(str(ans))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+1 7 3 6 5 6
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+3
+1 2 3
+== 範例 2 輸出 ==
+-1

@@ -1,0 +1,45 @@
+CPE 623 500!
+
+難度：簡單
+來源：改編自 UVa Online Judge #623 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一個整數 n (0<=n<=1000)，計算 n! (n 階乘)。由於結果可能有上千位數，需支援大數運算。
+
+輸入說明：每行一個整數 n，讀到檔案結尾。
+輸出說明：每組輸出兩行，第一行為 "n!"，第二行為 n! 的值。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        out.append(f"{n}!")
+        out.append(str(math.factorial(n)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10
+30
+== 範例 1 輸出 ==
+10!
+3628800
+30!
+265252859812191058636308480000000
+
+== 範例 2 輸入 ==
+5
+0
+== 範例 2 輸出 ==
+5!
+120
+0!
+1

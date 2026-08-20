@@ -1,0 +1,67 @@
+CPE Edit Distance Operation Breakdown
+
+難度：中等
+來源：原創（動態規劃：編輯距離操作次數分解）
+
+== 題目 ==
+給定字串 s1、s2，求將 s1 轉換成 s2 所需的最少編輯操作 (插入、刪除、替換)，並分別統計三種操作各用了幾次 (依標準編輯距離 DP 的還原路徑計算)。
+
+輸入說明：每組兩行分別為字串 s1、s2，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：每組輸出 "插入次數 刪除次數 替換次數"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == '#':
+            break
+        s1 = line
+        s2 = data[idx].strip(); idx += 1
+        n, m = len(s1), len(s2)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = i
+        for j in range(m + 1):
+            dp[0][j] = j
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if s1[i - 1] == s2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+        i, j = n, m
+        ins = dele = rep = 0
+        while i > 0 or j > 0:
+            if i > 0 and j > 0 and s1[i - 1] == s2[j - 1]:
+                i -= 1; j -= 1
+            elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
+                rep += 1; i -= 1; j -= 1
+            elif j > 0 and dp[i][j] == dp[i][j - 1] + 1:
+                ins += 1; j -= 1
+            else:
+                dele += 1; i -= 1
+        out.append(f"{ins} {dele} {rep}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+horse
+ros
+#
+== 範例 1 輸出 ==
+0 2 1
+
+== 範例 2 輸入 ==
+abc
+abc
+#
+== 範例 2 輸出 ==
+0 0 0

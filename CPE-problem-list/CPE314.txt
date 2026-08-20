@@ -1,0 +1,64 @@
+CPE Miller-Rabin Primality Test
+
+難度：中等
+來源：原創（Miller-Rabin 質數測試）
+
+== 題目 ==
+給定一個很大的整數 n，使用 Miller-Rabin 質數測試判斷其是否為質數。
+
+輸入說明：每行一個整數 n (1<=n<10^18)，讀到檔案結尾。
+輸出說明：每行輸出 Prime 或 Not Prime。
+
+== 參考解法 (Python) ==
+import sys
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for p in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37):
+        if n % p == 0:
+            return n == p
+    d = n - 1
+    r = 0
+    while d % 2 == 0:
+        d //= 2
+        r += 1
+    for a in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37):
+        if a >= n:
+            continue
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(r - 1):
+            x = x * x % n
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        out.append('Prime' if is_prime(n) else 'Not Prime')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+999999999999999989
+999999999999999999
+== 範例 1 輸出 ==
+Prime
+Not Prime
+
+== 範例 2 輸入 ==
+2
+1
+== 範例 2 輸出 ==
+Prime
+Not Prime

@@ -1,0 +1,61 @@
+CPE Bellman-Ford with Negative Cycle Detection
+
+難度：中等
+來源：原創（Bellman-Ford 演算法：負權環偵測）
+
+== 題目 ==
+給定一個含 n 個節點、m 條有向加權邊的圖 (邊權重可能為負)，求從起點 src 到每個節點的最短距離；若圖中存在「從 src 可到達的」負權環，輸出 NEGATIVE CYCLE。
+
+輸入說明：每組第一行 n m src，接著 m 行each 三個整數 u v w。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出各節點的最短距離 (無法到達輸出 INF，以空白分隔)，或 NEGATIVE CYCLE。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); src = int(data[idx + 2]); idx += 3
+        if n == 0 and m == 0:
+            break
+        edges = []
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            edges.append((u, v, w))
+        INF = float('inf')
+        dist = [INF] * n
+        dist[src] = 0
+        for _ in range(n - 1):
+            for u, v, w in edges:
+                if dist[u] != INF and dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+        neg_cycle = False
+        for u, v, w in edges:
+            if dist[u] != INF and dist[u] + w < dist[v]:
+                neg_cycle = True
+                break
+        out.append('NEGATIVE CYCLE' if neg_cycle else ' '.join('INF' if d == INF else str(d) for d in dist))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 4 0
+0 1 1
+1 2 -1
+2 3 -1
+3 1 -1
+0 0 0
+== 範例 1 輸出 ==
+NEGATIVE CYCLE
+
+== 範例 2 輸入 ==
+3 3 0
+0 1 4
+1 2 -2
+0 2 10
+0 0 0
+== 範例 2 輸出 ==
+0 4 2

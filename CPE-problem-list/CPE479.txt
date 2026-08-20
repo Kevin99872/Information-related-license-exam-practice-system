@@ -1,0 +1,58 @@
+CPE 螺旋矩陣 III
+
+難度：中等
+來源：原創（模擬座標移動）
+
+== 題目 ==
+給定一個 rows x cols 的矩陣與起始座標 (r0, c0)，請從起點開始以順時針螺旋方式
+（先向右、再向下、再向左、再向上，每繞一圈步長各增加，具體規則為：向右走 1 步、向下走 1 步、
+向左走 2 步、向上走 2 步、向右走 3 步...，即每兩個方向後步長加一）走訪整個矩陣，
+只記錄落在矩陣範圍內的座標，直到走訪完所有 rows*cols 個座標為止。
+
+輸入格式：第一行為 rows cols r0 c0（rows=0 且 cols=0 代表輸入結束）。
+輸出走訪順序的座標序列，格式 "r,c"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        rows = int(data[idx]); cols = int(data[idx + 1]); r0 = int(data[idx + 2]); c0 = int(data[idx + 3]); idx += 4
+        if rows == 0 and cols == 0:
+            break
+        result = [(r0, c0)]
+        r, c = r0, c0
+        step = 1
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        d = 0
+        while len(result) < rows * cols:
+            for _ in range(2):
+                dr, dc = directions[d]
+                for _ in range(step):
+                    r += dr
+                    c += dc
+                    if 0 <= r < rows and 0 <= c < cols:
+                        result.append((r, c))
+                        if len(result) == rows * cols:
+                            break
+                if len(result) == rows * cols:
+                    break
+                d = (d + 1) % 4
+            step += 1
+        out.append(' '.join(f"{r},{c}" for r, c in result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 4 0 0
+== 範例 1 輸出 ==
+0,0 0,1 0,2 0,3
+
+== 範例 2 輸入 ==
+2 2 0 0
+== 範例 2 輸出 ==
+0,0 0,1 1,1 1,0

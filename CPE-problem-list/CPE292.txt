@@ -1,0 +1,65 @@
+CPE Rat in a Maze Path Count
+
+難度：中等
+來源：原創（回溯法：老鼠走迷宮路徑計數）
+
+== 題目 ==
+給定 R*C 迷宮 ('.' 可走、'#' 為牆)，老鼠從左上角 (0,0) 出發，每步只能往右或往下走，求走到右下角 (R-1,C-1) 的路徑總數。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個字元。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出路徑總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        r, c = map(int, line.split())
+        if r == 0 and c == 0:
+            break
+        grid = [data[idx + i] for i in range(r)]
+        idx += r
+        count = [0]
+        visited = [[False] * c for _ in range(r)]
+
+        def dfs(x, y):
+            if x == r - 1 and y == c - 1:
+                count[0] += 1
+                return
+            for dx, dy in ((1, 0), (0, 1)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == '.' and not visited[nx][ny]:
+                    visited[nx][ny] = True
+                    dfs(nx, ny)
+                    visited[nx][ny] = False
+
+        if grid[0][0] == '.':
+            visited[0][0] = True
+            dfs(0, 0)
+        out.append(str(count[0]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 3
+...
+.#.
+...
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+2 2
+.#
+..
+0 0
+== 範例 2 輸出 ==
+1

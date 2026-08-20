@@ -1,0 +1,45 @@
+CPE Find All Duplicates in an Array
+
+難度：簡單
+來源：原創（陣列：找出所有出現兩次的元素）
+
+== 題目 ==
+給定 n 個整數 (每個數字出現一次或兩次)，找出所有「出現恰兩次」的數字 (由小到大輸出)。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出所有重複的數字 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        c = Counter(a)
+        result = sorted(x for x in c if c[x] == 2)
+        out.append(' '.join(map(str, result)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+4 3 2 7 8 2 3 1
+0
+== 範例 1 輸出 ==
+2 3
+
+== 範例 2 輸入 ==
+4
+1 2 3 4
+0
+== 範例 2 輸出 ==
+

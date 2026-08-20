@@ -1,0 +1,67 @@
+CPE Text Justification
+
+難度：困難
+來源：原創（字串排版：兩端對齊 (Text Justification)）
+
+== 題目 ==
+給定一段以空白分隔的單字與寬度 width，將單字排成每行恰為 width 字元的「兩端對齊」文字：每行 (除最後一行) 單字間的空白盡量平均分配，多餘的空白優先放在較左邊的間隔；最後一行採左靠齊，行末補空白至 width。
+
+輸入說明：每行為 "文字 width"，讀到檔案結尾。
+輸出說明：每行輸入輸出對應的排版結果 (每行恰為 width 字元)，每筆輸入後接一個空行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        parts = line.rsplit(' ', 1)
+        text, width = parts[0], int(parts[1])
+        words = text.split()
+        lines = []
+        cur = []
+        cur_len = 0
+        for w in words:
+            if cur_len + len(cur) + len(w) > width:
+                lines.append(cur)
+                cur = []
+                cur_len = 0
+            cur.append(w)
+            cur_len += len(w)
+        if cur:
+            lines.append(cur)
+        result = []
+        for idx2, ln in enumerate(lines):
+            if idx2 == len(lines) - 1 or len(ln) == 1:
+                s = ' '.join(ln)
+                s += ' ' * (width - len(s))
+            else:
+                total_spaces = width - sum(len(w) for w in ln)
+                gaps = len(ln) - 1
+                base, extra = divmod(total_spaces, gaps)
+                s = ''
+                for i, w in enumerate(ln[:-1]):
+                    s += w + ' ' * (base + (1 if i < extra else 0))
+                s += ln[-1]
+            result.append(s)
+        out.extend(result)
+        out.append('')
+    print('\n'.join(out).rstrip('\n'))
+
+main()
+
+== 範例 1 輸入 ==
+This is an example of text justification. 16
+== 範例 1 輸出 ==
+This    is    an
+example  of text
+justification.  
+
+== 範例 2 輸入 ==
+What must be acknowledged 16
+== 範例 2 輸出 ==
+What   must   be
+acknowledged    

@@ -1,0 +1,61 @@
+CPE Two Sum in BST
+
+難度：中等
+來源：原創（二元搜尋樹：兩數之和存在性判斷）
+
+== 題目 ==
+給定一棵二元搜尋樹 (陣列表示，節點 0 為根，每個節點有值，left[i]/right[i] 為左右子節點索引，-1 表示不存在) 與目標值 target，判斷樹中是否存在兩個「不同節點」的值總和恰為 target。
+
+輸入說明：每組第一行 n target，接著 n 行each 三個整數 (節點 0~n-1 依序的 值、left、right)。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        val, left, right = [], [], []
+        for _ in range(n):
+            val.append(int(data[idx])); left.append(int(data[idx + 1])); right.append(int(data[idx + 2])); idx += 3
+        seen = set()
+        found = [False]
+
+        def dfs(u):
+            if u == -1 or found[0]:
+                return
+            if target - val[u] in seen:
+                found[0] = True
+                return
+            seen.add(val[u])
+            dfs(left[u])
+            dfs(right[u])
+
+        dfs(0)
+        out.append('Yes' if found[0] else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 9
+5 1 2
+3 -1 -1
+6 -1 3
+7 -1 -1
+0 0
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+2 100
+5 1 -1
+3 -1 -1
+0 0
+== 範例 2 輸出 ==
+No

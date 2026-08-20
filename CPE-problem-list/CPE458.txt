@@ -1,0 +1,62 @@
+CPE Kruskal 最小生成樹邊列表
+
+難度：中等
+來源：原創（最小生成樹演算法，輸出所選邊）
+
+== 題目 ==
+給定一個 n 個節點、m 條邊的無向帶權連通圖，請以 Kruskal 演算法求出最小生成樹，
+輸出其總權重，以及所選邊的列表（依加入順序，格式 (u,v)）。
+
+輸入格式：第一行為 n m（n=0 且 m=0 代表輸入結束）；接下來 m 行each 為 u v w。
+
+對每組測試資料輸出兩行：第一行為最小生成樹總權重；第二行為所選邊，格式如 "(0,1) (1,2)"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        edges = []
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            edges.append((w, u, v))
+        edges.sort()
+        parent = list(range(n))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        total = 0
+        chosen = []
+        for w, u, v in edges:
+            ru, rv = find(u), find(v)
+            if ru != rv:
+                parent[ru] = rv
+                total += w
+                chosen.append((u, v))
+        out.append(str(total))
+        out.append(' '.join(f"({u},{v})" for u, v in chosen))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 5 0 1 1 0 2 3 0 3 4 1 2 2 2 3 5 0 0
+== 範例 1 輸出 ==
+7
+(0,1) (1,2) (0,3)
+
+== 範例 2 輸入 ==
+3 3 0 1 1 1 2 2 0 2 3 0 0
+== 範例 2 輸出 ==
+3
+(0,1) (1,2)

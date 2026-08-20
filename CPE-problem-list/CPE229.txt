@@ -1,0 +1,49 @@
+CPE Sum of Two Squares Check
+
+難度：簡單
+來源：原創（數論：兩平方數之和判斷）
+
+== 題目 ==
+判斷給定的非負整數 n 是否可以表示成兩個「非負整數的平方」之和 (n = a^2 + b^2)。
+
+輸入說明：每行一個整數 n (0<=n<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        found = False
+        a = 0
+        while a * a <= n:
+            b2 = n - a * a
+            b = math.isqrt(b2)
+            if b * b == b2:
+                found = True
+                break
+            a += 1
+        out.append('Yes' if found else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+7
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+0
+2
+== 範例 2 輸出 ==
+Yes
+Yes

@@ -1,0 +1,55 @@
+CPE Path Sum in Binary Tree
+
+難度：簡單
+來源：原創（二元樹：根到葉路徑總和判斷）
+
+== 題目 ==
+給定一棵二元樹 (陣列表示，節點 0 為根，每個節點有值，left[i]/right[i] 為左右子節點索引，-1 表示不存在)，判斷是否存在一條「從根到葉」的路徑，使路徑上節點值總和恰為 target。
+
+輸入說明：每組第一行 n target，接著 n 行each 三個整數 (節點 0~n-1 依序的 值、left、right)。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        val, left, right = [], [], []
+        for _ in range(n):
+            val.append(int(data[idx])); left.append(int(data[idx + 1])); right.append(int(data[idx + 2])); idx += 3
+
+        def dfs(u, total):
+            if u == -1:
+                return False
+            total += val[u]
+            if left[u] == -1 and right[u] == -1:
+                return total == target
+            return dfs(left[u], total) or dfs(right[u], total)
+
+        out.append('Yes' if (n > 0 and dfs(0, 0)) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 22
+5 1 2
+4 3 -1
+8 -1 -1
+13 -1 -1
+0 0
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+1 5
+5 -1 -1
+0 0
+== 範例 2 輸出 ==
+Yes

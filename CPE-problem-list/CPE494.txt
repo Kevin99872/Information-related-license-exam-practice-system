@@ -1,0 +1,50 @@
+CPE 陣列的度
+
+難度：簡單
+來源：原創（雜湊表記錄首末位置）
+
+== 題目 ==
+給定一個非空整數陣列，其「度」定義為出現頻率最高的元素之出現次數。
+請找出與原陣列度數相同的最短連續子陣列的長度。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        count = Counter(a)
+        first = {}
+        last = {}
+        for i, x in enumerate(a):
+            if x not in first:
+                first[x] = i
+            last[x] = i
+        degree = max(count.values())
+        best = min(last[x] - first[x] + 1 for x in count if count[x] == degree)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+1 2 2 3 1 4 2 3
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+6
+1 2 2 3 1 4
+== 範例 2 輸出 ==
+2

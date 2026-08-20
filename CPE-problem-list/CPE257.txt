@@ -1,0 +1,72 @@
+CPE 514 Rails
+
+難度：中等
+來源：改編自 UVa Online Judge #514 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+火車有 N 節車廂，依序 1,2,...,N 從方向 A 進站，車站只有一條軌道 (先進後出，如同堆疊)，車廂可以在任何時候被送往方向 B 離開。給定一組期望的出站順序，判斷是否能達成。
+
+輸入說明：每個區塊第一行為 N，之後每行一個 1~N 的排列 (期望出站順序)，該區塊以單獨一行 "0" 結束；最後一個區塊為單獨一行 "0" 表示輸入結束。
+輸出說明：對每個排列輸出 Yes 或 No；每個區塊 (N 值) 的輸出之後接一個空行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    blocks = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        block_out = []
+        while True:
+            first = int(data[idx])
+            if first == 0:
+                idx += 1
+                break
+            perm = [first] + [int(data[idx + i]) for i in range(1, n)]
+            idx += n
+            stack = []
+            nxt = 1
+            ok = True
+            for want in perm:
+                while nxt <= want:
+                    stack.append(nxt)
+                    nxt += 1
+                if stack and stack[-1] == want:
+                    stack.pop()
+                else:
+                    ok = False
+                    break
+            block_out.append('Yes' if ok else 'No')
+        blocks.append('\n'.join(block_out))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+5
+1 2 3 4 5
+5 4 1 2 3
+0
+6
+6 5 4 3 2 1
+0
+0
+== 範例 1 輸出 ==
+Yes
+No
+
+Yes
+
+== 範例 2 輸入 ==
+3
+3 2 1
+1 3 2
+0
+0
+== 範例 2 輸出 ==
+Yes
+Yes

@@ -1,0 +1,51 @@
+CPE Selection Sort Minimum Swaps
+
+難度：簡單
+來源：原創（選擇排序法交換次數）
+
+== 題目 ==
+給定 n 個整數，使用選擇排序法排序 (每輪找出剩餘最小值與該輪起始位置交換，若本來就在正確位置則不交換)，求總共執行了幾次交換。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出交換次數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        swaps = 0
+        for i in range(n):
+            mn = i
+            for j in range(i + 1, n):
+                if a[j] < a[mn]:
+                    mn = j
+            if mn != i:
+                a[i], a[mn] = a[mn], a[i]
+                swaps += 1
+        out.append(str(swaps))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+4 3 1 2 5
+0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+4
+1 2 3 4
+0
+== 範例 2 輸出 ==
+0

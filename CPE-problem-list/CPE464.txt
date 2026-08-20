@@ -1,0 +1,58 @@
+CPE 最後 K 個數的乘積
+
+難度：簡單
+來源：原創（前綴乘積查詢）
+
+== 題目 ==
+給定一個長度為 n 的正整數陣列（所有元素皆大於 0），以及 q 筆查詢，
+每筆查詢給定 i, k，請求出前 i 個數中，最後 k 個數（即第 i-k+1 個到第 i 個，1-indexed）的乘積。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個正整數；第三行為 q；
+接下來 q 行each 為 i k（1 <= k <= i <= n）。
+對每筆查詢輸出一行乘積結果。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        nums = list(map(int, data[idx].split())); idx += 1
+        prefix = [1]
+        for x in nums:
+            prefix.append(prefix[-1] * x)
+        q = int(data[idx].strip()); idx += 1
+        for _ in range(q):
+            i, k = map(int, data[idx].split()); idx += 1
+            out.append(str(prefix[i] // prefix[i - k]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+3 1 2 4 5
+3
+5 2
+3 3
+4 1
+== 範例 1 輸出 ==
+20
+6
+4
+
+== 範例 2 輸入 ==
+4
+2 2 2 2
+1
+4 4
+== 範例 2 輸出 ==
+16

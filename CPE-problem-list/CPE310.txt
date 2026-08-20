@@ -1,0 +1,67 @@
+CPE 11258 String Partition
+
+難度：中等
+來源：改編自 UVa Online Judge #11258 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一串數字，將其切割成一串「不含前導 0 (單一 0 除外)」且皆為 32 位元有號整數 (不超過 2147483647) 的整數，求切割後這些整數總和的最大值。
+
+輸入說明：第一行為測試個數 N，之後每行一個數字字串 (長度<=200)。
+輸出說明：每行輸出最大總和。
+
+== 參考解法 (Python) ==
+import sys
+
+MAXV = 2147483647
+
+def solve(s):
+    n = len(s)
+    NEG = float('-inf')
+    dp = [NEG] * (n + 1)
+    dp[0] = 0
+    for i in range(1, n + 1):
+        for L in range(1, min(10, i) + 1):
+            j = i - L
+            piece = s[j:i]
+            if len(piece) > 1 and piece[0] == '0':
+                continue
+            val = int(piece)
+            if val > MAXV:
+                continue
+            if dp[j] != NEG:
+                dp[i] = max(dp[i], dp[j] + val)
+    return dp[n]
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    n = int(data[idx]); idx += 1
+    out = []
+    for _ in range(n):
+        s = data[idx]; idx += 1
+        out.append(str(solve(s)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+1234554321
+5432112345
+000
+121212121212
+2147483648
+11111111111111111111111111111111111111111111111111111
+== 範例 1 輸出 ==
+1234554321
+543211239
+0
+2121212124
+214748372
+5555555666
+
+== 範例 2 輸入 ==
+1
+100
+== 範例 2 輸出 ==
+100

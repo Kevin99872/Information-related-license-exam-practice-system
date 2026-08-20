@@ -1,0 +1,65 @@
+CPE Binary Tree Zigzag Level Order Traversal
+
+難度：中等
+來源：原創（BFS：二元樹鋸齒狀層序走訪）
+
+== 題目 ==
+給定一棵二元樹 (陣列表示，節點 0 為根，left[i]/right[i] 為左右子節點索引，-1 表示不存在)，依「鋸齒狀」層序輸出節點值：第一層由左至右，第二層由右至左，依此交替。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 (節點 0~n-1 依序的 left、right)。n=0 表示輸入結束。
+輸出說明：每組輸出鋸齒狀層序走訪結果 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        left = []
+        right = []
+        for _ in range(n):
+            left.append(int(data[idx])); right.append(int(data[idx + 1])); idx += 2
+        levels = []
+        q = deque([0])
+        while q:
+            size = len(q)
+            level = []
+            for _ in range(size):
+                u = q.popleft()
+                level.append(u)
+                if left[u] != -1:
+                    q.append(left[u])
+                if right[u] != -1:
+                    q.append(right[u])
+            levels.append(level)
+        result = []
+        for i, level in enumerate(levels):
+            result.extend(level[::-1] if i % 2 == 1 else level)
+        out.append(' '.join(map(str, result)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+1 2
+3 4
+-1 -1
+-1 -1
+-1 -1
+0
+== 範例 1 輸出 ==
+0 2 1 3 4
+
+== 範例 2 輸入 ==
+1
+-1 -1
+0
+== 範例 2 輸出 ==
+0

@@ -1,0 +1,57 @@
+CPE Median of a Data Stream
+
+難度：中等
+來源：原創（雙堆積：資料串流中位數）
+
+== 題目 ==
+給定一串依序加入的整數，每加入一個數字後，輸出目前為止所有數字的中位數 (使用一個最大堆積與一個最小堆積維護)。
+
+輸入說明：每組第一行 n，第二行 n 個整數 (依序加入)。n=0 表示輸入結束。
+輸出說明：每加入一個數字輸出一行目前的中位數 (若元素個數為偶數，輸出中間兩數平均，取到小數點後 1 位)。
+
+== 參考解法 (Python) ==
+import sys
+import heapq
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        nums = list(map(int, data[idx].split())); idx += 1
+        lo, hi = [], []
+        for x in nums:
+            heapq.heappush(lo, -x)
+            heapq.heappush(hi, -heapq.heappop(lo))
+            if len(hi) > len(lo):
+                heapq.heappush(lo, -heapq.heappop(hi))
+            med = (-lo[0] + hi[0]) / 2 if len(lo) == len(hi) else -lo[0]
+            out.append(f"{med:.1f}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+5 2 8 1
+0
+== 範例 1 輸出 ==
+5.0
+3.5
+5.0
+3.5
+
+== 範例 2 輸入 ==
+3
+1 2 3
+0
+== 範例 2 輸出 ==
+1.0
+1.5
+2.0

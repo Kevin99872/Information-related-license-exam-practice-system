@@ -1,0 +1,68 @@
+CPE Min Stack
+
+難度：中等
+來源：原創（資料結構設計：支援 O(1) 取最小值的堆疊）
+
+== 題目 ==
+實作一個堆疊，支援 PUSH x、POP、TOP (取得頂端元素)、GETMIN (取得目前堆疊中最小值)，且 GETMIN 需在 O(1) 時間內完成。
+
+輸入說明：每組第一行為指令數 q，接著 q 行指令。q=0 表示輸入結束。
+輸出說明：依序輸出每個 TOP 與 GETMIN 指令的結果。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        q = int(line)
+        if q == 0:
+            break
+        stack = []
+        minstack = []
+        for _ in range(q):
+            parts = data[idx].split(); idx += 1
+            cmd = parts[0]
+            if cmd == 'PUSH':
+                x = int(parts[1])
+                stack.append(x)
+                minstack.append(x if not minstack or x <= minstack[-1] else minstack[-1])
+            elif cmd == 'POP':
+                stack.pop()
+                minstack.pop()
+            elif cmd == 'TOP':
+                out.append(str(stack[-1]))
+            elif cmd == 'GETMIN':
+                out.append(str(minstack[-1]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+PUSH 5
+PUSH 2
+PUSH 7
+GETMIN
+POP
+GETMIN
+0
+== 範例 1 輸出 ==
+2
+2
+
+== 範例 2 輸入 ==
+4
+PUSH 1
+TOP
+PUSH 0
+GETMIN
+0
+== 範例 2 輸出 ==
+1
+0

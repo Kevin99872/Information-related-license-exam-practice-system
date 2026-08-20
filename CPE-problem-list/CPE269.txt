@@ -1,0 +1,51 @@
+CPE Radix Sort
+
+難度：簡單
+來源：原創（基數排序法）
+
+== 題目 ==
+給定 n 個非負整數，使用基數排序法 (radix sort，依個位、十位、百位...依序分配到 0~9 桶中) 由小到大排序。
+
+輸入說明：每組第一行 n，第二行 n 個非負整數。n=0 表示輸入結束。
+輸出說明：每組輸出排序後的結果 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        mx = max(a) if a else 0
+        exp = 1
+        arr = a[:]
+        while mx // exp > 0:
+            buckets = [[] for _ in range(10)]
+            for x in arr:
+                buckets[(x // exp) % 10].append(x)
+            arr = [x for b in buckets for x in b]
+            exp *= 10
+        out.append(' '.join(map(str, arr)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+170 45 75 90 802 24
+0
+== 範例 1 輸出 ==
+24 45 75 90 170 802
+
+== 範例 2 輸入 ==
+3
+5 2 8
+0
+== 範例 2 輸出 ==
+2 5 8

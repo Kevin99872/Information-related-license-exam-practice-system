@@ -1,0 +1,55 @@
+CPE Tree Height from Parent Array
+
+難度：簡單
+來源：原創（樹的高度計算 (父節點陣列表示)）
+
+== 題目 ==
+給定一棵樹的父節點陣列表示 (parent[i] 為節點 i 的父節點，根節點的 parent 為 -1)，求該樹的高度 (根節點視為高度 1)。
+
+輸入說明：每組第一行 n，第二行 n 個整數 (parent 陣列)。n=0 表示輸入結束。
+輸出說明：每組輸出樹的高度。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        parent = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        children = [[] for _ in range(n)]
+        root = -1
+        for i, p in enumerate(parent):
+            if p == -1:
+                root = i
+            else:
+                children[p].append(i)
+
+        def height(u):
+            if not children[u]:
+                return 1
+            return 1 + max(height(v) for v in children[u])
+
+        out.append(str(height(root)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+-1 0 0 1 1
+0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+1
+-1
+0
+== 範例 2 輸出 ==
+1

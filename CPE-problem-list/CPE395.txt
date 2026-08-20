@@ -1,0 +1,39 @@
+CPE Sort Characters By Frequency
+
+難度：簡單
+來源：原創（依字元出現頻率排序重組字串）
+
+== 題目 ==
+給定一個字串，依「出現頻率由高到低」重新排列字元 (頻率相同時，字元本身較小者優先)，輸出重組後的字串。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出重組後的字串。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        c = Counter(s)
+        ranked = sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))
+        out.append(''.join(ch * cnt for ch, cnt in ranked))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+tree
+cccaaa
+== 範例 1 輸出 ==
+eert
+aaaccc
+
+== 範例 2 輸入 ==
+Aabb
+== 範例 2 輸出 ==
+bbAa

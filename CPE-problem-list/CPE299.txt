@@ -1,0 +1,44 @@
+CPE Modular Inverse (Extended Euclidean)
+
+難度：簡單
+來源：原創（擴展歐幾里得求模反元素）
+
+== 題目 ==
+給定整數 a 與模數 m，求 a 對 m 的模反元素 (最小非負整數 x，使 a*x ≡ 1 (mod m))；若不存在 (gcd(a,m)!=1) 則輸出 "No inverse"。
+
+輸入說明：每行兩個整數 a m，讀到檔案結尾。
+輸出說明：每行輸出模反元素，或 "No inverse"。
+
+== 參考解法 (Python) ==
+import sys
+
+def ext_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+    g, x1, y1 = ext_gcd(b, a % b)
+    return g, y1, x1 - (a // b) * y1
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        a, m = map(int, line.split())
+        g, x, _ = ext_gcd(a, m)
+        out.append(str(x % m) if g == 1 else 'No inverse')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 7
+4 8
+== 範例 1 輸出 ==
+5
+No inverse
+
+== 範例 2 輸入 ==
+10 17
+== 範例 2 輸出 ==
+12

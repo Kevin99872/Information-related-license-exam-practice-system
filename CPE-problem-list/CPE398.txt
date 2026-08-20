@@ -1,0 +1,74 @@
+CPE Kth Smallest Element in a BST
+
+難度：中等
+來源：原創（二元搜尋樹：第 K 小元素查詢）
+
+== 題目 ==
+依序將 n 個相異數字插入一棵二元搜尋樹，求樹中「第 k 小」的元素 (使用中序走訪求解)。
+
+輸入說明：每組第一行 n k，第二行 n 個整數 (插入順序)。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出第 k 小的元素。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        vals = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        tree = {}
+        root = None
+        for v in vals:
+            if root is None:
+                root = v
+                tree[v] = [None, None]
+                continue
+            node = root
+            while True:
+                if v < node:
+                    if tree[node][0] is None:
+                        tree[node][0] = v
+                        tree[v] = [None, None]
+                        break
+                    node = tree[node][0]
+                else:
+                    if tree[node][1] is None:
+                        tree[node][1] = v
+                        tree[v] = [None, None]
+                        break
+                    node = tree[node][1]
+        result = []
+
+        def inorder(u):
+            if u is None or len(result) >= k:
+                return
+            inorder(tree[u][0])
+            if len(result) < k:
+                result.append(u)
+            inorder(tree[u][1])
+
+        inorder(root)
+        out.append(str(result[k - 1]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 3
+5 3 8 1 4
+0 0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+3 1
+2 1 3
+0 0
+== 範例 2 輸出 ==
+1

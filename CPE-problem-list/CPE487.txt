@@ -1,0 +1,54 @@
+CPE 最少射箭引爆氣球
+
+難度：中等
+來源：原創（區間排序貪心）
+
+== 題目 ==
+在平面上有 n 個氣球，每個氣球以水平區間 [l, r] 表示。弓箭可垂直射出，
+射穿所有區間包含該 x 座標的氣球。請問最少需要射幾支箭，才能引爆所有氣球？
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；接下來 n 行each 為 l r。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        balloons = []
+        for _ in range(n):
+            l = int(data[idx]); r = int(data[idx + 1]); idx += 2
+            balloons.append((l, r))
+        balloons.sort(key=lambda b: b[1])
+        arrows = 0
+        last_end = float('-inf')
+        for l, r in balloons:
+            if l > last_end:
+                arrows += 1
+                last_end = r
+        out.append(str(arrows))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+10 16
+2 8
+1 6
+7 12
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+3
+1 2
+3 4
+5 6
+== 範例 2 輸出 ==
+3

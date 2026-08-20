@@ -1,0 +1,48 @@
+CPE 依身高重建佇列
+
+難度：中等
+來源：原創（貪心插入法）
+
+== 題目 ==
+給定 n 個人，每個人以 (h, k) 表示，h 為身高，k 為排在此人「前面」且身高
+大於等於 h 的人數。請重建出一個合法的排列順序。
+
+策略：先依身高由高到低排序（同身高則 k 由小到大），再依序將每個人插入到結果陣列的第 k 個位置。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；接下來 n 行each 為 h k。
+輸出重建後的順序，格式 "(h,k)"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        people = []
+        for _ in range(n):
+            h = int(data[idx]); k = int(data[idx + 1]); idx += 2
+            people.append((h, k))
+        people.sort(key=lambda p: (-p[0], p[1]))
+        result = []
+        for p in people:
+            result.insert(p[1], p)
+        out.append(' '.join(f"({h},{k})" for h, k in result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+7 0
+4 4
+7 1
+5 0
+6 1
+5 2
+== 範例 1 輸出 ==
+(5,0) (7,0) (5,2) (6,1) (4,4) (7,1)

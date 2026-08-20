@@ -1,0 +1,48 @@
+CPE Rod Cutting Problem
+
+難度：中等
+來源：原創（動態規劃：切割鋼條最大收益）
+
+== 題目 ==
+有一根長度為 n 的鋼條，切成長度為 1~n 的小段各有不同售價，求切割 (可以不切) 後能賣得的最大總收益。
+
+輸入說明：每組第一行 n，第二行 n 個整數 (依序為長度 1~n 的售價)。n=0 表示輸入結束。
+輸出說明：每組輸出最大總收益。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        price = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        dp = [0] * (n + 1)
+        for length in range(1, n + 1):
+            best = 0
+            for cut in range(1, length + 1):
+                best = max(best, price[cut - 1] + dp[length - cut])
+            dp[length] = best
+        out.append(str(dp[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+1 5 8 9 10 17 17 20
+0
+== 範例 1 輸出 ==
+22
+
+== 範例 2 輸入 ==
+4
+2 5 7 8
+0
+== 範例 2 輸出 ==
+10

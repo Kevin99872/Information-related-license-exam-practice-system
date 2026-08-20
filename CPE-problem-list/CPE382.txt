@@ -1,0 +1,36 @@
+CPE Suffix Array Construction
+
+難度：中等
+來源：原創（後綴陣列建構 (暴力排序法)）
+
+== 題目 ==
+給定一個字串，求其後綴陣列：將所有後綴依字典序排序後，輸出各後綴起始位置 (0-indexed)。
+
+輸入說明：每行一個字串 (長度<=1000)，讀到檔案結尾。
+輸出說明：每行輸出排序後各後綴的起始位置 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = len(s)
+        suffixes = sorted(range(n), key=lambda i: s[i:])
+        out.append(' '.join(map(str, suffixes)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+banana
+== 範例 1 輸出 ==
+5 3 1 0 4 2
+
+== 範例 2 輸入 ==
+abc
+== 範例 2 輸出 ==
+0 1 2

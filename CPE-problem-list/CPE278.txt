@@ -1,0 +1,77 @@
+CPE Huffman Encoding Table
+
+難度：中等
+來源：原創（霍夫曼編碼表生成）
+
+== 題目 ==
+給定 n 個字元與其出現頻率，建立霍夫曼樹並求出每個字元的編碼 (合併時頻率較小者優先，索引小者優先；左子樹編碼加 '0'，右子樹加 '1')。若只有一個字元，其編碼為 "0"。
+
+輸入說明：每組第一行為字元數 n，接著 n 行each 一個字元與其頻率。n=0 表示輸入結束。
+輸出說明：每組依字元字母序輸出 "字元 編碼"。
+
+== 參考解法 (Python) ==
+import sys
+import heapq
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        heap = []
+        counter = 0
+        for _ in range(n):
+            parts = data[idx].split(); idx += 1
+            ch, freq = parts[0], int(parts[1])
+            heapq.heappush(heap, (freq, counter, ('leaf', ch)))
+            counter += 1
+        if n == 1:
+            out.append(f"{heap[0][2][1]} 0")
+            continue
+        while len(heap) > 1:
+            f1, c1, n1 = heapq.heappop(heap)
+            f2, c2, n2 = heapq.heappop(heap)
+            heapq.heappush(heap, (f1 + f2, counter, ('node', n1, n2)))
+            counter += 1
+        root = heap[0][2]
+        codes = {}
+
+        def walk(node, path):
+            if node[0] == 'leaf':
+                codes[node[1]] = path or '0'
+            else:
+                walk(node[1], path + '0')
+                walk(node[2], path + '1')
+
+        walk(root, '')
+        for ch in sorted(codes):
+            out.append(f"{ch} {codes[ch]}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+a 5
+b 9
+c 12
+d 13
+0
+== 範例 1 輸出 ==
+a 00
+b 01
+c 10
+d 11
+
+== 範例 2 輸入 ==
+1
+x 7
+0
+== 範例 2 輸出 ==
+x 0

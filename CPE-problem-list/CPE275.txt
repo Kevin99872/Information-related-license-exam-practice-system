@@ -1,0 +1,55 @@
+CPE Kth Smallest Element in Sorted Matrix
+
+難度：中等
+來源：原創（最小堆積：排序矩陣中第 K 小元素）
+
+== 題目 ==
+給定 n*n 矩陣，每列與每行皆由小到大排序，求矩陣中第 k 小的元素。
+
+輸入說明：每組第一行 n k，接著 n 行each n 個整數。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出第 k 小的元素。
+
+== 參考解法 (Python) ==
+import sys
+import heapq
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        grid = []
+        for i in range(n):
+            grid.append([int(data[idx + j]) for j in range(n)])
+            idx += n
+        heap = [(grid[i][0], i, 0) for i in range(n)]
+        heapq.heapify(heap)
+        val = None
+        for _ in range(k):
+            val, r, c = heapq.heappop(heap)
+            if c + 1 < n:
+                heapq.heappush(heap, (grid[r][c + 1], r, c + 1))
+        out.append(str(val))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 8
+1 5 9
+10 11 13
+12 13 15
+0 0
+== 範例 1 輸出 ==
+13
+
+== 範例 2 輸入 ==
+2 1
+1 2
+1 3
+0 0
+== 範例 2 輸出 ==
+1

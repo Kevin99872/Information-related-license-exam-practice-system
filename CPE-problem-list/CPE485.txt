@@ -1,0 +1,50 @@
+CPE 最短未排序連續子陣列
+
+難度：中等
+來源：原創（排序比較法）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請找出最短的連續子陣列，只要將它由小到大排序，
+整個陣列就會變成完全遞增排序。輸出該子陣列的長度（若陣列本身已排序，輸出 0）。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        b = sorted(a)
+        left = 0
+        while left < n and a[left] == b[left]:
+            left += 1
+        if left == n:
+            out.append('0')
+            continue
+        right = n - 1
+        while right >= 0 and a[right] == b[right]:
+            right -= 1
+        out.append(str(right - left + 1))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+2 6 4 8 10 9 15
+== 範例 1 輸出 ==
+5
+
+== 範例 2 輸入 ==
+4
+1 2 3 4
+== 範例 2 輸出 ==
+0

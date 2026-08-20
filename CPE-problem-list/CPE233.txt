@@ -1,0 +1,50 @@
+CPE Euler's Totient Function
+
+難度：簡單
+來源：原創（尤拉函數 (Euler's Totient Function)）
+
+== 題目 ==
+給定正整數 n，求尤拉函數 φ(n) (1~n 中與 n 互質的整數個數)。
+
+輸入說明：每行一個整數 n (1<=n<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出 φ(n)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        result = n
+        x = n
+        p = 2
+        while p * p <= x:
+            if x % p == 0:
+                while x % p == 0:
+                    x //= p
+                result -= result // p
+            p += 1
+        if x > 1:
+            result -= result // x
+        out.append(str(result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+36
+1
+== 範例 1 輸出 ==
+12
+1
+
+== 範例 2 輸入 ==
+17
+100
+== 範例 2 輸出 ==
+16
+40

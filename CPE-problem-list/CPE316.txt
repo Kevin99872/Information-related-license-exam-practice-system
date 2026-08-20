@@ -1,0 +1,47 @@
+CPE Longest Repeated Substring
+
+難度：中等
+來源：原創（動態規劃：最長重複子字串 (不重疊)）
+
+== 題目 ==
+給定一個字串，求最長的「重複子字串」長度 (該子字串在原字串中至少出現兩次，且兩次出現不可重疊)。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出最長重複子字串的長度。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = len(s)
+        dp = [[0] * (n + 1) for _ in range(n + 1)]
+        best = 0
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                if i != j and s[i - 1] == s[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                    if dp[i][j] <= abs(i - j):
+                        best = max(best, dp[i][j])
+                else:
+                    dp[i][j] = 0
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+banana
+abcabcabc
+== 範例 1 輸出 ==
+2
+3
+
+== 範例 2 輸入 ==
+aaaa
+== 範例 2 輸出 ==
+2

@@ -1,0 +1,68 @@
+CPE 200 Rare Order
+
+難度：中等
+來源：改編自 UVa Online Judge #200 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一份已依「某種未知字母順序」排序好的字串清單，求出這個字母順序 (拓樸排序：比較每對相鄰字串，找出第一個不同的字元，代表前者的字母在字母順序中排在後者之前)。
+
+輸入說明：多行大寫字母字串 (已依未知順序排序)，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：輸出一行，為推導出的字母順序 (字典序最小的合法拓樸排序)。
+
+== 參考解法 (Python) ==
+import sys
+import heapq
+from collections import defaultdict
+
+def main():
+    words = []
+    for line in sys.stdin:
+        line = line.strip()
+        if line == '#':
+            break
+        if line:
+            words.append(line)
+    adj = defaultdict(set)
+    letters = set()
+    for w in words:
+        letters.update(w)
+    for i in range(len(words) - 1):
+        a, b = words[i], words[i + 1]
+        for x, y in zip(a, b):
+            if x != y:
+                adj[x].add(y)
+                break
+    indeg = {c: 0 for c in letters}
+    for u in adj:
+        for v in adj[u]:
+            indeg[v] += 1
+    heap = [c for c in letters if indeg[c] == 0]
+    heapq.heapify(heap)
+    order = []
+    while heap:
+        u = heapq.heappop(heap)
+        order.append(u)
+        for v in adj[u]:
+            indeg[v] -= 1
+            if indeg[v] == 0:
+                heapq.heappush(heap, v)
+    print(''.join(order))
+
+main()
+
+== 範例 1 輸入 ==
+XWY
+ZX
+ZXY
+ZXW
+YWWX
+#
+== 範例 1 輸出 ==
+XZYW
+
+== 範例 2 輸入 ==
+AB
+BA
+#
+== 範例 2 輸出 ==
+AB

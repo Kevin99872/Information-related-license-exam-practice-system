@@ -1,0 +1,50 @@
+CPE 10465 Homer Simpson
+
+難度：中等
+來源：改編自 UVa Online Judge #10465 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+Homer 吃一個 Krusty 漢堡要 m 分鐘，吃一個新漢堡要 n 分鐘。給定 t 分鐘，他要吃若干個漢堡 (兩種皆可、順序任意)，優先找出「恰好用完 t 分鐘、完全不浪費時間」的吃法中漢堡數量最多的方案；若不存在恰好用完 t 分鐘的吃法，則在浪費時間最少 (剩餘時間拿去喝啤酒) 的前提下，找出漢堡數量最多的吃法。
+
+輸入說明：每行三個整數 m n t，讀到檔案結尾。
+輸出說明：每行輸出最多能吃的漢堡數；若有剩餘時間，接著輸出一個空白與剩餘時間 (喝啤酒的時間)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        m, n, t = map(int, line.split())
+        NEG = -1
+        dp = [0] + [NEG] * t
+        for i in range(1, t + 1):
+            if i >= m and dp[i - m] != NEG:
+                dp[i] = max(dp[i], dp[i - m] + 1)
+            if i >= n and dp[i - n] != NEG:
+                dp[i] = max(dp[i], dp[i - n] + 1)
+        best_cnt, best_i = 0, 0
+        for i in range(t, -1, -1):
+            if dp[i] != NEG:
+                best_cnt, best_i = dp[i], i
+                break
+        beer = t - best_i
+        out.append(str(best_cnt) if beer == 0 else f"{best_cnt} {beer}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 5 54
+3 5 55
+== 範例 1 輸出 ==
+18
+17
+
+== 範例 2 輸入 ==
+4 4 4
+== 範例 2 輸出 ==
+1

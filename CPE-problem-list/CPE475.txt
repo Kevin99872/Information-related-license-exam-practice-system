@@ -1,0 +1,58 @@
+CPE 填充每個節點的右側指標
+
+難度：中等
+來源：原創（二元樹層序走訪）
+
+== 題目 ==
+給定一棵二元樹（n 個節點，節點 0 為根），請對每一層節點依左到右順序輸出，
+每層結尾加上 '#' 代表該層結束（模擬 next 指標串接後的效果）。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；
+接下來 n 行each 為 val left right。
+
+輸出：一行，將每層的節點值以空白分隔，並在每層結尾加上 '#'，各層之間也以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        val, left, right = [], [], []
+        for _ in range(n):
+            val.append(int(data[idx])); left.append(int(data[idx + 1])); right.append(int(data[idx + 2])); idx += 3
+        levels = []
+        q = deque([0])
+        while q:
+            size = len(q)
+            level = []
+            for _ in range(size):
+                u = q.popleft()
+                level.append(val[u])
+                if left[u] != -1:
+                    q.append(left[u])
+                if right[u] != -1:
+                    q.append(right[u])
+            levels.append(' '.join(map(str, level)) + ' #')
+        out.append(' '.join(levels))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+1 1 2
+2 3 4
+3 5 6
+4 -1 -1
+5 -1 -1
+6 -1 -1
+7 -1 -1
+== 範例 1 輸出 ==
+1 # 2 3 # 4 5 6 7 #

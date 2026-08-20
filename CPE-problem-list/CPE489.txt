@@ -1,0 +1,41 @@
+CPE 有序陣列的平方
+
+難度：簡單
+來源：原創（排序基礎題）
+
+== 題目 ==
+給定一個已依非遞減順序排序的整數陣列（可能包含負數），
+請將每個元素平方後，依非遞減順序輸出。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數（已排序）。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        result = sorted(x * x for x in a)
+        out.append(' '.join(map(str, result)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+-4 -1 0 3 10
+== 範例 1 輸出 ==
+0 1 9 16 100
+
+== 範例 2 輸入 ==
+4
+-7 -3 2 4
+== 範例 2 輸出 ==
+4 9 16 49

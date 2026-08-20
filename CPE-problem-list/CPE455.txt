@@ -1,0 +1,56 @@
+CPE [UVa621] 祕密研究
+
+難度：簡單
+來源：改編自 UVa Online Judge #621 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+某研究單位以字串代表實驗結果，需要依照下列規則（依序檢查，符合第一條即輸出對應符號）判斷結果：
+
+1. 若字串恰為 "1"、"4" 或 "78"，代表【肯定】，輸出 "+"。
+2. 若字串以 "35" 結尾，代表【否定】，輸出 "-"。
+3. 若字串以 "9" 開頭且以 "4" 結尾，代表【失敗】，輸出 "*"。
+4. 若字串以 "190" 開頭，代表【尚未完成】，輸出 "?"。
+5. 若都不符合，輸出清單中第一個符號 "+" 作為預設值。
+
+輸入第一行為測試字串數量 n，接下來 n 行each 一個由數字組成的字串。
+對每個字串輸出一行對應符號。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    n = int(data[idx]); idx += 1
+    out = []
+    for _ in range(n):
+        s = data[idx]; idx += 1
+        if s in ('1', '4', '78'):
+            out.append('+')
+        elif s.endswith('35'):
+            out.append('-')
+        elif s.startswith('9') and s.endswith('4'):
+            out.append('*')
+        elif s.startswith('190'):
+            out.append('?')
+        else:
+            out.append('+')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+78
+7835
+19078
+944
+1
+555
+== 範例 1 輸出 ==
++
+-
+?
+*
++
++

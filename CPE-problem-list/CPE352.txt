@@ -1,0 +1,45 @@
+CPE Perfect Squares
+
+難度：中等
+來源：原創（動態規劃：完全平方數的最少個數）
+
+== 題目 ==
+給定正整數 n，求「最少」需要幾個完全平方數 (1, 4, 9, 16, ...) 相加才能得到 n。
+
+輸入說明：每行一個整數 n (1<=n<=10000)，讀到檔案結尾。
+輸出說明：每行輸出最少個數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        dp = [0] + [float('inf')] * n
+        for i in range(1, n + 1):
+            j = 1
+            while j * j <= i:
+                dp[i] = min(dp[i], dp[i - j * j] + 1)
+                j += 1
+        out.append(str(dp[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+12
+13
+== 範例 1 輸出 ==
+3
+2
+
+== 範例 2 輸入 ==
+1
+100
+== 範例 2 輸出 ==
+1
+1

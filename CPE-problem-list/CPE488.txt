@@ -1,0 +1,44 @@
+CPE 退格字串比較
+
+難度：簡單
+來源：原創（堆疊模擬退格）
+
+== 題目 ==
+給定兩個字串，其中 '#' 代表退格鍵（刪除前一個字元；若無前一個字元則忽略）。
+請判斷兩字串在套用退格效果後是否相等。輸出 "Yes" 或 "No"。
+
+輸入每行兩個以空白分隔的字串 s t，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def process(s):
+    stack = []
+    for c in s:
+        if c == '#':
+            if stack:
+                stack.pop()
+        else:
+            stack.append(c)
+    return ''.join(stack)
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s, t = line.split()
+        out.append('Yes' if process(s) == process(t) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+ab#c ad#c
+ab## c#d#
+a#c b
+== 範例 1 輸出 ==
+Yes
+Yes
+No

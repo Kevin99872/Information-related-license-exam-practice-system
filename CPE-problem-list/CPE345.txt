@@ -1,0 +1,43 @@
+CPE Sliding Puzzle Solvability Check
+
+難度：簡單
+來源：原創（8 數字推盤遊戲：可解性判斷 (逆序數奇偶性)）
+
+== 題目 ==
+給定 3*3 推盤遊戲的目前盤面 (數字 1~8 與一個空格 0，依列優先展開成 9 個數字)，判斷是否能透過合法移動 (將空格與相鄰數字交換) 還原成 1~8 由小到大排列、空格在最後的目標盤面。可解的充要條件是：忽略 0 之後，數字排列的逆序數為偶數。
+
+輸入說明：每行 9 個以空白分隔的數字 (0~8)，讀到檔案結尾。
+輸出說明：每行輸出 Solvable 或 Unsolvable。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        tiles = line.split()
+        nums = [int(t) for t in tiles if t != '0']
+        inv = 0
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] > nums[j]:
+                    inv += 1
+        out.append('Solvable' if inv % 2 == 0 else 'Unsolvable')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 2 3 4 5 6 7 8 0
+1 2 3 4 5 6 8 7 0
+== 範例 1 輸出 ==
+Solvable
+Unsolvable
+
+== 範例 2 輸入 ==
+8 1 2 0 4 3 7 6 5
+== 範例 2 輸出 ==
+Unsolvable

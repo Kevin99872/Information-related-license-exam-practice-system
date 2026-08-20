@@ -1,0 +1,61 @@
+CPE Redundant Connection
+
+難度：中等
+來源：原創（Union-Find：找出使樹變成圖的多餘邊）
+
+== 題目 ==
+一棵含 n 個節點的樹再加上一條額外的邊，就形成恰好一個環。給定 n 條邊 (依加入順序)，求造成環的那條「多餘邊」(若有多個候選，輸出在輸入中最後出現的那一條)。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 u v (邊，節點編號 1~n)。n=0 表示輸入結束。
+輸出說明：每組輸出多餘邊 "u v"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        parent = list(range(n + 1))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        ans = None
+        for _ in range(n):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            ru, rv = find(u), find(v)
+            if ru == rv:
+                ans = (u, v)
+            else:
+                parent[ru] = rv
+        out.append(f"{ans[0]} {ans[1]}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+1 2
+1 3
+2 3
+0
+== 範例 1 輸出 ==
+2 3
+
+== 範例 2 輸入 ==
+4
+1 2
+2 3
+3 4
+1 4
+0
+== 範例 2 輸出 ==
+1 4

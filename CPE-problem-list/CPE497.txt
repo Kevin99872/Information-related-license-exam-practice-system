@@ -1,0 +1,47 @@
+CPE 比較版本號
+
+難度：簡單
+來源：原創（字串分割比較）
+
+== 題目 ==
+給定兩個以 '.' 分隔的版本號字串（每段皆為非負整數，可能省略前導零，
+段數可能不同，缺少的段視為 0），請比較兩版本號大小。
+若 v1 < v2 輸出 -1；若 v1 > v2 輸出 1；若相等輸出 0。
+
+輸入每行兩個以空白分隔的版本號字串，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        v1, v2 = line.split()
+        p1 = v1.split('.')
+        p2 = v2.split('.')
+        n = max(len(p1), len(p2))
+        p1 += ['0'] * (n - len(p1))
+        p2 += ['0'] * (n - len(p2))
+        r1 = [int(x) for x in p1]
+        r2 = [int(x) for x in p2]
+        if r1 < r2:
+            out.append('-1')
+        elif r1 > r2:
+            out.append('1')
+        else:
+            out.append('0')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1.01 1.001
+1.0 1.0.0
+0.1 1.1
+== 範例 1 輸出 ==
+0
+0
+-1

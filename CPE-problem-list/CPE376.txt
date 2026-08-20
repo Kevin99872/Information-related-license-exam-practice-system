@@ -1,0 +1,55 @@
+CPE 3Sum Closest
+
+難度：中等
+來源：原創（雙指標：最接近目標值的三數之和）
+
+== 題目 ==
+給定 n 個整數與目標值 target，求三個數之和「最接近」target 的值 (若有多組同樣接近，輸出其中任一個總和)。
+
+輸入說明：每組第一行 n target，第二行 n 個整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出最接近 target 的三數之和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        a = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        best = a[0] + a[1] + a[2]
+        for i in range(n - 2):
+            l, r = i + 1, n - 1
+            while l < r:
+                s = a[i] + a[l] + a[r]
+                if abs(s - target) < abs(best - target):
+                    best = s
+                if s == target:
+                    break
+                elif s < target:
+                    l += 1
+                else:
+                    r -= 1
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 1
+-1 2 1 -4
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+3 0
+0 0 0
+0 0
+== 範例 2 輸出 ==
+0

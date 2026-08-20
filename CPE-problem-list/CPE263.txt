@@ -1,0 +1,62 @@
+CPE 12356 Army buddies
+
+難度：中等
+來源：改編自 UVa Online Judge #12356 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+S 名士兵排成一列 (編號 1~S)，每份陣亡報告會給出一段區間 [L,R]，代表這些士兵陣亡。每次報告後，求「L 左側第一個還活著的士兵」與「R 右側第一個還活著的士兵」；若該方向沒有存活士兵則輸出 '*'。
+
+輸入說明：每組第一行 S B (士兵數、報告數)，接著 B 行each 兩個整數 L R。"0 0" 表示輸入結束。
+輸出說明：每份報告輸出一行 "左鄰居 右鄰居"；每組結束後輸出一行 "-"。
+
+== 參考解法 (Python) ==
+import sys
+import bisect
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while True:
+        s = int(data[idx]); b = int(data[idx + 1]); idx += 2
+        if s == 0 and b == 0:
+            break
+        alive = list(range(1, s + 1))
+        for _ in range(b):
+            l = int(data[idx]); r = int(data[idx + 1]); idx += 2
+            lo = bisect.bisect_left(alive, l)
+            hi = bisect.bisect_right(alive, r)
+            del alive[lo:hi]
+            left_val = alive[lo - 1] if lo - 1 >= 0 else '*'
+            right_val = alive[lo] if lo < len(alive) else '*'
+            out.append(f"{left_val} {right_val}")
+        out.append('-')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 1
+1 1
+10 4
+2 5
+6 9
+1 1
+10 10
+0 0
+== 範例 1 輸出 ==
+* *
+-
+1 6
+1 10
+* 10
+* *
+-
+
+== 範例 2 輸入 ==
+5 1
+1 1
+0 0
+== 範例 2 輸出 ==
+* 2
+-

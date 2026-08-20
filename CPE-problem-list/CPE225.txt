@@ -1,0 +1,59 @@
+CPE Interleaving String Check
+
+難度：中等
+來源：原創（動態規劃：字串交錯組成判斷）
+
+== 題目 ==
+給定字串 s1、s2、s3，判斷 s3 是否可以由 s1 與 s2「交錯」組合而成 (s1、s2 內部字元的相對順序不能改變，但可以任意交錯插入)。
+
+輸入說明：每組三行依序為 s1、s2、s3，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：每組輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == '#':
+            break
+        s1 = line
+        s2 = data[idx].strip(); idx += 1
+        s3 = data[idx].strip(); idx += 1
+        n, m = len(s1), len(s2)
+        if n + m != len(s3):
+            out.append('No')
+            continue
+        dp = [[False] * (m + 1) for _ in range(n + 1)]
+        dp[0][0] = True
+        for i in range(n + 1):
+            for j in range(m + 1):
+                if i > 0 and dp[i - 1][j] and s1[i - 1] == s3[i + j - 1]:
+                    dp[i][j] = True
+                if j > 0 and dp[i][j - 1] and s2[j - 1] == s3[i + j - 1]:
+                    dp[i][j] = True
+        out.append('Yes' if dp[n][m] else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+aabcc
+dbbca
+aadbbcbcac
+#
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+abc
+def
+abdecf
+#
+== 範例 2 輸出 ==
+Yes

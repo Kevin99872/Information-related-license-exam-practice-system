@@ -1,0 +1,57 @@
+CPE 最長回文子序列還原
+
+難度：中等
+來源：原創（區間動態規劃，附序列還原）
+
+== 題目 ==
+給定一個字串 s，請找出其最長回文子序列（不需連續，但保持原本相對順序），
+輸出其長度以及其中一個合法的最長回文子序列本身。
+
+輸入每行一個字串（僅含小寫英文字母，長度 1~200），直到檔案結束。
+對每行輸入輸出兩行：第一行為最長回文子序列長度；第二行為該子序列。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = len(s)
+        dp = [[0] * n for _ in range(n)]
+        for i in range(n - 1, -1, -1):
+            dp[i][i] = 1
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
+                else:
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+        i, j = 0, n - 1
+        left, right = [], []
+        while i < j:
+            if s[i] == s[j]:
+                left.append(s[i])
+                right.append(s[j])
+                i += 1; j -= 1
+            elif dp[i + 1][j] >= dp[i][j - 1]:
+                i += 1
+            else:
+                j -= 1
+        mid = s[i] if i == j else ''
+        seq = ''.join(left) + mid + ''.join(reversed(right))
+        out.append(str(len(seq)))
+        out.append(seq)
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+bbbab
+cbbd
+== 範例 1 輸出 ==
+4
+bbbb
+2
+bb

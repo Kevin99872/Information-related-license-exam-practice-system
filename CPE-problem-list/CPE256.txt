@@ -1,0 +1,94 @@
+CPE 442 Matrix Chain Multiplication
+
+難度：中等
+來源：改編自 UVa Online Judge #442 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 n 個矩陣的名稱與大小，以及若干個「已加上括號」的矩陣乘法運算式 (例如 "((AB)C)")，求依該運算順序計算所需的元素乘法總次數；若矩陣維度不匹配 (無法相乘) 則輸出 error。
+
+輸入說明：第一行為矩陣數 n，接著 n 行each 一個大寫字母 (矩陣名稱) 與兩個整數 (列數、行數)；之後每行一個運算式 (只含矩陣名稱與括號)，讀到檔案結尾。
+輸出說明：每個運算式輸出所需的元素乘法總次數，或 error。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    n = int(data[idx].strip()); idx += 1
+    dims = {}
+    for _ in range(n):
+        parts = data[idx].split(); idx += 1
+        name, r, c = parts[0], int(parts[1]), int(parts[2])
+        dims[name] = (r, c)
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        pos = [0]
+
+        def parse():
+            i = pos[0]
+            if line[i] == '(':
+                pos[0] += 1
+                left = parse()
+                right = parse()
+                pos[0] += 1
+                if left is None or right is None or left[1] != right[0]:
+                    return None
+                cost = left[2] + right[2] + left[0] * left[1] * right[1]
+                return (left[0], right[1], cost)
+            name = line[i]
+            pos[0] += 1
+            r, c = dims[name]
+            return (r, c, 0)
+
+        result = parse()
+        out.append('error' if result is None else str(result[2]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+9
+A 50 10
+B 10 20
+C 20 5
+D 30 35
+E 35 15
+F 15 5
+G 5 10
+H 10 20
+I 20 25
+A
+B
+C
+(AA)
+(AB)
+(AC)
+(A(BC))
+((AB)C)
+(((((DE)F)G)H)I)
+(D(E(F(G(HI)))))
+((D(EF))((GH)I))
+== 範例 1 輸出 ==
+0
+0
+0
+error
+10000
+error
+3500
+15000
+40500
+47500
+15125
+
+== 範例 2 輸入 ==
+2
+X 2 3
+Y 3 4
+(XY)
+== 範例 2 輸出 ==
+24

@@ -1,0 +1,43 @@
+CPE 11029 Leading and Trailing
+
+難度：中等
+來源：改編自 UVa Online Judge #11029 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定正整數 n 與 k，求 n^k 的「前 3 位數字」與「後 3 位數字」(保證 n^k 至少有 6 位數)。
+
+輸入說明：第一行為測試個數 T；之後每行兩個整數 n k。
+輸出說明：每行輸出 "LLL...TTT"，LLL 為前 3 位、TTT 為後 3 位。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    t = int(data[idx]); idx += 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        trailing = pow(n, k, 1000)
+        frac = (k * math.log10(n)) % 1
+        leading = int(10 ** (frac + 2))
+        out.append(f"{leading:03d}...{trailing:03d}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+123456 1
+123456 2
+== 範例 1 輸出 ==
+123...456
+152...936
+
+== 範例 2 輸入 ==
+1
+2 30
+== 範例 2 輸出 ==
+107...824

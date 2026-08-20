@@ -1,0 +1,61 @@
+CPE Count Numbers Without Repeated Digits
+
+難度：困難
+來源：原創（數位動態規劃 (Digit DP)：無重複數字的數量）
+
+== 題目 ==
+給定區間 [a,b] (1<=a<=b)，求此區間內「所有數字皆不重複」的整數個數 (例如 123 合法，122 不合法)。
+
+輸入說明：每行兩個整數 a b，讀到檔案結尾。
+輸出說明：每行輸出符合條件的整數個數。
+
+== 參考解法 (Python) ==
+import sys
+from functools import lru_cache
+
+def count_no_repeat(n_str):
+    n = len(n_str)
+
+    @lru_cache(maxsize=None)
+    def dp(pos, mask, tight, started):
+        if pos == n:
+            return 1 if started else 0
+        limit = int(n_str[pos]) if tight else 9
+        total = 0
+        for d in range(0, limit + 1):
+            if started and (mask >> d) & 1:
+                continue
+            new_started = started or d > 0
+            new_mask = (mask | (1 << d)) if new_started else mask
+            total += dp(pos + 1, new_mask, tight and d == limit, new_started)
+        return total
+
+    result = dp(0, 0, True, False)
+    dp.cache_clear()
+    return result
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        a, b = map(int, line.split())
+        f = lambda x: count_no_repeat(str(x))
+        cnt = f(b) - (f(a - 1) if a > 1 else 0)
+        out.append(str(cnt))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 20
+1 100
+== 範例 1 輸出 ==
+19
+90
+
+== 範例 2 輸入 ==
+10 20
+== 範例 2 輸出 ==
+10

@@ -1,0 +1,59 @@
+CPE Longest Increasing Subsequence with Reconstruction
+
+難度：中等
+來源：原創（動態規劃：最長遞增子序列還原）
+
+== 題目 ==
+給定 n 個整數，求最長嚴格遞增子序列的長度，並輸出該子序列本身 (若有多解，輸出任一組)。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出兩行：長度，以及該子序列 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        dp = [1] * n
+        parent = [-1] * n
+        for i in range(n):
+            for j in range(i):
+                if a[j] < a[i] and dp[j] + 1 > dp[i]:
+                    dp[i] = dp[j] + 1
+                    parent[i] = j
+        best = max(range(n), key=lambda i: dp[i])
+        seq = []
+        cur = best
+        while cur != -1:
+            seq.append(a[cur])
+            cur = parent[cur]
+        seq.reverse()
+        out.append(str(len(seq)))
+        out.append(' '.join(map(str, seq)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+10 9 2 5 3 7 101 18
+0
+== 範例 1 輸出 ==
+4
+2 5 7 101
+
+== 範例 2 輸入 ==
+5
+1 2 3 4 5
+0
+== 範例 2 輸出 ==
+5
+1 2 3 4 5

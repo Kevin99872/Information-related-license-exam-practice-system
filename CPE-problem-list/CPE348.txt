@@ -1,0 +1,48 @@
+CPE Remove K Digits to Form Smallest Number
+
+難度：中等
+來源：原創（單調堆疊：刪除 K 位數字使剩餘數字最小）
+
+== 題目 ==
+給定一個由數字組成的字串與整數 k，從中刪除恰 k 個數字，使剩下的數字 (依原順序排列) 組成的數最小 (可能有前導 0，需去除；若結果為空則視為 0)。
+
+輸入說明：每行為 "數字字串 k"，讀到檔案結尾。
+輸出說明：每行輸出刪除後的最小數 (字串形式)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        num, k = line.split()
+        k = int(k)
+        stack = []
+        for d in num:
+            while stack and k > 0 and stack[-1] > d:
+                stack.pop()
+                k -= 1
+            stack.append(d)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        result = ''.join(stack).lstrip('0')
+        out.append(result if result else '0')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1432219 3
+10200 1
+== 範例 1 輸出 ==
+1219
+200
+
+== 範例 2 輸入 ==
+10 2
+== 範例 2 輸出 ==
+0

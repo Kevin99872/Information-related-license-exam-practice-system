@@ -1,0 +1,66 @@
+CPE 11292 The Dragon of Loowater
+
+難度：簡單
+來源：改編自 UVa Online Judge #11292 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+惡龍有 n 顆頭，每顆頭有一個直徑；王國有 m 位騎士，每位騎士有身高。要砍掉一顆頭，騎士的身高必須「大於等於」該頭的直徑，且砍頭後需支付騎士等同其身高的金幣。求砍掉所有頭所需的最少花費 (一位騎士只能砍一顆頭)；若騎士不夠 (無法砍掉所有頭) 則輸出 "Loowater is doomed!"。
+
+輸入說明：每組第一行 n m，接著 n 行each 一個頭的直徑，再接著 m 行each 一位騎士的身高。"0 0" 表示輸入結束。
+輸出說明：每組輸出最少花費，或 "Loowater is doomed!"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        heads = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        knights = sorted(int(data[idx + i]) for i in range(m))
+        idx += m
+        i = j = 0
+        cost = 0
+        ok = True
+        while i < n:
+            while j < m and knights[j] < heads[i]:
+                j += 1
+            if j == m:
+                ok = False
+                break
+            cost += knights[j]
+            i += 1
+            j += 1
+        out.append(str(cost) if ok else "Loowater is doomed!")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 3
+5
+4
+7
+8
+4
+2 1
+5
+5
+10
+0 0
+== 範例 1 輸出 ==
+11
+Loowater is doomed!
+
+== 範例 2 輸入 ==
+1 1
+10
+5
+0 0
+== 範例 2 輸出 ==
+Loowater is doomed!

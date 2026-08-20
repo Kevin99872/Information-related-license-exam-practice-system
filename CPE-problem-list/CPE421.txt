@@ -1,0 +1,71 @@
+CPE Construct Binary Tree from Preorder and Inorder
+
+難度：中等
+來源：原創（樹的建構：由前序與中序重建二元樹）
+
+== 題目 ==
+給定一棵二元樹的前序走訪與中序走訪結果 (節點值皆不重複)，重建該樹，並輸出其後序走訪結果。
+
+輸入說明：每組第一行 n，第二行為前序走訪 (n 個整數)，第三行為中序走訪 (n 個整數)。n=0 表示輸入結束。
+輸出說明：每組輸出後序走訪結果 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        preorder = list(map(int, data[idx].split())); idx += 1
+        inorder = list(map(int, data[idx].split())); idx += 1
+        pos = {v: i for i, v in enumerate(inorder)}
+        pre_idx = [0]
+
+        def build(lo, hi):
+            if lo > hi:
+                return -1
+            root_val = preorder[pre_idx[0]]
+            pre_idx[0] += 1
+            mid = pos[root_val]
+            left = build(lo, mid - 1)
+            right = build(mid + 1, hi)
+            return (root_val, left, right)
+
+        tree = build(0, n - 1)
+        result = []
+
+        def postorder(node):
+            if node == -1:
+                return
+            postorder(node[1])
+            postorder(node[2])
+            result.append(node[0])
+
+        postorder(tree)
+        out.append(' '.join(map(str, result)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+3 9 20 15 7
+9 3 15 20 7
+0
+== 範例 1 輸出 ==
+9 15 7 20 3
+
+== 範例 2 輸入 ==
+1
+1
+1
+0
+== 範例 2 輸出 ==
+1

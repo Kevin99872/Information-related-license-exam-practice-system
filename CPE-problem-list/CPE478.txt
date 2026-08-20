@@ -1,0 +1,69 @@
+CPE 關鍵連線（橋）
+
+難度：困難
+來源：原創（Tarjan 求橋演算法）
+
+== 題目 ==
+給定一個 n 個節點、m 條邊的無向連通圖，請找出所有的「橋」（Bridge）：
+移除該邊後會使圖不再連通的邊。
+
+輸入格式：第一行為 n m（n=0 且 m=0 代表輸入結束）；接下來 m 行each 為 u v（無重邊）。
+
+輸出：第一行為橋的數量；第二行為所有橋，依 (min(u,v), max(u,v)) 字典序排序，格式如 "(0,1) (2,3)"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        adj = [[] for _ in range(n)]
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            adj[u].append(v)
+            adj[v].append(u)
+        disc = [-1] * n
+        low = [0] * n
+        timer = [0]
+        bridges = []
+
+        def dfs(u, parent_edge):
+            disc[u] = low[u] = timer[0]
+            timer[0] += 1
+            for v in adj[u]:
+                if v == parent_edge:
+                    continue
+                if disc[v] == -1:
+                    dfs(v, u)
+                    low[u] = min(low[u], low[v])
+                    if low[v] > disc[u]:
+                        bridges.append(tuple(sorted((u, v))))
+                else:
+                    low[u] = min(low[u], disc[v])
+
+        for i in range(n):
+            if disc[i] == -1:
+                dfs(i, -1)
+        bridges.sort()
+        out.append(str(len(bridges)))
+        out.append(' '.join(f"({u},{v})" for u, v in bridges))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 5
+0 1
+1 2
+2 0
+1 3
+3 4
+0 0
+== 範例 1 輸出 ==
+2
+(1,3) (3,4)

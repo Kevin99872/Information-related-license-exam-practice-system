@@ -1,0 +1,37 @@
+CPE Big Number String Multiplication
+
+難度：簡單
+來源：原創（大數字串相乘）
+
+== 題目 ==
+給定兩個以字串表示的非負整數 (長度可能很長)，求其乘積。
+
+輸入說明：每行兩個以空白分隔的數字字串，讀到檔案結尾。
+輸出說明：每行輸出兩數的乘積。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        a, b = line.split()
+        out.append(str(int(a) * int(b)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+123 456
+999999999999 999999999999
+== 範例 1 輸出 ==
+56088
+999999999998000000000001
+
+== 範例 2 輸入 ==
+0 12345
+== 範例 2 輸出 ==
+0

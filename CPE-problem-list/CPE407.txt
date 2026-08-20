@@ -1,0 +1,56 @@
+CPE 10930 A-Sequence
+
+難度：中等
+來源：改編自 UVa Online Judge #10930 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+A-Sequence 是一個嚴格遞增的正整數序列 a1<a2<...，且序列中每個 ak 都不是「兩個以上相異前面項總和」。判斷給定序列是否為 A-Sequence。
+
+輸入說明：每行第一個數為 D (序列長度)，接著為 D 個整數 (序列本身)，讀到檔案結尾。
+輸出說明：每組輸出兩行：第一行為 "Case #k: " 加上原序列；第二行為 "This is an A-sequence." 或 "This is not an A-sequence."。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    case = 0
+    for line in sys.stdin:
+        parts = line.split()
+        if not parts:
+            continue
+        case += 1
+        d = int(parts[0])
+        seq = list(map(int, parts[1:1 + d]))
+        reachable = set()
+        ok = True
+        for a in seq:
+            if a in reachable:
+                ok = False
+            new_sums = {a}
+            for s in reachable:
+                new_sums.add(s + a)
+            reachable |= new_sums
+        out.append(f"Case #{case}: " + ' '.join(map(str, seq)))
+        out.append('This is an A-sequence.' if ok else 'This is not an A-sequence.')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 1 2
+3 1 2 3
+10 1 3 16 19 25 70 100 243 245 306
+== 範例 1 輸出 ==
+Case #1: 1 2
+This is an A-sequence.
+Case #2: 1 2 3
+This is not an A-sequence.
+Case #3: 1 3 16 19 25 70 100 243 245 306
+This is not an A-sequence.
+
+== 範例 2 輸入 ==
+3 1 2 4
+== 範例 2 輸出 ==
+Case #1: 1 2 4
+This is an A-sequence.

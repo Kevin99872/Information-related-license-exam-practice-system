@@ -1,0 +1,118 @@
+CPE 12086 Potentiometers
+
+難度：中等
+來源：改編自 UVa Online Judge #12086 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+有 N 個電位器排成一列，初始各有一個電阻值。支援兩種操作："S x r" 將第 x 個電位器電阻設為 r；"M x y" 查詢第 x 個到第 y 個電位器 (含兩端) 的電阻總和。請使用樹狀陣列 (Binary Indexed Tree / Fenwick Tree) 有效率地處理這些操作。
+
+輸入說明：每組第一行為 N，接著 N 行each 一個初始電阻值；之後依序為若干操作，直到出現單獨一行 "END"；N=0 表示輸入結束。
+輸出說明：每組先輸出 "Case k:" (k 從 1 開始)，接著對每個 M 操作輸出查詢結果；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+class BIT:
+    def __init__(self, n):
+        self.n = n
+        self.tree = [0] * (n + 1)
+
+    def update(self, i, delta):
+        while i <= self.n:
+            self.tree[i] += delta
+            i += i & (-i)
+
+    def query(self, i):
+        s = 0
+        while i > 0:
+            s += self.tree[i]
+            i -= i & (-i)
+        return s
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    case = 0
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        case += 1
+        vals = [0] * (n + 1)
+        bit = BIT(n)
+        for i in range(1, n + 1):
+            v = int(data[idx].strip()); idx += 1
+            vals[i] = v
+            bit.update(i, v)
+        if case > 1:
+            out.append('')
+        out.append(f"Case {case}:")
+        while True:
+            parts = data[idx].split(); idx += 1
+            if parts[0] == 'END':
+                break
+            if parts[0] == 'S':
+                x, r = int(parts[1]), int(parts[2])
+                delta = r - vals[x]
+                vals[x] = r
+                bit.update(x, delta)
+            else:
+                x, y = int(parts[1]), int(parts[2])
+                out.append(str(bit.query(y) - bit.query(x - 1)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+100
+100
+100
+M 1 1
+M 1 3
+S 2 200
+M 1 2
+S 3 0
+M 2 3
+END
+10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+M 1 10
+END
+0
+== 範例 1 輸出 ==
+Case 1:
+100
+300
+300
+200
+
+Case 2:
+55
+
+== 範例 2 輸入 ==
+2
+5
+5
+M 1 2
+S 1 10
+M 1 2
+END
+0
+== 範例 2 輸出 ==
+Case 1:
+10
+15

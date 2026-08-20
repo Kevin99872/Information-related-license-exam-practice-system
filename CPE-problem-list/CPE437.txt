@@ -1,0 +1,61 @@
+CPE Integer to English Words
+
+難度：困難
+來源：原創（數字轉英文單字表示法）
+
+== 題目 ==
+給定一個非負整數 (0<=n<=2147483647)，將其轉換成英文單字表示 (例如 123 -> "One Hundred Twenty Three")。
+
+輸入說明：每行一個整數，讀到檔案結尾。
+輸出說明：每行輸出對應的英文單字表示。
+
+== 參考解法 (Python) ==
+import sys
+
+BELOW20 = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+           'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+THOUSANDS = ['', 'Thousand', 'Million', 'Billion']
+
+def helper(num):
+    if num == 0:
+        return ''
+    if num < 20:
+        return BELOW20[num] + ' '
+    if num < 100:
+        return TENS[num // 10] + ' ' + helper(num % 10)
+    return BELOW20[num // 100] + ' Hundred ' + helper(num % 100)
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        num = int(line)
+        if num == 0:
+            out.append('Zero')
+            continue
+        res = ''
+        i = 0
+        while num > 0:
+            if num % 1000 != 0:
+                res = helper(num % 1000) + THOUSANDS[i] + ' ' + res
+            num //= 1000
+            i += 1
+        out.append(' '.join(res.split()))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+123
+12345
+== 範例 1 輸出 ==
+One Hundred Twenty Three
+Twelve Thousand Three Hundred Forty Five
+
+== 範例 2 輸入 ==
+0
+== 範例 2 輸出 ==
+Zero

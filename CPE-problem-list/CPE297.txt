@@ -1,0 +1,61 @@
+CPE Balanced Binary Tree Height Check
+
+難度：中等
+來源：原創（二元樹：判斷是否為高度平衡樹）
+
+== 題目 ==
+給定一棵二元樹 (以陣列表示，節點 0 為根，left[i]/right[i] 為節點 i 的左右子節點索引，-1 表示不存在)，判斷是否為「高度平衡樹」(任一節點的左右子樹高度差不超過 1)。
+
+輸入說明：每組第一行 n (節點數)，接著 n 行each 兩個整數 (節點 0~n-1 依序的 left、right)。n=0 表示輸入結束。
+輸出說明：每組輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        left = []
+        right = []
+        for _ in range(n):
+            left.append(int(data[idx])); right.append(int(data[idx + 1])); idx += 2
+
+        def check(u):
+            if u == -1:
+                return 0, True
+            lh, lb = check(left[u])
+            rh, rb = check(right[u])
+            balanced = lb and rb and abs(lh - rh) <= 1
+            return max(lh, rh) + 1, balanced
+
+        _, balanced = check(0)
+        out.append('Yes' if balanced else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+1 2
+3 4
+-1 -1
+-1 -1
+-1 -1
+0
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+4
+1 -1
+2 -1
+3 -1
+-1 -1
+0
+== 範例 2 輸出 ==
+No

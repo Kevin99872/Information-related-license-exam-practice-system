@@ -1,0 +1,44 @@
+CPE Sort Array By Parity
+
+難度：簡單
+來源：原創（陣列分割：偶數排在奇數前面）
+
+== 題目 ==
+給定 n 個整數，重新排列使所有偶數都在所有奇數之前 (各自保持原相對順序)。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出排列後的陣列 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        even = [x for x in a if x % 2 == 0]
+        odd = [x for x in a if x % 2 != 0]
+        out.append(' '.join(map(str, even + odd)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+3 1 2 4 5
+0
+== 範例 1 輸出 ==
+2 4 3 1 5
+
+== 範例 2 輸入 ==
+4
+1 3 5 7
+0
+== 範例 2 輸出 ==
+1 3 5 7

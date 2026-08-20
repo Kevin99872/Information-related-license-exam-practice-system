@@ -1,0 +1,44 @@
+CPE Extended Euclidean Algorithm
+
+難度：簡單
+來源：原創（擴展歐幾里得演算法）
+
+== 題目 ==
+給定兩個正整數 a、b，求 gcd(a,b) 以及一組整數 x、y，使得 a*x + b*y = gcd(a,b)。
+
+輸入說明：每行兩個正整數 a b，讀到檔案結尾。
+輸出說明：每行輸出 "gcd x y"。
+
+== 參考解法 (Python) ==
+import sys
+
+def ext_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+    g, x1, y1 = ext_gcd(b, a % b)
+    return g, y1, x1 - (a // b) * y1
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        a, b = map(int, line.split())
+        g, x, y = ext_gcd(a, b)
+        out.append(f"{g} {x} {y}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+30 20
+35 15
+== 範例 1 輸出 ==
+10 1 -1
+5 1 -2
+
+== 範例 2 輸入 ==
+17 5
+== 範例 2 輸出 ==
+1 -2 7

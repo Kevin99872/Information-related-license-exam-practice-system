@@ -1,0 +1,41 @@
+CPE Valid Roman Numeral Check
+
+難度：簡單
+來源：原創（羅馬數字合法性檢查）
+
+== 題目 ==
+判斷給定字串是否為合法的羅馬數字表示法 (1~3999)。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+import re
+
+PATTERN = re.compile(r'^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$')
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        out.append('Yes' if s and PATTERN.match(s) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+MCMXCIV
+IIII
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+LVIII
+VX
+== 範例 2 輸出 ==
+Yes
+No

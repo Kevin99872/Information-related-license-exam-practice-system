@@ -1,0 +1,49 @@
+CPE Zigzag Conversion
+
+難度：簡單
+來源：原創（Z 字形字串排列）
+
+== 題目 ==
+將字串 s 依「Z 字形」排成 rows 列 (由上到下、再由下到上依序排列字元、交替反覆)，然後依列順序 (第 1 列到最後一列) 讀出重組後的字串。
+
+輸入說明：每行為 "字串 rows"，讀到檔案結尾。
+輸出說明：每行輸出重組後的字串。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s, rows = line.rsplit(' ', 1)
+        rows = int(rows)
+        if rows == 1:
+            out.append(s)
+            continue
+        buckets = [''] * rows
+        r = 0
+        step = 1
+        for ch in s:
+            buckets[r] += ch
+            if r == 0:
+                step = 1
+            elif r == rows - 1:
+                step = -1
+            r += step
+        out.append(''.join(buckets))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+PAYPALISHIRING 3
+== 範例 1 輸出 ==
+PAHNAPLSIIGYIR
+
+== 範例 2 輸入 ==
+PAYPALISHIRING 4
+== 範例 2 輸出 ==
+PINALSIGYAHRPI

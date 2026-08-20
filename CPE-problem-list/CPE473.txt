@@ -1,0 +1,68 @@
+CPE 路徑總和 II
+
+難度：中等
+來源：原創（二元樹深度優先搜尋）
+
+== 題目 ==
+給定一棵二元樹（n 個節點，節點 0 為根）與目標值 target，
+請找出所有「從根節點到葉節點」且節點值總和等於 target 的路徑。
+
+輸入格式：第一行為 n target（n=0 且 target=0 代表輸入結束）；
+接下來 n 行each 為 val left right（左右子節點索引，-1 代表無子節點，節點依 0..n-1 編號，節點 0 為根）。
+
+輸出：第一行為符合條件的路徑數量；接下來每行輸出一條路徑（節點值序列，以空白分隔），
+依深度優先（先左後右）搜尋順序輸出。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        val, left, right = [], [], []
+        for _ in range(n):
+            val.append(int(data[idx])); left.append(int(data[idx + 1])); right.append(int(data[idx + 2])); idx += 3
+        results = []
+
+        def dfs(u, path, total):
+            if u == -1:
+                return
+            path.append(val[u])
+            total += val[u]
+            if left[u] == -1 and right[u] == -1:
+                if total == target:
+                    results.append(list(path))
+            else:
+                dfs(left[u], path, total)
+                dfs(right[u], path, total)
+            path.pop()
+
+        dfs(0, [], 0)
+        out.append(str(len(results)))
+        for r in results:
+            out.append(' '.join(map(str, r)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10 22
+5 1 2
+4 3 -1
+8 4 5
+11 6 7
+13 -1 -1
+4 8 9
+7 -1 -1
+2 -1 -1
+5 -1 -1
+1 -1 -1
+== 範例 1 輸出 ==
+2
+5 4 11 2
+5 8 4 5

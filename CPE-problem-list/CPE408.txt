@@ -1,0 +1,81 @@
+CPE 340 Master-Mind Hints
+
+難度：中等
+來源：改編自 UVa Online Judge #340 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+Mastermind 遊戲：秘密密碼與猜測皆為長度 n 的數字序列。「強配對」為位置也相同的相同數字；「弱配對」為在扣除所有強配對後，剩餘數字中依數值配對能配成的對數 (同一數字，秘密中出現次數與猜測中出現次數取最小值加總)。給定秘密密碼與一系列猜測，求每次猜測的 (強配對數, 弱配對數)。
+
+輸入說明：每組第一行為 n (密碼長度)，第二行為秘密密碼 (n 個 1~9 的整數)，之後為一系列猜測 (each n 個整數)，直到出現 n 個 0 為止 (不算猜測)。最後以單獨一行 "0" 表示所有遊戲結束。
+輸出說明：每組先輸出 "Game k:"，k 從 1 開始；接著對每次猜測輸出一行 "    (強配對數,弱配對數)"。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    game = 0
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        game += 1
+        secret = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        out.append(f"Game {game}:")
+        while True:
+            guess = [int(data[idx + i]) for i in range(n)]
+            idx += n
+            if all(x == 0 for x in guess):
+                break
+            strong = sum(1 for i in range(n) if secret[i] == guess[i])
+            cs = Counter(secret[i] for i in range(n) if secret[i] != guess[i])
+            cg = Counter(guess[i] for i in range(n) if secret[i] != guess[i])
+            weak = sum(min(cs[c], cg[c]) for c in cs)
+            out.append(f"    ({strong},{weak})")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 3 5 5
+1 1 2 3
+4 3 3 5
+6 5 5 1
+6 1 3 5
+1 3 5 5
+0 0 0 0
+10
+1 2 2 2 4 5 6 6 6 9
+1 2 3 4 5 6 7 8 9 1
+1 1 2 2 3 3 4 4 5 5
+1 2 1 3 1 5 1 6 1 9
+1 2 2 5 5 5 6 6 6 7
+0 0 0 0 0 0 0 0 0 0
+0
+== 範例 1 輸出 ==
+Game 1:
+    (1,1)
+    (2,0)
+    (1,2)
+    (1,2)
+    (4,0)
+Game 2:
+    (2,4)
+    (3,2)
+    (5,0)
+    (7,0)
+
+== 範例 2 輸入 ==
+2
+1 2
+2 1
+0 0
+0
+== 範例 2 輸出 ==
+Game 1:
+    (0,2)

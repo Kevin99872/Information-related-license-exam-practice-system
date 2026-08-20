@@ -1,0 +1,73 @@
+CPE Eulerian Path/Circuit Existence Check
+
+難度：中等
+來源：原創（尤拉路徑 / 尤拉迴路存在性判斷）
+
+== 題目 ==
+給定一個含 n 個節點、m 條無向邊的圖 (可能有孤立節點)，判斷是否存在尤拉迴路 (Circuit，走過每條邊恰一次並回到起點)、尤拉路徑 (Path，走過每條邊恰一次但不需回起點)，或都不存在 (None)。
+
+輸入說明：每組第一行 n m，接著 m 行each 兩個整數 u v。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出 Circuit、Path 或 None。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        parent = list(range(n))
+        deg = [0] * n
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        edge_nodes = set()
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            deg[u] += 1
+            deg[v] += 1
+            edge_nodes.add(u); edge_nodes.add(v)
+            ru, rv = find(u), find(v)
+            if ru != rv:
+                parent[ru] = rv
+        roots = set(find(x) for x in edge_nodes)
+        connected = len(roots) <= 1
+        odd = sum(1 for d in deg if d % 2 == 1)
+        if not connected:
+            out.append('None')
+        elif odd == 0:
+            out.append('Circuit')
+        elif odd == 2:
+            out.append('Path')
+        else:
+            out.append('None')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 4
+0 1
+1 2
+2 3
+3 0
+0 0
+== 範例 1 輸出 ==
+Circuit
+
+== 範例 2 輸入 ==
+4 3
+0 1
+1 2
+2 3
+0 0
+== 範例 2 輸出 ==
+Path

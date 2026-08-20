@@ -1,0 +1,63 @@
+CPE Insert Interval
+
+難度：中等
+來源：原創（陣列：插入新區間並合併重疊區間）
+
+== 題目 ==
+給定一組「彼此不重疊且依左端點排序」的區間，以及一個新區間，將新區間插入並合併所有重疊的區間，輸出結果。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 l r (已排序、不重疊的區間)，再一行為新區間 nl nr。n=0 表示輸入結束。
+輸出說明：每組輸出插入合併後的區間，格式為 "[l,r]"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        intervals = []
+        for _ in range(n):
+            l = int(data[idx]); r = int(data[idx + 1]); idx += 2
+            intervals.append((l, r))
+        nl = int(data[idx]); nr = int(data[idx + 1]); idx += 2
+        result = []
+        i = 0
+        while i < n and intervals[i][1] < nl:
+            result.append(intervals[i])
+            i += 1
+        while i < n and intervals[i][0] <= nr:
+            nl = min(nl, intervals[i][0])
+            nr = max(nr, intervals[i][1])
+            i += 1
+        result.append((nl, nr))
+        while i < n:
+            result.append(intervals[i])
+            i += 1
+        out.append(' '.join(f"[{l},{r}]" for l, r in result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+1 3
+6 9
+2 5
+0
+== 範例 1 輸出 ==
+[1,5] [6,9]
+
+== 範例 2 輸入 ==
+3
+1 2
+3 5
+6 7
+4 8
+0
+== 範例 2 輸出 ==
+[1,2] [3,8]

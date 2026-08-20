@@ -1,0 +1,49 @@
+CPE Find Missing and Duplicate Number
+
+難度：中等
+來源：原創（數學技巧：同時找出缺失與重複的數字）
+
+== 題目 ==
+給定 1~n 的排列中，恰有一個數字被「另一個已存在的數字」覆蓋 (也就是有一個數字重複出現，另一個數字因此缺席)，求重複的數字與缺失的數字。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出 "重複的數字 缺失的數字"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        expected_sum = n * (n + 1) // 2
+        expected_sq = sum(i * i for i in range(1, n + 1))
+        diff = sum(a) - expected_sum
+        sqdiff = sum(x * x for x in a) - expected_sq
+        sum_dm = sqdiff // diff
+        dup = (diff + sum_dm) // 2
+        missing = sum_dm - dup
+        out.append(f"{dup} {missing}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 2 2 4
+0
+== 範例 1 輸出 ==
+2 3
+
+== 範例 2 輸入 ==
+5
+1 3 3 4 5
+0
+== 範例 2 輸出 ==
+3 2

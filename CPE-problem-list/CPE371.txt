@@ -1,0 +1,45 @@
+CPE Minimum Cost Climbing Stairs
+
+難度：簡單
+來源：原創（動態規劃：爬樓梯最小花費）
+
+== 題目 ==
+給定一座樓梯，每階都有一個花費，每次可以爬 1 階或 2 階，可以從索引 0 或 1 開始，求爬到「樓梯頂端 (陣列最後一格之後)」所需的最小總花費。
+
+輸入說明：每組第一行 n，第二行 n 個非負整數 (各階花費)。n=0 表示輸入結束。
+輸出說明：每組輸出最小總花費。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        cost = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        prev, cur = 0, 0
+        for i in range(2, n + 1):
+            prev, cur = cur, min(cur + cost[i - 1], prev + cost[i - 2])
+        out.append(str(cur))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+10 15 20 1
+0
+== 範例 1 輸出 ==
+16
+
+== 範例 2 輸入 ==
+6
+1 100 1 1 1 100
+0
+== 範例 2 輸出 ==
+3

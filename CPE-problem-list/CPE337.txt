@@ -1,0 +1,51 @@
+CPE Longest Happy Prefix
+
+難度：中等
+來源：原創（KMP 失配函數：最長快樂前綴 (既是前綴又是後綴)）
+
+== 題目 ==
+「快樂前綴」是指一個字串「非空、非本身」的子字串，同時是該字串的前綴與後綴。給定字串，求最長的快樂前綴 (使用 KMP 的失配函數求解)；若不存在則輸出 "(none)"。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出最長的快樂前綴，或 "(none)"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            out.append('(none)')
+            continue
+        n = len(s)
+        lps = [0] * n
+        length = 0
+        i = 1
+        while i < n:
+            if s[i] == s[length]:
+                length += 1
+                lps[i] = length
+                i += 1
+            elif length:
+                length = lps[length - 1]
+            else:
+                lps[i] = 0
+                i += 1
+        out.append(s[:lps[-1]] if lps[-1] > 0 else '(none)')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+level
+abcabcabc
+== 範例 1 輸出 ==
+l
+abcabc
+
+== 範例 2 輸入 ==
+abcdef
+== 範例 2 輸出 ==
+(none)

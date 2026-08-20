@@ -1,0 +1,58 @@
+CPE Egg Drop Problem
+
+難度：困難
+來源：原創（動態規劃：雞蛋掉落經典題型）
+
+== 題目 ==
+有 eggs 顆雞蛋與 floors 層樓，雞蛋從某樓層丟下若未破可重複使用，若破了就不能再用。求在最壞情況下，找出「雞蛋恰好會破」的樓層 (或確定所有樓層都不會破) 所需的最少丟擲次數。
+
+輸入說明：每行兩個整數 eggs floors。"0 0" 表示輸入結束。
+輸出說明：每行輸出最少丟擲次數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        eggs = int(data[idx]); floors = int(data[idx + 1]); idx += 2
+        if eggs == 0 and floors == 0:
+            break
+        dp = [[0] * (floors + 1) for _ in range(eggs + 1)]
+        for j in range(1, floors + 1):
+            dp[1][j] = j
+        for i in range(2, eggs + 1):
+            for j in range(1, floors + 1):
+                best = j
+                lo, hi = 1, j
+                while lo <= hi:
+                    mid = (lo + hi) // 2
+                    broken = dp[i - 1][mid - 1]
+                    not_broken = dp[i][j - mid]
+                    worst = max(broken, not_broken) + 1
+                    best = min(best, worst)
+                    if broken < not_broken:
+                        lo = mid + 1
+                    else:
+                        hi = mid - 1
+                dp[i][j] = best
+        out.append(str(dp[eggs][floors]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 10
+1 10
+0 0
+== 範例 1 輸出 ==
+4
+10
+
+== 範例 2 輸入 ==
+2 100
+0 0
+== 範例 2 輸出 ==
+14

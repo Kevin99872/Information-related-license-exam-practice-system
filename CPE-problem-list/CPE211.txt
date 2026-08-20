@@ -1,0 +1,47 @@
+CPE 10105 Polynomial coefficients
+
+難度：簡單
+來源：改編自 UVa Online Judge #10105 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+求多項式 (x1+x2+...+xk)^n 展開式中，單項式 x1^n1 * x2^n2 * ... * xk^nk 的係數 (n1+...+nk=n)，即多項式係數 n!/(n1!*n2!*...*nk!)。
+
+輸入說明：每兩行一組，第一行為 n k，第二行為 k 個非負整數 n1...nk。
+輸出說明：每組輸出對應的係數。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n, k = map(int, line.split())
+        exps = list(map(int, data[idx].split())); idx += 1
+        coeff = math.factorial(n)
+        for e in exps:
+            coeff //= math.factorial(e)
+        out.append(str(coeff))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 2
+1 1
+2 12
+1 0 0 0 0 0 0 0 0 0 1 0
+== 範例 1 輸出 ==
+2
+2
+
+== 範例 2 輸入 ==
+3 2
+2 1
+== 範例 2 輸出 ==
+3

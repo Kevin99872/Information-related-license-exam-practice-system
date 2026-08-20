@@ -1,0 +1,66 @@
+CPE Sparse Table Range Minimum Query
+
+難度：中等
+來源：原創（稀疏表 (Sparse Table)：靜態區間最小值查詢）
+
+== 題目 ==
+給定 n 個整數 (不會更新)，使用稀疏表預處理 (O(n log n))，回答 q 個區間 [l,r] 的最小值查詢 (每次查詢 O(1))。
+
+輸入說明：每組第一行 n，第二行 n 個整數；接著一行查詢數 q，再 q 行each 兩個整數 l r。n=0 表示輸入結束。
+輸出說明：每個查詢輸出區間最小值。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        arr = list(map(int, data[idx].split())); idx += 1
+        sparse = [arr[:]]
+        j = 1
+        while (1 << j) <= n:
+            prev = sparse[-1]
+            length = n - (1 << j) + 1
+            cur = [min(prev[i], prev[i + (1 << (j - 1))]) for i in range(length)]
+            sparse.append(cur)
+            j += 1
+        q = int(data[idx].strip()); idx += 1
+        for _ in range(q):
+            l, r = map(int, data[idx].split()); idx += 1
+            length = r - l + 1
+            k = int(math.log2(length))
+            out.append(str(min(sparse[k][l], sparse[k][r - (1 << k) + 1])))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+5 2 4 7 1 3
+3
+0 5
+1 3
+4 5
+0
+== 範例 1 輸出 ==
+1
+2
+1
+
+== 範例 2 輸入 ==
+4
+9 8 7 6
+1
+0 3
+0
+== 範例 2 輸出 ==
+6

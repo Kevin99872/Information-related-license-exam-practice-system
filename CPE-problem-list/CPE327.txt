@@ -1,0 +1,98 @@
+CPE Sudoku Solver
+
+難度：困難
+來源：原創（回溯法：數獨求解）
+
+== 題目 ==
+給定一個 9*9 數獨盤面 (0 表示空格，保證有解)，求解完整的盤面。
+
+輸入說明：每組為 81 個整數 (依列優先排列)，直到出現單獨一行 "END" 為止 (不處理)。
+輸出說明：每組輸出 9 行，每行 9 個數字 (直接相連，不含空白)，為解出的完整盤面。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        if data[idx] == 'END':
+            break
+        grid = [[int(data[idx + i * 9 + j]) for j in range(9)] for i in range(9)]
+        idx += 81
+
+        def valid(r, c, v):
+            for i in range(9):
+                if grid[r][i] == v or grid[i][c] == v:
+                    return False
+            br, bc = 3 * (r // 3), 3 * (c // 3)
+            for i in range(br, br + 3):
+                for j in range(bc, bc + 3):
+                    if grid[i][j] == v:
+                        return False
+            return True
+
+        def solve():
+            for r in range(9):
+                for c in range(9):
+                    if grid[r][c] == 0:
+                        for v in range(1, 10):
+                            if valid(r, c, v):
+                                grid[r][c] = v
+                                if solve():
+                                    return True
+                                grid[r][c] = 0
+                        return False
+            return True
+
+        solve()
+        for row in grid:
+            out.append(''.join(map(str, row)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 3 0 0 7 0 0 0 0
+6 0 0 1 9 5 0 0 0
+0 9 8 0 0 0 0 6 0
+8 0 0 0 6 0 0 0 3
+4 0 0 8 0 3 0 0 1
+7 0 0 0 2 0 0 0 6
+0 6 0 0 0 0 2 8 0
+0 0 0 4 1 9 0 0 5
+0 0 0 0 8 0 0 7 9
+END
+== 範例 1 輸出 ==
+534678912
+672195348
+198342567
+859761423
+426853791
+713924856
+961537284
+287419635
+345286179
+
+== 範例 2 輸入 ==
+1 2 3 4 5 6 7 8 0
+4 5 6 7 8 9 1 2 3
+7 8 9 1 2 3 4 5 6
+2 3 4 5 6 7 8 9 1
+5 6 7 8 9 1 2 3 4
+8 9 1 2 3 4 5 6 7
+3 4 5 6 7 8 9 1 2
+6 7 8 9 1 2 3 4 5
+9 1 2 3 4 5 6 7 8
+END
+== 範例 2 輸出 ==
+123456789
+456789123
+789123456
+234567891
+567891234
+891234567
+345678912
+678912345
+912345678

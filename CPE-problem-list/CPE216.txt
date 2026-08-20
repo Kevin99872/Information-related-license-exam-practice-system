@@ -1,0 +1,70 @@
+CPE 10608 Friends
+
+難度：簡單
+來源：改編自 UVa Online Judge #10608 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一個鎮上有 N 位居民，某些人互為朋友，「朋友的朋友也是朋友」。求最大朋友群的人數。
+
+輸入說明：第一行為測試個數；每組第一行 N M，接著 M 行each 兩個整數 (互為朋友的兩人編號，1<=編號<=N)。
+輸出說明：每組輸出最大朋友群的人數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    t = int(data[idx]); idx += 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        parent = list(range(n + 1))
+        size = [1] * (n + 1)
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        for _ in range(m):
+            a = int(data[idx]); b = int(data[idx + 1]); idx += 2
+            ra, rb = find(a), find(b)
+            if ra != rb:
+                if size[ra] < size[rb]:
+                    ra, rb = rb, ra
+                parent[rb] = ra
+                size[ra] += size[rb]
+        out.append(str(max(size[find(i)] for i in range(1, n + 1))))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+3 2
+1 2
+2 3
+10 12
+1 2
+3 1
+3 4
+5 4
+3 5
+4 6
+5 2
+2 1
+7 1
+1 2
+9 10
+8 9
+== 範例 1 輸出 ==
+3
+7
+
+== 範例 2 輸入 ==
+1
+4 0
+== 範例 2 輸出 ==
+1

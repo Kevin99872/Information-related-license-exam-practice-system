@@ -1,0 +1,35 @@
+CPE Valid Palindrome Ignoring Non-alphanumeric
+
+難度：簡單
+來源：原創（忽略非英數字元的回文判斷）
+
+== 題目 ==
+判斷給定字串「只考慮英文字母與數字、忽略大小寫」後，是否為回文。
+
+輸入說明：每行一個字串 (可能含空白與標點符號)，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.rstrip('\n')
+        cleaned = [c.lower() for c in s if c.isalnum()]
+        out.append('Yes' if cleaned == cleaned[::-1] else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+A man, a plan, a canal: Panama
+race a car
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+Was it a car or a cat I saw?
+== 範例 2 輸出 ==
+Yes

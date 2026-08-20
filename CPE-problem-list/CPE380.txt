@@ -1,0 +1,58 @@
+CPE Restore IP Addresses
+
+難度：中等
+來源：原創（回溯法：還原合法 IP 位址）
+
+== 題目 ==
+給定一串只含數字的字串，列出所有能還原成合法 IPv4 位址的方式 (四段，每段為 0~255 的整數，且不能有前導 0，單一 0 除外)。
+
+輸入說明：每行一個數字字串，讀到檔案結尾。
+輸出說明：每行輸入先輸出還原方式總數，接著依字典序每行輸出一個 IP 位址。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        results = []
+
+        def backtrack(start, parts):
+            if len(parts) == 4:
+                if start == len(s):
+                    results.append('.'.join(parts))
+                return
+            for length in range(1, 4):
+                if start + length > len(s):
+                    break
+                piece = s[start:start + length]
+                if len(piece) > 1 and piece[0] == '0':
+                    continue
+                if int(piece) > 255:
+                    continue
+                parts.append(piece)
+                backtrack(start + length, parts)
+                parts.pop()
+
+        backtrack(0, [])
+        out.append(str(len(results)))
+        out.extend(sorted(results))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+25525511135
+== 範例 1 輸出 ==
+2
+255.255.11.135
+255.255.111.35
+
+== 範例 2 輸入 ==
+0000
+== 範例 2 輸出 ==
+1
+0.0.0.0

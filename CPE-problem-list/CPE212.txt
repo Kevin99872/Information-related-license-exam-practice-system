@@ -1,0 +1,69 @@
+CPE 10161 Ant on a Chessboard
+
+難度：中等
+來源：改編自 UVa Online Judge #10161 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一隻螞蟻從 (1,1) 出發，以「同心方框」方式走遍整個 (無限大) 棋盤：第 1 格是 (1,1)；第 2~4 格沿「第 2 圈」走 (由 (1,2) 到 (2,2) 到 (2,1))；第 5~9 格沿「第 3 圈」走；依此類推，第 r 圈 (max(x,y)=r) 共有 2r-1 格，r 為偶數時沿「(1,r)→(r,r)→(r,1)」走 (先往右到頂再往下)，r 為奇數時沿「(r,1)→(r,r)→(1,r)」走 (先往上到頂再往左)。給定她走到第 N 步時的時間 N，求她所在的座標 (x,y)。
+
+輸入說明：每行一個整數 N (1<=N<=2*10^9)，"0" 表示輸入結束。
+輸出說明：每行輸出 "x y"。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def solve(n):
+    if n == 1:
+        return (1, 1)
+    r = math.isqrt(n - 1) + 1
+    while r * r < n:
+        r += 1
+    start = (r - 1) ** 2 + 1
+    offset = n - start
+    if r % 2 == 0:
+        if offset <= r - 1:
+            x, y = 1 + offset, r
+        else:
+            off2 = offset - r
+            x, y = r, r - 1 - off2
+    else:
+        if offset <= r - 1:
+            x, y = r, 1 + offset
+        else:
+            off2 = offset - r
+            x, y = r - 1 - off2, r
+    return x, y
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        x, y = solve(n)
+        out.append(f"{x} {y}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+20
+25
+0
+== 範例 1 輸出 ==
+2 3
+5 4
+1 5
+
+== 範例 2 輸入 ==
+1
+2
+0
+== 範例 2 輸出 ==
+1 1
+1 2

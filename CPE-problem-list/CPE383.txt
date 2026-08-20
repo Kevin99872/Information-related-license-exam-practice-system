@@ -1,0 +1,58 @@
+CPE Range Sum Query - Immutable
+
+難度：簡單
+來源：原創（前綴和：不可變陣列的區間和查詢）
+
+== 題目 ==
+給定 n 個整數 (不會更動)，回答 q 個查詢：區間 [l,r] (0-indexed，含兩端) 的總和。
+
+輸入說明：每組第一行 n，第二行 n 個整數；接著一行查詢數 q，再 q 行each 兩個整數 l r。n=0 表示輸入結束。
+輸出說明：每個查詢輸出對應的區間和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        arr = list(map(int, data[idx].split())); idx += 1
+        prefix = [0] * (n + 1)
+        for i in range(n):
+            prefix[i + 1] = prefix[i] + arr[i]
+        q = int(data[idx].strip()); idx += 1
+        for _ in range(q):
+            l, r = map(int, data[idx].split()); idx += 1
+            out.append(str(prefix[r + 1] - prefix[l]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+-2 0 3 -5 2
+3
+0 2
+2 4
+0 4
+0
+== 範例 1 輸出 ==
+1
+0
+-2
+
+== 範例 2 輸入 ==
+3
+1 2 3
+1
+0 2
+0
+== 範例 2 輸出 ==
+6

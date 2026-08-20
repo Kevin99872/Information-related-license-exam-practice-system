@@ -1,0 +1,55 @@
+CPE Smallest Prime Factor Sieve Factorization
+
+難度：簡單
+來源：原創（最小質因數篩法：快速質因數分解）
+
+== 題目 ==
+預先以篩法計算 1~1000000 內每個數的最小質因數，藉此快速對多筆查詢做質因數分解。
+
+輸入說明：每行一個整數 n (2<=n<=1000000)，讀到檔案結尾。
+輸出說明：每行輸出質因數分解結果，格式為 "質數^指數"，由小到大排列，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+LIMIT = 1000000
+spf = list(range(LIMIT + 1))
+for i in range(2, int(LIMIT ** 0.5) + 1):
+    if spf[i] == i:
+        for j in range(i * i, LIMIT + 1, i):
+            if spf[j] == j:
+                spf[j] = i
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        factors = []
+        while n > 1:
+            p = spf[n]
+            e = 0
+            while n % p == 0:
+                n //= p
+                e += 1
+            factors.append(f"{p}^{e}")
+        out.append(' '.join(factors))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+360
+17
+== 範例 1 輸出 ==
+2^3 3^2 5^1
+17^1
+
+== 範例 2 輸入 ==
+2
+999983
+== 範例 2 輸出 ==
+2^1
+999983^1

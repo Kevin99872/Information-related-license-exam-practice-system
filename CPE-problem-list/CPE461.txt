@@ -1,0 +1,57 @@
+CPE 加權區間排程
+
+難度：中等
+來源：原創（動態規劃 + 二分搜尋）
+
+== 題目 ==
+給定 n 個工作，每個工作有開始時間 s、結束時間 e、以及權重 w。
+兩個工作若時間區間重疊則不能同時選取（相接不算重疊，即一工作的結束時間等於另一工作的開始時間可同時選）。
+請問選取一組互不重疊的工作，最大化權重總和為何？
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；接下來 n 行each 為 s e w。
+對每組測試資料輸出一行最大權重總和。
+
+== 參考解法 (Python) ==
+import sys
+import bisect
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        jobs = []
+        for _ in range(n):
+            s = int(data[idx]); e = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            jobs.append((e, s, w))
+        jobs.sort()
+        ends = [j[0] for j in jobs]
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            e, s, w = jobs[i - 1]
+            p = bisect.bisect_right(ends, s, 0, i - 1)
+            dp[i] = max(dp[i - 1], dp[p] + w)
+        out.append(str(dp[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 3 5
+2 5 6
+4 6 5
+6 7 4
+== 範例 1 輸出 ==
+14
+
+== 範例 2 輸入 ==
+3
+1 2 50
+3 5 20
+6 19 100
+== 範例 2 輸出 ==
+170

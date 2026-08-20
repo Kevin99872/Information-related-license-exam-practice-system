@@ -1,0 +1,55 @@
+CPE 10820 Send a Table
+
+難度：中等
+來源：改編自 UVa Online Judge #10820 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 N，求滿足 1<=x,y<=N 且 gcd(x,y)=1 的座標對 (x,y) 的個數 (即互質座標對數)。
+
+輸入說明：每行一個整數 N (1<=N<=50000)，"0" 表示輸入結束。
+輸出說明：每行輸出互質座標對的個數。
+
+== 參考解法 (Python) ==
+import sys
+
+LIMIT = 50000
+phi = list(range(LIMIT + 1))
+for i in range(2, LIMIT + 1):
+    if phi[i] == i:
+        for j in range(i, LIMIT + 1, i):
+            phi[j] -= phi[j] // i
+prefix = [0] * (LIMIT + 1)
+s = 0
+for i in range(1, LIMIT + 1):
+    s += phi[i]
+    prefix[i] = s
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        out.append(str(2 * prefix[n] - 1))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+5
+0
+== 範例 1 輸出 ==
+3
+19
+
+== 範例 2 輸入 ==
+1
+10
+0
+== 範例 2 輸出 ==
+1
+63

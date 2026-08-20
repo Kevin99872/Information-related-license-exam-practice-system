@@ -1,0 +1,65 @@
+CPE 11565 Simple Equations
+
+難度：中等
+來源：改編自 UVa Online Judge #11565 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 A、B、C (1<=A,B,C<=10000)，求三個相異整數 x、y、z，滿足 x+y+z=A、xyz=B、x^2+y^2+z^2=C。若有多組解，取 x 最小者；若仍有並列，取 y 最小者。若無解則輸出 "No solution."。
+
+輸入說明：第一行為測試個數，之後每行三個整數 A B C。
+輸出說明：每行輸出 "x y z"，或 "No solution."。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    t = int(data[idx]); idx += 1
+    out = []
+    for _ in range(t):
+        A = int(data[idx]); B = int(data[idx + 1]); C = int(data[idx + 2]); idx += 3
+        best = None
+        bound = int(math.isqrt(C)) + 2
+        for x in range(-bound, bound + 1):
+            if x == 0 or B % x != 0:
+                continue
+            p = B // x
+            s = A - x
+            disc = s * s - 4 * p
+            if disc < 0:
+                continue
+            root = math.isqrt(disc)
+            if root * root != disc:
+                continue
+            for sign in (1, -1):
+                if (s + sign * root) % 2 != 0:
+                    continue
+                y = (s + sign * root) // 2
+                z = s - y
+                if x == y or y == z or x == z:
+                    continue
+                if x * x + y * y + z * z != C:
+                    continue
+                cand = (x, y, z)
+                if best is None or cand < best:
+                    best = cand
+        out.append(f"{best[0]} {best[1]} {best[2]}" if best else "No solution.")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+1 2 3
+6 6 14
+== 範例 1 輸出 ==
+No solution.
+1 2 3
+
+== 範例 2 輸入 ==
+1
+1 1 1
+== 範例 2 輸出 ==
+No solution.

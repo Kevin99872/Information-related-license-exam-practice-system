@@ -1,0 +1,51 @@
+CPE 10391 Compound Words
+
+難度：中等
+來源：改編自 UVa Online Judge #10391 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定依字母順序排列的字典 (小寫單字)，找出所有「複合字」：一個複合字恰好是字典中另外兩個單字的串接。
+
+輸入說明：多行小寫單字 (依字母順序排列)，讀到檔案結尾。
+輸出說明：依字母順序輸出所有複合字，每行一個。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    words = [w.strip() for w in sys.stdin if w.strip()]
+    wordset = set(words)
+    out = []
+    for w in words:
+        n = len(w)
+        for i in range(1, n):
+            if w[:i] in wordset and w[i:] in wordset:
+                out.append(w)
+                break
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+a
+alien
+born
+less
+lien
+never
+nevertheless
+new
+newborn
+the
+zebra
+== 範例 1 輸出 ==
+alien
+newborn
+
+== 範例 2 輸入 ==
+cat
+cats
+dog
+catdog
+== 範例 2 輸出 ==
+catdog

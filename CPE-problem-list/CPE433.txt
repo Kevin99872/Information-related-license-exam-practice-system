@@ -1,0 +1,51 @@
+CPE Valid Triangle Number Count
+
+難度：中等
+來源：原創（雙指標：可構成三角形的數對計數）
+
+== 題目 ==
+給定 n 個正整數，求有多少組三元組 (i,j,k) 可以構成三角形的三邊長 (任兩邊之和大於第三邊)。
+
+輸入說明：每組第一行 n，第二行 n 個正整數。n=0 表示輸入結束。
+輸出說明：每組輸出符合條件的三元組數量。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        count = 0
+        for k in range(n - 1, 1, -1):
+            i, j = 0, k - 1
+            while i < j:
+                if a[i] + a[j] > a[k]:
+                    count += j - i
+                    j -= 1
+                else:
+                    i += 1
+        out.append(str(count))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+2 2 3 4
+0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+3
+4 2 3
+0
+== 範例 2 輸出 ==
+1

@@ -1,0 +1,55 @@
+CPE 10281 Average Speed
+
+難度：中等
+來源：改編自 UVa Online Judge #10281 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+你開車從一地到另一地，車子一開始靜止。輸入包含一連串事件：某個時間點車速改變為新的速度，或是查詢「目前為止走了多少距離」。時間以 hh:mm:ss 表示，事件依非遞減順序給定。
+
+輸入說明：每行為 "時間 新速度" (車速改變) 或單純 "時間" (查詢)，讀到檔案結尾。
+輸出說明：每個查詢輸出 "時間 距離(公里，取到小數點後 2 位) km"。
+
+== 參考解法 (Python) ==
+import sys
+
+def parse_time(s):
+    h, m, sec = map(int, s.split(':'))
+    return h * 3600 + m * 60 + sec
+
+def main():
+    out = []
+    last_time = 0
+    speed = 0
+    distance = 0.0
+    for line in sys.stdin:
+        parts = line.split()
+        if not parts:
+            continue
+        t = parse_time(parts[0])
+        distance += speed * (t - last_time) / 3600.0
+        last_time = t
+        if len(parts) == 2:
+            speed = int(parts[1])
+        else:
+            out.append(f"{parts[0]} {distance:.2f} km")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+00:00:01 100
+00:15:01
+00:30:01
+01:00:01 50
+03:00:01
+03:00:05 140
+== 範例 1 輸出 ==
+00:15:01 25.00 km
+00:30:01 50.00 km
+03:00:01 200.00 km
+
+== 範例 2 輸入 ==
+00:00:00 60
+01:00:00
+== 範例 2 輸出 ==
+01:00:00 60.00 km

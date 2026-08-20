@@ -1,0 +1,47 @@
+CPE Top K Frequent Elements
+
+難度：中等
+來源：原創（堆積 / 排序：出現頻率前 K 高的元素）
+
+== 題目 ==
+給定 n 個整數與整數 k，求出現頻率最高的前 k 個相異元素 (頻率相同時，數值較小者優先)。
+
+輸入說明：每組第一行 n k，第二行 n 個整數。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出前 k 個高頻元素 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n, k = map(int, line.split())
+        if n == 0:
+            break
+        nums = list(map(int, data[idx].split())); idx += 1
+        c = Counter(nums)
+        ranked = sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))
+        out.append(' '.join(str(x) for x, _ in ranked[:k]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6 2
+1 1 1 2 2 3
+0 0
+== 範例 1 輸出 ==
+1 2
+
+== 範例 2 輸入 ==
+4 1
+1 2 3 4
+0 0
+== 範例 2 輸出 ==
+1

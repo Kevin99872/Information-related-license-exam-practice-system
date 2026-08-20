@@ -1,0 +1,50 @@
+CPE Maximum Circular Subarray Sum
+
+難度：中等
+來源：原創（Kadane 演算法擴展：環狀最大子陣列和）
+
+== 題目 ==
+給定 n 個整數排成一個「環狀」陣列 (最後一個元素與第一個元素相鄰)，求連續子陣列 (可以跨越首尾) 的最大總和 (子陣列長度至少為 1)。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出最大總和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        total = sum(a)
+        cur_max = best_max = a[0]
+        cur_min = best_min = a[0]
+        for x in a[1:]:
+            cur_max = max(x, cur_max + x)
+            best_max = max(best_max, cur_max)
+            cur_min = min(x, cur_min + x)
+            best_min = min(best_min, cur_min)
+        out.append(str(best_max) if best_max < 0 else str(max(best_max, total - best_min)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 -2 3 -2
+0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+3
+-3 -2 -3
+0
+== 範例 2 輸出 ==
+-2

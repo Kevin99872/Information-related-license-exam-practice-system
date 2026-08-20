@@ -1,0 +1,78 @@
+CPE Articulation Points (Cut Vertices)
+
+難度：困難
+來源：原創（Tarjan 演算法：無向圖割點）
+
+== 題目 ==
+給定一個含 n 個節點、m 條邊的無向圖，求所有「割點」(移除該點及其相連的邊後，圖會變得不連通，或分量數增加)。
+
+輸入說明：每組第一行 n m，接著 m 行each 兩個整數 u v。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出所有割點編號 (由小到大，以空白分隔)；若無割點輸出 none。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        adj = [[] for _ in range(n)]
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            adj[u].append(v)
+            adj[v].append(u)
+        disc = [-1] * n
+        low = [0] * n
+        is_art = [False] * n
+        timer = [0]
+
+        def dfs(u, parent):
+            disc[u] = low[u] = timer[0]
+            timer[0] += 1
+            children = 0
+            for v in adj[u]:
+                if v == parent:
+                    continue
+                if disc[v] == -1:
+                    children += 1
+                    dfs(v, u)
+                    low[u] = min(low[u], low[v])
+                    if parent != -1 and low[v] >= disc[u]:
+                        is_art[u] = True
+                else:
+                    low[u] = min(low[u], disc[v])
+            if parent == -1 and children > 1:
+                is_art[u] = True
+
+        for i in range(n):
+            if disc[i] == -1:
+                dfs(i, -1)
+        result = sorted(i for i in range(n) if is_art[i])
+        out.append(' '.join(map(str, result)) if result else 'none')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 5
+0 1
+1 2
+2 0
+1 3
+3 4
+0 0
+== 範例 1 輸出 ==
+1 3
+
+== 範例 2 輸入 ==
+4 3
+0 1
+1 2
+2 3
+0 0
+== 範例 2 輸出 ==
+1 2

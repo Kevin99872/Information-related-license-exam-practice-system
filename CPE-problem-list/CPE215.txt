@@ -1,0 +1,61 @@
+CPE 10344 23 Out of 5
+
+難度：中等
+來源：改編自 UVa Online Judge #10344 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 5 個正整數，判斷是否能透過排列這 5 個數字並在數字之間依序填入 +、-、* (由左到右依序運算，無括號優先順序) 湊出 23。
+
+輸入說明：每行 5 個正整數 (1~50)，"0 0 0 0 0" 表示輸入結束。
+輸出說明：每行輸出 Possible 或 Impossible。
+
+== 參考解法 (Python) ==
+import sys
+import itertools
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    ops = ['+', '-', '*']
+    while idx < len(data):
+        nums = [int(data[idx + i]) for i in range(5)]
+        idx += 5
+        if nums == [0, 0, 0, 0, 0]:
+            break
+        found = False
+        for perm in itertools.permutations(nums):
+            for opcombo in itertools.product(ops, repeat=4):
+                val = perm[0]
+                for i in range(4):
+                    if opcombo[i] == '+':
+                        val += perm[i + 1]
+                    elif opcombo[i] == '-':
+                        val -= perm[i + 1]
+                    else:
+                        val *= perm[i + 1]
+                if val == 23:
+                    found = True
+                    break
+            if found:
+                break
+        out.append('Possible' if found else 'Impossible')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 1 1 1 1
+1 2 3 4 5
+2 3 5 7 11
+0 0 0 0 0
+== 範例 1 輸出 ==
+Impossible
+Possible
+Possible
+
+== 範例 2 輸入 ==
+5 5 5 5 5
+0 0 0 0 0
+== 範例 2 輸出 ==
+Impossible

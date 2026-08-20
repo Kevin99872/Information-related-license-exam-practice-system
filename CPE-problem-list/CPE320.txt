@@ -1,0 +1,65 @@
+CPE Floyd-Warshall All-Pairs Shortest Path
+
+難度：中等
+來源：原創（Floyd-Warshall 全點對最短路徑演算法）
+
+== 題目 ==
+給定一個含 n 個節點、m 條無向加權邊的圖，求所有點對之間的最短距離；若兩點不連通則輸出 -1。
+
+輸入說明：每組第一行 n m，接著 m 行each 三個整數 u v w。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出 n 行，第 i 行為節點 i 到所有節點 (0~n-1) 的最短距離 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        INF = float('inf')
+        dist = [[INF] * n for _ in range(n)]
+        for i in range(n):
+            dist[i][i] = 0
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            if w < dist[u][v]:
+                dist[u][v] = w
+                dist[v][u] = w
+        for k in range(n):
+            for i in range(n):
+                if dist[i][k] == INF:
+                    continue
+                for j in range(n):
+                    if dist[i][k] + dist[k][j] < dist[i][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+        for row in dist:
+            out.append(' '.join('-1' if v == INF else str(v) for v in row))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 4
+0 1 3
+1 2 1
+2 3 2
+0 3 10
+0 0
+== 範例 1 輸出 ==
+0 3 4 6
+3 0 1 3
+4 1 0 2
+6 3 2 0
+
+== 範例 2 輸入 ==
+3 1
+0 1 5
+0 0
+== 範例 2 輸出 ==
+0 5 -1
+5 0 -1
+-1 -1 0

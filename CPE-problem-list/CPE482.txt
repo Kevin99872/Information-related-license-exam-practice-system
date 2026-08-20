@@ -1,0 +1,44 @@
+CPE 移除最少括號使字串合法
+
+難度：中等
+來源：原創（堆疊標記法）
+
+== 題目 ==
+給定一個包含小寫英文字母與括號 '(' ')' 的字串，請移除最少數量的括號，
+使剩下的括號合法（每個左括號都有對應右括號，且順序正確），輸出處理後的字串（字母保持原順序不變）。
+
+輸入每行一個字串，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        chars = list(s)
+        stack = []
+        for i, c in enumerate(chars):
+            if c == '(':
+                stack.append(i)
+            elif c == ')':
+                if stack:
+                    stack.pop()
+                else:
+                    chars[i] = ''
+        for i in stack:
+            chars[i] = ''
+        out.append(''.join(chars))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+lee(t(c)o)de)
+a)b(c)d
+))((
+== 範例 1 輸出 ==
+lee(t(c)o)de
+ab(c)d

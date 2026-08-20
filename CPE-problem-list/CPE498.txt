@@ -1,0 +1,52 @@
+CPE 合併相似的物品
+
+難度：簡單
+來源：原創（雜湊表累加合併）
+
+== 題目 ==
+給定兩個物品清單，每個物品以 (value, weight) 表示。若兩份清單中存在相同 value 的物品，
+請將其 weight 合併相加。輸出合併後的結果，依 value 由小到大排序。
+
+輸入格式：第一行為第一份清單物品數 n1（n1=0 代表輸入結束）；接下來 n1 行each 為 v w；
+接下來一行為第二份清單物品數 n2；接下來 n2 行each 為 v w。
+輸出合併後結果，格式 "v,w"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+from collections import defaultdict
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n1 = int(line)
+        if n1 == 0:
+            break
+        merged = defaultdict(int)
+        for _ in range(n1):
+            v, w = map(int, data[idx].split()); idx += 1
+            merged[v] += w
+        n2 = int(data[idx].strip()); idx += 1
+        for _ in range(n2):
+            v, w = map(int, data[idx].split()); idx += 1
+            merged[v] += w
+        result = sorted(merged.items())
+        out.append(' '.join(f"{v},{w}" for v, w in result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+1 1
+4 5
+3 8
+2
+3 1
+1 5
+== 範例 1 輸出 ==
+1,6 3,9 4,5

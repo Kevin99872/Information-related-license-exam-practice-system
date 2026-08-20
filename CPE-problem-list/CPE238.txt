@@ -1,0 +1,59 @@
+CPE Generate Spiral Matrix
+
+難度：簡單
+來源：原創（螺旋矩陣生成）
+
+== 題目 ==
+給定 n，產生一個 n*n 矩陣，將 1 到 n*n 依「順時針螺旋」順序填入。
+
+輸入說明：每行一個整數 n (1<=n<=20)，讀到檔案結尾。
+輸出說明：每組輸出 n 行each n 個整數 (以空白分隔)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    blocks = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        grid = [[0] * n for _ in range(n)]
+        top, bottom, left, right = 0, n - 1, 0, n - 1
+        val = 1
+        while top <= bottom and left <= right:
+            for j in range(left, right + 1):
+                grid[top][j] = val; val += 1
+            top += 1
+            for i in range(top, bottom + 1):
+                grid[i][right] = val; val += 1
+            right -= 1
+            if top <= bottom:
+                for j in range(right, left - 1, -1):
+                    grid[bottom][j] = val; val += 1
+                bottom -= 1
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    grid[i][left] = val; val += 1
+                left += 1
+        blocks.append('\n'.join(' '.join(map(str, row)) for row in grid))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+3
+== 範例 1 輸出 ==
+1 2 3
+8 9 4
+7 6 5
+
+== 範例 2 輸入 ==
+1
+2
+== 範例 2 輸出 ==
+1
+
+1 2
+4 3

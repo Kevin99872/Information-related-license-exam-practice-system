@@ -1,0 +1,41 @@
+CPE 陣列的排名轉換
+
+難度：簡單
+來源：原創（排序 + 雜湊映射）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列，請將每個元素替換為其「排名」：
+最小值的排名為 1，第二小的（不同）值排名為 2，以此類推（相同值排名相同）。
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        rank = {v: i + 1 for i, v in enumerate(sorted(set(a)))}
+        out.append(' '.join(str(rank[x]) for x in a))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+40 10 20 30 20
+== 範例 1 輸出 ==
+4 1 2 3 2
+
+== 範例 2 輸入 ==
+3
+100 100 100
+== 範例 2 輸出 ==
+1 1 1

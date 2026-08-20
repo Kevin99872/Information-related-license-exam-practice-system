@@ -1,0 +1,49 @@
+CPE 等差數列切片計數
+
+難度：簡單
+來源：原創（連續子陣列計數）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列 a，一個「等差切片」定義為一段連續子陣列（長度至少 3），
+其中相鄰元素的差值都相同。請問陣列中共有多少個等差切片？（不同起訖位置視為不同切片）
+
+輸入格式：第一行為 n（n=0 代表輸入結束）；第二行為 n 個整數。
+對每組測試資料輸出一行等差切片總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        total = 0
+        cur = 0
+        for i in range(2, n):
+            if a[i] - a[i - 1] == a[i - 1] - a[i - 2]:
+                cur += 1
+                total += cur
+            else:
+                cur = 0
+        out.append(str(total))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+1 2 3 4 5
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+4
+1 3 5 9
+== 範例 2 輸出 ==
+1

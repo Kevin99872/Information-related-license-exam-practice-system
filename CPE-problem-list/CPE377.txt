@@ -1,0 +1,56 @@
+CPE 4Sum
+
+難度：中等
+來源：原創（雙指標：四數之和計數）
+
+== 題目 ==
+給定 n 個整數與目標值 target，求有多少組「相異的數值組合」四元組，使其和恰為 target (同一組數值組合只算一次，即使有多種索引方式)。
+
+輸入說明：每組第一行 n target，第二行 n 個整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出符合條件的四元組數量。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        a = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        results = set()
+        for i in range(n - 3):
+            for j in range(i + 1, n - 2):
+                l, r = j + 1, n - 1
+                while l < r:
+                    s = a[i] + a[j] + a[l] + a[r]
+                    if s == target:
+                        results.add((a[i], a[j], a[l], a[r]))
+                        l += 1
+                        r -= 1
+                    elif s < target:
+                        l += 1
+                    else:
+                        r -= 1
+        out.append(str(len(results)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6 0
+1 0 -1 0 -2 2
+0 0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+4 8
+2 2 2 2
+0 0
+== 範例 2 輸出 ==
+1

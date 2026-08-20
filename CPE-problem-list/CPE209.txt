@@ -1,0 +1,55 @@
+CPE 993 Product of digits
+
+難度：簡單
+來源：改編自 UVa Online Judge #993 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定非負整數 N，求最小的正整數 Q，使得 Q 的所有數字乘積恰為 N；若不存在則輸出 -1。
+
+輸入說明：第一行為測試個數，之後每行一個整數 N (0<=N<=10^9)。
+輸出說明：每行輸出最小的 Q，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    t = int(data[idx]); idx += 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            out.append('10')
+            continue
+        if n == 1:
+            out.append('1')
+            continue
+        digits = []
+        x = n
+        for d in range(9, 1, -1):
+            while x % d == 0:
+                digits.append(d)
+                x //= d
+        out.append('-1' if x != 1 else ''.join(map(str, sorted(digits))))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+1
+10
+123456789
+== 範例 1 輸出 ==
+1
+25
+-1
+
+== 範例 2 輸入 ==
+2
+0
+9
+== 範例 2 輸出 ==
+10
+9

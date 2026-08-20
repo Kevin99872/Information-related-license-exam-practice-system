@@ -1,0 +1,42 @@
+CPE 484 The Department of Redundancy Department
+
+難度：簡單
+來源：改編自 UVa Online Judge #484 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一串整數，依「原本第一次出現的順序」列出每個相異整數及其出現次數。
+
+輸入說明：一連串以空白分隔的整數 (可能跨多行)。
+輸出說明：依首次出現順序，每行輸出 "整數 出現次數"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    seen_order = []
+    counts = {}
+    for tok in data:
+        n = int(tok)
+        if n not in counts:
+            counts[n] = 0
+            seen_order.append(n)
+        counts[n] += 1
+    for n in seen_order:
+        print(n, counts[n])
+
+main()
+
+== 範例 1 輸入 ==
+3 1 2 2 1 3 5 3 3 2
+== 範例 1 輸出 ==
+3 4
+1 2
+2 3
+5 1
+
+== 範例 2 輸入 ==
+7 7 7 1
+== 範例 2 輸出 ==
+7 3
+1 1

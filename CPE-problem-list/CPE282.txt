@@ -1,0 +1,60 @@
+CPE Combination Sum
+
+難度：中等
+來源：原創（回溯法：組合總和）
+
+== 題目 ==
+給定 n 個相異正整數 (候選數字，每個可重複使用) 與目標值 target，列出所有「總和恰為 target」的組合 (組合內數字由小到大排列，各組合以數字由小到大的順序輸出，組合之間也依序輸出)。
+
+輸入說明：每組第一行 n target，第二行 n 個相異正整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組先輸出組合總數，接著每行輸出一個組合 (數字間以 '+' 相連)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        candidates = sorted(set(int(data[idx + i]) for i in range(n)))
+        idx += n
+        results = []
+
+        def backtrack(start, remain, path):
+            if remain == 0:
+                results.append('+'.join(map(str, path)))
+                return
+            for i in range(start, len(candidates)):
+                if candidates[i] > remain:
+                    break
+                path.append(candidates[i])
+                backtrack(i, remain - candidates[i], path)
+                path.pop()
+
+        backtrack(0, target, [])
+        out.append(str(len(results)))
+        out.extend(results)
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 7
+2 3 6 7
+0 0
+== 範例 1 輸出 ==
+2
+2+2+3
+7
+
+== 範例 2 輸入 ==
+2 4
+2 3
+0 0
+== 範例 2 輸出 ==
+1
+2+2

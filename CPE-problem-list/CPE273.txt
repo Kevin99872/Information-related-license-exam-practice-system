@@ -1,0 +1,59 @@
+CPE Search in Rotated Sorted Array
+
+難度：中等
+來源：原創（二分搜尋：旋轉排序陣列查找）
+
+== 題目 ==
+給定一個原本嚴格遞增、但經過「循環旋轉」的陣列 (元素不重複)，以及目標值 target，用二分搜尋法 (O(log n)) 求 target 的索引；若不存在則輸出 -1。
+
+輸入說明：每組第一行 n target，第二行 n 個整數 (旋轉排序後的陣列)。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出索引，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        lo, hi = 0, n - 1
+        ans = -1
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            if a[mid] == target:
+                ans = mid
+                break
+            if a[lo] <= a[mid]:
+                if a[lo] <= target < a[mid]:
+                    hi = mid - 1
+                else:
+                    lo = mid + 1
+            else:
+                if a[mid] < target <= a[hi]:
+                    lo = mid + 1
+                else:
+                    hi = mid - 1
+        out.append(str(ans))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7 0
+4 5 6 7 0 1 2
+0 0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+7 3
+4 5 6 7 0 1 2
+0 0
+== 範例 2 輸出 ==
+-1

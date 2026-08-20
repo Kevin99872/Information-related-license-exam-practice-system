@@ -1,0 +1,54 @@
+CPE Super Ugly Number
+
+難度：中等
+來源：原創（動態規劃：指定質數集合的醜數）
+
+== 題目 ==
+給定一組質數清單，「超級醜數」是指質因數只包含這些質數的正整數 (1 視為超級醜數)。求第 n 個超級醜數 (由小到大排列)。
+
+輸入說明：每行第一個數為 n，接著為質數清單 (數量不定)。n=0 表示輸入結束。
+輸出說明：每行輸出第 n 個超級醜數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        parts = line.split()
+        n = int(parts[0])
+        if n == 0:
+            break
+        primes = list(map(int, parts[1:]))
+        k = len(primes)
+        ugly = [0] * n
+        ugly[0] = 1
+        idxs = [0] * k
+        for i in range(1, n):
+            candidates = [ugly[idxs[j]] * primes[j] for j in range(k)]
+            nxt = min(candidates)
+            ugly[i] = nxt
+            for j in range(k):
+                if candidates[j] == nxt:
+                    idxs[j] += 1
+        out.append(str(ugly[n - 1]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+12 2 7 13 19
+0
+== 範例 1 輸出 ==
+32
+
+== 範例 2 輸入 ==
+1 3 5
+0
+== 範例 2 輸出 ==
+1

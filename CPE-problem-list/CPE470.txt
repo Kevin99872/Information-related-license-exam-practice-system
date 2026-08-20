@@ -1,0 +1,38 @@
+CPE 字串的最大公因字串
+
+難度：簡單
+來源：原創（字串週期性質）
+
+== 題目 ==
+給定兩個字串 s1、s2，若存在一個字串 t，使得 s1 與 s2 都是 t 重複若干次所組成，
+則稱 t 為 s1、s2 的一個「公因字串」。請求出最長的公因字串；若不存在，輸出空行。
+
+輸入每行兩個以空白分隔的字串 s1 s2，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s1, s2 = line.split()
+        if s1 + s2 != s2 + s1:
+            out.append('')
+            continue
+        g = math.gcd(len(s1), len(s2))
+        out.append(s1[:g])
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+ABCABC ABC
+ABABAB ABAB
+LEET CODE
+== 範例 1 輸出 ==
+ABC
+AB

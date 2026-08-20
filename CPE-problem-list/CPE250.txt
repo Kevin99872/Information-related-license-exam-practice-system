@@ -1,0 +1,49 @@
+CPE Divisor Count via Sieve
+
+難度：簡單
+來源：原創（篩法預處理：因數個數查詢）
+
+== 題目 ==
+給定多個查詢整數 n，求各自的正因數個數 (使用篩法預先計算 1~100000 內每個數的因數個數，以加速查詢)。
+
+輸入說明：每行一個整數 n (1<=n<=100000)，"0" 表示輸入結束。
+輸出說明：每行輸出 n 的正因數個數。
+
+== 參考解法 (Python) ==
+import sys
+
+LIMIT = 100000
+divcnt = [0] * (LIMIT + 1)
+for i in range(1, LIMIT + 1):
+    for j in range(i, LIMIT + 1, i):
+        divcnt[j] += 1
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        out.append(str(divcnt[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+28
+1
+0
+== 範例 1 輸出 ==
+6
+1
+
+== 範例 2 輸入 ==
+100
+97
+0
+== 範例 2 輸出 ==
+9
+2

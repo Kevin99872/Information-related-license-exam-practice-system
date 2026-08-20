@@ -1,0 +1,53 @@
+CPE Distinct Subsequences Matching Target
+
+難度：中等
+來源：原創（動態規劃：等於目標字串的相異子序列個數）
+
+== 題目 ==
+給定字串 s 與目標字串 t，求 s 中「相異子序列」等於 t 的個數 (子序列不要求連續)。
+
+輸入說明：每組兩行分別為字串 s、t，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：每組輸出符合條件的子序列個數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == '#':
+            break
+        s = line
+        t = data[idx].strip(); idx += 1
+        n, m = len(s), len(t)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = 1
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                dp[i][j] = dp[i - 1][j]
+                if s[i - 1] == t[j - 1]:
+                    dp[i][j] += dp[i - 1][j - 1]
+        out.append(str(dp[n][m]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+rabbbit
+rabbit
+#
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+babgbag
+bag
+#
+== 範例 2 輸出 ==
+5

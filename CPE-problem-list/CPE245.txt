@@ -1,0 +1,50 @@
+CPE Kth Missing Positive Number
+
+難度：簡單
+來源：原創（第 K 個缺失的正整數）
+
+== 題目 ==
+給定一個嚴格遞增排序的正整數陣列，求「不在陣列中」的正整數裡，第 k 小的那一個。
+
+輸入說明：每組第一行 n k，第二行 n 個嚴格遞增的正整數。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出第 k 個缺失的正整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        arr = set(int(data[idx + i]) for i in range(n))
+        idx += n
+        count = 0
+        x = 1
+        while True:
+            if x not in arr:
+                count += 1
+                if count == k:
+                    break
+            x += 1
+        out.append(str(x))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 2
+2 3 4 7
+0 0
+== 範例 1 輸出 ==
+5
+
+== 範例 2 輸入 ==
+5 9
+1 2 3 4 5
+0 0
+== 範例 2 輸出 ==
+14

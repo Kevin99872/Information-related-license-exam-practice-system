@@ -1,0 +1,87 @@
+CPE Strongly Connected Components
+
+難度：困難
+來源：原創（Kosaraju 演算法：強連通分量計數）
+
+== 題目 ==
+給定一個含 n 個節點、m 條有向邊的圖，求強連通分量 (SCC) 的個數。
+
+輸入說明：每組第一行 n m，接著 m 行each 兩個整數 u v (代表邊 u→v)。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出強連通分量個數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        adj = [[] for _ in range(n)]
+        radj = [[] for _ in range(n)]
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            adj[u].append(v)
+            radj[v].append(u)
+        visited = [False] * n
+        order = []
+
+        def dfs1(start):
+            stack = [(start, iter(adj[start]))]
+            visited[start] = True
+            while stack:
+                node, it = stack[-1]
+                advanced = False
+                for v in it:
+                    if not visited[v]:
+                        visited[v] = True
+                        stack.append((v, iter(adj[v])))
+                        advanced = True
+                        break
+                if not advanced:
+                    order.append(node)
+                    stack.pop()
+
+        for i in range(n):
+            if not visited[i]:
+                dfs1(i)
+
+        comp = [-1] * n
+        cid = 0
+        for u in reversed(order):
+            if comp[u] == -1:
+                stack = [u]
+                comp[u] = cid
+                while stack:
+                    node = stack.pop()
+                    for v in radj[node]:
+                        if comp[v] == -1:
+                            comp[v] = cid
+                            stack.append(v)
+                cid += 1
+        out.append(str(cid))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 5
+0 1
+1 2
+2 0
+2 3
+3 4
+0 0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+3 2
+0 1
+1 2
+0 0
+== 範例 2 輸出 ==
+3

@@ -1,0 +1,66 @@
+CPE 11947 Cancer or Scorpio
+
+難度：中等
+來源：改編自 UVa Online Judge #11947 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定末次月經第一天的日期，妊娠期以 40 週計算，求預產期以及該日期對應的星座 (星座區間表如下，需考慮閏年)：
+摩羯 12/23~1/20、水瓶 1/21~2/19、雙魚 2/20~3/20、牡羊 3/21~4/20、金牛 4/21~5/21、雙子 5/22~6/21、巨蟹 6/22~7/22、獅子 7/23~8/21、處女 8/22~9/23、天秤 9/24~10/23、天蠍 10/24~11/22、射手 11/23~12/22。
+
+輸入說明：第一行為測試個數 N，之後每行 8 位數字，格式為 MMDDYYYY (末次月經第一天)。
+輸出說明：每行輸出 "編號 MM/DD/YYYY 星座名 (小寫)"，編號從 1 開始。
+
+== 參考解法 (Python) ==
+import sys
+import datetime
+
+ZODIAC = [
+    ((1, 1), (1, 20), 'capricorn'),
+    ((1, 21), (2, 19), 'aquarius'),
+    ((2, 20), (3, 20), 'pisces'),
+    ((3, 21), (4, 20), 'aries'),
+    ((4, 21), (5, 21), 'taurus'),
+    ((5, 22), (6, 21), 'gemini'),
+    ((6, 22), (7, 22), 'cancer'),
+    ((7, 23), (8, 21), 'leo'),
+    ((8, 22), (9, 23), 'virgo'),
+    ((9, 24), (10, 23), 'libra'),
+    ((10, 24), (11, 22), 'scorpio'),
+    ((11, 23), (12, 22), 'sagittarius'),
+    ((12, 23), (12, 31), 'capricorn'),
+]
+
+def zodiac_of(m, d):
+    for (sm, sd), (em, ed), name in ZODIAC:
+        if (sm, sd) <= (m, d) <= (em, ed):
+            return name
+    return ''
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    n = int(data[idx]); idx += 1
+    out = []
+    for i in range(1, n + 1):
+        s = data[idx]; idx += 1
+        mm, dd, yyyy = int(s[0:2]), int(s[2:4]), int(s[4:8])
+        birth = datetime.date(yyyy, mm, dd) + datetime.timedelta(weeks=40)
+        sign = zodiac_of(birth.month, birth.day)
+        out.append(f"{i} {birth.month:02d}/{birth.day:02d}/{birth.year} {sign}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+01232009
+01232008
+== 範例 1 輸出 ==
+1 10/30/2009 scorpio
+2 10/29/2008 scorpio
+
+== 範例 2 輸入 ==
+1
+06011999
+== 範例 2 輸出 ==
+1 03/07/2000 pisces

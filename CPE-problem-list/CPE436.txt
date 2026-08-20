@@ -1,0 +1,39 @@
+CPE Power of Two Check
+
+難度：簡單
+來源：原創（位元運算：判斷是否為 2 的冪）
+
+== 題目 ==
+判斷給定整數是否為 2 的整數次方 (1, 2, 4, 8, ...)。
+
+輸入說明：每行一個整數 n，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        out.append('Yes' if n > 0 and (n & (n - 1)) == 0 else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+16
+== 範例 1 輸出 ==
+Yes
+Yes
+
+== 範例 2 輸入 ==
+0
+18
+== 範例 2 輸出 ==
+No
+No

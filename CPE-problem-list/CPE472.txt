@@ -1,0 +1,53 @@
+CPE 正規表示式匹配
+
+難度：困難
+來源：原創（動態規劃字串匹配）
+
+== 題目 ==
+給定字串 s 與模式字串 p，p 中可包含 '.'（匹配任意單一字元）與 '*'（前一個字元可重複 0 次以上）。
+請判斷 p 是否能匹配整個 s（完全匹配）。若可以輸出 "Yes"，否則輸出 "No"。
+
+輸入每行兩個以空白分隔的字串 s p，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def is_match(s, p):
+    n, m = len(s), len(p)
+    dp = [[False] * (m + 1) for _ in range(n + 1)]
+    dp[0][0] = True
+    for j in range(1, m + 1):
+        if p[j - 1] == '*':
+            dp[0][j] = dp[0][j - 2]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if p[j - 1] == '*':
+                dp[i][j] = dp[i][j - 2]
+                if p[j - 2] == '.' or p[j - 2] == s[i - 1]:
+                    dp[i][j] = dp[i][j] or dp[i - 1][j]
+            elif p[j - 1] == '.' or p[j - 1] == s[i - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+    return dp[n][m]
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s, p = line.split()
+        out.append('Yes' if is_match(s, p) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+aa a
+aa a*
+ab .*
+aab c*a*b
+== 範例 1 輸出 ==
+No
+Yes
+Yes
+Yes

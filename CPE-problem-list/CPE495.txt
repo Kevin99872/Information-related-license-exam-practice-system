@@ -1,0 +1,36 @@
+CPE 反轉二進位位元
+
+難度：簡單
+來源：原創（位元運算基礎題）
+
+== 題目 ==
+給定一個以 32 位元無號整數表示的整數 n（0 <= n < 2^32），
+請將其二進位表示反轉（左右對調），輸出反轉後的整數值（十進位）。
+
+輸入每行一個整數，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        result = 0
+        for i in range(32):
+            result = (result << 1) | (n & 1)
+            n >>= 1
+        out.append(str(result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+43261596
+4294967293
+== 範例 1 輸出 ==
+964176192
+3221225471

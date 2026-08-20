@@ -1,0 +1,46 @@
+CPE Excel Column Title
+
+難度：簡單
+來源：原創（Excel 欄位編號轉字母 (26 進位變體)）
+
+== 題目 ==
+Excel 欄位命名方式為 A,B,...,Z,AA,AB,...(類似 26 進位，但沒有 0)。給定欄位編號 (由 1 開始)，求對應的欄位字母名稱。
+
+輸入說明：每行一個整數 n (1<=n<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出對應的欄位字母。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        res = []
+        while n > 0:
+            n -= 1
+            res.append(chr(n % 26 + 65))
+            n //= 26
+        out.append(''.join(reversed(res)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+28
+701
+== 範例 1 輸出 ==
+A
+AB
+ZY
+
+== 範例 2 輸入 ==
+26
+27
+== 範例 2 輸出 ==
+Z
+AA

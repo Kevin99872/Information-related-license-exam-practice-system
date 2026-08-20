@@ -1,0 +1,68 @@
+CPE Rotate Matrix Layers
+
+難度：中等
+來源：原創（矩陣同心層旋轉）
+
+== 題目 ==
+給定 n*n 矩陣，將矩陣的每一同心層 (由外而內) 都順時針旋轉 k 個位置 (層上的元素依順時針方向整體移動 k 格)。
+
+輸入說明：每組第一行 n k，接著 n 行each n 個整數。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出旋轉後的矩陣 (n 行each n 個整數)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    blocks = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        grid = []
+        for i in range(n):
+            grid.append([int(data[idx + j]) for j in range(n)])
+            idx += n
+        layers = n // 2
+        for layer in range(layers):
+            cells = []
+            top, bottom, left, right = layer, n - 1 - layer, layer, n - 1 - layer
+            for j in range(left, right):
+                cells.append((top, j))
+            for i in range(top, bottom):
+                cells.append((i, right))
+            for j in range(right, left, -1):
+                cells.append((bottom, j))
+            for i in range(bottom, top, -1):
+                cells.append((i, left))
+            m = len(cells)
+            vals = [grid[r][c] for r, c in cells]
+            shift = k % m
+            new_vals = vals[-shift:] + vals[:-shift] if shift else vals
+            for (r, c), v in zip(cells, new_vals):
+                grid[r][c] = v
+        blocks.append('\n'.join(' '.join(map(str, row)) for row in grid))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+3 1
+1 2 3
+4 5 6
+7 8 9
+0 0
+== 範例 1 輸出 ==
+4 1 2
+7 5 3
+8 9 6
+
+== 範例 2 輸入 ==
+2 1
+1 2
+3 4
+0 0
+== 範例 2 輸出 ==
+3 1
+4 2

@@ -1,0 +1,59 @@
+CPE D 天內送達包裹的船運能力
+
+難度：中等
+來源：原創（答案二分搜尋）
+
+== 題目 ==
+給定 n 個包裹的重量（依序需要在 d 天內運完，每天運送的包裹必須是連續的一段，
+且總重不能超過船的載重量 cap），請求出最小的船隻載重量 cap，使得可以在 d 天內運完所有包裹
+（包裹必須按照給定順序裝載，不可重新排序）。
+
+輸入格式：第一行為 n d（n=0 且 d=0 代表輸入結束）；第二行為 n 個正整數重量。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); days = int(data[idx + 1]); idx += 2
+        if n == 0 and days == 0:
+            break
+        weights = [int(data[idx + i]) for i in range(n)]
+        idx += n
+
+        def can_ship(cap):
+            d = 1
+            cur = 0
+            for w in weights:
+                if cur + w > cap:
+                    d += 1
+                    cur = 0
+                cur += w
+            return d <= days
+
+        lo, hi = max(weights), sum(weights)
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if can_ship(mid):
+                hi = mid
+            else:
+                lo = mid + 1
+        out.append(str(lo))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10 5
+1 2 3 4 5 6 7 8 9 10
+== 範例 1 輸出 ==
+15
+
+== 範例 2 輸入 ==
+5 4
+1 2 3 1 1
+== 範例 2 輸出 ==
+3

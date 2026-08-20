@@ -1,0 +1,52 @@
+CPE Unbounded Knapsack
+
+難度：中等
+來源：原創（動態規劃：完全背包問題）
+
+== 題目 ==
+給定 n 種物品 (每種可使用「無限次」) 與背包容量 cap，每種物品有重量 w 與價值 v，求不超過容量下能獲得的最大總價值。
+
+輸入說明：每組第一行 n cap，接著 n 行each 兩個整數 w v。n=0 且 cap=0 表示輸入結束。
+輸出說明：每組輸出最大總價值。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); cap = int(data[idx + 1]); idx += 2
+        if n == 0 and cap == 0:
+            break
+        items = []
+        for _ in range(n):
+            w = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            items.append((w, v))
+        dp = [0] * (cap + 1)
+        for c in range(1, cap + 1):
+            for w, v in items:
+                if w <= c:
+                    dp[c] = max(dp[c], dp[c - w] + v)
+        out.append(str(dp[cap]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 10
+2 3
+3 4
+4 5
+0 0
+== 範例 1 輸出 ==
+15
+
+== 範例 2 輸入 ==
+2 5
+2 3
+5 8
+0 0
+== 範例 2 輸出 ==
+8

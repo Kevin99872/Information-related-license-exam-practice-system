@@ -1,0 +1,55 @@
+CPE Kth Largest Element in a Stream
+
+難度：中等
+來源：原創（最小堆積：資料串流中第 K 大元素）
+
+== 題目 ==
+給定一串依序加入的整數與常數 k，每加入一個數字後，若目前元素數已達 k 個，輸出目前第 k 大的元素；否則輸出 null。
+
+輸入說明：每組第一行為 k，第二行 n 個整數 (依序加入)。k=0 表示輸入結束。
+輸出說明：每加入一個數字輸出一行結果 (第 k 大的值，或 null)。
+
+== 參考解法 (Python) ==
+import sys
+import heapq
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        k = int(line)
+        if k == 0:
+            break
+        nums = list(map(int, data[idx].split())); idx += 1
+        heap = []
+        for x in nums:
+            heapq.heappush(heap, x)
+            if len(heap) > k:
+                heapq.heappop(heap)
+            out.append(str(heap[0]) if len(heap) == k else 'null')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+4 5 8 2
+0
+== 範例 1 輸出 ==
+null
+null
+4
+4
+
+== 範例 2 輸入 ==
+1
+5 2 9
+0
+== 範例 2 輸出 ==
+5
+5
+9

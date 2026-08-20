@@ -1,0 +1,46 @@
+CPE Decode Ways
+
+難度：中等
+來源：原創（動態規劃：數字字串解碼方式計數 (A=1,...,Z=26)）
+
+== 題目 ==
+給定一串數字 (代表 A=1, B=2, ..., Z=26 編碼後的訊息，不含空白)，求有幾種方式可以將其解碼回字母訊息。
+
+輸入說明：每行一個由數字組成的字串，讀到檔案結尾。
+輸出說明：每行輸出解碼方式總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = len(s)
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1 if s[0] != '0' else 0
+        for i in range(2, n + 1):
+            if s[i - 1] != '0':
+                dp[i] += dp[i - 1]
+            two = int(s[i - 2:i])
+            if 10 <= two <= 26:
+                dp[i] += dp[i - 2]
+        out.append(str(dp[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+12
+226
+== 範例 1 輸出 ==
+2
+3
+
+== 範例 2 輸入 ==
+06
+== 範例 2 輸出 ==
+0

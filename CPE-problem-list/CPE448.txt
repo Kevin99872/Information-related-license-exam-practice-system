@@ -1,0 +1,46 @@
+CPE Plus One
+
+難度：簡單
+來源：原創（陣列表示的大數加一）
+
+== 題目 ==
+給定以陣列表示的非負整數 (每個元素為一位數字，最高位在前)，求該數加一後的結果 (同樣以陣列形式輸出)。
+
+輸入說明：每行為以空白分隔的數字陣列，讀到檔案結尾。
+輸出說明：每行輸出加一後的陣列 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        digits = list(map(int, line.split()))
+        i = len(digits) - 1
+        digits[i] += 1
+        while digits[i] == 10:
+            digits[i] = 0
+            i -= 1
+            if i < 0:
+                digits.insert(0, 1)
+                break
+            digits[i] += 1
+        out.append(' '.join(map(str, digits)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 2 3
+9 9
+== 範例 1 輸出 ==
+1 2 4
+1 0 0
+
+== 範例 2 輸入 ==
+0
+== 範例 2 輸出 ==
+1

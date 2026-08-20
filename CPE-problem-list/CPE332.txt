@@ -1,0 +1,54 @@
+CPE Job Scheduling to Minimize Lateness
+
+難度：中等
+來源：原創（貪心：最小化最大延遲時間）
+
+== 題目 ==
+給定 n 個工作，每個工作有處理時間 p 與截止時間 d，工作依序 (不可中斷) 執行，求「安排順序」使所有工作中「完成時間減截止時間」的最大值 (最大延遲) 最小。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 p d。n=0 表示輸入結束。
+輸出說明：每組輸出最小化後的最大延遲 (可能為負或 0，表示提前完成)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        jobs = []
+        for _ in range(n):
+            p = int(data[idx]); d = int(data[idx + 1]); idx += 2
+            jobs.append((d, p))
+        jobs.sort()
+        t = 0
+        max_late = -10 ** 18
+        for d, p in jobs:
+            t += p
+            max_late = max(max_late, t - d)
+        out.append(str(max_late))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+2 4
+1 2
+3 6
+2 5
+0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+2
+5 5
+3 20
+0
+== 範例 2 輸出 ==
+0

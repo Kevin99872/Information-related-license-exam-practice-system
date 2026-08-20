@@ -1,0 +1,68 @@
+CPE Conway's Game of Life
+
+難度：中等
+來源：原創（生命遊戲 (Conway's Game of Life) 模擬）
+
+== 題目 ==
+給定 R*C 的細胞盤面 ('1' 存活、'0' 死亡)，依康威生命遊戲規則計算「下一代」的盤面：存活細胞若周圍 (8 方向) 有 2 或 3 個存活鄰居則存活，否則死亡；死亡細胞若剛好有 3 個存活鄰居則復活。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個字元。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出下一代的盤面 (R 行each C 個字元)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    blocks = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        r, c = map(int, line.split())
+        if r == 0 and c == 0:
+            break
+        grid = [list(data[idx + i]) for i in range(r)]
+        idx += r
+        new_grid = [row[:] for row in grid]
+        for i in range(r):
+            for j in range(c):
+                cnt = 0
+                for di in (-1, 0, 1):
+                    for dj in (-1, 0, 1):
+                        if di == 0 and dj == 0:
+                            continue
+                        ni, nj = i + di, j + dj
+                        if 0 <= ni < r and 0 <= nj < c and grid[ni][nj] == '1':
+                            cnt += 1
+                if grid[i][j] == '1':
+                    new_grid[i][j] = '1' if cnt in (2, 3) else '0'
+                else:
+                    new_grid[i][j] = '1' if cnt == 3 else '0'
+        blocks.append('\n'.join(''.join(row) for row in new_grid))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+3 3
+010
+010
+010
+0 0
+== 範例 1 輸出 ==
+000
+111
+000
+
+== 範例 2 輸入 ==
+3 3
+000
+111
+000
+0 0
+== 範例 2 輸出 ==
+010
+010
+010

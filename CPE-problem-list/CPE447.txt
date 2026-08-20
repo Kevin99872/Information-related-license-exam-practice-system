@@ -1,0 +1,57 @@
+CPE Majority Element II
+
+難度：中等
+來源：原創（Boyer-Moore 投票法：出現超過 n/3 次的元素）
+
+== 題目 ==
+給定 n 個整數，找出所有「出現次數超過 n/3」的相異元素 (由小到大輸出)；若沒有則輸出 none。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出符合條件的元素 (以空白分隔)，或 none。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        cand1 = cand2 = None
+        cnt1 = cnt2 = 0
+        for x in a:
+            if cand1 == x:
+                cnt1 += 1
+            elif cand2 == x:
+                cnt2 += 1
+            elif cnt1 == 0:
+                cand1, cnt1 = x, 1
+            elif cnt2 == 0:
+                cand2, cnt2 = x, 1
+            else:
+                cnt1 -= 1
+                cnt2 -= 1
+        result = sorted(c for c in (cand1, cand2) if c is not None and a.count(c) > n // 3)
+        out.append(' '.join(map(str, result)) if result else 'none')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+3 2 3 1 3 2 2
+0
+== 範例 1 輸出 ==
+2 3
+
+== 範例 2 輸入 ==
+3
+1 2 3
+0
+== 範例 2 輸出 ==
+none

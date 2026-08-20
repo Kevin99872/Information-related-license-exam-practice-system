@@ -1,0 +1,43 @@
+CPE Reverse Integer with Overflow Check
+
+難度：簡單
+來源：原創（整數反轉與溢位檢查）
+
+== 題目 ==
+給定一個 32 位元有號整數，將其數字反轉；若反轉後超出 32 位元有號整數範圍 (-2147483648~2147483647)，輸出 0。
+
+輸入說明：每行一個整數，讀到檔案結尾。
+輸出說明：每行輸出反轉後的結果，或 0 (溢位時)。
+
+== 參考解法 (Python) ==
+import sys
+
+INT_MIN, INT_MAX = -2147483648, 2147483647
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        sign = -1 if n < 0 else 1
+        rev = sign * int(str(abs(n))[::-1])
+        out.append(str(rev) if INT_MIN <= rev <= INT_MAX else '0')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+123
+-123
+== 範例 1 輸出 ==
+321
+-321
+
+== 範例 2 輸入 ==
+1534236469
+120
+== 範例 2 輸出 ==
+0
+21

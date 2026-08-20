@@ -1,0 +1,42 @@
+CPE Partition Labels
+
+難度：中等
+來源：原創（貪心：字串分割使每個字元只出現在一段）
+
+== 題目 ==
+給定一個字串，將其切割成盡量多段，使每個字母只出現在「其中一段」內 (不可跨段)，輸出各段的長度。
+
+輸入說明：每行一個小寫字母字串，讀到檔案結尾。
+輸出說明：每行輸出各段長度 (以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        last = {c: i for i, c in enumerate(s)}
+        result = []
+        start = end = 0
+        for i, c in enumerate(s):
+            end = max(end, last[c])
+            if i == end:
+                result.append(str(end - start + 1))
+                start = i + 1
+        out.append(' '.join(result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+ababcbacadefegdehijhklij
+== 範例 1 輸出 ==
+9 7 8
+
+== 範例 2 輸入 ==
+eccbbbbdec
+== 範例 2 輸出 ==
+10

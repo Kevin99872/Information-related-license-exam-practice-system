@@ -1,0 +1,43 @@
+CPE Excel Column Number
+
+難度：簡單
+來源：原創（Excel 欄位字母轉編號 (26 進位變體)）
+
+== 題目 ==
+給定 Excel 欄位字母名稱 (如 A、AB、ZY)，求對應的欄位編號 (由 1 開始)。
+
+輸入說明：每行一個大寫英文字母字串，讀到檔案結尾。
+輸出說明：每行輸出對應的欄位編號。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = 0
+        for c in s:
+            n = n * 26 + (ord(c) - 64)
+        out.append(str(n))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+A
+AB
+ZY
+== 範例 1 輸出 ==
+1
+28
+701
+
+== 範例 2 輸入 ==
+Z
+AA
+== 範例 2 輸出 ==
+26
+27

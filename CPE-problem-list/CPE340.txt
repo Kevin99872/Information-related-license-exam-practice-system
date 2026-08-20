@@ -1,0 +1,43 @@
+CPE Best Time to Buy and Sell Stock II
+
+難度：簡單
+來源：原創（貪心：股票買賣最大獲利 (可多次交易)）
+
+== 題目 ==
+給定 n 天的股票價格，可以進行「任意多次」買賣 (但同一時間最多持有一股，且必須先買才能賣)，求可獲得的最大總利潤。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出最大總利潤。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        prices = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        profit = sum(max(0, prices[i] - prices[i - 1]) for i in range(1, n))
+        out.append(str(profit))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6
+7 1 5 3 6 4
+0
+== 範例 1 輸出 ==
+7
+
+== 範例 2 輸入 ==
+5
+1 2 3 4 5
+0
+== 範例 2 輸出 ==
+4

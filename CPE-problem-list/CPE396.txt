@@ -1,0 +1,55 @@
+CPE Find All Anagrams in a String
+
+難度：中等
+來源：原創（滑動視窗：找出所有排列 (Anagram) 出現的起始位置）
+
+== 題目 ==
+給定字串 s 與 p，找出 s 中所有「是 p 的排列」的連續子字串的起始索引 (0-indexed)。
+
+輸入說明：每行兩個以空白分隔的字串 s p，讀到檔案結尾。
+輸出說明：每行輸出所有符合條件的起始索引 (由小到大，以空白分隔)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s, p = line.split()
+        n, m = len(s), len(p)
+        if m > n:
+            out.append('')
+            continue
+        need = Counter(p)
+        window = Counter(s[:m])
+        result = []
+        if window == need:
+            result.append(0)
+        for i in range(m, n):
+            window[s[i]] += 1
+            left = s[i - m]
+            window[left] -= 1
+            if window[left] == 0:
+                del window[left]
+            if window == need:
+                result.append(i - m + 1)
+        out.append(' '.join(map(str, result)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+cbaebabacd abc
+abab ab
+== 範例 1 輸出 ==
+0 6
+0 1 2
+
+== 範例 2 輸入 ==
+aaaaa aa
+== 範例 2 輸出 ==
+0 1 2 3

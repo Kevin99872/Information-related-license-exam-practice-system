@@ -1,0 +1,43 @@
+CPE Letter Combinations of a Phone Number
+
+難度：簡單
+來源：原創（電話按鍵字母組合 (回溯法)）
+
+== 題目 ==
+電話按鍵對應字母如下：2=abc, 3=def, 4=ghi, 5=jkl, 6=mno, 7=pqrs, 8=tuv, 9=wxyz。給定一串數字 (2~9)，列出所有可能的字母組合。
+
+輸入說明：每行一個由數字 2~9 組成的字串 (可能為空)，讀到檔案結尾。
+輸出說明：每行輸出所有字母組合，依字典序排列，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+MAP = {
+    '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+    '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz',
+}
+
+def main():
+    out = []
+    for line in sys.stdin:
+        digits = line.strip()
+        if not digits:
+            out.append('')
+            continue
+        results = ['']
+        for d in digits:
+            results = [prefix + c for prefix in results for c in MAP[d]]
+        out.append(' '.join(sorted(results)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+23
+== 範例 1 輸出 ==
+ad ae af bd be bf cd ce cf
+
+== 範例 2 輸入 ==
+2
+== 範例 2 輸出 ==
+a b c

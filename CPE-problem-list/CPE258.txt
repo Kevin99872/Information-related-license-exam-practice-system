@@ -1,0 +1,46 @@
+CPE 580 Critical Mass
+
+難度：簡單
+來源：改編自 UVa Online Judge #580 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+將 U (鈾) 與 L (鉛) 方塊隨機疊成高度 n 的柱子 (每格獨立選 U 或 L)，求會出現「連續 3 個以上 U」(危險組合) 的排列總數。
+
+輸入說明：每行一個正整數 n，"0" 表示輸入結束。
+輸出說明：每行輸出危險組合的總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    seq = [1, 2, 4]
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        while len(seq) <= n:
+            seq.append(seq[-1] + seq[-2] + seq[-3])
+        out.append(str((1 << n) - seq[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+5
+0
+== 範例 1 輸出 ==
+3
+8
+
+== 範例 2 輸入 ==
+3
+6
+0
+== 範例 2 輸出 ==
+1
+20

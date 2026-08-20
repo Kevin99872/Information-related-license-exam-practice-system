@@ -1,0 +1,65 @@
+CPE Bipartite Matching
+
+難度：困難
+來源：原創（二分圖最大匹配 (匈牙利演算法)）
+
+== 題目 ==
+給定左集合 n 個點、右集合 m 個點，以及 e 條連接左右點的邊，求最大匹配數 (使配對的邊數最多，每個點最多配對一次)。
+
+輸入說明：每組第一行 n m e，接著 e 行each 兩個整數 u v (左點 u 與右點 v 相連，0-indexed)。n=0 且 m=0 且 e=0 表示輸入結束。
+輸出說明：每組輸出最大匹配數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); e = int(data[idx + 2]); idx += 3
+        if n == 0 and m == 0 and e == 0:
+            break
+        adj = [[] for _ in range(n)]
+        for _ in range(e):
+            u = int(data[idx]); v = int(data[idx + 1]); idx += 2
+            adj[u].append(v)
+        match_r = [-1] * m
+
+        def try_match(u, visited):
+            for v in adj[u]:
+                if not visited[v]:
+                    visited[v] = True
+                    if match_r[v] == -1 or try_match(match_r[v], visited):
+                        match_r[v] = u
+                        return True
+            return False
+
+        result = 0
+        for u in range(n):
+            visited = [False] * m
+            if try_match(u, visited):
+                result += 1
+        out.append(str(result))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 3 5
+0 0
+0 1
+1 0
+1 2
+2 2
+0 0 0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+2 2 2
+0 0
+0 1
+0 0 0
+== 範例 2 輸出 ==
+1

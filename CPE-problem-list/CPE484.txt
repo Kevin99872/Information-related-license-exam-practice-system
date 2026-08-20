@@ -1,0 +1,51 @@
+CPE 最大連續 1 的個數 III
+
+難度：中等
+來源：原創（滑動視窗，允許翻轉 K 個 0）
+
+== 題目 ==
+給定一個只包含 0 與 1 的陣列，以及整數 k，最多可以將 k 個 0 翻轉為 1，
+請求出翻轉後最長連續 1 的長度。
+
+輸入格式：第一行為 n k（n=0 且 k=0 代表輸入結束）；第二行為 n 個 0/1。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        left = 0
+        zeros = 0
+        best = 0
+        for right in range(n):
+            if a[right] == 0:
+                zeros += 1
+            while zeros > k:
+                if a[left] == 0:
+                    zeros -= 1
+                left += 1
+            best = max(best, right - left + 1)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+11 2
+1 1 1 0 0 0 1 1 1 1 0
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+6 1
+0 0 1 1 0 1
+== 範例 2 輸出 ==
+4

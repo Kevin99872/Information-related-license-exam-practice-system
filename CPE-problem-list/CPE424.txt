@@ -1,0 +1,62 @@
+CPE Cheapest Flights Within K Stops
+
+難度：中等
+來源：原創（Bellman-Ford 變形：限制轉機次數的最便宜航班）
+
+== 題目 ==
+給定 n 個城市、m 條有向航班 (各有價格)，求從 src 到 dst「最多經過 k 次轉機」(即最多 k+1 段航程) 的最低總價格；若無法在限制內到達則輸出 -1。
+
+輸入說明：每組第一行 n m，接著 m 行each 三個整數 u v w (航班 u→v 價格 w)；再一行 src dst k。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出最低總價格，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            break
+        edges = []
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            edges.append((u, v, w))
+        src = int(data[idx]); dst = int(data[idx + 1]); k = int(data[idx + 2]); idx += 3
+        INF = float('inf')
+        dist = [INF] * n
+        dist[src] = 0
+        for _ in range(k + 1):
+            new_dist = dist[:]
+            for u, v, w in edges:
+                if dist[u] != INF and dist[u] + w < new_dist[v]:
+                    new_dist[v] = dist[u] + w
+            dist = new_dist
+        out.append(str(dist[dst]) if dist[dst] != INF else '-1')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 5
+0 1 100
+1 2 100
+2 3 100
+0 3 500
+1 3 100
+0 3 1
+0 0
+== 範例 1 輸出 ==
+200
+
+== 範例 2 輸入 ==
+3 3
+0 1 100
+1 2 100
+0 2 500
+0 2 0
+0 0
+== 範例 2 輸出 ==
+500

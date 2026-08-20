@@ -1,0 +1,55 @@
+CPE Minimum Window Substring
+
+難度：困難
+來源：原創（滑動視窗：最小覆蓋子字串）
+
+== 題目 ==
+給定字串 s 與 t，求 s 中包含 t「所有字元」(含重複次數) 的最短連續子字串；若不存在則輸出空字串。若有多個長度相同的解，取最早出現的一個。
+
+輸入說明：每行兩個以空白分隔的字串 s t，讀到檔案結尾。
+輸出說明：每行輸出符合條件的最短子字串 (可能為空)。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        s, t = line.split()
+        need = Counter(t)
+        missing = len(t)
+        left = 0
+        best_len = len(s) + 1
+        best_start = 0
+        for right, c in enumerate(s):
+            if need[c] > 0:
+                missing -= 1
+            need[c] -= 1
+            while missing == 0:
+                if right - left + 1 < best_len:
+                    best_len = right - left + 1
+                    best_start = left
+                need[s[left]] += 1
+                if need[s[left]] > 0:
+                    missing += 1
+                left += 1
+        out.append(s[best_start:best_start + best_len] if best_len <= len(s) else '')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+ADOBECODEBANC ABC
+aa aa
+== 範例 1 輸出 ==
+BANC
+aa
+
+== 範例 2 輸入 ==
+a aa
+== 範例 2 輸出 ==
+

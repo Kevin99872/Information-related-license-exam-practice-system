@@ -1,0 +1,54 @@
+CPE Assign Cookies
+
+難度：簡單
+來源：原創（貪心：餅乾分配滿足最多小孩）
+
+== 題目 ==
+每個小孩有一個「胃口值」，每塊餅乾有一個「大小」；一塊餅乾能滿足一個小孩，若且唯若餅乾大小「大於等於」小孩胃口值。每個小孩最多分到一塊餅乾，求最多能滿足幾個小孩。
+
+輸入說明：每組第一行 g_n s_n (小孩數、餅乾數)，第二行 g_n 個整數 (胃口值)，第三行 s_n 個整數 (餅乾大小)。"0 0" 表示輸入結束。
+輸出說明：每組輸出最多能滿足的小孩數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        g_n = int(data[idx]); s_n = int(data[idx + 1]); idx += 2
+        if g_n == 0 and s_n == 0:
+            break
+        g = sorted(int(data[idx + i]) for i in range(g_n))
+        idx += g_n
+        s = sorted(int(data[idx + i]) for i in range(s_n))
+        idx += s_n
+        i = j = cnt = 0
+        while i < g_n and j < s_n:
+            if s[j] >= g[i]:
+                cnt += 1
+                i += 1
+                j += 1
+            else:
+                j += 1
+        out.append(str(cnt))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 3
+1 2
+1 2 3
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+3 1
+1 2 3
+2
+0 0
+== 範例 2 輸出 ==
+1

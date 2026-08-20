@@ -1,0 +1,48 @@
+CPE 含萬用字元的合法括號字串
+
+難度：中等
+來源：原創（貪心區間追蹤）
+
+== 題目 ==
+給定一個只包含 '(', ')', '*' 三種字元的字串，其中 '*' 可以被視為 '(' 、 ')' 或空字串。
+請判斷是否存在一種替換方式，使得整個字串成為合法的括號序列。若可行輸出 "Yes"，否則輸出 "No"。
+
+輸入每行一個字串，直到檔案結束。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        lo = hi = 0
+        ok = True
+        for c in s:
+            if c == '(':
+                lo += 1; hi += 1
+            elif c == ')':
+                lo -= 1; hi -= 1
+            else:
+                lo -= 1; hi += 1
+            if hi < 0:
+                ok = False
+                break
+            lo = max(lo, 0)
+        out.append('Yes' if ok and lo == 0 else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+()
+(*)
+(*))
+(((*
+== 範例 1 輸出 ==
+Yes
+Yes
+Yes
+No

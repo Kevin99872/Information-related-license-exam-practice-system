@@ -1,0 +1,58 @@
+CPE Minimum Depth of Binary Tree
+
+難度：簡單
+來源：原創（BFS：二元樹最小深度）
+
+== 題目 ==
+給定一棵二元樹 (陣列表示，節點 0 為根，left[i]/right[i] 為左右子節點索引，-1 表示不存在)，求從根到「最近的葉節點」的深度 (根深度為 1)。
+
+輸入說明：每組第一行 n，接著 n 行each 兩個整數 (節點 0~n-1 依序的 left、right)。n=0 表示輸入結束。
+輸出說明：每組輸出最小深度。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        left, right = [], []
+        for _ in range(n):
+            left.append(int(data[idx])); right.append(int(data[idx + 1])); idx += 2
+        q = deque([(0, 1)])
+        depth = 0
+        while q:
+            u, d = q.popleft()
+            if left[u] == -1 and right[u] == -1:
+                depth = d
+                break
+            if left[u] != -1:
+                q.append((left[u], d + 1))
+            if right[u] != -1:
+                q.append((right[u], d + 1))
+        out.append(str(depth))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 2
+-1 -1
+3 -1
+-1 -1
+0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+1
+-1 -1
+0
+== 範例 2 輸出 ==
+1

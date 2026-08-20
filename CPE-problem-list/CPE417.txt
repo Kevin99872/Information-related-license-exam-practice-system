@@ -1,0 +1,47 @@
+CPE Tribonacci Staircase
+
+難度：簡單
+來源：原創（動態規劃：三步階梯 (Tribonacci) 走法數）
+
+== 題目 ==
+爬一座 n 階樓梯，每步可以走 1、2 或 3 階，求走到頂端的走法總數。
+
+輸入說明：每行一個整數 n (0<=n<=60)，讀到檔案結尾。
+輸出說明：每行輸出走法總數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        for i in range(1, n + 1):
+            dp[i] = dp[i - 1] + (dp[i - 2] if i >= 2 else 0) + (dp[i - 3] if i >= 3 else 0)
+        out.append(str(dp[n]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+0
+1
+2
+3
+4
+== 範例 1 輸出 ==
+1
+1
+2
+4
+7
+
+== 範例 2 輸入 ==
+5
+== 範例 2 輸出 ==
+13

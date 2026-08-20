@@ -1,0 +1,57 @@
+CPE 連續子陣列和能被 K 整除
+
+難度：中等
+來源：原創（前綴和取餘技巧）
+
+== 題目 ==
+給定一個長度為 n 的整數陣列與整數 k，請判斷是否存在一個長度至少為 2 的連續子陣列，
+其元素總和為 k 的倍數（包含 0）。若存在輸出 "Yes"，否則輸出 "No"。
+
+輸入格式：第一行為 n k（n=0 且 k=0 代表輸入結束）；第二行為 n 個整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0 and k == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        seen = {0: -1}
+        cur = 0
+        found = False
+        for i in range(n):
+            cur = (cur + a[i]) % k
+            if cur in seen:
+                if i - seen[cur] >= 2:
+                    found = True
+                    break
+            else:
+                seen[cur] = i
+        out.append('Yes' if found else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 6
+23 2 4 6 7
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+3 6
+23 2 6
+== 範例 2 輸出 ==
+No
+
+== 範例 3 輸入 ==
+2 6
+5 0
+== 範例 3 輸出 ==
+No

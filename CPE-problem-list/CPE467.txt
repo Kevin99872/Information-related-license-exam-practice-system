@@ -1,0 +1,46 @@
+CPE 巢狀字串解碼
+
+難度：中等
+來源：原創（堆疊模擬）
+
+== 題目 ==
+給定一個編碼字串，格式為 k[encoded_string]，代表 encoded_string 重複 k 次，
+編碼可以巢狀嵌套。請輸出解碼後的字串。
+
+輸入每行一個編碼字串，直到檔案結束。保證輸入合法。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        stack = [['', 1]]
+        num = ''
+        for c in s:
+            if c.isdigit():
+                num += c
+            elif c == '[':
+                stack.append(['', int(num)])
+                num = ''
+            elif c == ']':
+                sub, k = stack.pop()
+                stack[-1][0] += sub * k
+            else:
+                stack[-1][0] += c
+        out.append(stack[0][0])
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3[a]2[bc]
+3[a2[c]]
+2[abc]3[cd]ef
+== 範例 1 輸出 ==
+aaabcbc
+accaccacc
+abcabccdcdcdef

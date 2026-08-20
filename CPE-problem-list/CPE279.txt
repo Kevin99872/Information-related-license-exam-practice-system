@@ -1,0 +1,51 @@
+CPE Minimum Size Subarray Sum
+
+難度：中等
+來源：原創（雙指標：最短總和達標子陣列）
+
+== 題目 ==
+給定 n 個正整數與目標值 target，求「總和大於等於 target」的最短連續子陣列長度；若不存在則輸出 0。
+
+輸入說明：每組第一行 n target，第二行 n 個正整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出最短長度，或 0。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        a = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        left = 0
+        cur = 0
+        best = n + 1
+        for right in range(n):
+            cur += a[right]
+            while cur >= target:
+                best = min(best, right - left + 1)
+                cur -= a[left]
+                left += 1
+        out.append(str(best) if best <= n else '0')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6 7
+2 3 1 2 4 3
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+3 100
+1 2 3
+0 0
+== 範例 2 輸出 ==
+0

@@ -1,0 +1,43 @@
+CPE Longest Palindrome by Character Frequency
+
+難度：簡單
+來源：原創（字元頻率：可組成的最長回文長度）
+
+== 題目 ==
+給定一個字串，用其中的字元 (可任意重排、不必全部使用) 組成最長的回文字串，求該回文的最大長度。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出可組成的最長回文長度。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            out.append('0')
+            continue
+        c = Counter(s)
+        length = 0
+        odd_found = False
+        for v in c.values():
+            length += v // 2 * 2
+            if v % 2 == 1:
+                odd_found = True
+        out.append(str(length + 1 if odd_found else length))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+abccccdd
+== 範例 1 輸出 ==
+7
+
+== 範例 2 輸入 ==
+a
+== 範例 2 輸出 ==
+1
