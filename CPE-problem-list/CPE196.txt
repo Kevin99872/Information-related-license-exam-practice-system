@@ -1,0 +1,52 @@
+CPE Magic Square Validation
+
+難度：簡單
+來源：原創（幻方 (Magic Square) 判斷）
+
+== 題目 ==
+判斷給定的 n*n 矩陣是否為幻方：每一列、每一行、以及兩條主對角線的總和皆相同。
+
+輸入說明：每組第一行 n，接著 n 行each n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出 Magic 或 Not Magic。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        grid = []
+        for i in range(n):
+            grid.append([int(data[idx + j]) for j in range(n)])
+            idx += n
+        target = sum(grid[0])
+        ok = all(sum(row) == target for row in grid)
+        ok = ok and all(sum(grid[r][c] for r in range(n)) == target for c in range(n))
+        ok = ok and sum(grid[i][i] for i in range(n)) == target
+        ok = ok and sum(grid[i][n - 1 - i] for i in range(n)) == target
+        out.append('Magic' if ok else 'Not Magic')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+2 7 6
+9 5 1
+4 3 8
+0
+== 範例 1 輸出 ==
+Magic
+
+== 範例 2 輸入 ==
+2
+1 2
+3 4
+0
+== 範例 2 輸出 ==
+Not Magic

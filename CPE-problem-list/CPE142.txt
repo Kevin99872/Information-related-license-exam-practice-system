@@ -1,0 +1,40 @@
+CPE Run-Length Decode
+
+難度：簡單
+來源：原創（行程解碼 (Run-Length Decoding)）
+
+== 題目 ==
+給定一個「行程編碼」字串 (格式為數字接一個字母，重複多組，例如 "3A2B1C")，將其解碼還原成原始字串。
+
+輸入說明：每行一個行程編碼字串，讀到檔案結尾。
+輸出說明：每行輸出解碼後的字串。
+
+== 參考解法 (Python) ==
+import sys
+import re
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        res = []
+        for cnt, ch in re.findall(r'(\d+)([A-Za-z])', s):
+            res.append(ch * int(cnt))
+        out.append(''.join(res))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3A2B1C
+1A1B1C
+== 範例 1 輸出 ==
+AAABBC
+ABC
+
+== 範例 2 輸入 ==
+5X
+== 範例 2 輸出 ==
+XXXXX

@@ -1,0 +1,38 @@
+CPE Palindrome Check
+
+難度：簡單
+來源：原創（回文字串判斷）
+
+== 題目 ==
+判斷給定字串是否為回文 (正著讀與反著讀完全相同)。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        out.append('Yes' if s == s[::-1] else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+level
+hello
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+racecar
+abcba
+== 範例 2 輸出 ==
+Yes
+Yes

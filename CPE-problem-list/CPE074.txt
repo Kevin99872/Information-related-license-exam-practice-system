@@ -1,0 +1,87 @@
+CPE 11005 Cheapest Base
+
+難度：困難
+來源：改編自 UVa Online Judge #11005 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+數字可以用不同進位制 (base 2~36) 表示，各進位制使用字元 "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" 的前 base 個字元。每個字元有列印成本 (1~128)，一個數字在某進位制下的成本為其所有位數字成本之總和 (不含前導 0)。對給定的數字，求成本最低的進位制 (可能不只一個)。
+
+輸入說明：第一行測試個數。每個 case 前 4 行each 9 個整數，依序為 36 個字元 "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" 的成本；接著一行查詢數 q；之後 q 行each 一個 0~2000000000 的十進位整數。
+輸出說明：每個 case 輸出 "Case X:"，接著每個查詢輸出 "Cheapest base(s) for number Y: " 加上由小到大排列、成本最低的所有進位制；case 之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def to_base(y, base):
+    if y == 0:
+        return "0"
+    digs = []
+    while y > 0:
+        digs.append(DIGITS[y % base])
+        y //= base
+    return ''.join(reversed(digs))
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    t = int(data[idx].strip()); idx += 1
+    out = []
+    for case in range(1, t + 1):
+        vals = []
+        for _ in range(4):
+            vals.extend(data[idx].split())
+            idx += 1
+        costs = {ch: int(cost) for ch, cost in zip(DIGITS, vals)}
+        while data[idx].strip() == '':
+            idx += 1
+        q = int(data[idx].strip()); idx += 1
+        if case > 1:
+            out.append('')
+        out.append(f"Case {case}:")
+        for _ in range(q):
+            while data[idx].strip() == '':
+                idx += 1
+            y = int(data[idx].strip()); idx += 1
+            base_costs = {}
+            best_cost = None
+            for base in range(2, 37):
+                rep = to_base(y, base)
+                c = sum(costs[d] for d in rep)
+                base_costs[base] = c
+                if best_cost is None or c < best_cost:
+                    best_cost = c
+            bases = [str(b) for b in range(2, 37) if base_costs[b] == best_cost]
+            out.append(f"Cheapest base(s) for number {y}: " + ' '.join(bases))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+3
+0
+1
+5
+== 範例 1 輸出 ==
+Case 1:
+Cheapest base(s) for number 0: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+Cheapest base(s) for number 1: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+Cheapest base(s) for number 5: 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+
+== 範例 2 輸入 ==
+1
+2 2 2 2 2 2 2 2 2
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1
+30
+== 範例 2 輸出 ==
+Case 1:
+Cheapest base(s) for number 30: 31 32 33 34 35 36

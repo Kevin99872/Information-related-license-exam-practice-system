@@ -1,0 +1,55 @@
+CPE 624 CD
+
+難度：困難
+來源：改編自 UVa Online Judge #624 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+有一捲 N 分鐘長的錄音帶，與一片 CD (音軌數不超過 20，每首歌長度為整數分鐘)。從 CD 選出一組音軌 (總長度不超過 N)，使錄音帶剩餘的空白時間最短 (也就是選出的總長度盡量接近 N 但不超過)。若有多組總長度相同的解，任選一組即可。
+
+輸入說明：每行為一筆資料：N、音軌數、以及各音軌長度 (依 CD 原始順序)，讀到檔案結尾。
+輸出說明：每行輸出所選音軌 (依原始順序)，最後接 "sum:總長度"，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        nums = list(map(int, line.split()))
+        n_tape = nums[0]
+        cnt = nums[1]
+        tracks = nums[2:2 + cnt]
+        reachable = {0: 0}
+        for i, t in enumerate(tracks):
+            for s in list(reachable.keys()):
+                ns = s + t
+                if ns <= n_tape and ns not in reachable:
+                    reachable[ns] = reachable[s] | (1 << i)
+        best_sum = max(reachable.keys())
+        best_mask = reachable[best_sum]
+        chosen = [tracks[i] for i in range(cnt) if best_mask & (1 << i)]
+        out.append(' '.join(map(str, chosen)) + f" sum:{best_sum}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 3 1 3 4
+10 4 9 8 4 2
+20 4 10 5 7 4
+90 8 10 23 1 2 3 4 5 7
+45 8 4 10 44 43 12 9 8 2
+== 範例 1 輸出 ==
+1 4 sum:5
+8 2 sum:10
+10 5 4 sum:19
+10 23 1 2 3 4 5 7 sum:55
+43 2 sum:45
+
+== 範例 2 輸入 ==
+8 3 2 3 5
+== 範例 2 輸出 ==
+3 5 sum:8

@@ -1,0 +1,91 @@
+CPE 10152 ShellSort
+
+難度：困難
+來源：改編自 UVa Online Judge #10152 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+有一疊烏龜由上到下排列，要重新排成指定的順序。唯一可用的操作是：任選一隻烏龜，讓牠爬到最上面。求把原始順序變成目標順序所需的「最少」操作次數，並依序輸出需要移動哪些烏龜 (最先被移動的先輸出)。
+
+(提示：不需要移動的烏龜，恰好是目標順序中「由下往上看、其原始位置遞增」的最長後綴；其餘烏龜依目標順序「由下往上」的順序移動即可，因為每次移動都會把烏龜直接放到最上面。)
+
+輸入說明：第一行為測試個數 K；每組第一行為烏龜數 n，接著 n 行為原始順序 (由上到下)，再接著 n 行為目標順序 (由上到下)。烏龜名稱不含空白。
+輸出說明：每組依序輸出需要移動的烏龜名稱 (一行一個)；每組輸出後空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    k = int(data[idx].strip()); idx += 1
+    out = []
+    for case in range(k):
+        n = int(data[idx].strip()); idx += 1
+        orig = [data[idx + i] for i in range(n)]
+        idx += n
+        desired = [data[idx + i] for i in range(n)]
+        idx += n
+        origpos = {name: i for i, name in enumerate(orig)}
+        mapped = [origpos[name] for name in desired]
+        suf = 1
+        while suf < n and mapped[n - suf - 1] < mapped[n - suf]:
+            suf += 1
+        moved = desired[:n - suf]
+        if case > 0:
+            out.append('')
+        for name in reversed(moved):
+            out.append(name)
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+3
+Yertle
+Duke of Earl
+Sir Lancelot
+Duke of Earl
+Yertle
+Sir Lancelot
+9
+Yertle
+Duke of Earl
+Sir Lancelot
+Elizabeth Windsor
+Michael Eisner
+Richard M. Nixon
+Mr. Rogers
+Ford Perfect
+Mack
+Yertle
+Richard M. Nixon
+Sir Lancelot
+Duke of Earl
+Elizabeth Windsor
+Michael Eisner
+Mr. Rogers
+Ford Perfect
+Mack
+== 範例 1 輸出 ==
+Duke of Earl
+
+Sir Lancelot
+Richard M. Nixon
+Yertle
+
+== 範例 2 輸入 ==
+1
+4
+A
+B
+C
+D
+D
+C
+B
+A
+== 範例 2 輸出 ==
+B
+C
+D

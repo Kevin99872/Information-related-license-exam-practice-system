@@ -1,0 +1,85 @@
+CPE 10189 Minesweeper
+
+難度：中等
+來源：改編自 UVa Online Judge #10189 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+踩地雷遊戲：給定一個 n*m 的地雷場，'*' 表示地雷，'.' 表示安全格。將每個安全格替換為「周圍 8 格 (上下左右及對角) 中地雷的數量」。
+
+輸入說明：多組資料，每組第一行 n m (0<n,m<=100)；接著 n 行each m 個字元。n=m=0 表示輸入結束，不必處理。
+輸出說明：每組輸出 "Field #x:" (x 從 1 開始)，接著 n 行處理後的地雷場；每組輸出之間需空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    field_no = 0
+    while idx < len(data):
+        line = data[idx].strip()
+        idx += 1
+        if line == '':
+            continue
+        n, m = map(int, line.split())
+        if n == 0 and m == 0:
+            break
+        grid = [data[idx + r] for r in range(n)]
+        idx += n
+        field_no += 1
+        if field_no > 1:
+            out.append('')
+        out.append(f"Field #{field_no}:")
+        for r in range(n):
+            row_out = []
+            for c in range(m):
+                if grid[r][c] == '*':
+                    row_out.append('*')
+                else:
+                    cnt = 0
+                    for dr in (-1, 0, 1):
+                        for dc in (-1, 0, 1):
+                            if dr == 0 and dc == 0:
+                                continue
+                            rr, cc = r + dr, c + dc
+                            if 0 <= rr < n and 0 <= cc < m and grid[rr][cc] == '*':
+                                cnt += 1
+                    row_out.append(str(cnt))
+            out.append(''.join(row_out))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 4
+*...
+....
+.*..
+....
+3 5
+**...
+.....
+.*...
+0 0
+== 範例 1 輸出 ==
+Field #1:
+*100
+2210
+1*10
+1110
+
+Field #2:
+**100
+33200
+1*100
+
+== 範例 2 輸入 ==
+2 2
+**
+..
+0 0
+== 範例 2 輸出 ==
+Field #1:
+**
+22

@@ -1,0 +1,52 @@
+CPE Matrix Multiplication
+
+難度：中等
+來源：原創（矩陣乘法）
+
+== 題目 ==
+給定矩陣 A (R1*C1) 與矩陣 B (C1*C2)，求 A*B (結果為 R1*C2)。
+
+輸入說明：每組第一行 R1 C1 C2，接著 R1 行each C1 個整數為矩陣 A，再接著 C1 行each C2 個整數為矩陣 B。R1=C1=C2=0 表示輸入結束。
+輸出說明：每組輸出 A*B 的結果 (R1 行each C2 個整數)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    blocks = []
+    while idx < len(data):
+        r1 = int(data[idx]); c1 = int(data[idx + 1]); c2 = int(data[idx + 2]); idx += 3
+        if r1 == 0 and c1 == 0 and c2 == 0:
+            break
+        a = [[int(data[idx + i * c1 + j]) for j in range(c1)] for i in range(r1)]
+        idx += r1 * c1
+        b = [[int(data[idx + i * c2 + j]) for j in range(c2)] for i in range(c1)]
+        idx += c1 * c2
+        result = [[sum(a[i][k] * b[k][j] for k in range(c1)) for j in range(c2)] for i in range(r1)]
+        blocks.append('\n'.join(' '.join(map(str, row)) for row in result))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+2 2 2
+1 2
+3 4
+5 6
+7 8
+0 0 0
+== 範例 1 輸出 ==
+19 22
+43 50
+
+== 範例 2 輸入 ==
+1 3 1
+1 2 3
+1
+1
+1
+0 0 0
+== 範例 2 輸出 ==
+6

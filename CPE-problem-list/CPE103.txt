@@ -1,0 +1,43 @@
+CPE Binary Search Insert Position
+
+難度：簡單
+來源：原創（二分搜尋 / 插入位置查詢）
+
+== 題目 ==
+給定一個已由小到大排序的陣列與目標值 target，求 target 應該插入的位置 (使陣列仍保持排序的最小索引，索引由 0 開始；若陣列中已有 target，則回傳第一個等於 target 的位置)。
+
+輸入說明：每組第一行 n target，第二行 n 個已排序整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出應插入的位置。
+
+== 參考解法 (Python) ==
+import sys
+import bisect
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        out.append(str(bisect.bisect_left(nums, target)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 5
+1 3 5 6
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+4 2
+1 3 5 6
+0 0
+== 範例 2 輸出 ==
+1

@@ -1,0 +1,42 @@
+CPE Longest Substring Without Repeating Characters
+
+難度：中等
+來源：原創（滑動視窗：最長不重複子字串）
+
+== 題目 ==
+給定一個字串，求其中「不含重複字元」的最長連續子字串長度。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出最長不重複子字串的長度。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.rstrip('\n')
+        last = {}
+        start = 0
+        best = 0
+        for i, c in enumerate(s):
+            if c in last and last[c] >= start:
+                start = last[c] + 1
+            last[c] = i
+            best = max(best, i - start + 1)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+abcabcbb
+bbbbb
+== 範例 1 輸出 ==
+3
+1
+
+== 範例 2 輸入 ==
+pwwkew
+== 範例 2 輸出 ==
+3

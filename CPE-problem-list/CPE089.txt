@@ -1,0 +1,49 @@
+CPE Integer to Roman Numeral
+
+難度：簡單
+來源：原創（羅馬數字轉換經典題型）
+
+== 題目 ==
+給定一個整數 (1<=n<=3999)，轉換成羅馬數字表示法。
+
+輸入說明：每行一個整數，讀到檔案結尾。
+輸出說明：每行輸出對應的羅馬數字字串。
+
+== 參考解法 (Python) ==
+import sys
+
+VALUES = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, 'XC'),
+          (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        n = int(s)
+        res = []
+        for v, sym in VALUES:
+            while n >= v:
+                res.append(sym)
+                n -= v
+        out.append(''.join(res))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+58
+1994
+== 範例 1 輸出 ==
+III
+LVIII
+MCMXCIV
+
+== 範例 2 輸入 ==
+4
+40
+== 範例 2 輸出 ==
+IV
+XL

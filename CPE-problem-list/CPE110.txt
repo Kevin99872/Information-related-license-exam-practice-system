@@ -1,0 +1,82 @@
+CPE 706 LC-Display
+
+難度：困難
+來源：改編自 UVa Online Judge #706 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+以計算機的「七段顯示器」風格顯示數字。每個數字佔 (s+2) 欄、(2s+3) 列，水平線段用 s 個 '-'，垂直線段用 s 個 '|'，數字之間需空一欄。七段燈號沿用標準七段顯示器定義 (0~9)。
+
+輸入說明：每行兩個整數 s n (1<=s<=10, 0<=n<=99999999)，"0 0" 表示輸入結束 (不處理)。
+輸出說明：每筆輸入輸出對應的七段顯示器圖案 (共 2s+3 行)，每筆輸出後接一個空行。
+
+== 參考解法 (Python) ==
+import sys
+
+SEG = {
+    '0': set('abcdef'), '1': set('bc'), '2': set('abdeg'), '3': set('abcdg'),
+    '4': set('bcfg'), '5': set('acdfg'), '6': set('acdefg'), '7': set('abc'),
+    '8': set('abcdefg'), '9': set('abcdfg'),
+}
+
+def digit_lines(ch, s):
+    segs = SEG[ch]
+    lines = [' ' + ('-' * s if 'a' in segs else ' ' * s) + ' ']
+    for _ in range(s):
+        lines.append(('|' if 'f' in segs else ' ') + ' ' * s + ('|' if 'b' in segs else ' '))
+    lines.append(' ' + ('-' * s if 'g' in segs else ' ' * s) + ' ')
+    for _ in range(s):
+        lines.append(('|' if 'e' in segs else ' ') + ' ' * s + ('|' if 'c' in segs else ' '))
+    lines.append(' ' + ('-' * s if 'd' in segs else ' ' * s) + ' ')
+    return lines
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        s, n = line.split()
+        s = int(s)
+        if s == 0 and n == '0':
+            break
+        digits = [digit_lines(c, s) for c in n]
+        height = 2 * s + 3
+        for r in range(height):
+            out.append(' '.join(d[r] for d in digits))
+        out.append('')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 12345
+3 67890
+0 0
+== 範例 1 輸出 ==
+      --   --        -- 
+   |    |    | |  | |   
+   |    |    | |  | |   
+      --   --   --   -- 
+   | |       |    |    |
+   | |       |    |    |
+      --   --        -- 
+
+ ---   ---   ---   ---   --- 
+|         | |   | |   | |   |
+|         | |   | |   | |   |
+|         | |   | |   | |   |
+ ---         ---   ---       
+|   |     | |   |     | |   |
+|   |     | |   |     | |   |
+|   |     | |   |     | |   |
+ ---         ---   ---   --- 
+
+== 範例 2 輸入 ==
+1 8
+0 0
+== 範例 2 輸出 ==
+ - 
+| |
+ - 
+| |
+ - 

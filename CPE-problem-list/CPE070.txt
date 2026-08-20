@@ -1,0 +1,53 @@
+CPE 10268 498-bis
+
+難度：簡單
+來源：改編自 UVa Online Judge #10268 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定多項式係數 a0,a1,...,an (代表 a0*x^n + a1*x^(n-1) + ... + an) 與一個 x 值，求該多項式「一階導函數」在 x 處的值。
+
+輸入說明：每兩行一組，第一行為整數 x，第二行為多項式係數列表 (由高次到低次)，讀到檔案結尾。
+輸出說明：每組輸出導函數在 x 處的值。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    lines = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(lines):
+        if lines[idx].strip() == '':
+            idx += 1
+            continue
+        x = int(lines[idx].strip()); idx += 1
+        if idx >= len(lines) or lines[idx].strip() == '' and idx + 1 >= len(lines):
+            break
+        coeffs = list(map(int, lines[idx].split())); idx += 1
+        n = len(coeffs) - 1
+        total = 0
+        for i, a in enumerate(coeffs[:-1]):
+            power = n - i
+            total += a * power * (x ** (power - 1))
+        out.append(str(total))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+1 -1
+2
+1 1 1
+== 範例 1 輸出 ==
+1
+5
+
+== 範例 2 輸入 ==
+0
+3 0 0 5
+1
+2 -3 1
+== 範例 2 輸出 ==
+0
+1

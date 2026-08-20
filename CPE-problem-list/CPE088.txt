@@ -1,0 +1,51 @@
+CPE Roman Numeral to Integer
+
+難度：簡單
+來源：原創（羅馬數字轉換經典題型）
+
+== 題目 ==
+給定一個羅馬數字字串 (由 I,V,X,L,C,D,M 組成)，轉換成對應的整數。
+
+輸入說明：每行一個合法羅馬數字字串，讀到檔案結尾。
+輸出說明：每行輸出對應的整數。
+
+== 參考解法 (Python) ==
+import sys
+
+VAL = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        total = 0
+        for i, ch in enumerate(s):
+            v = VAL[ch]
+            if i + 1 < len(s) and VAL[s[i + 1]] > v:
+                total -= v
+            else:
+                total += v
+        out.append(str(total))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+III
+IX
+LVIII
+MCMXCIV
+== 範例 1 輸出 ==
+3
+9
+58
+1994
+
+== 範例 2 輸入 ==
+IV
+XL
+== 範例 2 輸出 ==
+4
+40

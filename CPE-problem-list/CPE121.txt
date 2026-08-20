@@ -1,0 +1,68 @@
+CPE 11498 Division of Nlogonia
+
+難度：中等
+來源：改編自 UVa Online Judge #11498 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+在地圖上有一個分界點 (N,M)，通過此點畫一條南北向與一條東西向的直線，把平面分成四個區域：東北 (NE)、西北 (NO)、東南 (SE)、西南 (SO)。給定居民座標 (X,Y)，判斷其屬於哪個區域；若剛好落在任一條分界線上，輸出 divisa。
+
+輸入說明：每組第一行為查詢數 K；第二行為分界點座標 N M；接著 K 行each 一組座標 X Y。輸入以一行單獨的 0 結束。
+輸出說明：每個查詢輸出一行結果：divisa、NO、NE、SE 或 SO。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        k = int(data[idx]); idx += 1
+        if k == 0:
+            break
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        for _ in range(k):
+            x = int(data[idx]); y = int(data[idx + 1]); idx += 2
+            if x == n or y == m:
+                out.append('divisa')
+            elif x < n and y > m:
+                out.append('NO')
+            elif x > n and y > m:
+                out.append('NE')
+            elif x > n and y < m:
+                out.append('SE')
+            else:
+                out.append('SO')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3
+2 1
+10 10
+-10 1
+0 33
+4
+-1000 -1000
+-1000 -1000
+0 0
+-2000 -10000
+-999 -1001
+0
+== 範例 1 輸出 ==
+NE
+divisa
+NO
+divisa
+NE
+SO
+SE
+
+== 範例 2 輸入 ==
+1
+0 0
+5 5
+0
+== 範例 2 輸出 ==
+NE

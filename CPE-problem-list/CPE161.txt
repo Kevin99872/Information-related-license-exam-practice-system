@@ -1,0 +1,43 @@
+CPE 1225 Digit Counting
+
+難度：簡單
+來源：改編自 UVa Online Judge #1225 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+把 1 到 N 的連續整數依序寫成一串數字，計算其中 0~9 每個數字出現的次數。
+
+輸入說明：第一行為測試個數，之後每行一個整數 N (1<N<10000)。
+輸出說明：每行輸出 0~9 各自出現的次數，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    t = int(data[idx]); idx += 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); idx += 1
+        c = Counter()
+        for i in range(1, n + 1):
+            c.update(str(i))
+        out.append(' '.join(str(c.get(str(d), 0)) for d in range(10)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+3
+13
+== 範例 1 輸出 ==
+0 1 1 1 0 0 0 0 0 0
+1 6 2 2 1 1 1 1 1 1
+
+== 範例 2 輸入 ==
+1
+20
+== 範例 2 輸出 ==
+2 12 3 2 2 2 2 2 2 2

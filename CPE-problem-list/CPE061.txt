@@ -1,0 +1,47 @@
+CPE 10062 Tell me the frequencies!
+
+難度：簡單
+來源：改編自 UVa Online Judge #10062 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一行文字，統計文字中每個字元出現的頻率。
+
+輸入說明：每行文字視為一組資料 (不含行尾的 \n、\r)，每行最長 1000 字元，讀到檔案結尾。
+輸出說明：每組資料輸出該行出現過的字元，格式為 "ASCII碼 頻率"，依「頻率由小到大」排序；若頻率相同，ASCII 碼較大者排在前面。每組資料之間以一個空行分隔。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    lines = sys.stdin.read().split('\n')
+    if lines and lines[-1] == '':
+        lines.pop()
+    blocks = []
+    for line in lines:
+        c = Counter(line)
+        items = sorted(c.items(), key=lambda kv: (kv[1], -ord(kv[0])))
+        blocks.append('\n'.join(f"{ord(ch)} {freq}" for ch, freq in items))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+AAABBC
+122333
+== 範例 1 輸出 ==
+67 1
+66 2
+65 3
+
+49 1
+50 2
+51 3
+
+== 範例 2 輸入 ==
+hello
+== 範例 2 輸出 ==
+111 1
+104 1
+101 1
+108 2

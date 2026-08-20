@@ -1,0 +1,52 @@
+CPE 490 Rotating Sentences
+
+難度：中等
+來源：改編自 UVa Online Judge #490 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定數行文字（句子），將其「順時針旋轉 90 度」印出：原本由左至右、由上至下排列的文字，旋轉後改為由上至下、由右至左排列。
+
+具體做法：先將每行文字以空白補齊到與最長行相同的長度；輸出的第 i 行 (由 0 開始) 由「最後一行的第 i 個字元」到「第一行的第 i 個字元」依序串接而成 (也就是由最後一行到第一行，取出各行第 i 個字元組成新的一行)。
+
+輸入說明：最多 100 行句子，每行不超過 100 字元，以檔案結尾結束。
+輸出說明：旋轉後的內容，共 (最長行長度) 行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    lines = sys.stdin.read().split('\n')
+    while lines and lines[-1] == '':
+        lines.pop()
+    if not lines:
+        return
+    width = max(len(l) for l in lines)
+    padded = [l.ljust(width) for l in lines]
+    out = []
+    for col in range(width):
+        row = ''.join(padded[r][col] for r in range(len(padded) - 1, -1, -1))
+        out.append(row)
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+Hi there
+Bob
+== 範例 1 輸出 ==
+BH
+oi
+b 
+ t
+ h
+ e
+ r
+ e
+
+== 範例 2 輸入 ==
+ABC
+DE
+== 範例 2 輸出 ==
+DA
+EB
+ C

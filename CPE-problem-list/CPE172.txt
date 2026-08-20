@@ -1,0 +1,44 @@
+CPE Binary Search Exact Match
+
+難度：簡單
+來源：原創（二分搜尋 (精確比對)）
+
+== 題目 ==
+給定一個已由小到大排序的陣列與目標值 target，用二分搜尋法求 target 所在的索引 (由 0 開始)；若不存在則輸出 -1。
+
+輸入說明：每組第一行 n target，第二行 n 個已排序整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出索引，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+import bisect
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0 and target == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        pos = bisect.bisect_left(nums, target)
+        out.append(str(pos) if pos < n and nums[pos] == target else '-1')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 7
+1 3 5 7 9
+0 0
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+5 4
+1 3 5 7 9
+0 0
+== 範例 2 輸出 ==
+-1

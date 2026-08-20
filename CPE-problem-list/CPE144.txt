@@ -1,0 +1,39 @@
+CPE Longest Palindromic Prefix
+
+難度：簡單
+來源：原創（最長回文前綴）
+
+== 題目 ==
+給定一個字串，求其「最長回文前綴」(從字串開頭取出的最長子字串，且此子字串本身為回文)。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出最長回文前綴。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        for i in range(len(s), 0, -1):
+            if s[:i] == s[:i][::-1]:
+                out.append(s[:i])
+                break
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+level up
+abacdfgdcaba
+== 範例 1 輸出 ==
+level
+aba
+
+== 範例 2 輸入 ==
+abc
+== 範例 2 輸出 ==
+a

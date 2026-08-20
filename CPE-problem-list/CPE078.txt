@@ -1,0 +1,45 @@
+CPE Digital Root
+
+難度：簡單
+來源：原創（數字根 / Digital Root 經典數學主題）
+
+== 題目 ==
+給定一個正整數，重複將其各數位相加，直到剩下一個個位數為止，該個位數稱為「數字根」。例如 942 → 9+4+2=15 → 1+5=6，數字根為 6。
+
+輸入說明：每行一個正整數 n (1<=n<=10^18)，以 0 結束 (不處理)。
+輸出說明：每行輸出該數的數字根。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        out.append(str(1 + (n - 1) % 9))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+16
+942
+132189
+0
+== 範例 1 輸出 ==
+7
+6
+6
+
+== 範例 2 輸入 ==
+9
+10
+0
+== 範例 2 輸出 ==
+9
+1

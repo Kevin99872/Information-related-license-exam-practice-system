@@ -1,0 +1,55 @@
+CPE Two Sum Pair Count
+
+難度：簡單
+來源：原創（Two Sum 經典題型）
+
+== 題目 ==
+給定 n 個整數與目標值 target，求有多少組相異索引 (i,j)，i<j，使得 a[i]+a[j]=target。
+
+輸入說明：每組第一行 n target，第二行 n 個整數。n=0 且 target=0 表示輸入結束。
+輸出說明：每組輸出符合條件的數對個數。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); target = int(data[idx + 1]); idx += 2
+        if n == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        cnt = Counter(nums)
+        total = 0
+        seen = set()
+        for v in cnt:
+            comp = target - v
+            if comp not in cnt or comp in seen:
+                continue
+            if comp == v:
+                total += cnt[v] * (cnt[v] - 1) // 2
+            else:
+                total += cnt[v] * cnt[comp]
+            seen.add(v)
+        out.append(str(total))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 6
+1 5 2 4 3
+0 0
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+6 5
+1 4 4 1 2 3
+0 0
+== 範例 2 輸出 ==
+5

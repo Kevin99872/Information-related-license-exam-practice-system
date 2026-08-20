@@ -1,0 +1,111 @@
+CPE 10226 Hardwood Species
+
+難度：簡單
+來源：改編自 UVa Online Judge #10226 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一份樹木觀測清單 (每行一個樹種名稱)，計算每個樹種佔總數的百分比。
+
+輸入說明：第一行為測試個數，之後空一行；每組資料為多行樹種名稱 (每行一種，最多 30 字元)，資料結尾以空行與下一組分隔。
+輸出說明：每組依樹種名稱字母順序輸出 "樹種名稱 百分比" (百分比四捨五入到小數點後 4 位)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    blocks = sys.stdin.read().split('\n')
+    idx = 0
+    while idx < len(blocks) and blocks[idx].strip() == '':
+        idx += 1
+    t = int(blocks[idx].strip()); idx += 1
+    out = []
+    for case in range(t):
+        while idx < len(blocks) and blocks[idx].strip() == '':
+            idx += 1
+        species = []
+        while idx < len(blocks) and blocks[idx].strip() != '':
+            species.append(blocks[idx].strip())
+            idx += 1
+        if case > 0:
+            out.append('')
+        c = Counter(species)
+        total = len(species)
+        for name in sorted(c):
+            pct = c[name] / total * 100
+            out.append(f"{name} {pct:.4f}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+
+Red Alder
+Ash
+Aspen
+Basswood
+Ash
+Beech
+Yellow Birch
+Ash
+Cherry
+Cottonwood
+Ash
+Cypress
+Red Elm
+Gum
+Hackberry
+White Oak
+Hickory
+Pecan
+Hard Maple
+White Oak
+Soft Maple
+Red Oak
+Red Oak
+White Oak
+Poplan
+Sassafras
+Sycamore
+Black Walnut
+Willow
+== 範例 1 輸出 ==
+Ash 13.7931
+Aspen 3.4483
+Basswood 3.4483
+Beech 3.4483
+Black Walnut 3.4483
+Cherry 3.4483
+Cottonwood 3.4483
+Cypress 3.4483
+Gum 3.4483
+Hackberry 3.4483
+Hard Maple 3.4483
+Hickory 3.4483
+Pecan 3.4483
+Poplan 3.4483
+Red Alder 3.4483
+Red Elm 3.4483
+Red Oak 6.8966
+Sassafras 3.4483
+Soft Maple 3.4483
+Sycamore 3.4483
+White Oak 10.3448
+Willow 3.4483
+Yellow Birch 3.4483
+
+== 範例 2 輸入 ==
+2
+
+Oak
+Oak
+Pine
+
+Cedar
+Cedar
+== 範例 2 輸出 ==
+Oak 66.6667
+Pine 33.3333
+
+Cedar 100.0000

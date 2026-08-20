@@ -1,0 +1,72 @@
+CPE 10474 Where is the Marble?
+
+難度：簡單
+來源：改編自 UVa Online Judge #10474 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 N 個彈珠上的數字，將彈珠依數字由小到大排列後，回答 Q 個查詢：查詢數字 x 第一次出現的位置 (由 1 開始)；若不存在則回報找不到。
+
+輸入說明：每組第一行 N Q，接著 N 行彈珠數字，再接著 Q 行查詢數字。N=Q=0 表示輸入結束。
+輸出說明：每組先輸出 "CASE# k:" (k 從 1 開始)，接著每個查詢輸出一行 "x found at y" 或 "x not found"。
+
+== 參考解法 (Python) ==
+import sys
+import bisect
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    case = 0
+    while idx < len(data):
+        n = int(data[idx]); q = int(data[idx + 1]); idx += 2
+        if n == 0 and q == 0:
+            break
+        marbles = sorted(int(data[idx + i]) for i in range(n))
+        idx += n
+        case += 1
+        out.append(f"CASE# {case}:")
+        for _ in range(q):
+            x = int(data[idx]); idx += 1
+            pos = bisect.bisect_left(marbles, x)
+            if pos < n and marbles[pos] == x:
+                out.append(f"{x} found at {pos + 1}")
+            else:
+                out.append(f"{x} not found")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 1
+2
+3
+5
+1
+5
+5 2
+1
+3
+3
+3
+1
+2
+3
+0 0
+== 範例 1 輸出 ==
+CASE# 1:
+5 found at 4
+CASE# 2:
+2 not found
+3 found at 3
+
+== 範例 2 輸入 ==
+3 1
+10
+20
+30
+25
+0 0
+== 範例 2 輸出 ==
+CASE# 1:
+25 not found

@@ -1,0 +1,62 @@
+CPE 468 Key to Success
+
+難度：中等
+來源：改編自 UVa Online Judge #468 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+某人使用「一對一字母替換」方式加密文字。給定同一人所寫的一段明文與另一段加密後的密文，兩段文字使用字母的「相對出現頻率」規律相同：明文中出現頻率最高的字母對應密文中出現頻率最高的字母，第二高對應第二高，依此類推 (保證頻率兩兩不同、無平手)。請根據明文推算出密文的解碼結果 (也就是用明文的頻率規律，把密文換回對應的字母)。
+
+輸入說明：第一行為測試個數，之後空一行；每組資料兩行，第一行為明文，第二行為密文，組與組之間空一行。
+輸出說明：每組輸出解碼後的文字 (將密文依對應規律轉換)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    while data[idx].strip() == '':
+        idx += 1
+    t = int(data[idx].strip()); idx += 1
+    out = []
+
+    def ranked(s, counter):
+        seen = []
+        seenset = set()
+        for ch in s:
+            if ch not in seenset:
+                seenset.add(ch)
+                seen.append(ch)
+        return sorted(seen, key=lambda c: -counter[c])
+
+    for case in range(t):
+        while data[idx].strip() == '':
+            idx += 1
+        plain = data[idx]; idx += 1
+        enc = data[idx]; idx += 1
+        p_order = ranked(plain, Counter(plain))
+        e_order = ranked(enc, Counter(enc))
+        mapping = dict(zip(e_order, p_order))
+        if case > 0:
+            out.append('')
+        out.append(''.join(mapping.get(c, c) for c in enc))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+
+abacxbacac
+qqqqqrrrrssstt
+== 範例 1 輸出 ==
+aaaaaccccbbbxx
+
+== 範例 2 輸入 ==
+1
+
+aaabb
+zzzyy
+== 範例 2 輸出 ==
+aaabb

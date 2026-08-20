@@ -1,0 +1,49 @@
+CPE Counting Sort
+
+難度：簡單
+來源：原創（計數排序法）
+
+== 題目 ==
+給定 n 個非負整數 (0<=值<=100000)，使用計數排序法將其由小到大排序。
+
+輸入說明：每組第一行 n，第二行 n 個非負整數。n=0 結束。
+輸出說明：每組輸出排序後的結果，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        mx = max(nums)
+        cnt = [0] * (mx + 1)
+        for x in nums:
+            cnt[x] += 1
+        res = []
+        for v, c in enumerate(cnt):
+            res.extend([v] * c)
+        out.append(' '.join(map(str, res)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8
+4 2 2 8 3 3 1 0
+0
+== 範例 1 輸出 ==
+0 1 2 2 3 3 4 8
+
+== 範例 2 輸入 ==
+5
+10 9 8 7 6
+0
+== 範例 2 輸出 ==
+6 7 8 9 10

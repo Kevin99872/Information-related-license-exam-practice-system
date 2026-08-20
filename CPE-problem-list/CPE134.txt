@@ -1,0 +1,52 @@
+CPE Prime Factorization
+
+難度：簡單
+來源：原創（質因數分解）
+
+== 題目 ==
+給定一個正整數 n (n>=2)，求其質因數分解，以 "質數^指數" 格式由小到大列出。
+
+輸入說明：每行一個整數 n，讀到檔案結尾。
+輸出說明：每行輸出質因數分解結果，以空白分隔各項。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        x = n
+        factors = []
+        d = 2
+        while d * d <= x:
+            if x % d == 0:
+                e = 0
+                while x % d == 0:
+                    x //= d
+                    e += 1
+                factors.append(f"{d}^{e}")
+            d += 1
+        if x > 1:
+            factors.append(f"{x}^1")
+        out.append(' '.join(factors))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+360
+17
+== 範例 1 輸出 ==
+2^3 3^2 5^1
+17^1
+
+== 範例 2 輸入 ==
+2
+1000000
+== 範例 2 輸出 ==
+2^1
+2^6 5^6

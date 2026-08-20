@@ -1,0 +1,69 @@
+CPE 573 The Snail
+
+難度：中等
+來源：改編自 UVa Online Judge #573 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一隻蝸牛在深 H 英尺的井底，想爬到井口。白天可以往上爬 U 英尺，晚上睡覺會往下滑 D 英尺。蝸牛有疲勞係數 F%，也就是「第 i 天」白天能爬的距離比「第一天」少 F%*U*(i-1) 英尺 (若算出距離小於 0 則視為 0，但晚上仍會滑落 D 英尺)。
+
+求蝸牛「爬出井口」(高度超過 H) 或「滑回井底」(高度變成負值) 兩者何者先發生，以及發生在第幾天。
+
+輸入說明：每行四個整數 H U D F，H=0 表示輸入結束。
+輸出說明：每行輸出 "success on day X" 或 "failure on day X"。
+
+== 參考解法 (Python) ==
+import sys
+from fractions import Fraction
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        h, u, d, f = map(int, line.split())
+        if h == 0:
+            break
+        height = Fraction(0)
+        day = 0
+        dec = Fraction(f, 100) * u
+        success = False
+        while True:
+            day += 1
+            c = u - dec * (day - 1)
+            if c < 0:
+                c = Fraction(0)
+            height += c
+            if height > h:
+                success = True
+                break
+            height -= d
+            if height < 0:
+                success = False
+                break
+        out.append(f"{'success' if success else 'failure'} on day {day}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+6 3 1 10
+10 2 1 50
+50 5 3 14
+50 6 4 1
+50 6 3 1
+1 1 1 1
+0 0 0 0
+== 範例 1 輸出 ==
+success on day 3
+failure on day 4
+failure on day 7
+failure on day 68
+success on day 20
+failure on day 2
+
+== 範例 2 輸入 ==
+20 4 1 5
+0 0 0 0
+== 範例 2 輸出 ==
+success on day 9

@@ -1,0 +1,51 @@
+CPE Prefix Expression Evaluation
+
+難度：中等
+來源：原創（前綴式 (波蘭表示法) 求值）
+
+== 題目 ==
+給定一個前綴表示法 (Polish Notation) 的算式，各項以空白分隔，求其值 (除法為整數除法)。
+
+輸入說明：每行一個前綴算式，讀到檔案結尾。
+輸出說明：每行輸出算式的值。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        tokens = line.strip().split()
+        if not tokens:
+            continue
+        stack = []
+        for tok in reversed(tokens):
+            if tok in '+-*/':
+                a = stack.pop()
+                b = stack.pop()
+                if tok == '+':
+                    stack.append(a + b)
+                elif tok == '-':
+                    stack.append(a - b)
+                elif tok == '*':
+                    stack.append(a * b)
+                else:
+                    stack.append(a // b)
+            else:
+                stack.append(int(tok))
+        out.append(str(stack[-1]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
++ 1 * 2 3
+* + 1 2 - 5 3
+== 範例 1 輸出 ==
+7
+6
+
+== 範例 2 輸入 ==
+/ 10 2
+== 範例 2 輸出 ==
+5

@@ -1,0 +1,68 @@
+CPE 459 Graph Connectivity
+
+難度：中等
+來源：改編自 UVa Online Judge #459 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一個由大寫英文字母代表節點的圖 (節點為 A 到某個上界字母)，以及若干邊，求圖中「最大連通子圖」的個數 (也就是連通分量的個數)。
+
+輸入說明：第一行為測試個數，之後空一行；每組資料第一行為圖中最大的節點字母 (代表節點為 A 到該字母)，接著每行兩個字母代表一條邊，直到空行結束該組資料。
+輸出說明：每組輸出連通分量的個數；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    while data[idx].strip() == '':
+        idx += 1
+    t = int(data[idx].strip()); idx += 1
+    out = []
+    for case in range(t):
+        while idx < len(data) and data[idx].strip() == '':
+            idx += 1
+        top_char = data[idx].strip(); idx += 1
+        n = ord(top_char) - ord('A') + 1
+        parent = list(range(n))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        while idx < len(data) and data[idx].strip() != '':
+            edge = data[idx].strip(); idx += 1
+            u = ord(edge[0]) - ord('A')
+            v = ord(edge[1]) - ord('A')
+            ru, rv = find(u), find(v)
+            if ru != rv:
+                parent[ru] = rv
+        roots = set(find(i) for i in range(n))
+        if case > 0:
+            out.append('')
+        out.append(str(len(roots)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+
+E
+AB
+CE
+DB
+EC
+== 範例 1 輸出 ==
+2
+
+== 範例 2 輸入 ==
+1
+
+D
+AB
+BC
+== 範例 2 輸出 ==
+2

@@ -1,0 +1,40 @@
+CPE Power Set Generation
+
+難度：簡單
+來源：原創（位元遮罩生成冪集合）
+
+== 題目 ==
+給定 n 個相異元素，列出所有子集合 (共 2^n 個，含空集合)。輸出順序依「位元遮罩」由 0 到 2^n-1，第 i 個元素若在遮罩中對應位元為 1 則納入該子集合。
+
+輸入說明：每行為 n 個以空白分隔的元素 (字串)，讀到檔案結尾。
+輸出說明：每行輸出所有子集合，格式為 "{a,b}"，以空白分隔各子集合；空集合輸出 "{}"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        items = line.split()
+        n = len(items)
+        subsets = []
+        for mask in range(1 << n):
+            subset = [items[i] for i in range(n) if mask & (1 << i)]
+            subsets.append('{' + ','.join(subset) + '}')
+        out.append(' '.join(subsets))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+a b
+== 範例 1 輸出 ==
+{} {a} {b} {a,b}
+
+== 範例 2 輸入 ==
+x
+== 範例 2 輸出 ==
+{} {x}

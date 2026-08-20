@@ -1,0 +1,44 @@
+CPE Generalized Caesar Cipher
+
+難度：簡單
+來源：原創（通用凱薩密碼 (可指定位移量)）
+
+== 題目 ==
+給定一段文字與位移量 k，將每個英文字母往後位移 k 位 (超過 Z/z 則從 A/a 循環)，大小寫維持不變，非英文字母不變。
+
+輸入說明：每行為 "文字 k"，k 為整數 (最後以空白分隔)，讀到檔案結尾。
+輸出說明：每行輸出加密後的文字。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        text, k = line.rsplit(' ', 1)
+        k = int(k)
+        res = []
+        for c in text:
+            if c.isupper():
+                res.append(chr((ord(c) - 65 + k) % 26 + 65))
+            elif c.islower():
+                res.append(chr((ord(c) - 97 + k) % 26 + 97))
+            else:
+                res.append(c)
+        out.append(''.join(res))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+Hello, World! 3
+== 範例 1 輸出 ==
+Khoor, Zruog!
+
+== 範例 2 輸入 ==
+abcXYZ 1
+== 範例 2 輸出 ==
+bcdYZA

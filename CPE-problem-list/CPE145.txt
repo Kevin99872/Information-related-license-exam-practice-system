@@ -1,0 +1,59 @@
+CPE Edit Distance
+
+難度：中等
+來源：原創（動態規劃：編輯距離 (Levenshtein Distance)）
+
+== 題目 ==
+給定兩個字串，求將字串 s1 轉換成 s2 所需的最少「編輯操作」次數 (可插入一個字元、刪除一個字元、替換一個字元，每次操作算一次)。
+
+輸入說明：每組兩行分別為字串 s1、s2，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：每組輸出最少編輯次數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == '#':
+            break
+        s1 = line
+        s2 = data[idx].strip(); idx += 1
+        n, m = len(s1), len(s2)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = i
+        for j in range(m + 1):
+            dp[0][j] = j
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if s1[i - 1] == s2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+        out.append(str(dp[n][m]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+horse
+ros
+#
+== 範例 1 輸出 ==
+3
+
+== 範例 2 輸入 ==
+intention
+execution
+abc
+abc
+#
+== 範例 2 輸出 ==
+5
+0

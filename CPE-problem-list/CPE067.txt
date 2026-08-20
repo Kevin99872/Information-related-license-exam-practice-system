@@ -1,0 +1,47 @@
+CPE 10222 Decode the Mad man
+
+難度：中等
+來源：改編自 UVa Online Judge #10222 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一位教授說話時，每個字母都被替換成標準 QWERTY 鍵盤上「同一橫排、左邊兩個位置」的字元。請將這段話還原。鍵盤橫排定義如下 (由左至右)：
+
+第一排：qwertyuiop[]
+第二排：asdfghjkl;'
+第三排：zxcvbnm,./
+
+還原時忽略英文字母大小寫 (輸出一律為小寫)；空白字元維持不變。
+
+輸入說明：僅一行文字 (加密後的訊息)。
+輸出說明：輸出還原後的文字。
+
+== 參考解法 (Python) ==
+import sys
+
+ROWS = ["qwertyuiop[]", "asdfghjkl;'", "zxcvbnm,./"]
+
+def decode_char(c):
+    if c == ' ':
+        return ' '
+    lower = c.lower()
+    for row in ROWS:
+        pos = row.find(lower)
+        if pos != -1:
+            return row[pos - 2]
+    return c
+
+def main():
+    text = sys.stdin.readline().rstrip('\n')
+    print(''.join(decode_char(c) for c in text))
+
+main()
+
+== 範例 1 輸入 ==
+k[r dyt I[o
+== 範例 1 輸出 ==
+how are you
+
+== 範例 2 輸入 ==
+Y[[jr
+== 範例 2 輸出 ==
+roogw

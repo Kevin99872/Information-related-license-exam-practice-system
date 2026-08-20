@@ -1,0 +1,52 @@
+CPE Set Union and Intersection
+
+難度：簡單
+來源：原創（集合聯集與交集運算）
+
+== 題目 ==
+給定兩個整數集合 A、B (元素不重複)，輸出兩者的聯集與交集，元素由小到大排序。
+
+輸入說明：每組第一行 n m (A、B 的元素個數)，第二行 A 的 n 個整數，第三行 B 的 m 個整數。n=m=0 結束。
+輸出說明：每組輸出兩行，第一行為聯集、第二行為交集 (元素以空白分隔)；若交集為空則輸出 (none)。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        n, m = map(int, line.split())
+        if n == 0 and m == 0:
+            break
+        a = set(map(int, data[idx].split())); idx += 1
+        b = set(map(int, data[idx].split())); idx += 1
+        union = sorted(a | b)
+        inter = sorted(a & b)
+        out.append(' '.join(map(str, union)))
+        out.append(' '.join(map(str, inter)) if inter else '(none)')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 3
+1 2 3 4
+3 4 5
+0 0
+== 範例 1 輸出 ==
+1 2 3 4 5
+3 4
+
+== 範例 2 輸入 ==
+2 2
+1 2
+3 4
+0 0
+== 範例 2 輸出 ==
+1 2 3 4
+(none)

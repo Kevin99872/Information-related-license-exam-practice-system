@@ -1,0 +1,44 @@
+CPE Trailing Zeros in Factorial
+
+難度：簡單
+來源：原創（階乘末尾零的個數）
+
+== 題目 ==
+給定一個正整數 n，求 n! (n 階乘) 末尾有幾個連續的 0。
+
+輸入說明：每行一個整數 n (1<=n<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出末尾 0 的個數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        cnt = 0
+        p = 5
+        while p <= n:
+            cnt += n // p
+            p *= 5
+        out.append(str(cnt))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10
+25
+== 範例 1 輸出 ==
+2
+6
+
+== 範例 2 輸入 ==
+100
+5
+== 範例 2 輸出 ==
+24
+1

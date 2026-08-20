@@ -1,0 +1,40 @@
+CPE Anagram Palindrome Check
+
+難度：簡單
+來源：原創（可重組成回文字串判斷）
+
+== 題目 ==
+判斷給定字串「重新排列後」是否能組成回文字串 (字元只要出現至多一個奇數次即可)。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        odd = sum(1 for v in Counter(s).values() if v % 2 != 0)
+        out.append('Yes' if odd <= 1 else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+carrace
+hello
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+aabb
+abc
+== 範例 2 輸出 ==
+Yes
+No

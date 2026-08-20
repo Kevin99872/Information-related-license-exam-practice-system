@@ -1,0 +1,50 @@
+CPE Linked List Cycle Detection
+
+難度：中等
+來源：原創（快慢指標：鏈結串列環偵測）
+
+== 題目 ==
+用陣列模擬單向鏈結串列：next[i] 表示節點 i 的下一個節點編號 (-1 表示串列結尾)。給定起始節點，判斷從該節點出發是否會進入循環 (使用快慢指標法)。
+
+輸入說明：每組第一行 n start (節點數、起始節點編號)，第二行為 n 個 next 值。n=0 且 start=0 表示輸入結束。
+輸出說明：每組輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); start = int(data[idx + 1]); idx += 2
+        if n == 0:
+            break
+        nxt = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        slow = fast = start
+        cycle = False
+        while fast != -1 and nxt[fast] != -1:
+            slow = nxt[slow]
+            fast = nxt[nxt[fast]]
+            if slow == fast:
+                cycle = True
+                break
+        out.append('Yes' if cycle else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 0
+1 2 3 1
+0 0
+== 範例 1 輸出 ==
+Yes
+
+== 範例 2 輸入 ==
+3 0
+1 2 -1
+0 0
+== 範例 2 輸出 ==
+No

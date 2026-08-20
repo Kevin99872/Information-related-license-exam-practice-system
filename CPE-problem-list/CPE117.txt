@@ -1,0 +1,41 @@
+CPE 10970 Big Chocolate
+
+難度：簡單
+來源：改編自 UVa Online Judge #10970 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一塊 M*N 的巧克力由 M*N 個小方塊組成，每次只能沿著方塊間的分隔線做一刀「直線」切割 (水平或垂直)，將一塊巧克力分成兩塊。求把整塊巧克力切成 M*N 個獨立小方塊所需的最少切割次數。
+
+輸入說明：每行兩個整數 M N (1<=M,N<=300)，讀到檔案結尾。
+輸出說明：每行輸出所需的最少切割次數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        m, n = map(int, line.split())
+        out.append(str(m * n - 1))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 2
+1 1
+1 5
+== 範例 1 輸出 ==
+3
+0
+4
+
+== 範例 2 輸入 ==
+3 3
+10 10
+== 範例 2 輸出 ==
+8
+99

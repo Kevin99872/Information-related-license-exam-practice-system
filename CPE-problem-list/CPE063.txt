@@ -1,0 +1,55 @@
+CPE 10170 The Hotel with Infinite Rooms
+
+難度：困難
+來源：改編自 UVa Online Judge #10170 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一間旅館有無限多房間。第一批來的旅行團有 S 人，會連續入住 S 天；退房隔天早上，下一批人數為 S+1 的旅行團會入住，連續住 S+1 天；再下一批為 S+2 人，住 S+2 天，依此類推 (每批人數比前一批多 1，天數等於人數)。
+
+給定 S 與 D，求第 D 天 (從第 1 天開始算) 入住的旅行團人數。
+
+輸入說明：每行兩個整數 S D (1<=S<=10000, 1<=D<10^15)，讀到檔案結尾。
+輸出說明：每行輸出該天入住的旅行團人數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        s = int(data[idx]); d = int(data[idx + 1]); idx += 2
+
+        def cum_days(k):
+            return k * s + k * (k - 1) // 2
+
+        lo, hi = 0, 2 * 10 ** 8
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if cum_days(mid) < d:
+                lo = mid
+            else:
+                hi = mid - 1
+        out.append(str(s + lo))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1 6
+3 10
+3 14
+== 範例 1 輸出 ==
+3
+5
+6
+
+== 範例 2 輸入 ==
+5 1
+5 5
+5 6
+== 範例 2 輸出 ==
+5
+5
+6

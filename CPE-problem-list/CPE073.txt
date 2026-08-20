@@ -1,0 +1,83 @@
+CPE 10908 Largest Square
+
+難度：困難
+來源：改編自 UVa Online Judge #10908 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一個 M*N 的字元方格，對每個查詢座標 (r,c)，求「中心恰好在 (r,c)」且所有字元皆相同的最大正方形邊長 (正方形以 (r,c) 為對稱中心，邊長必為奇數)。
+
+輸入說明：第一行測試個數 T (<21)。每組第一行 M N Q (皆<21，M、N 至多 100)；接著 M 行each N 字元；接著 Q 行each 兩個整數 r c。
+輸出說明：每組先輸出一行 "M N Q"，再輸出 Q 行，每行為對應查詢的最大正方形邊長。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    t = int(data[idx].strip()); idx += 1
+    out = []
+    for _ in range(t):
+        while data[idx].strip() == '':
+            idx += 1
+        m, n, q = map(int, data[idx].split()); idx += 1
+        grid = []
+        for _ in range(m):
+            grid.append(data[idx])
+            idx += 1
+        out.append(f"{m} {n} {q}")
+        for _ in range(q):
+            while data[idx].strip() == '':
+                idx += 1
+            r, c = map(int, data[idx].split()); idx += 1
+            ch = grid[r][c]
+            rad = 0
+            while True:
+                nrad = rad + 1
+                top, bottom, left, right = r - nrad, r + nrad, c - nrad, c + nrad
+                if top < 0 or left < 0 or bottom >= m or right >= n:
+                    break
+                ok = True
+                for rr in range(top, bottom + 1):
+                    if any(grid[rr][cc] != ch for cc in range(left, right + 1)):
+                        ok = False
+                        break
+                if not ok:
+                    break
+                rad = nrad
+            out.append(str(2 * rad + 1))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+7 10 4
+abbbaaaaaa
+abbbaaaaaa
+abbbaaaaaa
+aaaaaaaaaa
+aaaaaaaaaa
+aaccaaaaaa
+aaccaaaaaa
+1 2
+2 4
+4 6
+5 2
+== 範例 1 輸出 ==
+7 10 4
+3
+1
+5
+1
+
+== 範例 2 輸入 ==
+1
+3 3 1
+aaa
+aba
+aaa
+1 1
+== 範例 2 輸出 ==
+3 3 1
+1

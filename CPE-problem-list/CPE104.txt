@@ -1,0 +1,102 @@
+CPE 101 The Blocks Problem
+
+難度：困難
+來源：改編自 UVa Online Judge #101 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+桌上有 n 個積木 (編號 0~n-1)，一開始積木 i 單獨放在位置 i (位置與積木編號一一對應)。支援以下指令：
+
+move a onto b：先把 a、b 上面疊的積木都各自歸位 (回到自己的初始位置成為單獨一疊)，再把 a 疊到 b 上面。
+move a over b：把 a 上面疊的積木歸位，再把 a 疊到 b 所在那疊的最上方 (b 上面的積木不受影響)。
+pile a onto b：把 b 上面疊的積木都各自歸位，再把「a 以及 a 上面所有積木 (維持原順序)」整疊移到 b 上面。
+pile a over b：把「a 以及 a 上面所有積木 (維持原順序)」整疊移到 b 所在那疊的最上方 (b 上面的積木不受影響)。
+quit：結束。
+
+若 a=b，或 a、b 目前在同一疊，該指令視為不合法，直接忽略。
+
+輸入說明：第一行為積木數 n (0<n<25)，之後每行一個指令，直到 quit。
+輸出說明：輸出 n 行，第 i 行 (0<=i<n) 先輸出 "i:"，若該位置上有積木，接一個空白後列出由下到上的積木編號 (以空白分隔)；若無積木則該行只有 "i:"。
+
+== 參考解法 (Python) ==
+import sys
+
+def find_block(stacks, b):
+    for i, s in enumerate(stacks):
+        if b in s:
+            return i, s.index(b)
+
+def move_back(stacks, pile, from_idx):
+    for b2 in pile[from_idx + 1:]:
+        stacks[b2] = [b2]
+    del pile[from_idx + 1:]
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    n = int(data[idx].strip()); idx += 1
+    stacks = [[i] for i in range(n)]
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == 'quit':
+            break
+        parts = line.split()
+        verb, a, prep, b = parts[0], int(parts[1]), parts[2], int(parts[3])
+        pa, ia = find_block(stacks, a)
+        pb, ib = find_block(stacks, b)
+        if pa == pb:
+            continue
+        pile_a = stacks[pa]
+        pile_b = stacks[pb]
+        if verb == 'move':
+            move_back(stacks, pile_a, ia)
+            moved = [a]
+            del pile_a[ia:]
+        else:
+            moved = list(pile_a[ia:])
+            del pile_a[ia:]
+        if prep == 'onto':
+            move_back(stacks, pile_b, ib)
+        pile_b.extend(moved)
+    out = []
+    for i in range(n):
+        s = stacks[i]
+        out.append(f"{i}:" + (' ' + ' '.join(map(str, s)) if s else ''))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+10
+move 9 onto 1
+move 8 over 1
+move 7 over 1
+move 6 over 1
+pile 8 over 6
+pile 8 over 5
+move 2 over 1
+move 4 over 9
+quit
+== 範例 1 輸出 ==
+0: 0
+1: 1 9 2 4
+2:
+3: 3
+4:
+5: 5 8 7 6
+6:
+7:
+8:
+9:
+
+== 範例 2 輸入 ==
+4
+move 1 onto 2
+pile 0 over 2
+quit
+== 範例 2 輸出 ==
+0:
+1:
+2: 2 1 0
+3: 3

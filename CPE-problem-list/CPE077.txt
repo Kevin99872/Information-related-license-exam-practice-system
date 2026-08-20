@@ -1,0 +1,95 @@
+CPE 11321 Sort! Sort!! And Sort!!!
+
+難度：困難
+來源：改編自 UVa Online Judge #11321 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定 N 個整數與正整數 M，依「對 M 取餘數」由小到大排序。若兩數餘數相同：一奇一偶時奇數排前面；皆為奇數時較大者排前面；皆為偶數時較小者排前面。
+
+取餘數規則採用 C 語言風格 (餘數正負號跟隨被除數，例如 -100 mod 3 = -1，-100 mod 4 = 0)。
+
+輸入說明：每組第一行 N M (0<N,M<=10000)；接著 N 行each 一個整數 (32-bit 整數範圍內)。N=M=0 表示輸入結束。
+輸出說明：每組先輸出一行 "N M"，接著輸出排序後的 N 個數字 (每行一個)；最後輸出一行 "0 0"。
+
+== 參考解法 (Python) ==
+import sys
+
+def c_mod(a, m):
+    q = abs(a) // m
+    if a < 0:
+        q = -q
+    return a - q * m
+
+def sort_key(num, m):
+    r = c_mod(num, m)
+    if num % 2 != 0:
+        return (r, 0, -num)
+    return (r, 1, num)
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while True:
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0 and m == 0:
+            out.append("0 0")
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        nums.sort(key=lambda x: sort_key(x, m))
+        out.append(f"{n} {m}")
+        out.extend(str(x) for x in nums)
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+15 3
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+0 0
+== 範例 1 輸出 ==
+15 3
+15
+9
+3
+6
+12
+13
+7
+1
+4
+10
+11
+5
+2
+8
+14
+0 0
+
+== 範例 2 輸入 ==
+3 4
+-100
+-5
+5
+0 0
+== 範例 2 輸出 ==
+3 4
+-5
+-100
+5
+0 0

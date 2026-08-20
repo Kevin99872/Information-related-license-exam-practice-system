@@ -1,0 +1,58 @@
+CPE 11063 B2-Sequence
+
+難度：簡單
+來源：改編自 UVa Online Judge #11063 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一個嚴格遞增的正整數序列 b1<b2<...<bn 若所有「兩兩相加 (含自己與自己相加)」的結果 bi+bj (i<=j) 皆不相同，則稱為 B2-Sequence。判斷給定序列是否為 B2-Sequence。
+
+輸入說明：每組第一行 2<=N<=100，第二行 N 個整數 (每個 <=10000)，組與組之間有空行，讀到檔案結尾。
+輸出說明：每組輸出 "Case #k: It is a B2-Sequence." 或 "Case #k: It is not a B2-Sequence."，k 從 1 開始；每組輸出後空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    case = 0
+    out = []
+    while idx < len(data):
+        while idx < len(data) and data[idx].strip() == '':
+            idx += 1
+        if idx >= len(data):
+            break
+        n = int(data[idx].strip()); idx += 1
+        nums = list(map(int, data[idx].split())); idx += 1
+        case += 1
+        sums = set()
+        ok = True
+        for i in range(n):
+            for j in range(i, n):
+                s = nums[i] + nums[j]
+                if s in sums:
+                    ok = False
+                sums.add(s)
+        verdict = "It is a B2-Sequence." if ok else "It is not a B2-Sequence."
+        out.append(f"Case #{case}: {verdict}")
+        out.append('')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4
+1 2 4 8
+
+4
+3 7 10 14
+== 範例 1 輸出 ==
+Case #1: It is a B2-Sequence.
+
+Case #2: It is not a B2-Sequence.
+
+== 範例 2 輸入 ==
+3
+1 2 3
+== 範例 2 輸出 ==
+Case #1: It is not a B2-Sequence.

@@ -1,0 +1,39 @@
+CPE Anagram Pair Check
+
+難度：簡單
+來源：原創（字謎判斷 / Anagram Check）
+
+== 題目 ==
+給定兩個單字，判斷它們是否為變位詞 (anagram，即由相同字母重新排列而成)。
+
+輸入說明：每行兩個以空白分隔的單字，讀到檔案結尾。
+輸出說明：每行輸出 Yes 或 No。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        a, b = line.split()
+        out.append('Yes' if sorted(a) == sorted(b) else 'No')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+listen silent
+hello world
+== 範例 1 輸出 ==
+Yes
+No
+
+== 範例 2 輸入 ==
+state taste
+abc abd
+== 範例 2 輸出 ==
+Yes
+No

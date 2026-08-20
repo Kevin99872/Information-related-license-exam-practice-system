@@ -1,0 +1,52 @@
+CPE Bubble Sort Pass Count
+
+難度：簡單
+來源：原創（氣泡排序回合數）
+
+== 題目 ==
+給定 n 個整數，使用氣泡排序法排序 (若某一輪掃描完全沒有交換，則提前結束)，求總共執行了幾輪掃描。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 表示輸入結束。
+輸出說明：每組輸出掃描輪數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        arr = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        passes = 0
+        for i in range(n):
+            swapped = False
+            for j in range(n - 1 - i):
+                if arr[j] > arr[j + 1]:
+                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                    swapped = True
+            passes += 1
+            if not swapped:
+                break
+        out.append(str(passes))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5
+5 4 3 2 1
+0
+== 範例 1 輸出 ==
+5
+
+== 範例 2 輸入 ==
+5
+1 2 3 4 5
+0
+== 範例 2 輸出 ==
+1

@@ -1,0 +1,40 @@
+CPE Unique Paths in a Grid
+
+難度：簡單
+來源：原創（組合數學：格子路徑計數）
+
+== 題目 ==
+在一個 R*C 的網格中，從左上角走到右下角，每步只能向右或向下走一格，求共有幾種不同的走法。
+
+輸入說明：每行兩個整數 R C (1<=R,C<=30)，讀到檔案結尾。
+輸出說明：每行輸出走法總數。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        r, c = map(int, line.split())
+        out.append(str(math.comb(r + c - 2, r - 1)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 7
+1 1
+== 範例 1 輸出 ==
+28
+1
+
+== 範例 2 輸入 ==
+3 3
+5 5
+== 範例 2 輸出 ==
+6
+70

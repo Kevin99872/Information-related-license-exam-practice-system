@@ -1,0 +1,46 @@
+CPE Kadane's Maximum Subarray
+
+難度：中等
+來源：原創（Kadane's Algorithm 最大子陣列和）
+
+== 題目 ==
+給定 n 個整數 (可能為負)，求連續子陣列的最大總和 (子陣列長度至少為 1)。
+
+輸入說明：每組第一行 n，第二行 n 個整數。n=0 結束。
+輸出說明：每組輸出最大總和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        best = cur = nums[0]
+        for x in nums[1:]:
+            cur = max(x, cur + x)
+            best = max(best, cur)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+9
+-2 1 -3 4 -1 2 1 -5 4
+0
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+3
+-5 -2 -8
+0
+== 範例 2 輸出 ==
+-2

@@ -1,0 +1,45 @@
+CPE nCr mod p
+
+難度：簡單
+來源：原創（組合數取模 (費馬小定理)）
+
+== 題目 ==
+給定 n、r 與質數 p，求 C(n,r) mod p 的值 (若 r<0 或 r>n 則結果為 0)。
+
+輸入說明：每行三個整數 n r p (p 為質數，1<=p<=10^9+7)，讀到檔案結尾。
+輸出說明：每行輸出 C(n,r) mod p。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n, r, p = map(int, line.split())
+        if r < 0 or r > n:
+            out.append('0')
+            continue
+        num = 1
+        den = 1
+        for i in range(r):
+            num = num * (n - i) % p
+            den = den * (i + 1) % p
+        out.append(str(num * pow(den, p - 2, p) % p))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 2 1000000007
+10 3 13
+== 範例 1 輸出 ==
+10
+3
+
+== 範例 2 輸入 ==
+4 5 7
+== 範例 2 輸出 ==
+0

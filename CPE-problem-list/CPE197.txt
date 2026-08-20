@@ -1,0 +1,49 @@
+CPE Nth Ugly Number
+
+難度：簡單
+來源：原創（醜數 (Ugly Number) 動態規劃）
+
+== 題目 ==
+醜數是指質因數只包含 2、3、5 的正整數 (1 視為醜數)。求第 n 個醜數 (由小到大排列)。
+
+輸入說明：每行一個整數 n (1<=n<=1500)，讀到檔案結尾。
+輸出說明：每行輸出第 n 個醜數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        ugly = [0] * n
+        ugly[0] = 1
+        i2 = i3 = i5 = 0
+        for i in range(1, n):
+            nxt = min(ugly[i2] * 2, ugly[i3] * 3, ugly[i5] * 5)
+            ugly[i] = nxt
+            if nxt == ugly[i2] * 2:
+                i2 += 1
+            if nxt == ugly[i3] * 3:
+                i3 += 1
+            if nxt == ugly[i5] * 5:
+                i5 += 1
+        out.append(str(ugly[n - 1]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+10
+== 範例 1 輸出 ==
+1
+12
+
+== 範例 2 輸入 ==
+15
+== 範例 2 輸出 ==
+24

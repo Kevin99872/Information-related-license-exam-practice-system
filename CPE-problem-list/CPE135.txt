@@ -1,0 +1,51 @@
+CPE Sum and Count of Divisors
+
+難度：簡單
+來源：原創（因數個數與因數和）
+
+== 題目 ==
+給定一個正整數 n，求其正因數的個數與總和。
+
+輸入說明：每行一個整數 n (1<=n<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出 "因數個數 因數總和"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        cnt = 0
+        s = 0
+        i = 1
+        while i * i <= n:
+            if n % i == 0:
+                cnt += 1
+                s += i
+                j = n // i
+                if j != i:
+                    cnt += 1
+                    s += j
+            i += 1
+        out.append(f"{cnt} {s}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+28
+1
+== 範例 1 輸出 ==
+6 56
+1 1
+
+== 範例 2 輸入 ==
+100
+97
+== 範例 2 輸出 ==
+9 217
+2 98

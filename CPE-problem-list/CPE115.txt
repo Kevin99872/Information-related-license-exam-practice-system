@@ -1,0 +1,55 @@
+CPE 10925 Krakovia
+
+難度：中等
+來源：改編自 UVa Online Judge #10925 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一群朋友到酒吧喝酒，帳單由 N 個項目組成，要由 F 個朋友平均分攤。求帳單總額，以及每人應付的金額 (若無法整除，取整數部分，也就是無條件捨去)。
+
+輸入說明：每組第一行 N F，接著 N 行each 一個項目金額 (1<=V<=10^20)。N=F=0 表示輸入結束。
+輸出說明：每組輸出 "Bill #k costs S: each friend should pay P"，k 從 1 開始，S 為總額，P 為每人應付金額；每組輸出後空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    case = 0
+    while idx < len(data):
+        n = int(data[idx]); f = int(data[idx + 1]); idx += 2
+        if n == 0 and f == 0:
+            break
+        vals = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        case += 1
+        s = sum(vals)
+        out.append(f"Bill #{case} costs {s}: each friend should pay {s // f}")
+        out.append('')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 3
+5400000000
+5400000000
+5400000000
+3 2
+5400000000
+5400000000
+9000000001
+0 0
+== 範例 1 輸出 ==
+Bill #1 costs 16200000000: each friend should pay 5400000000
+
+Bill #2 costs 19800000001: each friend should pay 9900000000
+
+== 範例 2 輸入 ==
+2 4
+10
+11
+0 0
+== 範例 2 輸出 ==
+Bill #1 costs 21: each friend should pay 5

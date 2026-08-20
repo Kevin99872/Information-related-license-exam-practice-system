@@ -1,0 +1,52 @@
+CPE Longest Common Substring
+
+難度：中等
+來源：原創（動態規劃：最長共同子字串 (連續)）
+
+== 題目 ==
+給定兩個字串，求其「最長共同子字串」的長度 (子字串必須是連續的，與最長共同子序列不同)。
+
+輸入說明：每組兩行分別為字串 s1、s2，直到出現單獨一行 "#" 為止 (不處理)。
+輸出說明：每組輸出最長共同子字串的長度。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        if line == '#':
+            break
+        s1 = line
+        s2 = data[idx].strip(); idx += 1
+        n, m = len(s1), len(s2)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        best = 0
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if s1[i - 1] == s2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                    best = max(best, dp[i][j])
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+ABABC
+BABCA
+#
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+abcdef
+zabcyz
+#
+== 範例 2 輸出 ==
+3

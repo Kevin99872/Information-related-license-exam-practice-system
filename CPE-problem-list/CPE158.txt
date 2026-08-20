@@ -1,0 +1,50 @@
+CPE 465 Overflow
+
+難度：中等
+來源：改編自 UVa Online Judge #465 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一行算式 (兩個非負整數與運算子 + 或 *)，判斷其中任一個運算元或計算結果是否超過 32 位元有號整數上限 (2147483647)。
+
+輸入說明：每行一個算式 "數字 運算子 數字"，讀到檔案結尾。
+輸出說明：先輸出原算式，接著依序輸出 0~3 行訊息："first number too big"、"second number too big"、"result too big" (只在對應情況成立時才輸出)。
+
+== 參考解法 (Python) ==
+import sys
+
+INT_MAX = 2147483647
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if not line:
+            continue
+        parts = line.split()
+        a = int(parts[0]); op = parts[1]; b = int(parts[2])
+        out.append(line)
+        if a > INT_MAX:
+            out.append('first number too big')
+        if b > INT_MAX:
+            out.append('second number too big')
+        result = a + b if op == '+' else a * b
+        if result > INT_MAX:
+            out.append('result too big')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+300 + 3
+9999999999999999999999 + 11
+== 範例 1 輸出 ==
+300 + 3
+9999999999999999999999 + 11
+first number too big
+result too big
+
+== 範例 2 輸入 ==
+50000 * 50000
+== 範例 2 輸出 ==
+50000 * 50000
+result too big

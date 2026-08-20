@@ -1,0 +1,66 @@
+CPE Grid Maze Shortest Path
+
+難度：中等
+來源：原創（BFS 迷宮最短路徑）
+
+== 題目 ==
+給定 R*C 迷宮，'#' 為牆、'.' 為可通行、'S' 為起點、'E' 為終點，每步可往上下左右移動一格 (不可穿牆)。求從 S 到 E 的最短步數；若無法到達輸出 -1。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個字元。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出最短步數，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split('\n')
+    idx = 0
+    out = []
+    while idx < len(data):
+        line = data[idx].strip(); idx += 1
+        if line == '':
+            continue
+        r, c = map(int, line.split())
+        if r == 0 and c == 0:
+            break
+        grid = [data[idx + i] for i in range(r)]
+        idx += r
+        start = end = None
+        for i in range(r):
+            for j in range(c):
+                if grid[i][j] == 'S':
+                    start = (i, j)
+                elif grid[i][j] == 'E':
+                    end = (i, j)
+        dist = [[-1] * c for _ in range(r)]
+        dist[start[0]][start[1]] = 0
+        q = deque([start])
+        while q:
+            x, y = q.popleft()
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] != '#' and dist[nx][ny] == -1:
+                    dist[nx][ny] = dist[x][y] + 1
+                    q.append((nx, ny))
+        out.append(str(dist[end[0]][end[1]]))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 3
+S..
+.#.
+..E
+0 0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+2 2
+S#
+#E
+0 0
+== 範例 2 輸出 ==
+-1

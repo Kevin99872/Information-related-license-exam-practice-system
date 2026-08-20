@@ -1,0 +1,42 @@
+CPE 10056 What is the Probability?
+
+難度：中等
+來源：改編自 UVa Online Judge #10056 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+N 位玩家輪流丟骰子（不一定是六面骰），每次成功的機率固定為 p，第一位丟出成功者獲勝，遊戲結束。玩家依序 1,2,...,N,1,2,... 輪流丟。求第 I 號玩家獲勝的機率。
+
+輸入說明：第一行為測試個數 S。每行測試資料包含 N、浮點數 p、以及 I (1<=I<=N)，以空白分隔。
+輸出說明：每行輸出第 I 號玩家獲勝的機率，四捨五入到小數點後 4 位。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    s = int(data[idx]); idx += 1
+    out = []
+    for _ in range(s):
+        n = int(data[idx]); p = float(data[idx + 1]); i = int(data[idx + 2])
+        idx += 3
+        q = 1 - p
+        prob = (p * (q ** (i - 1))) / (1 - (q ** n))
+        out.append(f"{prob:.4f}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2
+2 0.166666 1
+2 0.166666 2
+== 範例 1 輸出 ==
+0.5455
+0.4545
+
+== 範例 2 輸入 ==
+1
+6 0.166666 3
+== 範例 2 輸出 ==
+0.1740

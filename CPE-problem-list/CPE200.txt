@@ -1,0 +1,57 @@
+CPE Water Jug Problem
+
+難度：中等
+來源：原創（BFS 狀態搜尋：水壺問題）
+
+== 題目 ==
+有兩個容量分別為 a、b 公升的水壺 (皆無刻度)，一開始都是空的。可以進行以下操作：把某個壺裝滿、把某個壺倒空、把某個壺的水倒入另一個壺 (直到該壺倒空或另一壺裝滿)。求最少幾次操作，可以讓其中一個壺裡「恰好」有 target 公升的水；若不可能則輸出 -1。
+
+輸入說明：每行三個整數 a b target，"0 0 0" 表示輸入結束。
+輸出說明：每行輸出最少操作次數，或 -1。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        a = int(data[idx]); b = int(data[idx + 1]); target = int(data[idx + 2]); idx += 3
+        if a == 0 and b == 0 and target == 0:
+            break
+        start = (0, 0)
+        visited = {start}
+        q = deque([(start, 0)])
+        found = -1
+        while q:
+            (x, y), steps = q.popleft()
+            if x == target or y == target:
+                found = steps
+                break
+            nexts = [
+                (a, y), (x, b), (0, y), (x, 0),
+                (x - min(x, b - y), y + min(x, b - y)),
+                (x + min(y, a - x), y - min(y, a - x)),
+            ]
+            for nx, ny in nexts:
+                if (nx, ny) not in visited:
+                    visited.add((nx, ny))
+                    q.append(((nx, ny), steps + 1))
+        out.append(str(found))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 3 2
+0 0 0
+== 範例 1 輸出 ==
+4
+
+== 範例 2 輸入 ==
+3 5 4
+0 0 0
+== 範例 2 輸出 ==
+6

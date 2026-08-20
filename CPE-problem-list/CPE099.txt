@@ -1,0 +1,49 @@
+CPE Leap Year and Day of Year
+
+難度：簡單
+來源：原創（日期計算經典題型）
+
+== 題目 ==
+給定日期 (年 月 日)，判斷該年是否為閏年 (год % 4 == 0 且 (年 % 100 != 0 或 年 % 400 == 0))，並計算該日期是當年的第幾天。
+
+輸入說明：每行三個整數 y m d，讀到檔案結尾。
+輸出說明：每行輸出 "Leap" 或 "Not Leap"，接著輸出該日期是當年的第幾天。
+
+== 參考解法 (Python) ==
+import sys
+
+MDAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+def is_leap(y):
+    return y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        y, m, d = map(int, line.split())
+        leap = is_leap(y)
+        days = list(MDAYS)
+        if leap:
+            days[1] = 29
+        day_of_year = sum(days[:m - 1]) + d
+        out.append(f"{'Leap' if leap else 'Not Leap'} {day_of_year}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2024 3 1
+2023 3 1
+== 範例 1 輸出 ==
+Leap 61
+Not Leap 60
+
+== 範例 2 輸入 ==
+2000 12 31
+1900 12 31
+== 範例 2 輸出 ==
+Leap 366
+Not Leap 365

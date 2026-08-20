@@ -1,0 +1,72 @@
+CPE Sudoku Block Validity Check
+
+難度：中等
+來源：原創（數獨盤面合法性檢查）
+
+== 題目 ==
+給定一個 9*9 數獨盤面 (0 表示空格)，檢查是否合法：每一列、每一行、每個 3*3 小九宮格中，1~9 都不能重複出現 (0 不列入檢查)。
+
+輸入說明：每組為 81 個整數 (依列優先排列)，直到出現單獨一行 "END" 為止 (不處理)。
+輸出說明：每組輸出 Valid 或 Invalid。
+
+== 參考解法 (Python) ==
+import sys
+
+def valid_group(vals):
+    nums = [v for v in vals if v != 0]
+    return len(nums) == len(set(nums))
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        if data[idx] == 'END':
+            break
+        grid = []
+        for i in range(9):
+            grid.append([int(data[idx + j]) for j in range(9)])
+            idx += 9
+        ok = True
+        for i in range(9):
+            if not valid_group(grid[i]):
+                ok = False
+            if not valid_group([grid[r][i] for r in range(9)]):
+                ok = False
+        for br in range(0, 9, 3):
+            for bc in range(0, 9, 3):
+                block = [grid[br + i][bc + j] for i in range(3) for j in range(3)]
+                if not valid_group(block):
+                    ok = False
+        out.append('Valid' if ok else 'Invalid')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 3 0 0 7 0 0 0 0
+6 0 0 1 9 5 0 0 0
+0 9 8 0 0 0 0 6 0
+8 0 0 0 6 0 0 0 3
+4 0 0 8 0 3 0 0 1
+7 0 0 0 2 0 0 0 6
+0 6 0 0 0 0 2 8 0
+0 0 0 4 1 9 0 0 5
+0 0 0 0 8 0 0 7 9
+END
+== 範例 1 輸出 ==
+Valid
+
+== 範例 2 輸入 ==
+5 5 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+END
+== 範例 2 輸出 ==
+Invalid

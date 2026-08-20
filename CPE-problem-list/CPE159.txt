@@ -1,0 +1,33 @@
+CPE 494 Kindergarten Counting Game
+
+難度：簡單
+來源：改編自 UVa Online Judge #494 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一行文字，計算其中「單字」的數量。單字定義為連續的英文字母 (大小寫皆可) 序列。
+
+輸入說明：多行文字，讀到檔案結尾。
+輸出說明：每行輸出該行的單字數。
+
+== 參考解法 (Python) ==
+import sys
+import re
+
+def main():
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        print(len(re.findall(r'[A-Za-z]+', line)))
+
+main()
+
+== 範例 1 輸入 ==
+Meep Meep!
+I tot I taw a putty tat.
+== 範例 1 輸出 ==
+2
+7
+
+== 範例 2 輸入 ==
+Hello, World! 123
+== 範例 2 輸出 ==
+2

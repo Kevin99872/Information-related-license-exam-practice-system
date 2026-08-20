@@ -1,0 +1,73 @@
+CPE 401 Palindromes
+
+難度：中等
+來源：改編自 UVa Online Judge #401 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一般回文字串是正著讀與反著讀相同的字串。「鏡像字串」則是：把字串中每個字元換成它的「鏡像字元」後、再反過來讀，會與原字串相同。鏡像對照表如下 (未列出的字元沒有鏡像)：
+A-A, H-H, I-I, M-M, O-O, T-T, U-U, V-V, W-W, X-X, Y-Y, 1-1, 8-8
+J-L, L-J, S-2, 2-S, Z-5, 5-Z, E-3, 3-E
+
+若字串同時是回文字串又是鏡像字串，稱為「鏡像回文字串」。
+
+輸入說明：每行一個字串 (1~20 字元，只含上述有效字元)，讀到檔案結尾。
+輸出說明：每行輸出 "字串 -- is not a palindrome." / "字串 -- is a regular palindrome." / "字串 -- is a mirrored string." / "字串 -- is a mirrored palindrome."；每筆輸出後接一個空行。
+
+== 參考解法 (Python) ==
+import sys
+
+REV = {
+    'A': 'A', 'H': 'H', 'I': 'I', 'M': 'M', 'O': 'O', 'T': 'T', 'U': 'U', 'V': 'V',
+    'W': 'W', 'X': 'X', 'Y': 'Y', '1': '1', '8': '8', 'J': 'L', 'L': 'J', 'S': '2',
+    '2': 'S', 'Z': '5', '5': 'Z', 'E': '3', '3': 'E',
+}
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        is_pal = s == s[::-1]
+        n = len(s)
+        mirrored = True
+        for i in range(n):
+            rc = REV.get(s[i], '')
+            if rc == '' or rc != s[n - 1 - i]:
+                mirrored = False
+                break
+        if is_pal and mirrored:
+            desc = 'is a mirrored palindrome.'
+        elif is_pal:
+            desc = 'is a regular palindrome.'
+        elif mirrored:
+            desc = 'is a mirrored string.'
+        else:
+            desc = 'is not a palindrome.'
+        out.append(f"{s} -- {desc}")
+        out.append('')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+NOTAPALINDROME
+ISAPALINILAPASI
+2A3MEAS
+ATOYOTA
+== 範例 1 輸出 ==
+NOTAPALINDROME -- is not a palindrome.
+
+ISAPALINILAPASI -- is a regular palindrome.
+
+2A3MEAS -- is a mirrored string.
+
+ATOYOTA -- is a mirrored palindrome.
+
+== 範例 2 輸入 ==
+TOOT
+SWORDS
+== 範例 2 輸出 ==
+TOOT -- is a mirrored palindrome.
+
+SWORDS -- is not a palindrome.

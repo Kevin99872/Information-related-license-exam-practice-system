@@ -1,0 +1,44 @@
+CPE 10921 Find the Telephone
+
+難度：簡單
+來源：改編自 UVa Online Judge #10921 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+有些地方會用英文字母對應電話鍵盤數字來幫助記憶電話號碼，對應表如下：
+ABC=2, DEF=3, GHI=4, JKL=5, MNO=6, PQRS=7, TUV=8, WXYZ=9 (數字 0、1 與連字號 '-' 不對應任何字母，維持原樣)。
+
+給定一段由大寫字母、連字號、數字 1、0 組成的字串，求其對應的電話號碼。
+
+輸入說明：每行一個字串 (長度 1~30)，讀到檔案結尾。
+輸出說明：每行輸出轉換後的電話號碼字串。
+
+== 參考解法 (Python) ==
+import sys
+
+KEYMAP = {}
+for chars, d in zip(['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ'], '23456789'):
+    for c in chars:
+        KEYMAP[c] = d
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        if line == '':
+            continue
+        out.append(''.join(KEYMAP.get(c, c) for c in line))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1-HOME-SWEET-HOME
+MY-MISERABLE-JOB
+== 範例 1 輸出 ==
+1-4663-79338-4663
+69-647372253-562
+
+== 範例 2 輸入 ==
+0-CALL-ME
+== 範例 2 輸出 ==
+0-2255-63

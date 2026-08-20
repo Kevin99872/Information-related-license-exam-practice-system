@@ -17,9 +17,9 @@
 | `CPE-problems.csv` | 可直接匯入本系統的題庫檔（UTF-8，無 BOM）。每一列為一組測試資料，相同 `ProblemCode` 的列會合併成同一題。 |
 | `CPExxx.txt` | 各題的人類可讀版本：題目敘述 + 範例輸入 / 輸出。 |
 
-共 **53 題、111 組測試資料**，難度分佈：簡單 20、中等 27、困難 6。
+共 **203 題、411 組測試資料**，難度分佈：簡單 96、中等 87、困難 20。
 
-其中 CPE001–CPE023 為第一批題目（全數改編自 UVa 題號）；CPE024–CPE053 為第二批新增題目，除延續 UVa 一顆星經典題之外，也加入數論、字串處理、堆疊、貪心與基礎動態規劃（DP）等主題，凡標註「原創」者為原創題目（非改編自特定 UVa 題號，但主題取材自公開的經典演算法概念）。第二批題目另外在 `.txt` 中附上 `== 參考解法 (Python) ==` 區塊，對應匯入後 CSV 的 `SolutionCode` 欄位。
+其中 CPE001–CPE023 為第一批題目（全數改編自 UVa 題號）；CPE024–CPE053 為第二批新增題目，除延續 UVa 一顆星經典題之外，也加入數論、字串處理、堆疊、貪心與基礎動態規劃（DP）等主題。CPE054–CPE103 為第三批新增題目：CPE054–CPE077 改編自「CPE 一顆星選集 49 題」中尚未收錄的題號，CPE078–CPE103 為原創題目。CPE104–CPE153 為第四批新增題目：CPE104–CPE124 改編自其他經典 UVa 題號（如 The Blocks Problem、Graph Connectivity、LC-Display 等），CPE125–CPE153 為原創題目，涵蓋 BFS/DFS、矩陣運算、字串演算法、貪心與動態規劃等主題。CPE154–CPE203 為第五批新增題目：CPE154–CPE169 改編自其他經典 UVa 題號（如 Unix ls、Palindromes、ShellSort 等），CPE170–CPE203 為原創題目，涵蓋圖論（Dijkstra、拓樸排序、最小生成樹）、雙指標、位元運算與更多動態規劃主題。所有改編題目皆直接從 UVa 官方題目卷 PDF (`onlinejudge.org/external/`) 抓取原文後翻譯改編。凡標註「原創」者為原創題目（非改編自特定 UVa 題號，但主題取材自公開的經典演算法概念）。第二批之後的題目皆在 `.txt` 中附上 `== 參考解法 (Python) ==` 區塊，並經實際執行驗證，對應匯入後 CSV 的 `SolutionCode` 欄位。
 
 ## 如何匯入本系統
 
@@ -87,3 +87,153 @@
 | CPE051 | 原創 | Coin Change | 中等 |
 | CPE052 | 原創 | Activity Selection | 中等 |
 | CPE053 | 原創 | Longest Palindromic Substring | 困難 |
+| CPE054 | 118 | Mutant Flatworld Explorers | 困難 |
+| CPE055 | 299 | Train Swapping | 中等 |
+| CPE056 | 490 | Rotating Sentences | 中等 |
+| CPE057 | 10019 | Funny Encryption Method | 簡單 |
+| CPE058 | 10050 | Hartals | 中等 |
+| CPE059 | 10056 | What is the Probability? | 中等 |
+| CPE060 | 10057 | A mid-summer night's dream | 困難 |
+| CPE061 | 10062 | Tell me the frequencies! | 簡單 |
+| CPE062 | 10101 | Bangla Numbers | 困難 |
+| CPE063 | 10170 | The Hotel with Infinite Rooms | 困難 |
+| CPE064 | 10189 | Minesweeper | 中等 |
+| CPE065 | 10193 | All You Need Is Love | 中等 |
+| CPE066 | 10221 | Satellites | 中等 |
+| CPE067 | 10222 | Decode the Mad man | 中等 |
+| CPE068 | 10226 | Hardwood Species | 簡單 |
+| CPE069 | 10242 | Fourth Point!! | 中等 |
+| CPE070 | 10268 | 498-bis | 簡單 |
+| CPE071 | 10409 | Die Game | 中等 |
+| CPE072 | 10415 | Eb Alto Saxophone Player | 中等 |
+| CPE073 | 10908 | Largest Square | 困難 |
+| CPE074 | 11005 | Cheapest Base | 困難 |
+| CPE075 | 11063 | B2-Sequence | 簡單 |
+| CPE076 | 11150 | Cola | 中等 |
+| CPE077 | 11321 | Sort! Sort!! And Sort!!! | 困難 |
+| CPE078 | 原創 | Digital Root | 簡單 |
+| CPE079 | 原創 | Prime Count in Range | 簡單 |
+| CPE080 | 原創 | GCD and LCM of an Array | 簡單 |
+| CPE081 | 原創 | Two Sum Pair Count | 簡單 |
+| CPE082 | 原創 | Kadane's Maximum Subarray | 中等 |
+| CPE083 | 原創 | Merge Intervals | 中等 |
+| CPE084 | 原創 | Spiral Matrix Traversal | 中等 |
+| CPE085 | 原創 | Matrix Transpose | 簡單 |
+| CPE086 | 原創 | Circular Queue Simulation | 中等 |
+| CPE087 | 原創 | Next Greater Element | 中等 |
+| CPE088 | 原創 | Roman Numeral to Integer | 簡單 |
+| CPE089 | 原創 | Integer to Roman Numeral | 簡單 |
+| CPE090 | 原創 | Morse Code Decoder | 簡單 |
+| CPE091 | 原創 | ROT13 Cipher | 簡單 |
+| CPE092 | 原創 | Set Union and Intersection | 簡單 |
+| CPE093 | 原創 | Longest Common Subsequence | 中等 |
+| CPE094 | 原創 | Subset Sum Existence | 中等 |
+| CPE095 | 原創 | Tower of Hanoi | 簡單 |
+| CPE096 | 原創 | Kth Largest Element | 簡單 |
+| CPE097 | 原創 | Counting Sort | 簡單 |
+| CPE098 | 原創 | Fixed Window Maximum Sum | 簡單 |
+| CPE099 | 原創 | Leap Year and Day of Year | 簡單 |
+| CPE100 | 原創 | 12-Hour to 24-Hour Time | 簡單 |
+| CPE101 | 原創 | Pascal's Triangle Row | 簡單 |
+| CPE102 | 原創 | Modular Exponentiation | 簡單 |
+| CPE103 | 原創 | Binary Search Insert Position | 簡單 |
+| CPE104 | 101 | The Blocks Problem | 困難 |
+| CPE105 | 459 | Graph Connectivity | 中等 |
+| CPE106 | 468 | Key to Success | 中等 |
+| CPE107 | 483 | Word Scramble | 簡單 |
+| CPE108 | 573 | The Snail | 中等 |
+| CPE109 | 624 | CD | 困難 |
+| CPE110 | 706 | LC-Display | 困難 |
+| CPE111 | 10025 | The ?1?2?...?n=k problem | 中等 |
+| CPE112 | 10474 | Where is the Marble? | 簡單 |
+| CPE113 | 10905 | Children's Game | 簡單 |
+| CPE114 | 10921 | Find the Telephone | 簡單 |
+| CPE115 | 10925 | Krakovia | 中等 |
+| CPE116 | 10935 | Throwing cards away I | 簡單 |
+| CPE117 | 10970 | Big Chocolate | 簡單 |
+| CPE118 | 11044 | Searching for Nessy | 簡單 |
+| CPE119 | 11364 | Optimal Parking | 簡單 |
+| CPE120 | 11384 | Help is needed for Dexter | 簡單 |
+| CPE121 | 11498 | Division of Nlogonia | 中等 |
+| CPE122 | 11559 | Event Planning | 中等 |
+| CPE123 | 11729 | Commando War | 中等 |
+| CPE124 | 11039 | Building designing | 困難 |
+| CPE125 | 原創 | Grid Maze Shortest Path | 中等 |
+| CPE126 | 原創 | Island Count | 中等 |
+| CPE127 | 原創 | Anagram Pair Check | 簡單 |
+| CPE128 | 原創 | Palindrome Check | 簡單 |
+| CPE129 | 原創 | Vowel and Consonant Count | 簡單 |
+| CPE130 | 原創 | Most Frequent Word | 簡單 |
+| CPE131 | 原創 | Generalized Caesar Cipher | 簡單 |
+| CPE132 | 原創 | Binary to Decimal | 簡單 |
+| CPE133 | 原創 | Decimal to Custom Base | 簡單 |
+| CPE134 | 原創 | Prime Factorization | 簡單 |
+| CPE135 | 原創 | Sum and Count of Divisors | 簡單 |
+| CPE136 | 原創 | Trailing Zeros in Factorial | 簡單 |
+| CPE137 | 原創 | Happy Number Check | 簡單 |
+| CPE138 | 原創 | Matrix Addition | 簡單 |
+| CPE139 | 原創 | Matrix Multiplication | 中等 |
+| CPE140 | 原創 | Determinant of a Square Matrix | 困難 |
+| CPE141 | 原創 | Anagram Palindrome Check | 簡單 |
+| CPE142 | 原創 | Run-Length Decode | 簡單 |
+| CPE143 | 原創 | String Rotation Check | 簡單 |
+| CPE144 | 原創 | Longest Palindromic Prefix | 簡單 |
+| CPE145 | 原創 | Edit Distance | 中等 |
+| CPE146 | 原創 | Unique Paths in a Grid | 簡單 |
+| CPE147 | 原創 | Minimum Coins for Change | 中等 |
+| CPE148 | 原創 | Job Sequencing with Deadlines | 中等 |
+| CPE149 | 原創 | Fractional Knapsack | 中等 |
+| CPE150 | 原創 | Minimum Cost to Merge Piles | 中等 |
+| CPE151 | 原創 | Nth Catalan Number | 簡單 |
+| CPE152 | 原創 | nCr mod p | 簡單 |
+| CPE153 | 原創 | Nth Fibonacci mod m | 簡單 |
+| CPE154 | 400 | Unix ls | 困難 |
+| CPE155 | 401 | Palindromes | 中等 |
+| CPE156 | 455 | Periodic Strings | 簡單 |
+| CPE157 | 458 | The Decoder | 簡單 |
+| CPE158 | 465 | Overflow | 中等 |
+| CPE159 | 494 | Kindergarten Counting Game | 簡單 |
+| CPE160 | 499 | What's The Frequency, Kenneth? | 中等 |
+| CPE161 | 1225 | Digit Counting | 簡單 |
+| CPE162 | 1585 | Score | 簡單 |
+| CPE163 | 10152 | ShellSort | 困難 |
+| CPE164 | 10370 | Above Average | 簡單 |
+| CPE165 | 10424 | Love Calculator | 中等 |
+| CPE166 | 10763 | Foreign Exchange | 簡單 |
+| CPE167 | 11078 | Open Credit System | 簡單 |
+| CPE168 | 11340 | Newspaper | 簡單 |
+| CPE169 | 12100 | Printer Queue | 簡單 |
+| CPE170 | 原創 | Count Inversions (Merge Sort) | 中等 |
+| CPE171 | 原創 | Bubble Sort Pass Count | 簡單 |
+| CPE172 | 原創 | Binary Search Exact Match | 簡單 |
+| CPE173 | 原創 | Longest Substring Without Repeating Characters | 中等 |
+| CPE174 | 原創 | Container With Most Water | 中等 |
+| CPE175 | 原創 | 3Sum Triple Count | 中等 |
+| CPE176 | 原創 | Minimum Insertions to Balance Parentheses | 中等 |
+| CPE177 | 原創 | Prefix Expression Evaluation | 中等 |
+| CPE178 | 原創 | Linked List Cycle Detection | 中等 |
+| CPE179 | 原創 | Dijkstra Shortest Path | 中等 |
+| CPE180 | 原創 | Topological Sort | 中等 |
+| CPE181 | 原創 | Minimum Spanning Tree (Kruskal) | 中等 |
+| CPE182 | 原創 | Climbing Stairs Ways | 簡單 |
+| CPE183 | 原創 | Word Break | 中等 |
+| CPE184 | 原創 | Maximum Product Subarray | 中等 |
+| CPE185 | 原創 | Trapping Rain Water | 中等 |
+| CPE186 | 原創 | Best Time to Buy and Sell Stock | 簡單 |
+| CPE187 | 原創 | Majority Element | 簡單 |
+| CPE188 | 原創 | Move Zeroes to End | 簡單 |
+| CPE189 | 原創 | Rotate Array by K | 簡單 |
+| CPE190 | 原創 | Missing Number in 1..N | 簡單 |
+| CPE191 | 原創 | Find Duplicate Number | 簡單 |
+| CPE192 | 原創 | Power Set Generation | 簡單 |
+| CPE193 | 原創 | Next Permutation | 中等 |
+| CPE194 | 原創 | Diagonal Matrix Traversal | 中等 |
+| CPE195 | 原創 | Sudoku Block Validity Check | 中等 |
+| CPE196 | 原創 | Magic Square Validation | 簡單 |
+| CPE197 | 原創 | Nth Ugly Number | 簡單 |
+| CPE198 | 原創 | Longest Consecutive Sequence | 中等 |
+| CPE199 | 原創 | Maximum Overlapping Intervals | 中等 |
+| CPE200 | 原創 | Water Jug Problem | 中等 |
+| CPE201 | 原創 | Single Number (XOR Trick) | 簡單 |
+| CPE202 | 原創 | Permutation in String | 中等 |
+| CPE203 | 原創 | Longest Common Substring | 中等 |

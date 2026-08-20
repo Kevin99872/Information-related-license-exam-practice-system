@@ -1,0 +1,56 @@
+CPE 11559 Event Planning
+
+難度：中等
+來源：改編自 UVa Online Judge #11559 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+要為 N 位參加者選一間旅館與一個週末辦活動，預算為 B。每間旅館有一晚每人的價格 p，以及每個週末 (共 W 個) 的可訂床位數。只要某個週末該旅館床位數足夠容納全部 N 人，即可選擇該週末入住該旅館 (全員同一家旅館)。求「總花費 = 每人價格*人數」在預算內的最低總花費；若無論如何都無法在預算內完成，輸出 stay home。
+
+輸入說明：每組第一行 N B H W；接著每間旅館兩行：第一行為每人價格 p，第二行為 W 個整數 (各週末可訂床位數)，共 H 間旅館。讀到檔案結尾。
+輸出說明：每組輸出最低總花費，或 stay home。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); b = int(data[idx + 1]); h = int(data[idx + 2]); w = int(data[idx + 3])
+        idx += 4
+        best = None
+        for _ in range(h):
+            price = int(data[idx]); idx += 1
+            beds = [int(data[idx + i]) for i in range(w)]
+            idx += w
+            if max(beds) >= n:
+                cost = price * n
+                if cost <= b and (best is None or cost < best):
+                    best = cost
+        out.append(str(best) if best is not None else "stay home")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+3 1000 2 3
+200
+0 2 2
+300
+27 3 20
+5 2000 2 4
+300
+4 3 0 4
+450
+7 8 0 13
+== 範例 1 輸出 ==
+900
+stay home
+
+== 範例 2 輸入 ==
+2 500 1 2
+100
+5 5
+== 範例 2 輸出 ==
+200

@@ -1,0 +1,60 @@
+CPE 10101 Bangla Numbers
+
+難度：困難
+來源：改編自 UVa Online Judge #10101 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+Bangla 數字系統以 shata (100)、hajar (1000)、lakh (100000)、kuti (10000000) 為單位分組表示大數。分組規則：從最右邊取 2 位數作為不加單位的個位數；再往左，依序以 1 位 (shata)、2 位 (hajar)、2 位 (lakh)、2 位 (kuti) 為一個循環，反覆分組直到取完所有位數；輸出時由高位到低位排列，數值為 0 的分組不輸出。
+
+例：23764 → 23 hajar 7 shata 64。
+
+輸入說明：每行一個非負整數 (<=999999999999999)，讀到檔案結尾。
+輸出說明：每行輸出 "  N. " (case 編號，寬度 4 右對齊後接一個句點) 加上轉換後的文字；小於 100 的數字直接輸出數值本身。
+
+為簡化題意，本題輸入保證分組後每一組的數值都不為 0。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    lines = [l.strip() for l in sys.stdin.read().split('\n') if l.strip() != '']
+    labels = ['shata', 'hajar', 'lakh', 'kuti']
+    out = []
+    for case_no, s in enumerate(lines, 1):
+        n = int(s)
+        if n < 100:
+            out.append(f"{case_no:4d}. {n}")
+            continue
+        rest = s[:-2]
+        last2 = s[-2:]
+        groups = []
+        i = len(rest)
+        li = 0
+        while i > 0:
+            size = 1 if labels[li % 4] == 'shata' else 2
+            size = min(size, i)
+            chunk = rest[i - size:i]
+            groups.append((int(chunk), labels[li % 4]))
+            i -= size
+            li += 1
+        groups.reverse()
+        parts = [f"{val} {label}" for val, label in groups if val != 0]
+        parts.append(str(int(last2)))
+        out.append(f"{case_no:4d}. " + ' '.join(parts))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+23764
+45897458973958
+== 範例 1 輸出 ==
+   1. 23 hajar 7 shata 64
+   2. 45 lakh 89 hajar 7 shata 45 kuti 89 lakh 73 hajar 9 shata 58
+
+== 範例 2 輸入 ==
+99
+100
+== 範例 2 輸出 ==
+   1. 99
+   2. 1 shata 0

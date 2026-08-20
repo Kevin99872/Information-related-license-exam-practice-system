@@ -1,0 +1,50 @@
+CPE Matrix Addition
+
+難度：簡單
+來源：原創（矩陣加法）
+
+== 題目 ==
+給定兩個 R*C 矩陣 A、B，求 A+B。
+
+輸入說明：每組第一行 R C，接著 R 行each C 個整數為矩陣 A，再接著 R 行each C 個整數為矩陣 B。R=0 且 C=0 表示輸入結束。
+輸出說明：每組輸出 A+B 的結果 (R 行each C 個整數)；組與組之間空一行。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    blocks = []
+    while idx < len(data):
+        r = int(data[idx]); c = int(data[idx + 1]); idx += 2
+        if r == 0 and c == 0:
+            break
+        a = [[int(data[idx + i * c + j]) for j in range(c)] for i in range(r)]
+        idx += r * c
+        b = [[int(data[idx + i * c + j]) for j in range(c)] for i in range(r)]
+        idx += r * c
+        rows = [' '.join(str(a[i][j] + b[i][j]) for j in range(c)) for i in range(r)]
+        blocks.append('\n'.join(rows))
+    print('\n\n'.join(blocks))
+
+main()
+
+== 範例 1 輸入 ==
+2 2
+1 2
+3 4
+5 6
+7 8
+0 0
+== 範例 1 輸出 ==
+6 8
+10 12
+
+== 範例 2 輸入 ==
+1 3
+1 1 1
+2 2 2
+0 0
+== 範例 2 輸出 ==
+3 3 3

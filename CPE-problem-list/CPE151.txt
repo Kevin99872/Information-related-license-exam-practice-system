@@ -1,0 +1,40 @@
+CPE Nth Catalan Number
+
+難度：簡單
+來源：原創（卡塔蘭數 (Catalan Number)）
+
+== 題目 ==
+給定 n，求第 n 個卡塔蘭數 C(n) = C(2n,n) / (n+1)。
+
+輸入說明：每行一個整數 n (0<=n<=30)，讀到檔案結尾。
+輸出說明：每行輸出第 n 個卡塔蘭數。
+
+== 參考解法 (Python) ==
+import sys
+import math
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        out.append(str(math.comb(2 * n, n) // (n + 1)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+0
+3
+== 範例 1 輸出 ==
+1
+5
+
+== 範例 2 輸入 ==
+5
+10
+== 範例 2 輸出 ==
+42
+16796

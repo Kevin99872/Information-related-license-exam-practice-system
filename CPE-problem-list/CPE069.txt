@@ -1,0 +1,50 @@
+CPE 10242 Fourth Point!!
+
+難度：中等
+來源：改編自 UVa Online Judge #10242 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定平行四邊形相鄰兩邊的端點座標，求第四個頂點的座標。
+
+輸入說明：每行 8 個浮點數，依序為第一邊兩端點 (x,y)、(x,y)，以及第二邊兩端點 (x,y)、(x,y)。兩邊相鄰，代表其中各有一個端點是共用頂點。讀到檔案結尾。
+輸出說明：每行輸出第四個頂點座標，四捨五入到小數點後 3 位，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+
+def close(p, q, eps=1e-6):
+    return abs(p[0] - q[0]) < eps and abs(p[1] - q[1]) < eps
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        v = list(map(float, line.split()))
+        A = (v[0], v[1]); B = (v[2], v[3]); C = (v[4], v[5]); D = (v[6], v[7])
+        if close(A, C) or close(A, D):
+            shared, other1 = A, B
+        else:
+            shared, other1 = B, A
+        other2 = D if close(shared, C) else C
+        fx = other1[0] + other2[0] - shared[0]
+        fy = other1[1] + other2[1] - shared[1]
+        out.append(f"{fx:.3f} {fy:.3f}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+0.000 0.000 0.000 1.000 0.000 1.000 1.000 1.000
+1.000 0.000 3.500 3.500 3.500 3.500 0.000 1.000
+1.866 0.000 3.127 3.543 3.127 3.543 1.412 3.145
+== 範例 1 輸出 ==
+1.000 0.000
+-2.500 -2.500
+0.151 -0.398
+
+== 範例 2 輸入 ==
+0.000 0.000 2.000 0.000 2.000 0.000 2.000 3.000
+== 範例 2 輸出 ==
+0.000 3.000

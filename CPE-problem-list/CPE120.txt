@@ -1,0 +1,42 @@
+CPE 11384 Help is needed for Dexter
+
+難度：簡單
+來源：改編自 UVa Online Judge #11384 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+螢幕上有數字 1 到 N。每次操作可以任選一些螢幕上的數字，將它們同時減去「同一個」你指定的正整數 (每次操作指定的數字可以不同)。求最少需要幾次操作，才能把所有數字都變成 0。
+
+輸入說明：每行一個整數 N (1<=N<=1000000000)，讀到檔案結尾。
+輸出說明：每行輸出最少操作次數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        out.append(str(int(line).bit_length()))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1
+2
+3
+== 範例 1 輸出 ==
+1
+2
+2
+
+== 範例 2 輸入 ==
+4
+7
+8
+== 範例 2 輸出 ==
+3
+3
+4

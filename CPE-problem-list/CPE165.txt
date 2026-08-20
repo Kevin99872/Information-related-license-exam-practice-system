@@ -1,0 +1,49 @@
+CPE 10424 Love Calculator
+
+難度：中等
+來源：改編自 UVa Online Judge #10424 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定兩個名字，只取其中的英文字母 (不分大小寫)，a=1,b=2,...,z=26，將名字中所有字母的值加總，若總和為兩位數以上則反覆將各位數字相加，直到剩下一個個位數為止。求兩個名字所得個位數中「較小值除以較大值」的百分比。
+
+輸入說明：每兩行一組，分別為兩個名字 (每個不超過 25 字元，可能含空白或非字母符號)，讀到檔案結尾。
+輸出說明：每組輸出 "xx.xx %"。
+
+== 參考解法 (Python) ==
+import sys
+
+def digit_sum_to_single(n):
+    while n >= 10:
+        n = sum(int(d) for d in str(n))
+    return n
+
+def name_value(name):
+    total = sum(ord(c.lower()) - ord('a') + 1 for c in name if c.isalpha())
+    return digit_sum_to_single(total)
+
+def main():
+    lines = [l.rstrip('\n') for l in sys.stdin if l.strip() != '']
+    out = []
+    for i in range(0, len(lines) - 1, 2):
+        a = name_value(lines[i])
+        b = name_value(lines[i + 1])
+        pct = min(a, b) / max(a, b) * 100
+        out.append(f"{pct:.2f} %")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+saima
+shanto
+Pakistan
+India
+== 範例 1 輸出 ==
+71.43 %
+100.00 %
+
+== 範例 2 輸入 ==
+USA
+USSR
+== 範例 2 輸出 ==
+100.00 %

@@ -1,0 +1,39 @@
+CPE Modular Exponentiation
+
+難度：簡單
+來源：原創（快速冪 / 模指數運算）
+
+== 題目 ==
+給定三個整數 base、exp、m，計算 (base^exp) mod m。
+
+輸入說明：每行三個整數 base exp m (0<=base,exp<=10^9, 1<=m<=10^9)，讀到檔案結尾。
+輸出說明：每行輸出計算結果。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        b, e, m = map(int, line.split())
+        out.append(str(pow(b, e, m)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+2 10 1000
+3 5 7
+== 範例 1 輸出 ==
+24
+5
+
+== 範例 2 輸入 ==
+7 0 13
+10 100 97
+== 範例 2 輸出 ==
+1
+9

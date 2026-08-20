@@ -1,0 +1,37 @@
+CPE Vowel and Consonant Count
+
+難度：簡單
+來源：原創（母音子音計數）
+
+== 題目 ==
+給定一個只含英文字母的字串，計算其中母音 (a,e,i,o,u，不分大小寫) 與子音的個數。
+
+輸入說明：每行一個字串，讀到檔案結尾。
+輸出說明：每行輸出 "母音數 子音數"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        low = s.lower()
+        v = sum(1 for c in low if c in 'aeiou')
+        c = sum(1 for c in low if c.isalpha() and c not in 'aeiou')
+        out.append(f"{v} {c}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+Hello World
+== 範例 1 輸出 ==
+3 7
+
+== 範例 2 輸入 ==
+rhythm
+== 範例 2 輸出 ==
+0 6

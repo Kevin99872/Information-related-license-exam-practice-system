@@ -1,0 +1,46 @@
+CPE 12-Hour to 24-Hour Time
+
+難度：簡單
+來源：原創（時間格式轉換）
+
+== 題目 ==
+將 12 小時制時間 (格式 "HH:MM:SS AM" 或 "HH:MM:SS PM") 轉換為 24 小時制 (格式 "HH:MM:SS")。
+
+輸入說明：每行一個 12 小時制時間，讀到檔案結尾。
+輸出說明：每行輸出轉換後的 24 小時制時間。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        t, ap = line.split()
+        h, mi, s = map(int, t.split(':'))
+        if ap == 'AM':
+            if h == 12:
+                h = 0
+        else:
+            if h != 12:
+                h += 12
+        out.append(f"{h:02d}:{mi:02d}:{s:02d}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+12:30:00 AM
+12:30:00 PM
+== 範例 1 輸出 ==
+00:30:00
+12:30:00
+
+== 範例 2 輸入 ==
+02:15:09 PM
+11:59:59 PM
+== 範例 2 輸出 ==
+14:15:09
+23:59:59

@@ -1,0 +1,31 @@
+CPE ROT13 Cipher
+
+難度：簡單
+來源：原創（ROT13 經典替換式密碼）
+
+== 題目 ==
+ROT13 是一種簡單的替換式密碼，將每個英文字母替換成字母表中往後推 13 位的字母 (超過 Z 則從 A 繼續)，大小寫維持不變，非英文字母不變。ROT13 加密與解密使用相同規則。
+
+輸入說明：每行一段文字，讀到檔案結尾。
+輸出說明：每行輸出經過 ROT13 轉換後的文字。
+
+== 參考解法 (Python) ==
+import sys
+import codecs
+
+def main():
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        print(codecs.encode(line, 'rot13'))
+
+main()
+
+== 範例 1 輸入 ==
+Hello, World!
+== 範例 1 輸出 ==
+Uryyb, Jbeyq!
+
+== 範例 2 輸入 ==
+Uryyb, Jbeyq!
+== 範例 2 輸出 ==
+Hello, World!

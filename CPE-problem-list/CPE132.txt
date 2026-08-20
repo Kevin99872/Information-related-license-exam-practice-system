@@ -1,0 +1,38 @@
+CPE Binary to Decimal
+
+難度：簡單
+來源：原創（二進位轉十進位）
+
+== 題目 ==
+給定一個二進位字串，轉換成十進位整數。
+
+輸入說明：每行一個二進位字串，讀到檔案結尾。
+輸出說明：每行輸出對應的十進位整數。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    out = []
+    for line in sys.stdin:
+        s = line.strip()
+        if not s:
+            continue
+        out.append(str(int(s, 2)))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+1010
+11111111
+== 範例 1 輸出 ==
+10
+255
+
+== 範例 2 輸入 ==
+0
+1
+== 範例 2 輸出 ==
+0
+1

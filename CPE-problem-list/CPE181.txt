@@ -1,0 +1,65 @@
+CPE Minimum Spanning Tree (Kruskal)
+
+難度：中等
+來源：原創（最小生成樹 (Kruskal 演算法)）
+
+== 題目 ==
+給定一個含 n 個節點、m 條無向加權邊的連通圖，求最小生成樹的總權重；若圖不連通則輸出 IMPOSSIBLE。
+
+輸入說明：每組第一行 n m，接著 m 行each 三個整數 u v w。n=0 且 m=0 表示輸入結束。
+輸出說明：每組輸出最小生成樹總權重，或 IMPOSSIBLE。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); m = int(data[idx + 1]); idx += 2
+        if n == 0:
+            break
+        edges = []
+        for _ in range(m):
+            u = int(data[idx]); v = int(data[idx + 1]); w = int(data[idx + 2]); idx += 3
+            edges.append((w, u, v))
+        edges.sort()
+        parent = list(range(n))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        total = 0
+        cnt = 0
+        for w, u, v in edges:
+            ru, rv = find(u), find(v)
+            if ru != rv:
+                parent[ru] = rv
+                total += w
+                cnt += 1
+        out.append(str(total) if cnt == n - 1 else 'IMPOSSIBLE')
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+4 5
+0 1 1
+0 2 4
+1 2 2
+1 3 5
+2 3 3
+0 0
+== 範例 1 輸出 ==
+6
+
+== 範例 2 輸入 ==
+3 1
+0 1 1
+0 0
+== 範例 2 輸出 ==
+IMPOSSIBLE

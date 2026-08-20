@@ -1,0 +1,30 @@
+CPE 458 The Decoder
+
+難度：簡單
+來源：改編自 UVa Online Judge #458 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+一段加密文字，每個字元的 ASCII 值皆比原字元多 7。請將其解碼還原。
+
+輸入說明：多行加密文字，讀到檔案結尾。
+輸出說明：每行輸出解碼後的文字。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        print(''.join(chr(ord(c) - 7) for c in line))
+
+main()
+
+== 範例 1 輸入 ==
+1JKJ'pz'{ol'{yhklthyr'vm'{ol'Jvu{yvs'Kh{h'Jvywvyh{pvu5
+== 範例 1 輸出 ==
+*CDC is the trademark of the Control Data Corporation.
+
+== 範例 2 輸入 ==
+Uv'wyvispl4z'aol'{lz{5
+== 範例 2 輸出 ==
+No problie-s Zhe test.

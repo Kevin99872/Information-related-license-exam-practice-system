@@ -1,0 +1,38 @@
+CPE Most Frequent Word
+
+難度：簡單
+來源：原創（文字詞頻統計）
+
+== 題目 ==
+給定一行文字 (單字以空白分隔)，找出出現次數最多的單字；若有並列，輸出「字典序最小」的那個。
+
+輸入說明：每行一段文字，讀到檔案結尾。
+輸出說明：每行輸出 "單字 出現次數"。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        c = Counter(line.split())
+        maxfreq = max(c.values())
+        best = min(w for w in c if c[w] == maxfreq)
+        out.append(f"{best} {maxfreq}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+the cat sat on the mat
+== 範例 1 輸出 ==
+the 2
+
+== 範例 2 輸入 ==
+a b b c c a
+== 範例 2 輸出 ==
+a 2

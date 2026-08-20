@@ -1,0 +1,81 @@
+CPE 118 Mutant Flatworld Explorers
+
+難度：困難
+來源：改編自 UVa Online Judge #118 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+機器人在一個矩形網格上探索。網格左下角座標為 (0,0)，右上角座標由輸入給定。
+每個機器人有起始座標 (x,y) 與方向 (N/S/E/W)，並接收一串指令字串，指令字元意義如下：
+L：原地左轉 90 度
+R：原地右轉 90 度
+F：往目前方向前進一格
+
+若機器人執行 F 指令後會離開網格邊界，則該機器人從此消失（回報 LOST），並在離開前最後所在的格子與方向留下「氣味」。之後任何機器人若在相同座標、相同方向要執行會離開邊界的 F 指令，該指令會被直接忽略（機器人不消失也不移動，繼續執行下一個指令）。
+
+機器人依序處理（前一台處理完才輪到下一台）。
+
+輸入說明：第一行兩個整數，網格右上角座標 x_max y_max。之後每兩行描述一台機器人：第一行為起始座標與方向 "x y dir"；第二行為指令字串。讀到檔案結尾為止。
+輸出說明：每台機器人輸出一行 "x y dir"，若機器人消失則再加上 " LOST"。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    tokens = sys.stdin.read().split()
+    idx = 0
+    xmax = int(tokens[idx]); idx += 1
+    ymax = int(tokens[idx]); idx += 1
+    dirs = ['N', 'E', 'S', 'W']
+    delta = {'N': (0, 1), 'E': (1, 0), 'S': (0, -1), 'W': (-1, 0)}
+    scent = set()
+    out = []
+    while idx < len(tokens):
+        x = int(tokens[idx]); y = int(tokens[idx + 1]); d = tokens[idx + 2]
+        idx += 3
+        instr = tokens[idx]; idx += 1
+        lost = False
+        for c in instr:
+            if c == 'L':
+                d = dirs[(dirs.index(d) - 1) % 4]
+            elif c == 'R':
+                d = dirs[(dirs.index(d) + 1) % 4]
+            elif c == 'F':
+                dx, dy = delta[d]
+                nx, ny = x + dx, y + dy
+                if nx < 0 or nx > xmax or ny < 0 or ny > ymax:
+                    if (x, y, d) not in scent:
+                        scent.add((x, y, d))
+                        lost = True
+                        break
+                else:
+                    x, y = nx, ny
+        out.append(f"{x} {y} {d}" + (" LOST" if lost else ""))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+5 3
+1 1 E
+RFRFRFRF
+3 2 N
+FRRFLLFFRRFLL
+0 3 W
+LLFFFLFLFL
+== 範例 1 輸出 ==
+1 1 E
+3 3 N LOST
+2 3 S
+
+== 範例 2 輸入 ==
+2 2
+0 0 N
+F
+2 2 N
+F
+2 2 N
+F
+== 範例 2 輸出 ==
+0 1 N
+2 2 N LOST
+2 2 N

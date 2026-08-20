@@ -1,0 +1,60 @@
+CPE 10935 Throwing cards away I
+
+難度：簡單
+來源：改編自 UVa Online Judge #10935 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一副由 1 到 n 編號的牌，牌 1 在最上面、牌 n 在最下面。重複執行以下操作直到剩下最後一張牌：丟掉最上面那張牌，然後把新的最上面那張牌移到最下面。求被丟棄牌的順序，以及最後剩下的牌。
+
+輸入說明：每行一個整數 n (<=50)，"0" 表示輸入結束。
+輸出說明：每組輸出兩行："Discarded cards: " 接被丟棄的牌 (以逗號加空白分隔)；"Remaining card: " 接最後剩下的牌。
+
+== 參考解法 (Python) ==
+import sys
+from collections import deque
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        n = int(line)
+        if n == 0:
+            break
+        dq = deque(range(1, n + 1))
+        discarded = []
+        while len(dq) > 1:
+            discarded.append(dq.popleft())
+            dq.append(dq.popleft())
+        out.append("Discarded cards: " + ', '.join(map(str, discarded)))
+        out.append(f"Remaining card: {dq[0]}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+7
+19
+10
+6
+0
+== 範例 1 輸出 ==
+Discarded cards: 1, 3, 5, 7, 4, 2
+Remaining card: 6
+Discarded cards: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 4, 8, 12, 16, 2, 10, 18, 14
+Remaining card: 6
+Discarded cards: 1, 3, 5, 7, 9, 2, 6, 10, 8
+Remaining card: 4
+Discarded cards: 1, 3, 5, 2, 6
+Remaining card: 4
+
+== 範例 2 輸入 ==
+2
+1
+0
+== 範例 2 輸出 ==
+Discarded cards: 1
+Remaining card: 2
+Discarded cards: 
+Remaining card: 1

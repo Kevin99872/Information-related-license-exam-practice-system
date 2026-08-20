@@ -1,0 +1,47 @@
+CPE Fixed Window Maximum Sum
+
+難度：簡單
+來源：原創（滑動視窗經典題型）
+
+== 題目 ==
+給定 n 個整數與視窗大小 k，求所有「連續 k 個元素」的總和中的最大值。
+
+輸入說明：每組第一行 n k，第二行 n 個整數。n=0 且 k=0 表示輸入結束。
+輸出說明：每組輸出最大的視窗總和。
+
+== 參考解法 (Python) ==
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+    out = []
+    while idx < len(data):
+        n = int(data[idx]); k = int(data[idx + 1]); idx += 2
+        if n == 0:
+            break
+        nums = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        cur = sum(nums[:k])
+        best = cur
+        for i in range(k, n):
+            cur += nums[i] - nums[i - k]
+            best = max(best, cur)
+        out.append(str(best))
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+8 3
+2 1 5 1 3 2 7 1
+0 0
+== 範例 1 輸出 ==
+12
+
+== 範例 2 輸入 ==
+5 1
+-1 -2 -3 -4 -5
+0 0
+== 範例 2 輸出 ==
+-1

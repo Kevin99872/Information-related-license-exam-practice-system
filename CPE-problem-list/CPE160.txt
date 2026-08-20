@@ -1,0 +1,39 @@
+CPE 499 What's The Frequency, Kenneth?
+
+難度：中等
+來源：改編自 UVa Online Judge #499 (CPE 大學程式能力檢定經典題)
+
+== 題目 ==
+給定一行文字，找出其中出現頻率最高的英文字母 (可能不只一個)，依「先列大寫字母 (字母序)，再列小寫字母 (字母序)」的順序輸出這些字母，接著輸出其出現次數。
+
+輸入說明：多行文字，讀到檔案結尾。
+輸出說明：每行輸出符合條件的字母 (直接相連) 與出現次數，以空白分隔。
+
+== 參考解法 (Python) ==
+import sys
+from collections import Counter
+
+def main():
+    out = []
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        c = Counter(ch for ch in line if ch.isalpha())
+        maxfreq = max(c.values())
+        upper = sorted(ch for ch in c if ch.isupper() and c[ch] == maxfreq)
+        lower = sorted(ch for ch in c if ch.islower() and c[ch] == maxfreq)
+        out.append(''.join(upper) + ''.join(lower) + f" {maxfreq}")
+    print('\n'.join(out))
+
+main()
+
+== 範例 1 輸入 ==
+When riding your bicycle backwards down a one-way street, if the
+Hello Howard.
+== 範例 1 輸出 ==
+e 6
+Hlo 2
+
+== 範例 2 輸入 ==
+aabbAABB
+== 範例 2 輸出 ==
+ABab 2
