@@ -31,9 +31,21 @@ public partial class HomeViewModel : ViewModelBase
     [ObservableProperty]
     private bool hasNoBanks;
 
-    public HomeViewModel()
+    private bool _cardsLoaded;
+
+    /// <summary>
+    /// 延遲載入考照列表 - 由 HomeView 的 Loaded 事件觸發，
+    /// 而非在建構函式中立即查詢，避免程式一啟動(尚未顯示畫面前)就預先載入資料庫。
+    /// </summary>
+    public Task EnsureCardsLoadedAsync()
     {
-        _ = LoadCardsAsync();
+        if (_cardsLoaded)
+        {
+            return Task.CompletedTask;
+        }
+
+        _cardsLoaded = true;
+        return LoadCardsAsync();
     }
 
     /// <summary>
