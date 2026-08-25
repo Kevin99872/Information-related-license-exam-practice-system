@@ -18,13 +18,18 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <ComboBox MinWidth="200" IsVisible="{Binding !HasNoBanks}"
+                                  ItemsSource="{Binding AllCards}"
+                                  SelectedItem="{Binding SelectedCard}"
+                                  DisplayMemberBinding="{Binding Title}"/>
                         <Button Content="{loc:Loc ImportBank}" Classes="ghost" Command="{Binding GoToImportCommand}"/>
-                        <Button Content="{loc:Loc StartPractice}" Classes="primary"/>
+                        <Button Content="{loc:Loc StartPractice}" Classes="primary"
+                                Command="{Binding StartExamCommand}" CommandParameter="{Binding SelectedCard}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <!-- 熱門考照題庫 -->
+            <!-- 考照題庫列表 -->
             <StackPanel Spacing="14">
                 <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc HotBanks}"/>
                 <TextBlock Classes="muted" Text="{loc:Loc HotBanksDesc}"/>
@@ -38,7 +43,7 @@
                 </StackPanel>
             </Border>
 
-            <ItemsControl IsVisible="{Binding !HasNoBanks}" ItemsSource="{Binding HotCards}" HorizontalAlignment="Stretch">
+            <ItemsControl IsVisible="{Binding !HasNoBanks}" ItemsSource="{Binding AllCards}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Spacing="12"/>
@@ -72,43 +77,6 @@
 
                                     <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
                                         <TextBlock Grid.Column="1" Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=CompletedFmt}"/>
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <ItemsControl IsVisible="{Binding !HasNoBanks}" ItemsSource="{Binding ExtraCards}" HorizontalAlignment="Stretch">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Spacing="12"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Classes="card-button" Padding="0" Background="Transparent" BorderThickness="0"
-                            HorizontalAlignment="Stretch"
-                            Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
-                                CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0" MinHeight="160" Padding="20">
-                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
-                                    <Border Width="30" Height="30" Background="{DynamicResource IconBgBrush}" CornerRadius="7"/>
-
-                                    <StackPanel Grid.Column="1" Spacing="10">
-                                        <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
-                                        <TextBlock TextWrapping="Wrap" Classes="muted" Text="{Binding Description}" MaxLines="2"/>
-
-                                        <StackPanel Orientation="Horizontal" Spacing="14">
-                                            <TextBlock Text="{Binding QuestionCount, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
-                                            <TextBlock Text="{Binding DurationMinutes, Converter={StaticResource LocFmt}, ConverterParameter=MinutesFmt}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Spacing="8" MinWidth="160">
-                                        <TextBlock Classes="muted" HorizontalAlignment="Right" Text="{Binding ProgressPercent, Converter={StaticResource LocFmt}, ConverterParameter=CompletedFmt}"/>
                                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Height="6" Width="150"/>
                                     </StackPanel>
                                 </Grid>

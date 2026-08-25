@@ -165,8 +165,8 @@ public class LocalizationService : INotifyPropertyChanged
         ["QuickSimDesc"] = ("選擇您需要的考照類型，直接開始練習。", "Pick the certification you need and start practicing right away."),
         ["ImportBank"] = ("匯入題庫", "Import Bank"),
         ["StartPractice"] = ("開始練習", "Start Practice"),
-        ["HotBanks"] = ("熱門考照題庫", "Popular Exam Banks"),
-        ["HotBanksDesc"] = ("熱門題庫卡片即時顯示進度，支援每日自我練習", "Popular bank cards show live progress and support daily practice"),
+        ["HotBanks"] = ("考照題庫", "Exam Banks"),
+        ["HotBanksDesc"] = ("點選題庫卡片查看詳情，或於上方直接選擇並開始練習", "Click a bank card for details, or pick one above and start practicing directly"),
         ["NoBanksTitle"] = ("尚無題庫", "No banks yet"),
         ["NoBanksDesc"] = ("匯入第一份題庫 CSV / XLS / XLSX，即可在這裡看到練習卡片。", "Import your first CSV / XLS / XLSX bank to see practice cards here."),
 

@@ -7,6 +7,7 @@ using B3.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace B3.ViewModels;
@@ -19,13 +20,13 @@ public partial class HomeViewModel : ViewModelBase
     /// <summary>父視窗 ViewModel</summary>
     private MainWindowViewModel? _mainVM;
 
-    /// <summary>熱門考照卡片</summary>
+    /// <summary>所有考照卡片 - 不再區分熱門/其他，統一顯示</summary>
     [ObservableProperty]
-    private ObservableCollection<ExamCard> hotCards = new();
+    private ObservableCollection<ExamCard> allCards = new();
 
-    /// <summary>其他考照卡片</summary>
+    /// <summary>快速開始卡片中目前選取的考照類型</summary>
     [ObservableProperty]
-    private ObservableCollection<ExamCard> extraCards = new();
+    private ExamCard? selectedCard;
 
     /// <summary>目前是否完全沒有任何題庫 (用於顯示空狀態畫面)</summary>
     [ObservableProperty]
@@ -55,8 +56,7 @@ public partial class HomeViewModel : ViewModelBase
     /// </summary>
     private async Task LoadCardsAsync()
     {
-        var hot = new ObservableCollection<ExamCard>();
-        var extra = new ObservableCollection<ExamCard>();
+        var all = new ObservableCollection<ExamCard>();
 
         try
         {
@@ -82,14 +82,7 @@ public partial class HomeViewModel : ViewModelBase
                     var card = new ExamCard(category.Title, category.ExamType, category.Tag,
                         category.Description, questionCount, category.DurationMinutes, 0);
 
-                    if (category.IsHot)
-                    {
-                        hot.Add(card);
-                    }
-                    else
-                    {
-                        extra.Add(card);
-                    }
+                    all.Add(card);
                 }
             }
         }
@@ -100,9 +93,9 @@ public partial class HomeViewModel : ViewModelBase
 
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
-            HotCards = hot;
-            ExtraCards = extra;
-            HasNoBanks = hot.Count == 0 && extra.Count == 0;
+            AllCards = all;
+            HasNoBanks = all.Count == 0;
+            SelectedCard = all.FirstOrDefault();
         });
     }
 
@@ -119,8 +112,8 @@ public partial class HomeViewModel : ViewModelBase
         _mainVM?.ShowImport();
     }
 
-    /// <summary>啟動考試 - 由卡片按鈕呼叫</summary>
-    [RelayCommand]
+    /// <summary>啟動考試 - 由卡片按鈕或快速開始卡片的下拉選單呼叫</summary>
+    [RelayCommand(CanExecute = nameof(CanStartExam))]
     public async System.Threading.Tasks.Task StartExamAsync(ExamCard card)
     {
         if (card == null)
@@ -144,6 +137,14 @@ public partial class HomeViewModel : ViewModelBase
         {
             LoggerService.LogError("啟動考試失敗", ex);
         }
+    }
+
+    /// <summary>「開始練習」按鈕的可執行狀態 - 需選取到一個考照類型</summary>
+    private static bool CanStartExam(ExamCard card) => card != null;
+
+    partial void OnSelectedCardChanged(ExamCard? value)
+    {
+        StartExamCommand.NotifyCanExecuteChanged();
     }
 }
 
