@@ -57,6 +57,8 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml"/>
 
         <Style Selector="Window">
             <Setter Property="Background" Value="{DynamicResource PageBgBrush}"/>

@@ -1,4 +1,23 @@
-Desktop/B3/bin
+# --- .NET 建置輸出（務必忽略，否則 Windows 端 clone 會因路徑過長而失敗）---
+[Bb]in/
+[Oo]bj/
+
+# --- IDE / 編輯器 ---
+.vs/
+.idea/
+*.user
+*.suo
+*.lscache
+
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+
+# --- 執行紀錄 ---
+run-output.txt
+
+# --- 專案自訂 ---
 .claude/
 package.ps1
 Delvaptor rule.md

@@ -76,4 +76,40 @@ public class AppSettings
 
     /// <summary>介面語言 (zh-TW / en-US)</summary>
     public string UiLanguage { get; set; } = "zh-TW";
+
+    /// <summary>考試頁 Code Space 是否啟用語法上色</summary>
+    public bool EnableSyntaxHighlighting { get; set; } = true;
+
+    /// <summary>Code Space 語法上色配色</summary>
+    public SyntaxColorSettings SyntaxColors { get; set; } = new();
+}
+
+/// <summary>
+/// 程式碼語法上色配色 (十六進位色碼，例如 #569CD6)
+/// </summary>
+public class SyntaxColorSettings
+{
+    /// <summary>一般文字</summary>
+    public string PlainText { get; set; } = "#D4D4D4";
+
+    /// <summary>關鍵字 (if / for / class ...)</summary>
+    public string Keyword { get; set; } = "#569CD6";
+
+    /// <summary>型別與內建名稱 (int / string / print ...)</summary>
+    public string Type { get; set; } = "#4EC9B0";
+
+    /// <summary>函式呼叫</summary>
+    public string Function { get; set; } = "#DCDCAA";
+
+    /// <summary>字串與字元</summary>
+    public string String { get; set; } = "#CE9178";
+
+    /// <summary>數字</summary>
+    public string Number { get; set; } = "#B5CEA8";
+
+    /// <summary>註解</summary>
+    public string Comment { get; set; } = "#6A9955";
+
+    /// <summary>前置處理指令 / 裝飾器 (#include / @decorator)</summary>
+    public string Preprocessor { get; set; } = "#C586C0";
 }

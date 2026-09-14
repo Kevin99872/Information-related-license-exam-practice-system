@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using B3.Localization;
 using B3.Models;
 using B3.Services;
+using Avalonia.Media;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -44,6 +46,28 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>關於顯示</summary>
     [ObservableProperty]
     private bool isAboutSection;
+
+    /// <summary>程式編輯器設定顯示</summary>
+    [ObservableProperty]
+    private bool isEditorSection;
+
+    /// <summary>是否啟用 Code Space 語法上色</summary>
+    [ObservableProperty]
+    private bool enableSyntaxHighlighting = true;
+
+    /// <summary>語法上色配色項目</summary>
+    [ObservableProperty]
+    private ObservableCollection<SyntaxColorItem> syntaxColorItems = new();
+
+    /// <summary>預覽可選的程式語言</summary>
+    public ObservableCollection<string> SyntaxPreviewLanguages { get; } = new() { "Python", "C#", "C++" };
+
+    /// <summary>預覽使用的程式語言</summary>
+    [ObservableProperty]
+    private string syntaxPreviewLanguage = "C++";
+
+    /// <summary>配色或開關變更時通知 (供設定頁預覽重繪)</summary>
+    public event Action? SyntaxAppearanceChanged;
 
     /// <summary>AI 設定顯示</summary>
     [ObservableProperty]
@@ -197,6 +221,7 @@ public partial class SettingsViewModel : ViewModelBase
         {
             new("general", LocalizationService.T("SectionGeneral")),
             new("exam", LocalizationService.T("SectionExam")),
+            new("editor", LocalizationService.T("SectionEditor")),
             new("key", LocalizationService.T("SectionKey")),
             new("data", LocalizationService.T("SectionData")),
             new("ai", LocalizationService.T("SectionAi")),
@@ -204,6 +229,22 @@ public partial class SettingsViewModel : ViewModelBase
         };
         SelectedSection = Sections[0];
         UpdateSectionFlags();
+
+        SyntaxColorItems = new ObservableCollection<SyntaxColorItem>
+        {
+            new("SyntaxPlainText", s => s.PlainText, (s, v) => s.PlainText = v),
+            new("SyntaxKeyword", s => s.Keyword, (s, v) => s.Keyword = v),
+            new("SyntaxType", s => s.Type, (s, v) => s.Type = v),
+            new("SyntaxFunction", s => s.Function, (s, v) => s.Function = v),
+            new("SyntaxString", s => s.String, (s, v) => s.String = v),
+            new("SyntaxNumber", s => s.Number, (s, v) => s.Number = v),
+            new("SyntaxComment", s => s.Comment, (s, v) => s.Comment = v),
+            new("SyntaxPreprocessor", s => s.Preprocessor, (s, v) => s.Preprocessor = v)
+        };
+        foreach (var item in SyntaxColorItems)
+        {
+            item.ColorChanged += OnSyntaxColorChanged;
+        }
 
         _suppressAutoSave = true;
         LoadSettings();
@@ -217,6 +258,7 @@ public partial class SettingsViewModel : ViewModelBase
     {
         "general" => "SectionGeneral",
         "exam" => "SectionExam",
+        "editor" => "SectionEditor",
         "key" => "SectionKey",
         "data" => "SectionData",
         "ai" => "SectionAi",
@@ -230,6 +272,11 @@ public partial class SettingsViewModel : ViewModelBase
         foreach (var section in Sections)
         {
             section.Title = LocalizationService.T(SectionTitleKey(section.Key));
+        }
+
+        foreach (var item in SyntaxColorItems)
+        {
+            item.RefreshTitle();
         }
     }
 
@@ -290,6 +337,7 @@ public partial class SettingsViewModel : ViewModelBase
         var key = SelectedSection?.Key ?? string.Empty;
         IsGeneralSection = key == "general";
         IsExamSection = key == "exam";
+        IsEditorSection = key == "editor";
         IsKeySection = key == "key";
         IsDataSection = key == "data";
         IsAiSection = key == "ai";
@@ -334,6 +382,12 @@ public partial class SettingsViewModel : ViewModelBase
         ShuffleQuestions = settings.ShuffleQuestions;
         Difficulty = settings.Difficulty;
         SelectedUiLanguage = LanguageOptions.FirstOrDefault(o => o.Code == settings.UiLanguage) ?? LanguageOptions[0];
+        EnableSyntaxHighlighting = settings.EnableSyntaxHighlighting;
+        foreach (var item in SyntaxColorItems)
+        {
+            item.LoadFrom(settings.SyntaxColors ?? new SyntaxColorSettings());
+        }
+        SyntaxAppearanceChanged?.Invoke();
     }
 
     /// <summary>儲存本機設定</summary>
@@ -362,6 +416,8 @@ public partial class SettingsViewModel : ViewModelBase
         settings.ShuffleQuestions = ShuffleQuestions;
         settings.Difficulty = Difficulty;
         settings.UiLanguage = SelectedUiLanguage?.Code ?? LocalizationService.ZhTw;
+        settings.EnableSyntaxHighlighting = EnableSyntaxHighlighting;
+        settings.SyntaxColors = BuildSyntaxColorSettings();
         _settingsService.Save(settings);
     }
 
@@ -395,6 +451,101 @@ public partial class SettingsViewModel : ViewModelBase
     partial void OnShuffleQuestionsChanged(bool value) => PersistSettingsIfAllowed();
 
     partial void OnDifficultyChanged(string value) => PersistSettingsIfAllowed();
+
+    partial void OnEnableSyntaxHighlightingChanged(bool value)
+    {
+        SyntaxAppearanceChanged?.Invoke();
+        PersistSettingsIfAllowed();
+    }
+
+    partial void OnSyntaxPreviewLanguageChanged(string value) => SyntaxAppearanceChanged?.Invoke();
+
+    /// <summary>還原預設配色</summary>
+    [RelayCommand]
+    public void ResetSyntaxColors()
+    {
+        var defaults = new SyntaxColorSettings();
+        foreach (var item in SyntaxColorItems)
+        {
+            item.LoadFrom(defaults);
+        }
+
+        SyntaxAppearanceChanged?.Invoke();
+        PersistSettingsIfAllowed();
+    }
+
+    /// <summary>將目前配色項目組成設定物件</summary>
+    public SyntaxColorSettings BuildSyntaxColorSettings()
+    {
+        var colors = new SyntaxColorSettings();
+        foreach (var item in SyntaxColorItems)
+        {
+            item.WriteTo(colors);
+        }
+
+        return colors;
+    }
+
+    private void OnSyntaxColorChanged()
+    {
+        SyntaxAppearanceChanged?.Invoke();
+        PersistSettingsIfAllowed();
+    }
+}
+
+/// <summary>
+/// 語法上色配色項目 - 對應 SyntaxColorSettings 的單一欄位
+/// </summary>
+public partial class SyntaxColorItem : ObservableObject
+{
+    private readonly string _titleKey;
+    private readonly Func<SyntaxColorSettings, string> _getter;
+    private readonly Action<SyntaxColorSettings, string> _setter;
+    private bool _suppressNotify;
+
+    public SyntaxColorItem(string titleKey, Func<SyntaxColorSettings, string> getter, Action<SyntaxColorSettings, string> setter)
+    {
+        _titleKey = titleKey;
+        _getter = getter;
+        _setter = setter;
+        title = LocalizationService.T(titleKey);
+        color = CodeSyntaxColorizer.ParseColor(null, getter(new SyntaxColorSettings()));
+    }
+
+    /// <summary>顯示名稱</summary>
+    [ObservableProperty]
+    private string title;
+
+    /// <summary>目前顏色</summary>
+    [ObservableProperty]
+    private Color color;
+
+    /// <summary>色碼文字</summary>
+    public string Hex => $"#{Color.R:X2}{Color.G:X2}{Color.B:X2}";
+
+    /// <summary>使用者調整顏色時觸發</summary>
+    public event Action? ColorChanged;
+
+    public void RefreshTitle() => Title = LocalizationService.T(_titleKey);
+
+    /// <summary>從設定載入顏色 (不觸發 ColorChanged)</summary>
+    public void LoadFrom(SyntaxColorSettings settings)
+    {
+        _suppressNotify = true;
+        Color = CodeSyntaxColorizer.ParseColor(_getter(settings), _getter(new SyntaxColorSettings()));
+        _suppressNotify = false;
+    }
+
+    public void WriteTo(SyntaxColorSettings settings) => _setter(settings, Hex);
+
+    partial void OnColorChanged(Color value)
+    {
+        OnPropertyChanged(nameof(Hex));
+        if (!_suppressNotify)
+        {
+            ColorChanged?.Invoke();
+        }
+    }
 }
 
 /// <summary>

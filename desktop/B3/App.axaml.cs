@@ -133,22 +133,31 @@ public partial class App : Application
                 // Update brushes from colors
                 try
                 {
-                    Resources["PrimaryBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["PrimaryColor"]);
-                    Resources["PrimaryDarkBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["PrimaryDarkColor"]);
-                    Resources["SurfaceBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["SurfaceColor"]);
-                    Resources["PageBgBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["PageBgColor"]);
-                    Resources["SidebarBgBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["SidebarBgColor"]);
-                    Resources["MutedTextBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["MutedTextColor"]);
-                    Resources["TextBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["TextColor"]);
-                    Resources["TagBgBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["TagBgColor"]);
-                    Resources["TagAltBgBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["TagAltBgColor"]);
-                    Resources["IconBgBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["IconBgColor"]);
-                    Resources["SoftPanelBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["SoftPanelColor"]);
-                    Resources["CardBorderBrush"] = new Avalonia.Media.SolidColorBrush((Avalonia.Media.Color)Resources["CardBorderColor"]);
+                    UpdateBrush("PrimaryColor", "PrimaryBrush");
+                    UpdateBrush("PrimaryDarkColor", "PrimaryDarkBrush");
+                    UpdateBrush("SurfaceColor", "SurfaceBrush");
+                    UpdateBrush("PageBgColor", "PageBgBrush");
+                    UpdateBrush("SidebarBgColor", "SidebarBgBrush");
+                    UpdateBrush("MutedTextColor", "MutedTextBrush");
+                    UpdateBrush("TextColor", "TextBrush");
+                    UpdateBrush("TagBgColor", "TagBgBrush");
+                    UpdateBrush("TagAltBgColor", "TagAltBgBrush");
+                    UpdateBrush("IconBgColor", "IconBgBrush");
+                    UpdateBrush("SoftPanelColor", "SoftPanelBrush");
+                    UpdateBrush("CardBorderColor", "CardBorderBrush");
                 }
                 catch (Exception ex)
                 {
                     LoggerService.LogError("更新 Brush 資源失敗", ex);
+                }
+
+                // 依色彩資源建立對應的 Brush；資源不存在或型別不符時保持原值
+                void UpdateBrush(string colorKey, string brushKey)
+                {
+                    if (Resources[colorKey] is Avalonia.Media.Color color)
+                    {
+                        Resources[brushKey] = new Avalonia.Media.SolidColorBrush(color);
+                    }
                 }
             }
 

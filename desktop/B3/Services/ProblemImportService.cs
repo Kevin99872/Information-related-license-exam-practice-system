@@ -1,4 +1,4 @@
-using B3.Data;
+﻿using B3.Data;
 using B3.Models;
 using Microsoft.EntityFrameworkCore;
 using NPOI.HSSF.UserModel;
@@ -854,10 +854,10 @@ public class ProblemImportService
             CellType.Numeric => DateUtil.IsCellDateFormatted(cell)
                 ? $"{cell.DateCellValue:yyyy-MM-dd HH:mm:ss}"
                 : cell.NumericCellValue.ToString(CultureInfo.InvariantCulture),
-            CellType.Formula => cell.ToString(),
+            CellType.Formula => cell.ToString() ?? string.Empty,
             CellType.String => cell.StringCellValue,
             CellType.Blank => string.Empty,
-            _ => cell.ToString()
+            _ => cell.ToString() ?? string.Empty
         };
     }
 

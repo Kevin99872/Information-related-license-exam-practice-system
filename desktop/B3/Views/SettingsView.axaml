@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
              xmlns:loc="using:B3.Localization"
+             xmlns:ae="using:AvaloniaEdit"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Class="B3.Views.SettingsView"
              x:DataType="vm:SettingsViewModel">
@@ -109,6 +110,75 @@
                         </Grid>
                     </Border>
                 </StackPanel>
+
+                <!-- 程式編輯器 (Code Space 語法上色) -->
+                <ScrollViewer IsVisible="{Binding IsEditorSection}" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="16">
+                        <TextBlock FontWeight="Bold" Text="{loc:Loc EditorHeader}"/>
+                        <Border Classes="card">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc SyntaxHighlightTitle}"/>
+                                    <TextBlock Classes="muted" Text="{loc:Loc SyntaxHighlightDesc}"/>
+                                </StackPanel>
+                                <ToggleSwitch Grid.Column="1" IsChecked="{Binding EnableSyntaxHighlighting}"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Classes="card" IsEnabled="{Binding EnableSyntaxHighlighting}">
+                            <StackPanel Spacing="12">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold" Text="{loc:Loc SyntaxColorsTitle}"/>
+                                        <TextBlock Classes="muted" Text="{loc:Loc SyntaxColorsDesc}"/>
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Content="{loc:Loc SyntaxResetColors}" Classes="ghost"
+                                            Command="{Binding ResetSyntaxColorsCommand}" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <ItemsControl ItemsSource="{Binding SyntaxColorItems}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="2"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:SyntaxColorItem">
+                                            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10" Margin="0,4,16,4">
+                                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Hex}" Classes="muted" VerticalAlignment="Center"
+                                                           FontFamily="Cascadia Code,Consolas,monospace"/>
+                                                <ColorPicker Grid.Column="2" Color="{Binding Color, Mode=TwoWay}" IsAlphaEnabled="False"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="card">
+                            <StackPanel Spacing="10">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc SyntaxPreview}" VerticalAlignment="Center"/>
+                                    <ComboBox Grid.Column="1" Width="120"
+                                              ItemsSource="{Binding SyntaxPreviewLanguages}"
+                                              SelectedItem="{Binding SyntaxPreviewLanguage}"/>
+                                </Grid>
+                                <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="4,8" Height="240">
+                                    <ae:TextEditor x:Name="SyntaxPreviewEditor"
+                                                   IsReadOnly="True"
+                                                   ShowLineNumbers="True"
+                                                   Background="Transparent"
+                                                   LineNumbersForeground="#718096"
+                                                   FontFamily="Cascadia Code,Consolas,monospace"
+                                                   FontSize="13"
+                                                   HorizontalScrollBarVisibility="Auto"
+                                                   VerticalScrollBarVisibility="Auto"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
 
                 <!-- 通知 已移除 -->
 
