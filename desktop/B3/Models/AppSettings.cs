@@ -44,6 +44,9 @@ public class AppSettings
     /// <summary>DotNet 執行路徑</summary>
     public string DotNetPath { get; set; } = "dotnet";
 
+    /// <summary>Java 執行路徑</summary>
+    public string JavaPath { get; set; } = "java";
+
     /// <summary>預設語言</summary>
     public string DefaultLanguage { get; set; } = "Python";
 

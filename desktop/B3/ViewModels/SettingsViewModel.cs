@@ -7,6 +7,7 @@ using Avalonia.Media;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace B3.ViewModels;
 
@@ -16,6 +17,7 @@ namespace B3.ViewModels;
 public partial class SettingsViewModel : ViewModelBase
 {
     private readonly LocalSettingsService _settingsService = new();
+    private readonly RuntimeInstallerService _runtimeInstaller = new();
     private bool _suppressAutoSave;
 
     /// <summary>設定頁籤</summary>
@@ -189,6 +191,34 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>DotNet 路徑</summary>
     [ObservableProperty]
     private string dotNetPath = string.Empty;
+
+    /// <summary>Java 路徑</summary>
+    [ObservableProperty]
+    private string javaPath = string.Empty;
+
+    /// <summary>Python 自動配置狀態</summary>
+    [ObservableProperty]
+    private string pythonSetupStatus = string.Empty;
+
+    /// <summary>C++ 自動配置狀態</summary>
+    [ObservableProperty]
+    private string cppSetupStatus = string.Empty;
+
+    /// <summary>DotNet 自動配置狀態</summary>
+    [ObservableProperty]
+    private string dotNetSetupStatus = string.Empty;
+
+    /// <summary>Java 自動配置狀態</summary>
+    [ObservableProperty]
+    private string javaSetupStatus = string.Empty;
+
+    /// <summary>是否正在自動配置執行環境 (同時只允許一個安裝程序)</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsRuntimeSetupIdle))]
+    private bool isRuntimeSetupRunning;
+
+    /// <summary>可以開始自動配置</summary>
+    public bool IsRuntimeSetupIdle => !IsRuntimeSetupRunning;
 
     /// <summary>預設語言</summary>
     [ObservableProperty]
@@ -375,6 +405,7 @@ public partial class SettingsViewModel : ViewModelBase
         PythonPath = settings.PythonPath;
         CppCompilerPath = settings.CppCompilerPath;
         DotNetPath = settings.DotNetPath;
+        JavaPath = settings.JavaPath;
         DefaultLanguage = settings.DefaultLanguage;
         QuestionsPerExam = settings.QuestionsPerExam;
         ShowAnswerOnSubmit = settings.ShowAnswerOnSubmit;
@@ -409,6 +440,7 @@ public partial class SettingsViewModel : ViewModelBase
         settings.PythonPath = PythonPath;
         settings.CppCompilerPath = CppCompilerPath;
         settings.DotNetPath = DotNetPath;
+        settings.JavaPath = JavaPath;
         settings.DefaultLanguage = DefaultLanguage;
         settings.QuestionsPerExam = QuestionsPerExam;
         settings.ShowAnswerOnSubmit = ShowAnswerOnSubmit;
@@ -451,6 +483,102 @@ public partial class SettingsViewModel : ViewModelBase
     partial void OnShuffleQuestionsChanged(bool value) => PersistSettingsIfAllowed();
 
     partial void OnDifficultyChanged(string value) => PersistSettingsIfAllowed();
+
+    /// <summary>自動配置單一執行環境 (參數: Python / Cpp / DotNet / Java)</summary>
+    [RelayCommand]
+    public async Task AutoConfigureRuntime(string kindName)
+    {
+        if (IsRuntimeSetupRunning || !Enum.TryParse<RuntimeKind>(kindName, out var kind))
+        {
+            return;
+        }
+
+        IsRuntimeSetupRunning = true;
+        try
+        {
+            await ConfigureRuntimeCoreAsync(kind);
+        }
+        finally
+        {
+            IsRuntimeSetupRunning = false;
+        }
+    }
+
+    /// <summary>依序自動配置全部執行環境</summary>
+    [RelayCommand]
+    public async Task AutoConfigureAllRuntimes()
+    {
+        if (IsRuntimeSetupRunning)
+        {
+            return;
+        }
+
+        IsRuntimeSetupRunning = true;
+        try
+        {
+            foreach (var kind in new[] { RuntimeKind.Python, RuntimeKind.DotNet, RuntimeKind.Java, RuntimeKind.Cpp })
+            {
+                await ConfigureRuntimeCoreAsync(kind);
+            }
+        }
+        finally
+        {
+            IsRuntimeSetupRunning = false;
+        }
+    }
+
+    private async Task ConfigureRuntimeCoreAsync(RuntimeKind kind)
+    {
+        // Progress<T> 會在建立時的 UI 執行緒回呼，可直接更新綁定屬性
+        var progress = new Progress<string>(message => SetRuntimeStatus(kind, message));
+        try
+        {
+            var result = await _runtimeInstaller.ConfigureAsync(kind, GetRuntimePath(kind), progress);
+            if (result.Success && result.ExecutablePath != null)
+            {
+                SetRuntimePath(kind, result.ExecutablePath);
+                SaveSettings();
+            }
+
+            SetRuntimeStatus(kind, result.Message);
+        }
+        catch (Exception ex)
+        {
+            LoggerService.LogError($"自動配置 {kind} 失敗", ex);
+            SetRuntimeStatus(kind, string.Format(LocalizationService.T("RtErrorFmt"), ex.Message));
+        }
+    }
+
+    private string GetRuntimePath(RuntimeKind kind) => kind switch
+    {
+        RuntimeKind.Python => PythonPath,
+        RuntimeKind.Cpp => CppCompilerPath,
+        RuntimeKind.DotNet => DotNetPath,
+        RuntimeKind.Java => JavaPath,
+        _ => string.Empty
+    };
+
+    private void SetRuntimePath(RuntimeKind kind, string path)
+    {
+        switch (kind)
+        {
+            case RuntimeKind.Python: PythonPath = path; break;
+            case RuntimeKind.Cpp: CppCompilerPath = path; break;
+            case RuntimeKind.DotNet: DotNetPath = path; break;
+            case RuntimeKind.Java: JavaPath = path; break;
+        }
+    }
+
+    private void SetRuntimeStatus(RuntimeKind kind, string message)
+    {
+        switch (kind)
+        {
+            case RuntimeKind.Python: PythonSetupStatus = message; break;
+            case RuntimeKind.Cpp: CppSetupStatus = message; break;
+            case RuntimeKind.DotNet: DotNetSetupStatus = message; break;
+            case RuntimeKind.Java: JavaSetupStatus = message; break;
+        }
+    }
 
     partial void OnEnableSyntaxHighlightingChanged(bool value)
     {

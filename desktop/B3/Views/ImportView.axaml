@@ -153,15 +153,24 @@
                                 <StackPanel Spacing="10">
                                     <TextBlock FontWeight="Bold" Text="{loc:Loc FileImportTemplate}"/>
                                     <TextBlock Classes="muted" Text="{loc:Loc SheetRowDesc}" TextWrapping="Wrap"/>
-                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="8" IsEnabled="{Binding IsNotBusy}">
                                         <Button Content="{loc:Loc AddRow}" Command="{Binding AddSpreadsheetRowCommand}"/>
                                         <Button Content="{loc:Loc PickFile}" Classes="primary" Click="OnPickSpreadsheetClicked"/>
                                         <Button Content="{loc:Loc ValidateRows}" Command="{Binding ValidateSpreadsheetRowsCommand}"/>
                                         <Button Content="{loc:Loc PreviewValidate}" Click="OnPreviewSpreadsheetClicked"/>
                                         <Button Content="{loc:Loc ImportUpdate}" Classes="primary" Click="OnImportSpreadsheetClicked"/>
                                         <Button Content="{loc:Loc DownloadTemplate}" Classes="ghost" Click="OnDownloadTemplateClicked"/>
-                                    </StackPanel>
+                                    </WrapPanel>
                                     <TextBox Text="{Binding SpreadsheetFilePath}" IsReadOnly="True" PlaceholderText="{loc:Loc NoFileSelected}"/>
+
+                                    <!-- 解析 / 驗證 / 匯入進度 -->
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" RowSpacing="4" IsVisible="{Binding IsProgressVisible}">
+                                        <ProgressBar Minimum="0" Maximum="100" Height="8" VerticalAlignment="Center"
+                                                     Value="{Binding ProgressValue}" IsIndeterminate="{Binding IsProgressIndeterminate}"/>
+                                        <Button Grid.Column="1" Grid.RowSpan="2" Content="{loc:Loc Cancel}" Classes="ghost" VerticalAlignment="Center"
+                                                Command="{Binding CancelOperationCommand}" IsVisible="{Binding CanCancelOperation}"/>
+                                        <TextBlock Grid.Row="1" Classes="muted" FontSize="12" Text="{Binding ProgressText}"/>
+                                    </Grid>
                                 </StackPanel>
                             </Border>
 
@@ -175,7 +184,11 @@
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="10">
-                                    <TextBlock FontWeight="Bold" Text="{loc:Loc PreviewResult}"/>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <TextBlock FontWeight="Bold" Text="{loc:Loc PreviewResult}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Classes="muted" Text="{Binding RowSummaryText}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                        <CheckBox Grid.Column="2" Content="{loc:Loc ShowInvalidRowsOnly}" IsChecked="{Binding ShowInvalidRowsOnly}" IsEnabled="{Binding IsNotBusy}"/>
+                                    </Grid>
                                     <ItemsControl ItemsSource="{Binding PreviewRows}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -211,12 +224,18 @@
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
+                                    <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                        <Button Content="‹" Classes="ghost" Width="40" Command="{Binding PreviousPageCommand}"/>
+                                        <TextBlock Text="{Binding PageInfoText}" VerticalAlignment="Center"/>
+                                        <Button Content="›" Classes="ghost" Width="40" Command="{Binding NextPageCommand}"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
 
                             <Border Classes="card" Padding="16">
                                 <StackPanel Spacing="10">
                                     <TextBlock FontWeight="Bold" Text="{loc:Loc ValidationMessages}"/>
+                                    <TextBlock Classes="muted" Text="{Binding IssueSummaryText}" TextWrapping="Wrap"/>
                                     <ItemsControl ItemsSource="{Binding ValidationIssues}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>

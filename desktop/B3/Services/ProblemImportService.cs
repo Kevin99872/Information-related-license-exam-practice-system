@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
 
@@ -42,6 +43,9 @@ public class ProblemImportService
         ["TestInput"] = ["TestInput", "測試資料", "輸入"],
         ["ExpectedOutput"] = ["ExpectedOutput", "驗證資料", "預期輸出", "輸出"]
     };
+
+    /// <summary>每個交易寫入的題數 - 太大會讓單次 SaveChanges 過久，太小則交易次數過多</summary>
+    public const int ImportBatchSize = 50;
 
     private readonly ProblemRepository _problemRepo;
     private readonly TestCaseRepository _testCaseRepo;
@@ -133,92 +137,208 @@ public class ProblemImportService
     public async Task<ProblemImportPreviewResult> PreviewSpreadsheetAsync(string filePath)
     {
         var rows = await ParseSpreadsheetAsync(filePath);
-        var issues = new List<ProblemImportValidationIssue>();
-
-        foreach (var row in rows)
-        {
-            if (!row.IsValid)
-            {
-                issues.Add(new ProblemImportValidationIssue(row.RowNumber, "Sheet", row.ValidationMessage, ProblemImportSeverity.Error));
-            }
-        }
-
         return new ProblemImportPreviewResult
         {
             Rows = rows,
-            Issues = issues
+            Issues = BuildIssues(rows)
         };
     }
 
     /// <summary>
     /// 匯入 CSV/XLS/XLSX 題目表單
     /// </summary>
-    public async Task<ProblemImportResult> ImportSpreadsheetAsync(string filePath)
+    public async Task<ProblemImportResult> ImportSpreadsheetAsync(string filePath, IProgress<ImportProgressInfo>? progress = null, CancellationToken cancellationToken = default)
     {
         var rows = await ParseSpreadsheetAsync(filePath);
-        return await ImportSpreadsheetRowsAsync(rows);
+        return await ImportSpreadsheetRowsAsync(rows, progress, cancellationToken);
     }
 
     /// <summary>
     /// 匯入已存在記憶體中的表單列（可用於手動新增列）
     /// </summary>
-    public async Task<ProblemImportResult> ImportSpreadsheetRowsAsync(IEnumerable<ProblemImportSpreadsheetRow> sourceRows)
+    public async Task<ProblemImportResult> ImportSpreadsheetRowsAsync(IEnumerable<ProblemImportSpreadsheetRow> sourceRows, IProgress<ImportProgressInfo>? progress = null, CancellationToken cancellationToken = default)
     {
         var rows = sourceRows.ToList();
         NormalizeAndValidateRows(rows);
 
-        var issues = rows
+        var issues = BuildIssues(rows);
+        if (issues.Count > 0)
+        {
+            return new ProblemImportResult
+            {
+                Issues = issues,
+                SkippedRows = rows.Count(row => !row.IsValid),
+                Summary = "匯入中止，因為表單驗證未通過"
+            };
+        }
+
+        return await ImportProblemFormsAsync(BuildProblemForms(rows), progress, cancellationToken);
+    }
+
+    /// <summary>
+    /// 將已驗證的列依 ProblemCode 合併成題目表單 (只讀取列資料，可於背景執行緒呼叫)
+    /// </summary>
+    public List<ProblemImportFormModel> BuildProblemForms(IEnumerable<ProblemImportSpreadsheetRow> rows)
+    {
+        return rows
+            .GroupBy(row => NormalizeProblemCode(row.ProblemCode))
+            .Select(group =>
+            {
+                var groupList = group.ToList();
+                var first = groupList[0];
+                return new ProblemImportFormModel
+                {
+                    ProblemCode = first.ProblemCode.Trim(),
+                    ExamType = NormalizeRequired(first.ExamType, "TQC"),
+                    Title = first.Title.Trim(),
+                    Description = first.Description.Trim(),
+                    Difficulty = first.Difficulty,
+                    Status = NormalizeRequired(first.Status, "Draft"),
+                    SolutionLanguage = NormalizeRequired(first.SolutionLanguage, "Python"),
+                    SolutionCode = first.SolutionCode ?? string.Empty,
+                    TestCases = groupList
+                        .OrderBy(row => row.OrderIndex)
+                        .Select(row => new ProblemImportTestCaseModel
+                        {
+                            OrderIndex = row.OrderIndex,
+                            Input = row.TestInput.Trim(),
+                            ExpectedOutput = row.ExpectedOutput.Trim(),
+                            IsExample = row.IsExample
+                        })
+                        .ToList()
+                };
+            })
+            .ToList();
+    }
+
+    /// <summary>
+    /// 小批次寫入題目：每批一次查詢既有題目、一次刪除舊測資、一個交易一次 SaveChanges，
+    /// 並於每批後清空 ChangeTracker，避免追蹤實體累積造成越匯越慢。整個流程在背景執行緒進行。
+    /// 取消時保留已提交的批次。
+    /// </summary>
+    public Task<ProblemImportResult> ImportProblemFormsAsync(IReadOnlyList<ProblemImportFormModel> forms, IProgress<ImportProgressInfo>? progress = null, CancellationToken cancellationToken = default)
+    {
+        return Task.Run(async () =>
+        {
+            var result = new ProblemImportResult();
+            const string stage = "寫入資料庫";
+            progress?.Report(new ImportProgressInfo(stage, 0, forms.Count));
+
+            using (var catalogContext = new ExamCatalogDbContext())
+            {
+                var categoryRepo = new ExamCategoryRepository(catalogContext);
+                foreach (var examType in forms.Select(form => form.ExamType).Distinct(StringComparer.OrdinalIgnoreCase))
+                {
+                    await categoryRepo.EnsureExistsAsync(examType);
+                }
+            }
+
+            await using var db = new ExamDbContext();
+            try
+            {
+                foreach (var batch in forms.Chunk(ImportBatchSize))
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var codes = batch.Select(form => form.ProblemCode).Distinct().ToList();
+                    var existing = await db.Problems
+                        .Where(problem => codes.Contains(problem.ProblemCode))
+                        .ToDictionaryAsync(problem => problem.ProblemCode, cancellationToken);
+
+                    await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
+
+                    var existingIds = existing.Values.Select(problem => problem.ProblemId).ToList();
+                    if (existingIds.Count > 0)
+                    {
+                        await db.TestCases
+                            .Where(testCase => existingIds.Contains(testCase.ProblemId))
+                            .ExecuteDeleteAsync(cancellationToken);
+                    }
+
+                    var now = DateTime.Now;
+                    var batchTestCases = 0;
+                    foreach (var form in batch)
+                    {
+                        if (!existing.TryGetValue(form.ProblemCode, out var problem))
+                        {
+                            problem = new Problem { ProblemCode = form.ProblemCode, CreatedAt = now };
+                            db.Problems.Add(problem);
+                            existing[form.ProblemCode] = problem;
+                        }
+
+                        problem.ExamType = form.ExamType;
+                        problem.Title = form.Title;
+                        problem.Description = form.Description;
+                        problem.Difficulty = form.Difficulty;
+                        problem.Status = string.IsNullOrWhiteSpace(form.Status) ? problem.Status : form.Status;
+                        problem.SolutionLanguage = string.IsNullOrWhiteSpace(form.SolutionLanguage) ? problem.SolutionLanguage : form.SolutionLanguage;
+                        problem.SolutionCode = form.SolutionCode ?? string.Empty;
+                        problem.UpdatedAt = now;
+
+                        foreach (var testCase in form.TestCases)
+                        {
+                            db.TestCases.Add(new TestCase
+                            {
+                                Problem = problem,
+                                Input = testCase.Input,
+                                ExpectedOutput = testCase.ExpectedOutput,
+                                IsExample = testCase.IsExample,
+                                OrderIndex = testCase.OrderIndex
+                            });
+                        }
+
+                        batchTestCases += form.TestCases.Count;
+                    }
+
+                    await db.SaveChangesAsync(cancellationToken);
+                    await transaction.CommitAsync(cancellationToken);
+                    db.ChangeTracker.Clear();
+
+                    result.ImportedProblems += batch.Length;
+                    result.ImportedTestCases += batchTestCases;
+                    progress?.Report(new ImportProgressInfo(stage, result.ImportedProblems, forms.Count));
+                }
+
+                result.Summary = $"已匯入 {result.ImportedProblems} 題，{result.ImportedTestCases} 筆測試資料";
+            }
+            catch (OperationCanceledException)
+            {
+                // 進行中的批次交易未提交會自動回滾，已提交的批次保留
+                result.Cancelled = true;
+                result.Summary = $"已取消匯入，已完成 {result.ImportedProblems} / {forms.Count} 題";
+            }
+
+            return result;
+        }, CancellationToken.None);
+    }
+
+    /// <summary>正規化單列欄位 (去除空白、補預設值) 並重新驗證</summary>
+    public void NormalizeRow(ProblemImportSpreadsheetRow row, int index)
+    {
+        row.RowNumber = row.RowNumber <= 0 ? index + 2 : row.RowNumber;
+        row.ProblemCode = row.ProblemCode?.Trim() ?? string.Empty;
+        row.ExamType = NormalizeRequired(row.ExamType, "TQC");
+        row.Title = row.Title?.Trim() ?? string.Empty;
+        row.Description = row.Description?.Trim() ?? string.Empty;
+        row.Status = NormalizeRequired(row.Status, "Draft");
+        row.SolutionLanguage = NormalizeRequired(row.SolutionLanguage, "Python");
+        row.SolutionCode ??= string.Empty;
+        row.TestInput = row.TestInput?.Trim() ?? string.Empty;
+        row.ExpectedOutput = row.ExpectedOutput?.Trim() ?? string.Empty;
+        row.Difficulty = Math.Clamp(row.Difficulty, 1, 3);
+        ApplyRowValidation(row);
+    }
+
+    /// <summary>只驗證單列、不改動欄位內容 - 供使用者編輯時即時驗證</summary>
+    public void ValidateRow(ProblemImportSpreadsheetRow row) => ApplyRowValidation(row);
+
+    /// <summary>彙整未通過驗證的列成驗證訊息</summary>
+    public List<ProblemImportValidationIssue> BuildIssues(IEnumerable<ProblemImportSpreadsheetRow> rows)
+    {
+        return rows
             .Where(row => !row.IsValid)
             .Select(row => new ProblemImportValidationIssue(row.RowNumber, "Sheet", row.ValidationMessage, ProblemImportSeverity.Error))
             .ToList();
-
-        var result = new ProblemImportResult
-        {
-            Issues = issues,
-            SkippedRows = rows.Count(row => !row.IsValid)
-        };
-
-        if (issues.Any(issue => issue.Severity == ProblemImportSeverity.Error))
-        {
-            result.Summary = "匯入中止，因為表單驗證未通過";
-            return result;
-        }
-
-        var groupedRows = rows.GroupBy(row => NormalizeProblemCode(row.ProblemCode));
-        foreach (var group in groupedRows)
-        {
-            var groupList = group.ToList();
-            var first = groupList[0];
-
-            var problemForm = new ProblemImportFormModel
-            {
-                ProblemCode = first.ProblemCode,
-                ExamType = first.ExamType,
-                Title = first.Title,
-                Description = first.Description,
-                Difficulty = first.Difficulty,
-                Status = first.Status,
-                SolutionLanguage = first.SolutionLanguage,
-                SolutionCode = first.SolutionCode,
-                TestCases = groupList
-                    .OrderBy(row => row.OrderIndex)
-                    .Select(row => new ProblemImportTestCaseModel
-                    {
-                        OrderIndex = row.OrderIndex,
-                        Input = row.TestInput,
-                        ExpectedOutput = row.ExpectedOutput,
-                        IsExample = row.IsExample
-                    })
-                    .ToList()
-            };
-
-            var saved = await UpsertProblemAsync(problemForm);
-            result.ImportedProblems += 1;
-            result.ImportedTestCases += saved.Item2;
-        }
-
-        result.Summary = $"已匯入 {result.ImportedProblems} 題，{result.ImportedTestCases} 筆測試資料";
-        return result;
     }
 
     /// <summary>
@@ -229,10 +349,7 @@ public class ProblemImportService
         var rows = sourceRows.ToList();
         NormalizeAndValidateRows(rows);
 
-        var issues = rows
-            .Where(row => !row.IsValid)
-            .Select(row => new ProblemImportValidationIssue(row.RowNumber, "Sheet", row.ValidationMessage, ProblemImportSeverity.Error))
-            .ToList();
+        var issues = BuildIssues(rows);
 
         return new ProblemImportPreviewResult
         {
@@ -446,14 +563,15 @@ public class ProblemImportService
         return count;
     }
 
-    private async Task<List<ProblemImportSpreadsheetRow>> ParseSpreadsheetAsync(string filePath)
+    /// <summary>檔案解析 (含 NPOI 讀取活頁簿) 在背景執行緒進行，避免凍結介面</summary>
+    private Task<List<ProblemImportSpreadsheetRow>> ParseSpreadsheetAsync(string filePath)
     {
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
         return extension switch
         {
-            ".csv" => ParseCsvRows(filePath),
-            ".xls" or ".xlsx" => ParseWorkbookRows(filePath),
-            _ => throw new NotSupportedException("僅支援 CSV、XLS、XLSX 格式")
+            ".csv" => Task.Run(() => ParseCsvRows(filePath)),
+            ".xls" or ".xlsx" => Task.Run(() => ParseWorkbookRows(filePath)),
+            _ => Task.FromException<List<ProblemImportSpreadsheetRow>>(new NotSupportedException("僅支援 CSV、XLS、XLSX 格式"))
         };
     }
 
@@ -607,19 +725,7 @@ public class ProblemImportService
     {
         for (var index = 0; index < rows.Count; index++)
         {
-            var row = rows[index];
-            row.RowNumber = row.RowNumber <= 0 ? index + 2 : row.RowNumber;
-            row.ProblemCode = row.ProblemCode?.Trim() ?? string.Empty;
-            row.ExamType = NormalizeRequired(row.ExamType, "TQC");
-            row.Title = row.Title?.Trim() ?? string.Empty;
-            row.Description = row.Description?.Trim() ?? string.Empty;
-            row.Status = NormalizeRequired(row.Status, "Draft");
-            row.SolutionLanguage = NormalizeRequired(row.SolutionLanguage, "Python");
-            row.SolutionCode ??= string.Empty;
-            row.TestInput = row.TestInput?.Trim() ?? string.Empty;
-            row.ExpectedOutput = row.ExpectedOutput?.Trim() ?? string.Empty;
-            row.Difficulty = Math.Clamp(ParseDifficulty(row.Difficulty.ToString(CultureInfo.InvariantCulture)), 1, 3);
-            ApplyRowValidation(row);
+            NormalizeRow(rows[index], index);
         }
     }
 

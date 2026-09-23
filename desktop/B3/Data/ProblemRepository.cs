@@ -38,6 +38,25 @@ public class ProblemRepository
             .ToListAsync();
     }
 
+    /// <summary>取得題目清單 (不載入關聯資料、不追蹤) - 供大量題目的下拉清單使用</summary>
+    public async Task<List<Problem>> GetAllSummaryAsync()
+    {
+        return await _context.Problems
+            .AsNoTracking()
+            .OrderBy(p => p.ProblemCode)
+            .ToListAsync();
+    }
+
+    /// <summary>取得指定題目的測試案例 (不追蹤)</summary>
+    public async Task<List<TestCase>> GetTestCasesAsync(int problemId)
+    {
+        return await _context.TestCases
+            .AsNoTracking()
+            .Where(t => t.ProblemId == problemId)
+            .OrderBy(t => t.OrderIndex)
+            .ToListAsync();
+    }
+
     /// <summary>根據題目ID查詢 包含完整的測試案例</summary>
     public async Task<Problem?> GetByIdAsync(int id)
     {

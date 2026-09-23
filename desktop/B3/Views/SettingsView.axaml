@@ -220,18 +220,53 @@
 
                     <Border Classes="card">
                         <StackPanel Spacing="12">
-                            <TextBlock FontWeight="Bold" Text="{loc:Loc RuntimeEnvironment}"/>
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock FontWeight="Bold" Text="{loc:Loc RuntimeEnvironment}"/>
+                                    <TextBlock Classes="muted" Text="{loc:Loc RuntimeEnvironmentDesc}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="{loc:Loc AutoConfigureAll}" Classes="primary" VerticalAlignment="Center"
+                                        Command="{Binding AutoConfigureAllRuntimesCommand}" IsEnabled="{Binding IsRuntimeSetupIdle}"/>
+                            </Grid>
                             <StackPanel Spacing="6">
                                 <TextBlock Classes="muted" Text="{loc:Loc PythonPath}"/>
-                                <TextBox Text="{Binding PythonPath}"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <TextBox Text="{Binding PythonPath}"/>
+                                    <Button Grid.Column="1" Content="{loc:Loc AutoInstall}" Classes="ghost"
+                                            Command="{Binding AutoConfigureRuntimeCommand}" CommandParameter="Python" IsEnabled="{Binding IsRuntimeSetupIdle}"/>
+                                </Grid>
+                                <TextBlock Classes="muted" FontSize="12" TextWrapping="Wrap" Text="{Binding PythonSetupStatus}"
+                                           IsVisible="{Binding PythonSetupStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                             </StackPanel>
                             <StackPanel Spacing="6">
                                 <TextBlock Classes="muted" Text="{loc:Loc CppCompiler}"/>
-                                <TextBox Text="{Binding CppCompilerPath}"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <TextBox Text="{Binding CppCompilerPath}"/>
+                                    <Button Grid.Column="1" Content="{loc:Loc AutoInstall}" Classes="ghost"
+                                            Command="{Binding AutoConfigureRuntimeCommand}" CommandParameter="Cpp" IsEnabled="{Binding IsRuntimeSetupIdle}"/>
+                                </Grid>
+                                <TextBlock Classes="muted" FontSize="12" TextWrapping="Wrap" Text="{Binding CppSetupStatus}"
+                                           IsVisible="{Binding CppSetupStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                             </StackPanel>
                             <StackPanel Spacing="6">
                                 <TextBlock Classes="muted" Text="{loc:Loc DotNetPath}"/>
-                                <TextBox Text="{Binding DotNetPath}"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <TextBox Text="{Binding DotNetPath}"/>
+                                    <Button Grid.Column="1" Content="{loc:Loc AutoInstall}" Classes="ghost"
+                                            Command="{Binding AutoConfigureRuntimeCommand}" CommandParameter="DotNet" IsEnabled="{Binding IsRuntimeSetupIdle}"/>
+                                </Grid>
+                                <TextBlock Classes="muted" FontSize="12" TextWrapping="Wrap" Text="{Binding DotNetSetupStatus}"
+                                           IsVisible="{Binding DotNetSetupStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                            </StackPanel>
+                            <StackPanel Spacing="6">
+                                <TextBlock Classes="muted" Text="{loc:Loc JavaPath}"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <TextBox Text="{Binding JavaPath}"/>
+                                    <Button Grid.Column="1" Content="{loc:Loc AutoInstall}" Classes="ghost"
+                                            Command="{Binding AutoConfigureRuntimeCommand}" CommandParameter="Java" IsEnabled="{Binding IsRuntimeSetupIdle}"/>
+                                </Grid>
+                                <TextBlock Classes="muted" FontSize="12" TextWrapping="Wrap" Text="{Binding JavaSetupStatus}"
+                                           IsVisible="{Binding JavaSetupStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                             </StackPanel>
                             <StackPanel Spacing="6">
                                 <TextBlock Classes="muted" Text="{loc:Loc DefaultLanguage}"/>
