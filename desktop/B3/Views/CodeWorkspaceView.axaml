@@ -1,0 +1,122 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:B3.ViewModels"
+             xmlns:loc="using:B3.Localization"
+             xmlns:ae="using:AvaloniaEdit"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="420"
+             x:Class="B3.Views.CodeWorkspaceView"
+             x:DataType="vm:EditorWorkspace">
+
+    <!-- Code Space 共用元件：檔案清單 (含新增 / 改名 / 刪除) + 語法著色編輯器
+         用法: <views:CodeWorkspaceView DataContext="{Binding Workspace}"/>
+         連結: EditorWorkspace (ViewModel) / CodeSyntaxHighlighter (著色) -->
+    <Grid>
+        <Grid ColumnDefinitions="176,*" ColumnSpacing="10">
+            <!-- 檔案清單 -->
+            <Border Classes="subpanel" Padding="8">
+                <Grid RowDefinitions="Auto,*" RowSpacing="6">
+                    <Grid ColumnDefinitions="*,Auto" Margin="4,0,0,0">
+                        <TextBlock Text="{loc:Loc FileMenu}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="2">
+                            <Button Classes="icon" Command="{Binding AddFileCommand}" ToolTip.Tip="{loc:Loc AddFile}">
+                                <Path Data="M7 1h2v6h6v2H9v6H7V9H1V7h6z"/>
+                            </Button>
+                            <Button Classes="icon" Command="{Binding RenameFileCommand}" ToolTip.Tip="{loc:Loc RenameFile}">
+                                <Path Data="M2 11.5V14h2.5l7.4-7.4-2.5-2.5L2 11.5zM13.7 4.8a.7.7 0 0 0 0-1L12.2 2.3a.7.7 0 0 0-1 0L10 3.5 12.5 6l1.2-1.2z"/>
+                            </Button>
+                            <Button Classes="icon" Command="{Binding DeleteFileCommand}" ToolTip.Tip="{loc:Loc DeleteFile}">
+                                <Path Data="M6 2h4l1 1h3v2H2V3h3l1-1zM3 6h10l-1 8H4L3 6z"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <ListBox x:Name="FileList" Grid.Row="1" Classes="file-list"
+                             ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}"
+                             Background="Transparent" BorderThickness="0" Padding="0">
+                        <ListBox.KeyBindings>
+                            <KeyBinding Gesture="F2" Command="{Binding RenameFileCommand}"/>
+                            <KeyBinding Gesture="Delete" Command="{Binding DeleteFileCommand}"/>
+                        </ListBox.KeyBindings>
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{loc:Loc AddFile}" Command="{Binding AddFileCommand}"/>
+                                <MenuItem Header="{loc:Loc RenameFile}" Command="{Binding RenameFileCommand}" InputGesture="F2"/>
+                                <MenuItem Header="{loc:Loc DeleteFile}" Command="{Binding DeleteFileCommand}" InputGesture="Delete"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:EditorFileItem">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" ToolTip.Tip="{Binding Name}">
+                                    <Border Classes="file-badge">
+                                        <TextBlock Text="{Binding Badge}"/>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Spacing="1">
+                                        <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Description}" Classes="muted" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- 編輯器 -->
+            <Border Grid.Column="1" Classes="code-well">
+                <Grid RowDefinitions="Auto,*">
+                    <Border Background="#131A24" BorderBrush="#24334B" BorderThickness="0,0,0,1" Padding="12,7">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                            <TextBlock Text="{Binding SelectedFile.Name}" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding StatusText}" Classes="muted" FontSize="12"
+                                       HorizontalAlignment="Right" TextTrimming="CharacterEllipsis"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- 依目前檔案的副檔名語法著色，配色可在 設定 > 程式編輯器 調整 -->
+                    <ae:TextEditor x:Name="Editor" Grid.Row="1"
+                                   ShowLineNumbers="True"
+                                   Background="Transparent"
+                                   LineNumbersForeground="#5C6B80"
+                                   FontFamily="Cascadia Code,Consolas,monospace"
+                                   FontSize="13"
+                                   Padding="4,8"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   VerticalScrollBarVisibility="Auto"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 檔案管理對話框 (新增 / 改名 / 刪除確認) -->
+        <Border Background="#99000000" CornerRadius="8" IsVisible="{Binding IsDialogOpen}">
+            <Border Classes="panel" Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{Binding DialogTitle}" Classes="section-title"/>
+
+                    <StackPanel Spacing="6" IsVisible="{Binding IsNameDialog}">
+                        <TextBlock Text="{loc:Loc FileName}" Classes="muted" FontSize="12"/>
+                        <TextBox x:Name="DialogNameBox" Text="{Binding DialogName}"
+                                 PlaceholderText="{loc:Loc FileNamePlaceholder}" MaxLength="64">
+                            <TextBox.KeyBindings>
+                                <KeyBinding Gesture="Enter" Command="{Binding ConfirmDialogCommand}"/>
+                                <KeyBinding Gesture="Escape" Command="{Binding CancelDialogCommand}"/>
+                            </TextBox.KeyBindings>
+                        </TextBox>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding DialogMessage}" TextWrapping="Wrap"
+                               IsVisible="{Binding DialogMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                    <TextBlock Text="{Binding DialogError}" Foreground="#E5534B" FontSize="12" TextWrapping="Wrap"
+                               IsVisible="{Binding DialogError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button x:Name="DialogCancelButton" Content="{loc:Loc Cancel}" Classes="ghost" Command="{Binding CancelDialogCommand}"/>
+                        <Button Content="{loc:Loc Confirm}" Classes="primary" Command="{Binding ConfirmDialogCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

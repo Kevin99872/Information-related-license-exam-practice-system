@@ -112,7 +112,10 @@ public partial class ExamResultViewModel : ViewModelBase
     [RelayCommand]
     private async Task AnalyzeCodeAsync()
     {
-        if (string.IsNullOrWhiteSpace(LastSubmittedCode))
+        // 優先分析目前選取的提交，未選取時使用最後一次提交
+        var code = SelectedSubmission?.UserCode ?? LastSubmittedCode;
+        var description = SelectedSubmission?.Problem?.Description ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(code))
         {
             AiAnalysis = "目前沒有提交的程式碼可分析。";
             return;
@@ -121,7 +124,7 @@ public partial class ExamResultViewModel : ViewModelBase
         IsAiBusy = true;
         try
         {
-            AiAnalysis = await _ollamaService.AnalyzeCodeAsync(LastSubmittedCode, string.Empty);
+            AiAnalysis = await _ollamaService.AnalyzeCodeAsync(code, description);
         }
         finally
         {

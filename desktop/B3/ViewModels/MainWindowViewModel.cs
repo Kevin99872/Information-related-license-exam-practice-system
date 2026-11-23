@@ -30,7 +30,14 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private object currentView = new object();
 
-    /// <summary>目前頁面過渡效果 - null 表示直接切換不播動畫 (設定頁使用)</summary>
+    /// <summary>
+    /// 近乎即時的過渡 (設定頁使用)。
+    /// 不可用 null：TransitioningContentControl 的兩個容器會輪流使用，上一次淡出會把容器 Opacity 留在 0，
+    /// 沒有過渡時不會還原，導致設定頁整頁空白；極短的淡入可確保 Opacity 回到 1。
+    /// </summary>
+    private static readonly IPageTransition InstantTransition = new CrossFade(TimeSpan.FromMilliseconds(1));
+
+    /// <summary>目前頁面過渡效果 - 設定頁使用 InstantTransition，其他頁面為滑動 + 淡化</summary>
     [ObservableProperty]
     private IPageTransition? pageTransition = SlideFadeTransition;
 
@@ -70,6 +77,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private bool canNavigate = true;
 
+    private bool _isNarrowWindow;
     private ExamViewModel? _trackedExamViewModel;
     private ExamResultViewModel? _trackedExamResultViewModel;
 
@@ -104,14 +112,15 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>視窗寬度改變時調整側欄</summary>
     public void UpdateResponsiveState(double width)
     {
-        if (width < 980)
+        // 只在跨越寬度門檻時自動收合 / 展開，避免每次調整視窗大小都覆蓋使用者手動切換的狀態
+        var isNarrow = width < 980;
+        if (isNarrow == _isNarrowWindow)
         {
-            IsSidebarCollapsed = true;
+            return;
         }
-        else if (width >= 980)
-        {
-            IsSidebarCollapsed = false;
-        }
+
+        _isNarrowWindow = isNarrow;
+        IsSidebarCollapsed = isNarrow;
     }
 
     /// <summary>初始化導航項目</summary>
@@ -253,8 +262,8 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         }
 
-        // 設定頁直接顯示不播過渡動畫，其他頁面使用滑動 + 淡化
-        PageTransition = key == "settings" ? null : SlideFadeTransition;
+        // 設定頁幾乎直接顯示，其他頁面使用滑動 + 淡化
+        PageTransition = key == "settings" ? InstantTransition : SlideFadeTransition;
 
             object newView = key switch
             {
@@ -446,6 +455,19 @@ public partial class NavItem : ObservableObject
     }
 
     public string Key { get; }
+
+    /// <summary>導航圖示 (16x16 向量路徑) - 新增頁面時在 IconData 補上對應鍵值</summary>
+    public Avalonia.Media.Geometry Icon => Avalonia.Media.Geometry.Parse(IconData(Key));
+
+    private static string IconData(string key) => key switch
+    {
+        "home" => "M8 1.5 1 8h2v6.5h4V10h2v4.5h4V8h2z",
+        "question" => "M2 3h12v2H2zM2 7h12v2H2zM2 11h8v2H2z",
+        "bank" => "M8 1 1 4.5 8 8l7-3.5zM1 8l7 3.5L15 8v2.2l-7 3.5-7-3.5z",
+        "import" => "M7 1h2v7h3l-4 4-4-4h3zM2 13h12v2H2z",
+        "style" => "M1 4h8v1.5H1zM12 4h3v1.5h-3zM9.5 2.5h2v4.5h-2zM1 10.5h3v1.5H1zM7 10.5h8v1.5H7zM4.5 9h2v4.5h-2z",
+        _ => "M3 3h10v10H3z"
+    };
 
     [ObservableProperty]
     private string title = string.Empty;

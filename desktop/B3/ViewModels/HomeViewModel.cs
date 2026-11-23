@@ -60,22 +60,31 @@ public partial class HomeViewModel : ViewModelBase
 
         try
         {
+            // 先查各題庫的實際題數
+            Dictionary<string, int> questionCounts;
+            using (var examContext = new ExamDbContext())
+            {
+                var problemRepo = new ProblemRepository(examContext);
+                questionCounts = await problemRepo.GetActiveCountByExamTypeAsync();
+            }
+
             List<ExamCategory> categories;
             using (var catalogContext = new ExamCatalogDbContext())
             {
                 var categoryRepo = new ExamCategoryRepository(catalogContext);
+
+                // 題庫已有題目但目錄缺少對應種類時 (例如啟動時自動匯入的內建題庫)，自動補上卡片，
+                // 避免「已載入題庫」頁有題目、首頁卻顯示尚無題庫
+                foreach (var examType in questionCounts.Keys)
+                {
+                    await categoryRepo.EnsureExistsAsync(examType);
+                }
+
                 categories = await categoryRepo.GetAllOrderedAsync();
             }
 
             if (categories.Count > 0)
             {
-                Dictionary<string, int> questionCounts;
-                using (var examContext = new ExamDbContext())
-                {
-                    var problemRepo = new ProblemRepository(examContext);
-                    questionCounts = await problemRepo.GetActiveCountByExamTypeAsync();
-                }
-
                 foreach (var category in categories)
                 {
                     var questionCount = questionCounts.TryGetValue(category.ExamType, out var count) ? count : 0;

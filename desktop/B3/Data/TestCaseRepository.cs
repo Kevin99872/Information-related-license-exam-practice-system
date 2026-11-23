@@ -36,6 +36,16 @@ public class TestCaseRepository
         return testCases;
     }
 
+    /// <summary>取得所有「至少有一筆測試案例」的題目編號 - 供考試出題時排除無法判題的題目</summary>
+    public async Task<HashSet<int>> GetProblemIdsWithTestCasesAsync()
+    {
+        var ids = await _context.TestCases
+            .Select(t => t.ProblemId)
+            .Distinct()
+            .ToListAsync();
+        return ids.ToHashSet();
+    }
+
     /// <summary>取得指定題目的所有測試案例 按OrderIndex排序</summary>
     public async Task<List<TestCase>> GetByProblemIdAsync(int problemId)
     {

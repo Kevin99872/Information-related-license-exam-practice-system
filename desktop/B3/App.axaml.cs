@@ -145,6 +145,10 @@ public partial class App : Application
                     UpdateBrush("IconBgColor", "IconBgBrush");
                     UpdateBrush("SoftPanelColor", "SoftPanelBrush");
                     UpdateBrush("CardBorderColor", "CardBorderBrush");
+                    // Fluent Expander 的標題列底色 / 外框跟著主題走 (預設在深色主題為純黑)
+                    UpdateBrush("SurfaceColor", "ExpanderHeaderBackground");
+                    UpdateBrush("CardBorderColor", "ExpanderHeaderBorderBrush");
+                    UpdateBrush("CardBorderColor", "ExpanderContentBorderBrush");
                 }
                 catch (Exception ex)
                 {

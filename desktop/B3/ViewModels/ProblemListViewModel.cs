@@ -33,29 +33,16 @@ public partial class ProblemListViewModel : ViewModelBase
     [ObservableProperty]
     private Problem? selectedProblem;
 
-    /// <summary>程式編輯器內容（右下）</summary>
-    [ObservableProperty]
-    private ObservableCollection<EditorFileItem> editorFiles = new();
+    /// <summary>Code Space 工作區 (檔案清單 / 檔案管理 / 編輯內容) - 連結: CodeWorkspaceView</summary>
+    public EditorWorkspace Workspace { get; } = new();
 
-    /// <summary>目前編輯的檔案</summary>
+    /// <summary>執行狀態文字 (顯示於輸出區標題)</summary>
     [ObservableProperty]
-    private EditorFileItem? selectedEditorFile;
+    private string editorStatusText = string.Empty;
 
-    /// <summary>程式編輯器內容（右下）</summary>
+    /// <summary>是否正在執行程式 (執行中停用執行按鈕)</summary>
     [ObservableProperty]
-    private string editorBuffer = string.Empty;
-
-    /// <summary>編輯器行號</summary>
-    [ObservableProperty]
-    private string editorLineNumbers = "1";
-
-    /// <summary>編輯器狀態文字</summary>
-    [ObservableProperty]
-    private string editorStatusText = "請選擇題目後開始編輯";
-
-    /// <summary>相容舊欄位：程式編輯器內容</summary>
-    [ObservableProperty]
-    private string codeText = string.Empty;
+    private bool isRunning;
 
     /// <summary>編譯器輸出文字（右下輸出）</summary>
     [ObservableProperty]
@@ -69,11 +56,11 @@ public partial class ProblemListViewModel : ViewModelBase
     [ObservableProperty]
     private string selectedLanguage = "Python";
 
-    /// <summary>編輯器提示文字</summary>
+    /// <summary>考照類型篩選選項 - "All" 加上題庫中實際存在的類型 (動態產生，支援自行匯入的題庫)</summary>
     [ObservableProperty]
-    private string selectedEditorHint = "請選擇題目";
+    private ObservableCollection<string> examTypeOptions = new() { "All" };
 
-    /// <summary>篩選考照類型 TQC/CPE/Leetcode</summary>
+    /// <summary>篩選考照類型 All 或題庫中的類型</summary>
     [ObservableProperty]
     private string selectedExamType = "TQC";
 
@@ -100,7 +87,7 @@ public partial class ProblemListViewModel : ViewModelBase
         
         LoggerService.LogDebug("ProblemListViewModel 初始化...");
         AvailableLanguages = new ObservableCollection<string> { "Python", "C#", "C++", "Java" };
-        InitializeEditorWorkspace();
+        Workspace.Reset(SelectedLanguage);
         _ = LoadProblemsAsync();
     }
 
@@ -162,6 +149,22 @@ public partial class ProblemListViewModel : ViewModelBase
         {
             var allProblems = await _problemRepo.GetAllAsync();
 
+            // 依題庫內容補齊考照類型選項 (只新增不移除，避免打斷目前的選取)
+            foreach (var type in allProblems.Select(p => p.ExamType).Distinct().OrderBy(t => t))
+            {
+                if (!string.IsNullOrWhiteSpace(type) && !ExamTypeOptions.Contains(type))
+                {
+                    ExamTypeOptions.Add(type);
+                }
+            }
+
+            // 預設的 TQC 不存在時改顯示全部，避免一進頁面就是空清單
+            if (SelectedExamType == "TQC" && allProblems.Count > 0 && allProblems.All(p => p.ExamType != "TQC"))
+            {
+                SelectedExamType = "All";
+                return;
+            }
+
             // 按考照類型篩選
             if (!string.IsNullOrEmpty(SelectedExamType) && SelectedExamType != "All")
             {
@@ -201,7 +204,8 @@ public partial class ProblemListViewModel : ViewModelBase
             if (!string.IsNullOrEmpty(SearchKeyword))
             {
                 allProblems = allProblems
-                    .Where(p => p.Title.Contains(SearchKeyword) || p.ProblemCode.Contains(SearchKeyword))
+                    .Where(p => p.Title.Contains(SearchKeyword, StringComparison.OrdinalIgnoreCase)
+                             || p.ProblemCode.Contains(SearchKeyword, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
 
@@ -216,6 +220,12 @@ public partial class ProblemListViewModel : ViewModelBase
     /// <summary>篩選條件變更時重新載入</summary>
     partial void OnSelectedExamTypeChanged(string value)
     {
+        // 下拉選單重建項目時可能短暫寫回 null，忽略之
+        if (string.IsNullOrEmpty(value))
+        {
+            return;
+        }
+
         _ = LoadProblemsAsync();
     }
 
@@ -231,32 +241,19 @@ public partial class ProblemListViewModel : ViewModelBase
 
     partial void OnSelectedProblemChanged(Problem? value)
     {
-        // 當選取題目改變時，載入其解法程式碼到編輯器（如果有）
-        EditorBuffer = value?.SolutionCode ?? GetDefaultSourceTemplate(SelectedLanguage);
-        CodeText = EditorBuffer;
+        // 當選取題目改變時，載入其解法程式碼到編輯器（沒有則用範例程式），並清掉上一題的自訂檔案
+        Workspace.Reset(SelectedLanguage, value?.SolutionCode);
         CompilerOutput = string.Empty;
-        SelectedEditorHint = value == null ? "請選擇題目" : $"目前題目：{value.ProblemCode}";
-        EditorStatusText = value == null ? "請選擇題目後開始編輯" : $"{SelectedEditorFile?.Name ?? "main.py"} · {SelectedLanguage}";
+        EditorStatusText = string.Empty;
     }
 
-    partial void OnEditorBufferChanged(string value)
-    {
-        CodeText = value;
-        EditorLineNumbers = BuildLineNumbers(value);
-    }
-
-    partial void OnSelectedEditorFileChanged(EditorFileItem? value)
-    {
-        EditorStatusText = value == null
-            ? "請選擇題目後開始編輯"
-            : $"{value.Name} · {SelectedLanguage}";
-    }
-
+    /// <summary>語言改變時更新主要程式檔 (檔名 / 範例程式 / 語法著色)</summary>
     partial void OnSelectedLanguageChanged(string value)
     {
-        EditorStatusText = SelectedEditorFile == null
-            ? $"{value} 編輯器"
-            : $"{SelectedEditorFile.Name} · {value}";
+        if (!string.IsNullOrEmpty(value))
+        {
+            Workspace.SetLanguage(value);
+        }
     }
 
     partial void OnSearchKeywordChanged(string value)
@@ -279,29 +276,30 @@ public partial class ProblemListViewModel : ViewModelBase
         await LoadProblemsAsync();
     }
 
-    /// <summary>模擬編譯命令 - 實際可接入編譯服務</summary>
+    /// <summary>執行程式 - 以 input.txt 內容作為標準輸入，自訂檔案一併寫入工作目錄</summary>
     [RelayCommand]
     public async Task CompileAsync()
     {
-        var source = EditorBuffer;
-        if (string.IsNullOrWhiteSpace(source))
+        if (IsRunning)
         {
-            CompilerOutput = "錯誤: 程式碼為空";
-            EditorStatusText = "編譯失敗";
             return;
         }
 
+        var source = Workspace.SourceCode;
+        if (string.IsNullOrWhiteSpace(source))
+        {
+            CompilerOutput = "錯誤: 程式碼為空";
+            EditorStatusText = "執行失敗";
+            return;
+        }
+
+        IsRunning = true;
         CompilerOutput = "執行中...";
         EditorStatusText = $"{SelectedLanguage} 執行中";
 
         try
         {
-            var output = await _codeJudgeService.ExecuteAsync(SelectedLanguage, source, string.Empty);
-
-            if (string.IsNullOrWhiteSpace(output) && SelectedLanguage == "Python")
-            {
-                output = EvaluateSimplePythonPrint(source);
-            }
+            var output = await _codeJudgeService.ExecuteAsync(SelectedLanguage, source, Workspace.InputText, Workspace.ExtraFiles);
 
             CompilerOutput = string.IsNullOrWhiteSpace(output)
                 ? "（無輸出）"
@@ -311,94 +309,13 @@ public partial class ProblemListViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            var fallback = SelectedLanguage == "Python" ? EvaluateSimplePythonPrint(source) : string.Empty;
-            CompilerOutput = !string.IsNullOrWhiteSpace(fallback)
-                ? fallback.Trim()
-                : $"執行失敗：{ex.Message}";
-            EditorStatusText = "編譯失敗";
+            CompilerOutput = $"執行失敗：{ex.Message}";
+            EditorStatusText = "執行失敗";
         }
-    }
-
-    private void InitializeEditorWorkspace()
-    {
-        EditorFiles = new ObservableCollection<EditorFileItem>
+        finally
         {
-            new(EditorFileKind.Source, "main.py", "主要程式碼", true)
-        };
-
-        SelectedEditorFile = EditorFiles.FirstOrDefault();
-        EditorBuffer = GetDefaultSourceTemplate(SelectedLanguage);
-        EditorLineNumbers = BuildLineNumbers(EditorBuffer);
-        EditorStatusText = SelectedEditorFile == null
-            ? "請選擇題目後開始編輯"
-            : $"{SelectedEditorFile.Name} · {SelectedLanguage}";
-    }
-
-    private string BuildLineNumbers(string text)
-    {
-        var count = Math.Max(1, text.Replace("\r\n", "\n").Split('\n').Length);
-        var builder = new StringBuilder();
-
-        for (var i = 1; i <= count; i++)
-        {
-            builder.AppendLine(i.ToString());
+            IsRunning = false;
         }
-
-        return builder.ToString().TrimEnd();
-    }
-
-    private string GetDefaultSourceTemplate(string language)
-    {
-        return language switch
-        {
-            "Python" => "print(\"hello world\")",
-            "C#" => "using System;\n\nConsole.WriteLine(\"hello world\");",
-            "C++" => "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"hello world\" << endl;\n    return 0;\n}",
-            _ => string.Empty
-        };
-    }
-
-    private string EvaluateSimplePythonPrint(string source)
-    {
-        var lines = source.Replace("\r\n", "\n").Split('\n');
-        var output = new StringBuilder();
-
-        foreach (var rawLine in lines)
-        {
-            var line = rawLine.Trim();
-            if (!line.StartsWith("print(", StringComparison.Ordinal))
-            {
-                continue;
-            }
-
-            var match = Regex.Match(line, @"^print\s*\((?<expr>.*)\)\s*;?$", RegexOptions.Singleline);
-            if (!match.Success)
-            {
-                continue;
-            }
-
-            var expr = match.Groups["expr"].Value.Trim();
-            output.AppendLine(UnquotePythonString(expr));
-        }
-
-        return output.ToString().TrimEnd();
-    }
-
-    private string UnquotePythonString(string expr)
-    {
-        if (expr.Length >= 2 && ((expr.StartsWith('"') && expr.EndsWith('"')) || (expr.StartsWith('\'') && expr.EndsWith('\''))))
-        {
-            var content = expr[1..^1]
-                .Replace("\\n", "\n")
-                .Replace("\\t", "\t")
-                .Replace("\\r", "\r")
-                .Replace("\\\"", "\"")
-                .Replace("\\'", "'")
-                .Replace("\\\\", "\\");
-            return content;
-        }
-
-        return expr;
     }
 
     /// <summary>取得待審核題目</summary>

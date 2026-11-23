@@ -42,6 +42,13 @@ public partial class BankViewModel : ViewModelBase
     [ObservableProperty]
     private string statusMessage = string.Empty;
 
+    /// <summary>題庫名稱搜尋關鍵字 (即時篩選官方題庫清單)</summary>
+    [ObservableProperty]
+    private string searchKeyword = string.Empty;
+
+    /// <summary>未篩選的完整官方題庫清單</summary>
+    private readonly System.Collections.Generic.List<BankItem> _allOfficialBanks = new();
+
     /// <summary>官方題庫清單</summary>
     [ObservableProperty]
     private ObservableCollection<BankItem> officialBanks = new();
@@ -138,7 +145,7 @@ public partial class BankViewModel : ViewModelBase
             : (int)Math.Round(submissions.Count(s => s.IsCorrect) * 100.0 / submissions.Count);
         StatusMessage = TotalQuestionCount == 0 ? "尚無題庫" : $"已載入 {TotalQuestionCount} 題";
 
-        OfficialBanks.Clear();
+        _allOfficialBanks.Clear();
         foreach (var group in problems.GroupBy(p => p.ExamType))
         {
             var problemIds = group.Select(p => p.ProblemId).ToHashSet();
@@ -161,7 +168,25 @@ public partial class BankViewModel : ViewModelBase
                 Problems = new ObservableCollection<Problem>(group.OrderBy(p => p.ProblemCode))
             };
 
-            OfficialBanks.Add(bank);
+            _allOfficialBanks.Add(bank);
+        }
+
+        ApplyBankFilter();
+    }
+
+    partial void OnSearchKeywordChanged(string value) => ApplyBankFilter();
+
+    /// <summary>依搜尋關鍵字篩選題庫清單 (比對題庫名稱，不分大小寫)</summary>
+    private void ApplyBankFilter()
+    {
+        var keyword = SearchKeyword?.Trim() ?? string.Empty;
+        OfficialBanks.Clear();
+        foreach (var bank in _allOfficialBanks)
+        {
+            if (keyword.Length == 0 || bank.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            {
+                OfficialBanks.Add(bank);
+            }
         }
     }
 

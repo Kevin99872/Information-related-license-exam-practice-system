@@ -68,6 +68,17 @@ public static class CodeSyntaxTokenizer
         Set("alignas alignof auto break case catch class const constexpr const_cast continue decltype default delete do dynamic_cast else enum explicit export extern false for friend goto if inline mutable namespace new noexcept nullptr operator private protected public register reinterpret_cast return sizeof static static_cast struct switch template this throw true try typedef typeid typename union using virtual volatile while and or not"),
         Set("bool char char16_t char32_t wchar_t double float int long short signed unsigned void size_t int8_t int16_t int32_t int64_t uint8_t uint16_t uint32_t uint64_t std string vector map set multimap multiset unordered_map unordered_set pair tuple queue stack deque priority_queue list array bitset cin cout cerr endl"));
 
+    private static readonly LanguageRules JavaRules = new(
+        new Regex(
+            @"(?<comment>//[^\n]*|/\*[\s\S]*?(?:\*/|$))" +
+            @"|(?<string>""""""[\s\S]*?(?:""""""|$)|""(?:\\.|[^""\\\n])*""?|'(?:\\.|[^'\\\n])*'?)" +
+            @"|(?<preproc>@[A-Za-z_]\w*)" +
+            @"|(?<number>\b(?:0[xX][0-9A-Fa-f_]+|0[bB][01_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)[lLfFdD]?\b)" +
+            @"|(?<word>[A-Za-z_$][\w$]*)",
+            RegexOptions.Compiled),
+        Set("abstract assert break case catch class const continue default do else enum extends final finally for goto if implements import instanceof interface native new package private protected public return static strictfp super switch synchronized this throw throws transient try volatile while true false null var record yield"),
+        Set("boolean byte char double float int long short void String Integer Long Double Float Boolean Character Object Math System Scanner List ArrayList LinkedList Map HashMap TreeMap Set HashSet TreeSet Queue Deque ArrayDeque Stack PriorityQueue StringBuilder Arrays Collections Exception BufferedReader InputStreamReader"));
+
     private static HashSet<string> Set(string words) =>
         new(words.Split(' ', StringSplitOptions.RemoveEmptyEntries), StringComparer.Ordinal);
 
@@ -76,6 +87,7 @@ public static class CodeSyntaxTokenizer
         "Python" => PythonRules,
         "C#" => CSharpRules,
         "C++" => CppRules,
+        "Java" => JavaRules,
         _ => null
     };
 

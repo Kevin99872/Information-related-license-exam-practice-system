@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:B3.ViewModels"
+             xmlns:views="using:B3.Views"
              xmlns:conv="using:B3.Converters"
              xmlns:loc="using:B3.Localization"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
@@ -15,26 +16,43 @@
         <conv:DifficultyToLabelConverter x:Key="DifficultyToLabelConverter"/>
     </UserControl.Resources>
 
-    <Grid ColumnDefinitions="340,*" ColumnSpacing="20" Margin="4">
+    <UserControl.Styles>
+        <!-- 題目清單：選取項目以標籤底色表示，文字維持主題色 -->
+        <Style Selector="ListBox.problem-list ListBoxItem">
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="ListBox.problem-list ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
+        </Style>
+        <Style Selector="ListBox.problem-list ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TagBgBrush}"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="340,12,*" Margin="4">
         <!-- 左側: 上方篩選、下方題目列表 -->
         <Grid Grid.Column="0" RowDefinitions="Auto,*" RowSpacing="12">
-            <Border Classes="card" Padding="16" Grid.Row="0">
-                <StackPanel Spacing="12">
-                    <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc Filter}"/>
-                    <StackPanel Spacing="10">
-                        <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="{loc:Loc ExamType}"/>
-                            <ComboBox SelectedItem="{Binding SelectedExamType}" Width="300" HorizontalAlignment="Stretch">
-                                <x:String>All</x:String>
-                                <x:String>TQC</x:String>
-                                <x:String>CPE</x:String>
-                                <x:String>Leetcode</x:String>
-                            </ComboBox>
+            <Border Classes="panel" Grid.Row="0">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="section-title" Text="{loc:Loc Filter}"/>
+                        <TextBlock Grid.Column="1" Classes="muted" FontSize="12" VerticalAlignment="Center"
+                                   Text="{Binding Problems.Count, Converter={StaticResource LocFmt}, ConverterParameter=ProblemCountFmt}"/>
+                    </Grid>
+
+                    <TextBox Text="{Binding SearchKeyword}" PlaceholderText="{loc:Loc SearchPlaceholder}"/>
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                        <StackPanel Spacing="4">
+                            <TextBlock Classes="muted" FontSize="12" Text="{loc:Loc ExamType}"/>
+                            <ComboBox ItemsSource="{Binding ExamTypeOptions}" SelectedItem="{Binding SelectedExamType}" HorizontalAlignment="Stretch"/>
                         </StackPanel>
 
-                        <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="{loc:Loc Difficulty}"/>
-                            <ComboBox SelectedItem="{Binding SelectedDifficulty}" Width="300" HorizontalAlignment="Stretch">
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Classes="muted" FontSize="12" Text="{loc:Loc Difficulty}"/>
+                            <ComboBox SelectedItem="{Binding SelectedDifficulty}" HorizontalAlignment="Stretch">
                                 <x:String>All</x:String>
                                 <x:String>簡單</x:String>
                                 <x:String>中等</x:String>
@@ -42,76 +60,90 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="{loc:Loc Status}"/>
-                            <ComboBox SelectedItem="{Binding SelectedStatus}" Width="300" HorizontalAlignment="Stretch">
+                        <StackPanel Grid.Column="2" Spacing="4">
+                            <TextBlock Classes="muted" FontSize="12" Text="{loc:Loc Status}"/>
+                            <ComboBox SelectedItem="{Binding SelectedStatus}" HorizontalAlignment="Stretch">
                                 <x:String>All</x:String>
                                 <x:String>Active</x:String>
                                 <x:String>Draft</x:String>
                             </ComboBox>
                         </StackPanel>
-
-                        <StackPanel Spacing="6">
-                            <TextBlock Classes="muted" Text="{loc:Loc Search}"/>
-                            <TextBox Text="{Binding SearchKeyword}" Width="300" HorizontalAlignment="Stretch"/>
-                        </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Border>
 
-            <Border Classes="card" Padding="16" Grid.Row="1">
-                <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}" Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Classes="panel" Padding="8" Grid.Row="1">
+                <ListBox Classes="problem-list" ItemsSource="{Binding Problems}" SelectedItem="{Binding SelectedProblem}"
+                         Margin="0" Padding="0" Background="Transparent" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Padding="12" CornerRadius="10" Classes="list-item" Margin="0,0,0,10">
-                                <Grid ColumnDefinitions="44,*,120" ColumnSpacing="14">
-                                    <Border Grid.Column="0" Width="40" Height="40" Background="{DynamicResource IconBgBrush}" CornerRadius="8"/>
-
-                                    <StackPanel Grid.Column="1" Spacing="6">
-                                        <TextBlock FontWeight="Bold" Text="{Binding ProblemCode}"/>
-                                        <TextBlock Classes="muted" Text="{Binding Title}" TextWrapping="Wrap" MaxLines="2"/>
-                                        <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <TextBlock Classes="muted" Text="{Binding ExamType, Converter={StaticResource LocFmt}, ConverterParameter=TypeFmt}"/>
-                                            <TextBlock Classes="muted" Text="{Binding TestCases.Count, Converter={StaticResource LocFmt}, ConverterParameter=QuestionsFmt}"/>
-                                            <TextBlock Classes="muted" Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <Border Grid.Column="2" Background="{DynamicResource TagBgBrush}" CornerRadius="10" Padding="8,4" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Status}"/>
+                            <StackPanel Spacing="6">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                    <Border Classes="tag accent">
+                                        <TextBlock Text="{Binding ProblemCode}"/>
                                     </Border>
+                                    <TextBlock Grid.Column="2" Classes="muted" FontSize="12" VerticalAlignment="Center"
+                                               Text="{Binding Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
                                 </Grid>
-                            </Border>
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis"/>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Classes="muted" FontSize="12" Text="{Binding ExamType, Converter={StaticResource LocFmt}, ConverterParameter=TypeFmt}"/>
+                                    <TextBlock Classes="muted" FontSize="12" Text="{Binding Status}"/>
+                                </StackPanel>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Border>
         </Grid>
 
-        <!-- 右側: 上方題目敘述、下方程式編輯與輸出 -->
-        <Grid Grid.Column="1" RowDefinitions="Auto,*,2*" RowSpacing="12">
-            <Border Classes="card" Padding="18" Grid.Row="0" IsVisible="{Binding SelectedProblem}" MaxHeight="340">
-                <Grid RowDefinitions="Auto,*" RowSpacing="10">
-                    <StackPanel Spacing="6">
-                        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ProblemCode, Converter={StaticResource LocFmt}, ConverterParameter=CodeFmt}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.ExamType, Converter={StaticResource LocFmt}, ConverterParameter=ExamKindFmt}"/>
-                        <TextBlock Classes="muted" Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
+        <!-- 右側: 未選題時的提示 -->
+        <Border Grid.Column="2" Classes="panel"
+                IsVisible="{Binding SelectedProblem, Converter={x:Static ObjectConverters.IsNull}}">
+            <TextBlock Text="{loc:Loc SelectProblemHint}" Classes="muted" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- 右側: 上方題目敘述、中間 Code Space、下方執行結果 (分隔線可拖曳) -->
+        <Grid Grid.Column="2" RowDefinitions="2*,12,3*"
+              IsVisible="{Binding SelectedProblem, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <Border Classes="panel" Grid.Row="0">
+                <Grid RowDefinitions="Auto,*" RowSpacing="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding SelectedProblem.Title}" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Border Classes="tag accent">
+                                <TextBlock Text="{Binding SelectedProblem.ProblemCode}"/>
+                            </Border>
+                            <Border Classes="tag">
+                                <TextBlock Text="{Binding SelectedProblem.ExamType}"/>
+                            </Border>
+                            <Border Classes="tag">
+                                <TextBlock Text="{Binding SelectedProblem.Difficulty, Converter={StaticResource DifficultyToLabelConverter}, ConverterParameter=DifficultyFmt}"/>
+                            </Border>
+                        </StackPanel>
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <StackPanel Spacing="12">
-                            <TextBlock Text="{Binding SelectedProblem.Description}" TextWrapping="Wrap"/>
+                        <StackPanel Spacing="12" Margin="0,0,10,0">
+                            <SelectableTextBlock Text="{Binding SelectedProblem.Description}" TextWrapping="Wrap" LineHeight="23"/>
 
-                            <TextBlock FontWeight="Bold" Text="{loc:Loc TestCases}" Margin="0,6,0,0"/>
+                            <TextBlock Classes="section-title" Text="{loc:Loc TestCases}" Margin="0,4,0,0"
+                                       IsVisible="{Binding SelectedProblem.TestCases.Count}"/>
                             <ItemsControl ItemsSource="{Binding SelectedProblem.TestCases}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Padding="8" Classes="muted" CornerRadius="6" Margin="0,0,0,8">
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding Input, StringFormat=Input: {0}}" TextWrapping="Wrap"/>
-                                                <TextBlock Text="{Binding ExpectedOutput, StringFormat=Output: {0}}" TextWrapping="Wrap"/>
-                                            </StackPanel>
+                                        <Border Classes="subpanel" Margin="0,0,0,8">
+                                            <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                                                <StackPanel Spacing="4">
+                                                    <TextBlock Text="Input" Classes="muted" FontSize="11" FontWeight="SemiBold"/>
+                                                    <SelectableTextBlock Classes="mono" Text="{Binding Input}" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Spacing="4">
+                                                    <TextBlock Text="Output" Classes="muted" FontSize="11" FontWeight="SemiBold"/>
+                                                    <SelectableTextBlock Classes="mono" Text="{Binding ExpectedOutput}" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                            </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -121,93 +153,41 @@
                 </Grid>
             </Border>
 
-            <Grid Grid.Row="1" Grid.RowSpan="2" ColumnDefinitions="1.2*,0.8*" ColumnSpacing="12">
-                <Border Classes="card" Padding="16">
-                    <Grid RowDefinitions="Auto,*" RowSpacing="10">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="Code Space"/>
-                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="{Binding EditorStatusText}" FontSize="12"/>
-                        </StackPanel>
+            <GridSplitter Grid.Row="1" ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
 
-                        <Grid Grid.Row="1" ColumnDefinitions="170,*" ColumnSpacing="12">
-                            <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="10">
-                                <StackPanel Spacing="8">
-                                    <TextBlock Text="{loc:Loc FileMenu}" FontWeight="Bold" FontSize="14"/>
-                                    <ListBox ItemsSource="{Binding EditorFiles}" SelectedItem="{Binding SelectedEditorFile}" Background="Transparent" BorderThickness="0">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Spacing="2" Margin="0,0,0,8">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
-                                                    <TextBlock Text="{Binding Description}" Classes="muted" FontSize="11"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </StackPanel>
+            <Border Classes="panel" Grid.Row="2">
+                <Grid RowDefinitions="Auto,*,10,150">
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+                        <TextBlock Text="Code Space" Classes="section-title" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                            <ComboBox Width="120" Height="34" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedLanguage}"/>
+                            <Button Content="{loc:Loc RunCode}" Classes="primary" Height="34" Command="{Binding CompileCommand}"
+                                    IsEnabled="{Binding !IsRunning}" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <views:CodeWorkspaceView Grid.Row="1" DataContext="{Binding Workspace}"/>
+
+                    <GridSplitter Grid.Row="2" ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
+
+                    <!-- 執行結果 (input.txt 的內容會作為標準輸入) -->
+                    <Border Grid.Row="3" Classes="code-well">
+                        <Grid RowDefinitions="Auto,*">
+                            <Border Background="#131A24" BorderBrush="#24334B" BorderThickness="0,0,0,1" Padding="12,7">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                    <TextBlock Text="{loc:Loc ExecResult}" FontSize="13" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="1" Classes="muted" Text="{Binding EditorStatusText}" FontSize="12"
+                                               HorizontalAlignment="Right" TextTrimming="CharacterEllipsis"/>
+                                </Grid>
                             </Border>
-
-                            <Grid Grid.Column="1" RowDefinitions="*,Auto" RowSpacing="10">
-                                <Border Background="#0D1117" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
-                                    <Grid ColumnDefinitions="64,*" ColumnSpacing="8">
-                                        <Border Background="#101926" CornerRadius="6" Padding="0" ClipToBounds="True">
-                                            <ScrollViewer x:Name="ProblemLineNumberScroll" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                                <TextBlock Text="{Binding EditorLineNumbers}"
-                                                           Foreground="#718096"
-                                                           FontFamily="Cascadia Code,Consolas,monospace"
-                                                           FontSize="13"
-                                                           LineHeight="20"
-                                                           TextAlignment="Right"
-                                                           Padding="8,12,6,12"/>
-                                            </ScrollViewer>
-                                        </Border>
-                                        <TextBox x:Name="ProblemEditor"
-                                                 Grid.Column="1"
-                                                 Text="{Binding EditorBuffer, Mode=TwoWay}"
-                                                 AcceptsReturn="True"
-                                                 AcceptsTab="True"
-                                                 Classes="exam-editor"
-                                                 FontFamily="Cascadia Code,Consolas,monospace"
-                                                 FontSize="13"
-                                                 LineHeight="20"
-                                                 Padding="12"
-                                                 VerticalAlignment="Stretch"
-                                                 VerticalContentAlignment="Top"
-                                                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                                    </Grid>
-                                </Border>
-
-                                <Border Grid.Row="1" Background="#101923" CornerRadius="8" BorderBrush="#24334B" BorderThickness="1" Padding="12">
-                                    <StackPanel Spacing="8">
-                                        <TextBlock Text="{loc:Loc EditorHints}" Classes="exam-title" FontSize="14"/>
-                                        <TextBlock Text="{Binding SelectedEditorHint}" Classes="muted" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Border>
-
-                <Border Grid.Column="1" Classes="card" Padding="16">
-                    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock VerticalAlignment="Center" Classes="muted" Text="{loc:Loc Language}"/>
-                            <ComboBox ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedLanguage}" Width="140"/>
-                            <Button Content="{loc:Loc Compile}" Command="{Binding CompileCommand}"/>
-                        </StackPanel>
-
-                        <Border Grid.Row="1" Background="#101923" CornerRadius="6" Padding="10">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBlock Text="{Binding CompilerOutput}" FontFamily="Cascadia Code,Consolas,monospace" Foreground="White" TextWrapping="Wrap"/>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <SelectableTextBlock Classes="mono" Text="{Binding CompilerOutput}" Foreground="#D4D9E1"
+                                                     TextWrapping="Wrap" LineHeight="20" Margin="12,10"/>
                             </ScrollViewer>
-                        </Border>
-
-                        <StackPanel Grid.Row="2" Spacing="6">
-                            <TextBlock Text="{loc:Loc CompileOptions}" FontWeight="Bold"/>
-                            <TextBlock Classes="muted" Text="{loc:Loc CompileNote}" TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

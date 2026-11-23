@@ -10,7 +10,7 @@
 
     <ScrollViewer>
         <StackPanel Spacing="24" Margin="0,6,0,6">
-            <Border Classes="card" Padding="26">
+            <Border Classes="panel" Padding="26">
                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="6">
                     <StackPanel Spacing="6">
                         <TextBlock FontSize="24" FontWeight="Bold" Text="{loc:Loc QuickSim}"/>
@@ -31,12 +31,15 @@
 
             <!-- 考照題庫列表 -->
             <StackPanel Spacing="14">
-                <TextBlock FontWeight="Bold" FontSize="16" Text="{loc:Loc HotBanks}"/>
+                <TextBlock Classes="section-title" FontSize="16" Text="{loc:Loc HotBanks}"/>
                 <TextBlock Classes="muted" Text="{loc:Loc HotBanksDesc}"/>
 
-            <Border Classes="card" IsVisible="{Binding HasNoBanks}" Padding="40" MinHeight="240" HorizontalAlignment="Stretch">
+            <Border Classes="panel" IsVisible="{Binding HasNoBanks}" Padding="40" MinHeight="240" HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16" MaxWidth="360">
-                    <Border Width="56" Height="56" Background="{DynamicResource IconBgBrush}" CornerRadius="28" HorizontalAlignment="Center"/>
+                    <Border Width="56" Height="56" Background="{DynamicResource IconBgBrush}" CornerRadius="28" HorizontalAlignment="Center">
+                        <Path Data="M7 1h2v7h3l-4 4-4-4h3zM2 13h12v2H2z" Width="22" Height="22" Stretch="Uniform"
+                              Fill="{DynamicResource PrimaryBrush}"/>
+                    </Border>
                     <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Text="{loc:Loc NoBanksTitle}"/>
                     <TextBlock Classes="muted" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="{loc:Loc NoBanksDesc}"/>
                     <Button Classes="primary" HorizontalAlignment="Center" Content="{loc:Loc ImportBank}" Command="{Binding GoToImportCommand}"/>
@@ -55,14 +58,18 @@
                             HorizontalAlignment="Stretch"
                             Command="{Binding $parent[ItemsControl].DataContext.StartExamCommand}"
                                 CommandParameter="{Binding .}">
-                            <Border Classes="card" Margin="0" MinHeight="160" Padding="20">
+                            <Border Classes="card" Margin="0" MinHeight="120" Padding="20">
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
-                                    <Border Width="30" Height="30" Background="{DynamicResource IconBgBrush}" CornerRadius="7"/>
+                                    <Border Width="38" Height="38" Background="{DynamicResource IconBgBrush}" CornerRadius="9" VerticalAlignment="Top">
+                                        <Path Data="M8 1 1 4.5 8 8l7-3.5zM1 8l7 3.5L15 8v2.2l-7 3.5-7-3.5z" Width="18" Height="18" Stretch="Uniform"
+                                              Fill="{DynamicResource PrimaryBrush}"/>
+                                    </Border>
 
                                     <StackPanel Grid.Column="1" Spacing="10">
                                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                             <TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Title}"/>
-                                            <Border Grid.Column="1" HorizontalAlignment="Right" Padding="8,3" Background="{DynamicResource TagBgBrush}" CornerRadius="10">
+                                            <Border Grid.Column="1" HorizontalAlignment="Right" Padding="8,3" Background="{DynamicResource TagBgBrush}" CornerRadius="10"
+                                                    IsVisible="{Binding Tag, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                                                 <TextBlock FontSize="10" Text="{Binding Tag}"/>
                                             </Border>
                                         </Grid>

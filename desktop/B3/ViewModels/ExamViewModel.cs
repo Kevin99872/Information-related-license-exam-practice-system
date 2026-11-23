@@ -44,7 +44,6 @@ public partial class ExamViewModel : ViewModelBase
     [ObservableProperty]
     private UserSubmission? selectedSubmission;
     private readonly Random _random = new();
-    private bool _suppressEditorSync;
 
     /// <summary>取消考試設定時的回呼</summary>
     public Action? RequestHomeNavigation { get; set; }
@@ -60,13 +59,15 @@ public partial class ExamViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<TestCase> currentTestCases = new();
 
-    /// <summary>使用者提交的程式碼</summary>
-    [ObservableProperty]
-    private string userCode = string.Empty;
+    /// <summary>Code Space 工作區 (檔案清單 / 檔案管理 / 編輯內容) - 連結: CodeWorkspaceView</summary>
+    public EditorWorkspace Workspace { get; } = new();
 
-    /// <summary>IDE 輸入內容</summary>
-    [ObservableProperty]
-    private string input = string.Empty;
+    /// <summary>使用者提交的程式碼 (主要程式檔內容)</summary>
+    public string UserCode
+    {
+        get => Workspace.SourceCode;
+        set => Workspace.SourceCode = value;
+    }
 
     /// <summary>執行輸出結果</summary>
     [ObservableProperty]
@@ -156,33 +157,17 @@ public partial class ExamViewModel : ViewModelBase
     [ObservableProperty]
     private string selectedLanguage = "Python";
 
-    /// <summary>IDE 檔案清單</summary>
+    /// <summary>剩餘時間不足 5 分鐘 (計時器轉為警示色)</summary>
     [ObservableProperty]
-    private ObservableCollection<EditorFileItem> editorFiles = new();
+    private bool isTimeLow;
 
-    /// <summary>目前編輯的檔案</summary>
+    /// <summary>最近一次判題為正確 (狀態文字顯示綠色)</summary>
     [ObservableProperty]
-    private EditorFileItem? selectedEditorFile;
+    private bool isJudgeOk;
 
-    /// <summary>編輯器內容緩衝</summary>
+    /// <summary>最近一次判題為錯誤 / 無法判題 (狀態文字顯示紅色)</summary>
     [ObservableProperty]
-    private string editorBuffer = string.Empty;
-
-    /// <summary>編輯器行號</summary>
-    [ObservableProperty]
-    private string editorLineNumbers = "1";
-
-    /// <summary>編輯器狀態文字</summary>
-    [ObservableProperty]
-    private string editorStatusText = string.Empty;
-
-    /// <summary>目前檔名</summary>
-    [ObservableProperty]
-    private string activeEditorFileName = string.Empty;
-
-    /// <summary>目前檔案說明</summary>
-    [ObservableProperty]
-    private string activeEditorFileDescription = string.Empty;
+    private bool isJudgeFail;
 
     /// <summary>答對題數</summary>
     [ObservableProperty]
@@ -289,11 +274,12 @@ public partial class ExamViewModel : ViewModelBase
         };
 
         var settings = _settingsService.Load();
-        SelectedLanguage = settings.DefaultLanguage;
-        UserCode = GetDefaultSourceTemplate(SelectedLanguage);
-        Input = string.Empty;
+        if (Languages.Contains(settings.DefaultLanguage))
+        {
+            SelectedLanguage = settings.DefaultLanguage;
+        }
+        Workspace.Reset(SelectedLanguage);
         EditableQuestionCount = settings.QuestionsPerExam;
-        InitializeEditorWorkspace();
     }
 
     /// <summary>開始考試命令</summary>
@@ -326,6 +312,17 @@ public partial class ExamViewModel : ViewModelBase
         LastSubmissionDetailText = string.Empty;
         CurrentProblem = null;
         CurrentTestCases = new ObservableCollection<TestCase>();
+
+        // 考試種類選單由題庫動態組成 (不限於內建的 TQC / CPE / Leetcode)，
+        // 否則卡片的種類不在選單內時，下拉選單會把 EditableExamType 清成 null
+        var counts = await _problemRepo.GetActiveCountByExamTypeAsync();
+        foreach (var type in counts.Keys.Append(card.ExamType))
+        {
+            if (!string.IsNullOrWhiteSpace(type) && !ExamTypes.Contains(type))
+            {
+                ExamTypes.Add(type);
+            }
+        }
 
         // 設定可修改屬性爲預設值
         EditableExamType = card.ExamType;
@@ -360,13 +357,20 @@ public partial class ExamViewModel : ViewModelBase
         IsJudging = true;
         try
         {
-            var sampleCase = CurrentTestCases.FirstOrDefault();
-            var sampleInput = sampleCase?.Input ?? string.Empty;
-            var actual = await _judgeService.ExecuteAsync(SelectedLanguage, UserCode, sampleInput);
+            // input.txt 有內容時以它作為輸入 (自訂測資)，否則使用第一筆示例測資
+            var useCustomInput = !string.IsNullOrWhiteSpace(Workspace.InputText);
+            var sampleCase = useCustomInput ? null : CurrentTestCases.FirstOrDefault();
+            var sampleInput = useCustomInput ? Workspace.InputText : sampleCase?.Input ?? string.Empty;
+            OutputResult = "執行中...";
+            var actual = await _judgeService.ExecuteAsync(SelectedLanguage, UserCode, sampleInput, Workspace.ExtraFiles);
 
             var output = new System.Text.StringBuilder();
             output.AppendLine("Run Result");
             output.AppendLine($"Language: {SelectedLanguage}");
+            if (useCustomInput)
+            {
+                output.AppendLine("Input source: input.txt");
+            }
             output.AppendLine($"Input: {(string.IsNullOrEmpty(sampleInput) ? "(empty)" : sampleInput)}");
             output.AppendLine($"Actual: {actual}");
 
@@ -436,8 +440,8 @@ public partial class ExamViewModel : ViewModelBase
             return;
         }
 
-        // 載入該考照類型的所有題目
-        var problems = await _problemRepo.GetByExamTypeAsync(examType);
+        // 載入該考照類型可出題的題目
+        var problems = await GetExamProblemsAsync(examType);
         if (problems.Count == 0)
         {
             OutputResult = "尚未找到可用題庫，請先匯入題庫。";
@@ -461,6 +465,8 @@ public partial class ExamViewModel : ViewModelBase
         LastProblemDescription = string.Empty;
         LastSubmissionStatusText = "考試進行中";
         LastSubmissionDetailText = string.Empty;
+        IsJudgeOk = false;
+        IsJudgeFail = false;
 
         // 根據設定限制題數
         TotalProblems = Math.Max(1, Math.Min(questionCount, problems.Count));
@@ -507,15 +513,16 @@ public partial class ExamViewModel : ViewModelBase
         CurrentProblem = _remainingProblems[index];
         _remainingProblems.RemoveAt(index);
 
-        // 更新當前題數與格式化文字
-        CurrentProblemNumber = AnsweredCount + 1;
+        // 更新當前題數與格式化文字 (以已出題數計算，跳過的題目也會前進)
+        CurrentProblemNumber = TotalProblems - _remainingProblems.Count;
         ProblemCountText = $"{CurrentProblemNumber}/{TotalProblems}";
 
         // 載入該題的示例測試案例
         var testCases = await _testCaseRepo.GetExamplesByProblemIdAsync(CurrentProblem.ProblemId);
         CurrentTestCases = new ObservableCollection<TestCase>(testCases);
 
-        UserCode = string.Empty;
+        // 換題時重設工作區 (回到範例程式，移除上一題的自訂檔案)
+        Workspace.Reset(SelectedLanguage);
         OutputResult = string.Empty;
     }
 
@@ -523,13 +530,18 @@ public partial class ExamViewModel : ViewModelBase
     [RelayCommand]
     public async Task SubmitAnswerAsync()
     {
-        if (CurrentProblem == null) return;
+        if (CurrentProblem == null || IsJudging) return;
 
         IsJudging = true;
         try
         {
+            // 判題期間使用者仍可編輯，先固定本次送出的內容
+            var submittedCode = UserCode;
+            var extraFiles = Workspace.ExtraFiles;
+            var problem = CurrentProblem;
+
             // 取得所有測試案例(含隱藏)
-            var testCases = await _testCaseRepo.GetByProblemIdAsync(CurrentProblem.ProblemId);
+            var testCases = await _testCaseRepo.GetByProblemIdAsync(problem.ProblemId);
 
             bool isCorrect;
             var output = new System.Text.StringBuilder();
@@ -540,7 +552,7 @@ public partial class ExamViewModel : ViewModelBase
                 // 不可視為「通過」，避免無測資的題目被誤判為正確。
                 isCorrect = false;
                 LastSubmissionStatusText = "判題結果：無法判題";
-                LastSubmissionDetailText = $"{CurrentProblem.ProblemCode} 沒有任何測試資料，無法自動判題。請聯絡題庫維護者補上測試資料。";
+                LastSubmissionDetailText = $"{problem.ProblemCode} 沒有任何測試資料，無法自動判題。請聯絡題庫維護者補上測試資料。";
                 output.AppendLine(LastSubmissionStatusText);
                 output.AppendLine(LastSubmissionDetailText);
             }
@@ -553,7 +565,7 @@ public partial class ExamViewModel : ViewModelBase
                 foreach (var testCase in testCases)
                 {
                     caseIndex++;
-                    var actual = await _judgeService.ExecuteAsync(SelectedLanguage, UserCode, testCase.Input);
+                    var actual = await _judgeService.ExecuteAsync(SelectedLanguage, submittedCode, testCase.Input, extraFiles);
                     var passed = _judgeService.CompareOutput(actual, testCase.ExpectedOutput);
                     if (!passed)
                     {
@@ -576,8 +588,8 @@ public partial class ExamViewModel : ViewModelBase
 
                 LastSubmissionStatusText = isCorrect ? "判題結果：正確" : "判題結果：錯誤";
                 LastSubmissionDetailText = isCorrect
-                    ? $"{CurrentProblem.ProblemCode} 已通過全部測資，共 {testCases.Count} 筆。"
-                    : firstFailureDetail ?? $"{CurrentProblem.ProblemCode} 判定失敗，但未取得具體錯誤細節。";
+                    ? $"{problem.ProblemCode} 已通過全部測資，共 {testCases.Count} 筆。"
+                    : firstFailureDetail ?? $"{problem.ProblemCode} 判定失敗，但未取得具體錯誤細節。";
 
                 output.Insert(0, $"{LastSubmissionStatusText}\n");
                 if (!isCorrect)
@@ -588,6 +600,8 @@ public partial class ExamViewModel : ViewModelBase
             }
 
             OutputResult = output.ToString().Trim();
+            IsJudgeOk = isCorrect;
+            IsJudgeFail = !isCorrect;
             if (isCorrect)
             {
                 CorrectCount++;
@@ -596,23 +610,28 @@ public partial class ExamViewModel : ViewModelBase
             // 記錄提交
             var submission = new UserSubmission
             {
-                ProblemId = CurrentProblem.ProblemId,
-                UserCode = UserCode,
+                ProblemId = problem.ProblemId,
+                UserCode = submittedCode,
                 IsCorrect = isCorrect,
                 OutputResult = OutputResult,
                 SubmittedAt = DateTime.Now
             };
 
             // Attach Problem navigation for later display in results
-            submission.Problem = CurrentProblem;
+            submission.Problem = problem;
 
             await _submissionRepo.SubmitAsync(submission);
             // 將提交加入本次考試的提交清單（放在最前面）
             ExamSubmissions.Insert(0, submission);
             AnsweredCount++;
-            LastSubmittedCode = UserCode;
-            LastProblemDescription = CurrentProblem.Description;
-            await SelectNextProblemAsync();
+            LastSubmittedCode = submittedCode;
+            LastProblemDescription = problem.Description;
+
+            // 判題途中考試可能已因時間到而結束，此時不再換題
+            if (IsExamActive)
+            {
+                await SelectNextProblemAsync();
+            }
         }
         finally
         {
@@ -624,6 +643,12 @@ public partial class ExamViewModel : ViewModelBase
     [RelayCommand]
     public async Task SkipProblem()
     {
+        // 判題中不可跳題，避免判題結果記到下一題
+        if (IsJudging)
+        {
+            return;
+        }
+
         await SelectNextProblemAsync();
     }
 
@@ -631,6 +656,12 @@ public partial class ExamViewModel : ViewModelBase
     [RelayCommand]
     public void EndExam()
     {
+        // 計時器歸零與手動結束可能同時觸發，只處理一次
+        if (!IsExamActive)
+        {
+            return;
+        }
+
         IsExamActive = false;
         IsExamFinished = true;
         _examTimer?.Stop();
@@ -666,9 +697,9 @@ public partial class ExamViewModel : ViewModelBase
         int percent = ScorePercent;
         ScoreGrade = percent switch
         {
-            >= 90 => "優秀 ★★★",
-            >= 80 => "良好 ★★",
-            >= 70 => "及格 ★",
+            >= 90 => "優秀",
+            >= 80 => "良好",
+            >= 70 => "及格",
             >= 60 => "待加強",
             _ => "需努力"
         };
@@ -721,6 +752,7 @@ public partial class ExamViewModel : ViewModelBase
         var minutes = value / 60;
         var seconds = value % 60;
         RemainingTimeText = $"{minutes:D2}:{seconds:D2}";
+        IsTimeLow = IsExamActive && value <= 300;
     }
 
     /// <summary>更新考試狀態旗標</summary>
@@ -766,62 +798,30 @@ public partial class ExamViewModel : ViewModelBase
         ScorePercent = value == 0 ? 0 : (int)Math.Round((double)CorrectCount * 100 / value);
     }
 
-    /// <summary>更新已答題數時購新題目數量文字</summary>
-    partial void OnAnsweredCountChanged(int value)
-    {
-        if (TotalProblems > 0)
-        {
-            ProblemCountText = $"{value + 1}/{TotalProblems}";
-        }
-    }
-
     /// <summary>更新考試時間預覽</summary>
     partial void OnExamDurationMinutesChanged(int value)
     {
         ExamTimerPreviewText = $"{Math.Max(0, value):D2}:00";
     }
 
-    /// <summary>語言改變時更新 IDE 檔案</summary>
+    /// <summary>語言改變時更新主要程式檔 (檔名 / 範例程式 / 語法著色)</summary>
     partial void OnSelectedLanguageChanged(string value)
     {
-        if (string.IsNullOrWhiteSpace(UserCode))
+        if (!string.IsNullOrEmpty(value))
         {
-            UserCode = GetDefaultSourceTemplate(value);
+            Workspace.SetLanguage(value);
         }
-
-        InitializeEditorWorkspace();
-    }
-
-    /// <summary>更新編輯器內容時同步目前檔案</summary>
-    partial void OnEditorBufferChanged(string value)
-    {
-        if (_suppressEditorSync)
-        {
-            return;
-        }
-
-        if (SelectedEditorFile?.Kind == EditorFileKind.Source)
-        {
-            UserCode = value;
-        }
-        else if (SelectedEditorFile?.Kind == EditorFileKind.Input)
-        {
-            Input = value;
-        }
-
-        UpdateEditorLineNumbers(value);
-        UpdateEditorStatus();
-    }
-
-    /// <summary>切換檔案時同步編輯器內容</summary>
-    partial void OnSelectedEditorFileChanged(EditorFileItem? value)
-    {
-        SyncEditorBufferFromSelection();
     }
 
     /// <summary>更新考試類型時同步題庫資訊與不供選擇的考試類型</summary>
     partial void OnEditableExamTypeChanged(string value)
     {
+        // 下拉選單重建項目時可能短暫寫回 null，忽略之
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return;
+        }
+
         ExamType = value;
         _ = LoadQuestionBankInfoAsync(value);
         _ = LoadExamDescriptionAsync(value);
@@ -866,8 +866,20 @@ public partial class ExamViewModel : ViewModelBase
     /// <summary>載入指定考試類型的題庫數量</summary>
     public async Task LoadQuestionBankInfoAsync(string examType)
     {
-        var problems = await _problemRepo.GetByExamTypeAsync(examType);
+        var problems = await GetExamProblemsAsync(examType);
         AvailableQuestionCount = problems.Count;
+    }
+
+    /// <summary>
+    /// 取得指定考試類型可出題的題目：沒有任何測試資料的題目無法自動判題，優先排除；
+    /// 若整個題庫都沒有測資則保留原清單 (交卷時會顯示「無法判題」)
+    /// </summary>
+    private async Task<List<Problem>> GetExamProblemsAsync(string examType)
+    {
+        var problems = await _problemRepo.GetByExamTypeAsync(examType);
+        var judgeableIds = await _testCaseRepo.GetProblemIdsWithTestCasesAsync();
+        var judgeable = problems.Where(p => judgeableIds.Contains(p.ProblemId)).ToList();
+        return judgeable.Count > 0 ? judgeable : problems;
     }
 
     /// <summary>題庫數量變動時限制可選題數</summary>
@@ -890,114 +902,4 @@ public partial class ExamViewModel : ViewModelBase
     {
         IsPreExamVisible = !IsExamActive && !IsExamFinished && !IsPreparingExam;
     }
-
-    /// <summary>初始化 IDE 檔案與狀態</summary>
-    private void InitializeEditorWorkspace()
-    {
-        var sourceFileName = GetSourceFileName(SelectedLanguage);
-        EditorFiles = new ObservableCollection<EditorFileItem>
-        {
-            new(EditorFileKind.Source, sourceFileName, "主要程式檔", true),
-            new(EditorFileKind.Input, "input.txt", "測試輸入資料", true)
-        };
-
-        var selectedKind = SelectedEditorFile?.Kind ?? EditorFileKind.Source;
-        SelectedEditorFile = EditorFiles.FirstOrDefault(file => file.Kind == selectedKind) ?? EditorFiles.FirstOrDefault();
-
-        SyncEditorBufferFromSelection();
-    }
-
-    /// <summary>將編輯器內容同步到目前檔案</summary>
-    private void SyncEditorBufferFromSelection()
-    {
-        _suppressEditorSync = true;
-
-        if (SelectedEditorFile?.Kind == EditorFileKind.Input)
-        {
-            EditorBuffer = Input;
-        }
-        else
-        {
-            EditorBuffer = UserCode;
-        }
-
-        ActiveEditorFileName = SelectedEditorFile?.Name ?? GetSourceFileName(SelectedLanguage);
-        ActiveEditorFileDescription = SelectedEditorFile?.Description ?? "主要程式檔";
-        UpdateEditorStatus();
-        UpdateEditorLineNumbers(EditorBuffer);
-
-        _suppressEditorSync = false;
-    }
-
-    /// <summary>更新編輯器狀態列</summary>
-    private void UpdateEditorStatus()
-    {
-        var lineCount = GetLineCount(EditorBuffer);
-        EditorStatusText = $"{SelectedLanguage} | {ActiveEditorFileName} | {lineCount} 行";
-    }
-
-    /// <summary>更新編輯器行號文字</summary>
-    private void UpdateEditorLineNumbers(string text)
-    {
-        var lineCount = GetLineCount(text);
-        var lines = Enumerable.Range(1, Math.Max(1, lineCount)).Select(number => number.ToString());
-        EditorLineNumbers = string.Join(Environment.NewLine, lines);
-    }
-
-    /// <summary>取得預設範例程式</summary>
-    private static string GetDefaultSourceTemplate(string language)
-    {
-        return language switch
-        {
-            "C#" => "using System;\n\nConsole.WriteLine(\"Hello World\");",
-            "C++" => "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    cout << \"Hello World\" << endl;\n    return 0;\n}",
-            _ => "print('Hello World')"
-        };
-    }
-
-    /// <summary>取得對應語言的檔名</summary>
-    private static string GetSourceFileName(string language)
-    {
-        return language switch
-        {
-            "C#" => "Program.cs",
-            "C++" => "main.cpp",
-            _ => "main.py"
-        };
-    }
-
-    /// <summary>計算行數</summary>
-    private static int GetLineCount(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-        {
-            return 1;
-        }
-
-        return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).Length;
-    }
-}
-
-/// <summary>編輯器檔案類型</summary>
-public enum EditorFileKind
-{
-    Source,
-    Input
-}
-
-/// <summary>編輯器檔案項目</summary>
-public class EditorFileItem
-{
-    public EditorFileItem(EditorFileKind kind, string name, string description, bool isEditable)
-    {
-        Kind = kind;
-        Name = name;
-        Description = description;
-        IsEditable = isEditable;
-    }
-
-    public EditorFileKind Kind { get; }
-    public string Name { get; }
-    public string Description { get; }
-    public bool IsEditable { get; }
 }

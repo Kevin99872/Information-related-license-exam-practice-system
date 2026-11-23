@@ -11,7 +11,7 @@
 
     <Grid RowDefinitions="Auto,*" RowSpacing="16">
         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
-            <TextBlock FontWeight="Bold" Text="{loc:Loc Home}"/>
+            <TextBlock Classes="page-title" Text="{loc:Loc Settings}"/>
             <TextBlock Grid.Row="1" Classes="muted" Text="{loc:Loc SettingsSubtitle}"/>
 
             <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
@@ -27,9 +27,7 @@
                          Background="Transparent">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Padding="10,8" CornerRadius="6">
-                                <TextBlock Text="{Binding Title}"/>
-                            </Border>
+                            <TextBlock Text="{Binding Title}" Margin="6,6"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

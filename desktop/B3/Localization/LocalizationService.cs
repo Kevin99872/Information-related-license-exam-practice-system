@@ -254,6 +254,42 @@ public class LocalizationService : INotifyPropertyChanged
         ["SubmitAnswer"] = ("提交答案", "Submit"),
         ["Skip"] = ("跳過", "Skip"),
         ["EndExam"] = ("結束考試", "End Exam"),
+        ["AddFile"] = ("新增檔案", "Add File"),
+        ["RenameFile"] = ("重新命名", "Rename"),
+        ["DeleteFile"] = ("刪除檔案", "Delete File"),
+        ["TimeLeft"] = ("剩餘時間", "Time left"),
+        ["GetReady"] = ("準備開始", "Get ready"),
+
+        // Code Space 檔案管理 (考試頁 / 練習頁共用)
+        ["Confirm"] = ("確定", "OK"),
+        ["MainSourceFile"] = ("主要程式檔", "Main source"),
+        ["InputFileDesc"] = ("試跑輸入資料", "Run input (stdin)"),
+        ["UserFileDesc"] = ("自訂檔案", "Custom file"),
+        ["FileName"] = ("檔案名稱", "File name"),
+        ["FileNamePlaceholder"] = ("例如：utils.py", "e.g. utils.py"),
+        ["DeleteFileConfirmFmt"] = ("確定要刪除「{0}」嗎？此動作無法復原。", "Delete \"{0}\"? This cannot be undone."),
+        ["FileNameEmpty"] = ("請輸入檔案名稱。", "Please enter a file name."),
+        ["FileNameTooLong"] = ("檔案名稱過長 (上限 64 字元)。", "File name is too long (max 64 characters)."),
+        ["FileNameInvalid"] = ("檔案名稱含有不允許的字元。", "File name contains invalid characters."),
+        ["FileNameExists"] = ("已有相同名稱的檔案。", "A file with this name already exists."),
+        ["LinesFmt"] = ("{0} 行", "{0} lines"),
+        ["PlainTextLabel"] = ("純文字", "Plain text"),
+
+        // 考試結算頁 (摘要 / 提交明細)
+        ["StatCorrect"] = ("答對", "Correct"),
+        ["StatAnswered"] = ("作答", "Answered"),
+        ["StatTotal"] = ("總題數", "Total"),
+        ["StatTime"] = ("花費時間", "Time spent"),
+        ["ResultCorrect"] = ("正確", "Correct"),
+        ["ResultWrong"] = ("錯誤", "Wrong"),
+        ["YourCode"] = ("你的程式碼", "Your Code"),
+        ["JudgeOutput"] = ("判題輸出", "Judge Output"),
+        ["NoSubmission"] = ("本次考試沒有提交記錄。", "No submissions in this exam."),
+
+        // 練習頁
+        ["ProblemCountFmt"] = ("共 {0} 題", "{0} problems"),
+        ["SelectProblemHint"] = ("從左側選擇題目開始練習", "Pick a problem on the left to start practicing"),
+        ["SearchPlaceholder"] = ("搜尋題號或標題", "Search code or title"),
 
         // 考試結算頁
         ["ExamResult"] = ("考試結算", "Exam Results"),

@@ -53,6 +53,15 @@
         <!-- Elevation brush for subtle outlines -->
         <SolidColorBrush x:Key="ElevationBrush" Color="#000000" Opacity="0.06"/>
         <BoxShadows x:Key="CardShadow">0 10 24 0 #16000000</BoxShadows>
+
+        <!-- 覆寫 Fluent Expander 的預設底色 (深色主題下原為純黑)，改為半透明以適用深 / 淺主題 -->
+        <!-- ExpanderHeader* 會在 App.ApplySettings 依主題更新 -->
+        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="{StaticResource SurfaceColor}"/>
+        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{StaticResource CardBorderColor}"/>
+        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{StaticResource CardBorderColor}"/>
+        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent"/>
+        <SolidColorBrush x:Key="ExpanderHeaderBackgroundPointerOver" Color="#14808080"/>
+        <SolidColorBrush x:Key="ExpanderHeaderBackgroundPressed" Color="#22808080"/>
     </Application.Resources>
 
     <Application.Styles>
@@ -100,8 +109,21 @@
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
 
+        <Style Selector="NumericUpDown">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
         <Style Selector="ListBox">
             <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <!-- 頁面標題 -->
+        <Style Selector="TextBlock.page-title">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style Selector="ListBox.nav-menu">
@@ -113,27 +135,93 @@
             <Setter Property="FontWeight" Value="Medium"/>
         </Style>
 
-        <Style Selector="ListBox.nav-menu ListBoxItem">
-            <Setter Property="Padding" Value="6"/>
-            <Setter Property="Margin" Value="0,3"/>
-            <Setter Property="CornerRadius" Value="8"/>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+                </Transitions>
+            </Setter>
         </Style>
 
-        <Style Selector="ListBox.nav-menu ListBoxItem:pointerover">
+        <Style Selector="ListBoxItem:pointerover">
             <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
         </Style>
 
-        <Style Selector="ListBox.nav-menu ListBoxItem:selected">
+        <!-- 一般清單的選取 / hover 底色 (Fluent 的底色畫在 PART_ContentPresenter，需以 template 選擇器覆寫) -->
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+        </Style>
+
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TagBgBrush}"/>
+        </Style>
+
+        <!-- 側欄導航：選取項目為主色底白字 (selected 樣式放最後，hover 時仍維持白字) -->
+        <Style Selector="ListBox.nav-menu ListBoxItem">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
+        <Style Selector="ListBox.nav-menu Path">
+            <Setter Property="Fill" Value="{DynamicResource MutedTextBrush}"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+
+        <Style Selector="ListBox.nav-menu ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+        </Style>
+
+        <Style Selector="ListBox.nav-menu ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style Selector="ListBox.nav-menu ListBoxItem:selected TextBlock">
             <Setter Property="Foreground" Value="White"/>
         </Style>
 
-        <Style Selector="ListBox.nav-menu ListBoxItem:pointerover TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Style Selector="ListBox.nav-menu ListBoxItem:selected Path">
+            <Setter Property="Fill" Value="White"/>
+        </Style>
+
+        <!-- 側欄底部 / 頂部的純圖示或圖示+文字按鈕 -->
+        <Style Selector="Button.nav-button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style Selector="Button.nav-button Path">
+            <Setter Property="Fill" Value="{DynamicResource MutedTextBrush}"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+
+        <Style Selector="Button.nav-button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+        </Style>
+
+        <Style Selector="Button.nav-button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Button.nav-button:disabled">
+            <Setter Property="Opacity" Value="0.45"/>
+        </Style>
+
+        <!-- 考試進行中導航鎖定時，整個選單淡化 -->
+        <Style Selector="ListBox.nav-menu:disabled">
+            <Setter Property="Opacity" Value="0.45"/>
         </Style>
 
         <Style Selector="Button.card-button:pointerover Border.card">
@@ -291,27 +379,6 @@
             </Setter>
         </Style>
 
-        <Style Selector="ListBoxItem">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Padding" Value="6,4"/>
-            <Setter Property="Margin" Value="0,2"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="ListBoxItem:pointerover">
-            <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
-        </Style>
-
-        <Style Selector="ListBoxItem:selected">
-            <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
         <Style Selector="ScrollViewer">
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
         </Style>
@@ -325,8 +392,171 @@
             </Setter>
         </Style>
 
-        <!-- Expander 展開內容淡入 -->
+        <!-- ==================== 共用版面元件 (考試頁 / 練習頁 / Code Space) ==================== -->
+
+        <!-- 一般面板：隨主題變色，無 hover 效果 (Border.card 會 hover 放大，不適合放編輯器) -->
+        <Style Selector="Border.panel">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="BoxShadow" Value="{DynamicResource CardShadow}"/>
+        </Style>
+
+        <!-- 面板內的次層區塊 -->
+        <Style Selector="Border.subpanel">
+            <Setter Property="Background" Value="{DynamicResource SoftPanelBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <!-- 程式碼區：固定深色 (語法配色以深色底為準)，內部文字固定淺色 -->
+        <Style Selector="Border.code-well">
+            <Setter Property="Background" Value="#0D1117"/>
+            <Setter Property="BorderBrush" Value="#24334B"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="ClipToBounds" Value="True"/>
+        </Style>
+
+        <Style Selector="Border.code-well TextBlock">
+            <Setter Property="Foreground" Value="#D4D9E1"/>
+        </Style>
+
+        <Style Selector="Border.code-well TextBlock.muted">
+            <Setter Property="Foreground" Value="#8B98A9"/>
+        </Style>
+
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style Selector="TextBlock.mono, SelectableTextBlock.mono">
+            <Setter Property="FontFamily" Value="Cascadia Code,Consolas,monospace"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style Selector="SelectableTextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}"/>
+            <Setter Property="FontFamily" Value="{DynamicResource GlobalFontFamily}"/>
+        </Style>
+
+        <!-- 小標籤 (題號 / 難度 / 狀態) -->
+        <Style Selector="Border.tag">
+            <Setter Property="Background" Value="{DynamicResource TagBgBrush}"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="8,3"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border.tag > TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style Selector="Border.tag.accent > TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+        </Style>
+
+        <!-- 圖示按鈕 (檔案管理工具列) -->
+        <Style Selector="Button.icon">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="26"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Button.icon Path">
+            <Setter Property="Fill" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="Width" Value="13"/>
+            <Setter Property="Height" Value="13"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+
+        <Style Selector="Button.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+        </Style>
+
+        <Style Selector="Button.icon:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Button.icon:disabled">
+            <Setter Property="Opacity" Value="0.3"/>
+        </Style>
+
+        <!-- 危險操作按鈕 (結束考試 / 刪除) -->
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E5534B"/>
+            <Setter Property="BorderBrush" Value="#E5534B"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="CornerRadius" Value="{StaticResource RadiusSmall}"/>
+        </Style>
+
+        <Style Selector="Button.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#22E5534B"/>
+            <Setter Property="Foreground" Value="#E5534B"/>
+            <Setter Property="BorderBrush" Value="#E5534B"/>
+        </Style>
+
+        <!-- 檔案清單：選取項目以標籤底色＋左側強調線表示，文字維持主題色 -->
+        <Style Selector="ListBox.file-list ListBoxItem">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="0,1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="ListBox.file-list ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+        </Style>
+
+        <Style Selector="ListBox.file-list ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TagBgBrush}"/>
+        </Style>
+
+        <Style Selector="Border.file-badge">
+            <Setter Property="Background" Value="{DynamicResource IconBgBrush}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Width" Value="34"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border.file-badge > TextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- 可拖曳分隔線 -->
+        <Style Selector="GridSplitter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <!-- 進度條使用主題主色 -->
+        <Style Selector="ProgressBar">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+
+        <!-- Expander 展開內容淡入；外框與面板一致 -->
         <Style Selector="Expander">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardBorderBrush}"/>
+            <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="ContentTransition">
                 <CrossFade Duration="0:0:0.2"/>
             </Setter>
